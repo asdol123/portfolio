@@ -1,0 +1,169 @@
+document.addEventListener('DOMContentLoaded', () => {
+
+    // ==========================================
+    // 0. ANIMACIÓN DE SPLASH SCREEN
+    // ==========================================
+    setTimeout(() => {
+        document.body.classList.add('loaded');
+    }, 2400);
+
+    // ==========================================
+    // 1. RENDERIZADO DE PROYECTOS Y MODAL
+    // ==========================================
+    const gridAcademicos = document.getElementById('grid-academicos');
+    const gridProfesionales = document.getElementById('grid-profesionales');
+    const modal = document.getElementById('project-modal');
+    const btnClose = document.querySelector('.close-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalYear = document.getElementById('modal-year');
+    const modalDesc = document.getElementById('modal-desc');
+    const modalGallery = document.getElementById('modal-gallery');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    // PATRÓN ALGORÍTMICO AUTOMÁTICO (Data-Driven Grid)
+    const patronGrilla = ["span-2x2", "", "span-1x2", "", "span-2x1", ""];
+
+    if (typeof misProyectos !== 'undefined') {
+        misProyectos.forEach((proyecto, index) => {
+            const card = document.createElement('div');
+            
+            // Asignación automática de jerarquía visual
+            const claseAutomatica = patronGrilla[index % patronGrilla.length];
+            card.className = `portfolio-item ${claseAutomatica}`;
+            
+            // FIX ESTRUCTURAL: Eliminamos la descripción de la tarjeta principal
+            card.innerHTML = `
+                <img src="${proyecto.imagen_principal}" alt="${proyecto.titulo}" loading="lazy">
+                <div class="portfolio-info">
+                    <span class="tag-year">${proyecto.year}</span>
+                    <h3>${proyecto.titulo}</h3>
+                </div>
+            `;
+
+            // Lógica al hacer clic en un proyecto (Abre el Modal)
+            card.addEventListener('click', () => {
+                modalTitle.textContent = proyecto.titulo;
+                modalYear.textContent = proyecto.year;
+                
+                // FIX ESTRUCTURAL: Inyección segura de la descripción solo en el Modal
+                if (proyecto.descripcion && proyecto.descripcion.trim() !== "") {
+                    modalDesc.innerHTML = proyecto.descripcion.split('\n').map(p => `<p>${p}</p>`).join('');
+                } else {
+                    modalDesc.innerHTML = '<p>Sin descripción disponible.</p>';
+                }
+                
+                modalGallery.innerHTML = ''; 
+                
+                // Validación para galerías
+                if (proyecto.galeria && proyecto.galeria.length > 0) {
+                    proyecto.galeria.forEach(imgSrc => {
+                        const imgElement = document.createElement('img');
+                        imgElement.src = imgSrc;
+                        imgElement.loading = "lazy";
+                        imgElement.alt = proyecto.titulo;
+                        modalGallery.appendChild(imgElement);
+                    });
+                    
+                    // Mostrar/Ocultar flechas del carrusel
+                    if (proyecto.galeria.length > 1) {
+                        prevBtn.style.display = 'flex';
+                        nextBtn.style.display = 'flex';
+                    } else {
+                        prevBtn.style.display = 'none';
+                        nextBtn.style.display = 'none';
+                    }
+                }
+
+                modalGallery.scrollLeft = 0;
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden'; 
+            });
+
+            // Inyectar en el DOM según la categoría
+            if (proyecto.tipo === 'academicos' && gridAcademicos) {
+                gridAcademicos.appendChild(card);
+            } else if (proyecto.tipo === 'profesionales' && gridProfesionales) {
+                gridProfesionales.appendChild(card);
+            }
+        });
+    }
+
+    // ==========================================
+    // 2. LÓGICA DEL CARRUSEL INFINITO (MODAL)
+    // ==========================================
+    nextBtn.addEventListener('click', () => {
+        const maxScrollLeft = modalGallery.scrollWidth - modalGallery.clientWidth;
+        if (modalGallery.scrollLeft >= maxScrollLeft - 5) {
+            modalGallery.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            modalGallery.scrollBy({ left: modalGallery.clientWidth, behavior: 'smooth' });
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (modalGallery.scrollLeft <= 5) {
+            const maxScrollLeft = modalGallery.scrollWidth - modalGallery.clientWidth;
+            modalGallery.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+        } else {
+            modalGallery.scrollBy({ left: -modalGallery.clientWidth, behavior: 'smooth' });
+        }
+    });
+
+    // Cerrar Modal
+    const closeModal = () => {
+        modal.classList.remove('show');
+        document.body.style.overflow = 'auto'; 
+    };
+    btnClose.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    // ==========================================
+    // 3. VALIDACIÓN FORMULARIO (10MB)
+    // ==========================================
+    const fileInput = document.getElementById('file-upload');
+    const fileNameDisplay = document.getElementById('file-name');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                const file = this.files[0];
+                const maxSizeEnBytes = 10 * 1024 * 1024; 
+
+                if (file.size > maxSizeEnBytes) {
+                    alert('El archivo excede los 10MB permitidos. Adjunta un link de Drive en el mensaje.');
+                    this.value = ''; 
+                    fileNameDisplay.textContent = '📎 Adjuntar archivo (Max 10MB)';
+                    fileNameDisplay.style.color = 'inherit';
+                } else {
+                    fileNameDisplay.textContent = '📎 ' + file.name;
+                    fileNameDisplay.style.color = '#1A1A1A'; 
+                }
+            } else {
+                fileNameDisplay.textContent = '📎 Adjuntar archivo (Max 10MB)';
+            }
+        });
+    }
+
+    // ==========================================
+    // 4. ANIMACIÓN BARRAS DE SOFTWARE (SCROLL)
+    // ==========================================
+    const skillFills = document.querySelectorAll('.skill-fill');
+    
+    if (skillFills.length > 0) {
+        const skillObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fill = entry.target;
+                    const widthTarget = fill.getAttribute('data-width');
+                    fill.style.width = widthTarget;
+                    observer.unobserve(fill);
+                }
+            });
+        }, { threshold: 0.2 }); 
+
+        skillFills.forEach(fill => skillObserver.observe(fill));
+    }
+});

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adolfo Risopatrón Inzunza | Arquitectura Sustentable & Datos</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- PANTALLA DE INTRODUCCIÓN (SPLASH SCREEN) -->
+    <div id="splash-screen">
+        <h1 class="splash-text">ADOLFO RISOPATRÓN INZUNZA</h1>
+    </div>
+
+    <!-- NAVEGACIÓN -->
+    <nav>
+        <div class="logo">A R .</div>
+        <div class="nav-links">
+            <a href="#hero">Inicio</a>
+            <a href="#academicos">Académicos</a>
+            <a href="#profesionales">Profesionales</a>
+            <a href="#sobre-mi">Sobre Mí</a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION FULLSCREEN -->
+    <section id="hero">
+        <div class="hero-overlay"></div>
+        
+        <video autoplay loop muted playsinline id="hero-video">
+            <source src="assets/video/interactivo.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-titles">
+            <h1>ADOLFO RISOPATRÓN INZUNZA</h1>
+            <p class="subtitle">Arquitectura Sustentable • Data-Driven Design • Visualización</p>
+        </div>
+        
+        <div class="scroll-indicator"></div>
+    </section>
+
+    <!-- PROYECTOS ACADÉMICOS -->
+    <section id="academicos" class="gallery-section">
+        <div class="section-header">
+            <h2>Proyectos Académicos</h2>
+            <p>Investigación paramétrica, eficiencia energética y planimetría técnica avanzada.</p>
+        </div>
+        <div class="portfolio-grid" id="grid-academicos"></div>
+    </section>
+
+    <!-- PROYECTOS PROFESIONALES -->
+    <section id="profesionales" class="gallery-section">
+        <div class="section-header">
+            <h2>Proyectos Profesionales</h2>
+            <p>Arquitectura interior comercial, prototipado 3D y visualizaciones interactivas.</p>
+        </div>
+        <div class="portfolio-grid" id="grid-profesionales"></div>
+    </section>
+
+    <!-- SECCIÓN: SOBRE MÍ Y CV -->
+    <section id="sobre-mi" class="cv-section">
+        <div class="cv-grid">
+            <div class="cv-text-block">
+                <span class="section-label">PERFIL PROFESIONAL</span>
+                <h2>ADOLFO RISOPATRÓN INZUNZA</h2>
+                <p class="bio-text">
+                    Arquitecto  y Magíster en Arquitectura Sustentable y Energía. Especialista en la hibridación entre el diseño espacial y la gestión de datos. Mi enfoque es técnico y orientado a resultados, priorizando flujos de trabajo eficientes desde el desarrollo paramétrico hasta la ejecución en obra.
+                </p>
+                
+                <h3 class="subsection-title">Competencias Proyectuales</h3>
+                <ul class="experience-list">
+                    <li>
+                        <strong>Gestión y Metodología Lean</strong>
+                        <span>Capacidad para optimizar plazos de entrega y priorizar tareas críticas en entornos de oficina de alta demanda.</span>
+                    </li>
+                    <li>
+                        <strong>Iteración Colaborativa</strong>
+                        <span>Proceso de diseño abierto a retroalimentación técnica y ajuste constante con el cliente y equipo de especialidades.</span>
+                    </li>
+                    <li>
+                        <strong>Curiosidad Técnica & I+D</strong>
+                        <span>Búsqueda proactiva de nuevas tecnologías (IA/Automatización) para reducir tiempos de modelado y planimetría.</span>
+                    </li>
+                </ul>
+                
+                <div class="bio-actions">
+                    <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" class="download-btn">LINKEDIN</a>
+                    <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" class="download-btn">DESCARGAR CV</a>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Habilidades -->
+            <div class="skills-block">
+                <span class="section-label">HERRAMIENTAS TÉCNICAS</span>
+                <div class="skill-category">
+                    <h4>Modelado Paramétrico & BIM</h4>
+                    <div class="skill-bar"><span class="skill-name">Rhinoceros + Grasshopper</span><div class="skill-track"><div class="skill-fill" data-width="95%"></div></div></div>
+                    <div class="skill-bar"><span class="skill-name">Revit + Archicad</span><div class="skill-track"><div class="skill-fill" data-width="85%"></div></div></div>
+                </div>
+                <div class="skill-category">
+                    <h4>Simulación & Data-Driven</h4>
+                    <div class="skill-bar"><span class="skill-name">Design Builder + Athena</span><div class="skill-track"><div class="skill-fill" data-width="80%"></div></div></div>
+                    <div class="skill-bar"><span class="skill-name">Power BI + Integración IA</span><div class="skill-track"><div class="skill-fill" data-width="90%"></div></div></div>
+                </div>
+                <div class="skill-category">
+                    <h4>Visualización</h4>
+                    <div class="skill-bar"><span class="skill-name">Twinmotion + Photoshop</span><div class="skill-track"><div class="skill-fill" data-width="95%"></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN: SERVICIOS Y CONTACTO -->
+    <section id="servicios" class="services-contact-section">
+        <div class="services-grid">
+            <div class="services-block">
+                <span class="section-label">SERVICIOS ESPECIALIZADOS</span>
+                <div class="service-item">
+                    <h3>01. FABRICACIÓN DIGITAL 3D</h3>
+                    <p>Modelado de precisión y prototipado FDM de alta velocidad para maquetas volumétricas, estudios de asoleamiento y análisis de ensambles.</p>
+                </div>
+                <div class="service-item">
+                    <h3>02. SIMULACIÓN ENERGÉTICA</h3>
+                    <p>Análisis paramétrico (radiación, autonomía lumínica) utilizando datos climáticos para fundamentar estrategias de diseño pasivo.</p>
+                </div>
+            </div>
+
+            <div class="contact-block">
+                <span class="section-label">INICIAR UN PROYECTO</span>
+                <form action="https://formsubmit.co/chilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
+                    <input type="hidden" name="_subject" value="¡Nuevo Lead desde el Portafolio!">
+                    <div class="form-group"><input type="text" name="Nombre" placeholder="Nombre o Estudio" required></div>
+                    <div class="form-group"><input type="email" name="Email" placeholder="Correo" required></div>
+                    <div class="form-group"><textarea name="Mensaje" placeholder="Mensaje..." rows="3" required></textarea></div>
+                    <div class="form-group file-upload-group">
+                        <label for="file-upload" class="custom-file-upload"><span id="file-name">📎 Adjuntar archivo (Max 10MB)</span></label>
+                        <input id="file-upload" type="file" name="attachment" style="display: none;">
+                    </div>
+                    <button type="submit" class="submit-btn">ENVIAR COTIZACIÓN ➔</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="legal-footer"><p>&copy; 2026 Adolfo Risopatrón Inzunza. Portafolio de Arquitectura.</p></footer>
+
+    <!-- MODAL (Galería y Descripción) -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <!-- SIDEBAR DE INFORMACIÓN -->
+            <div class="modal-sidebar fade-in">
+                <h2 id="modal-title"></h2>
+                <span id="modal-year" class="tag-year modal-tag"></span>
+                <div id="modal-desc" class="project-description"></div>
+            </div>
+
+            <!-- MAIN DE LA GALERÍA -->
+            <div class="modal-main fade-in">
+                <div class="carousel-wrapper">
+                    <button class="slider-btn prev-btn">&#10094;</button>
+                    <div class="modal-gallery" id="modal-gallery"></div>
+                    <button class="slider-btn next-btn">&#10095;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data/proyectos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

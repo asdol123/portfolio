@@ -1,0 +1,380 @@
+/* ==========================================================================
+   1. VARIABLES, CONFIGURACIÓN GLOBAL Y FÍSICA DE SCROLL
+   ========================================================================== */
+:root { 
+    --bg-color: #FAFAFA; 
+    --text-color: #1A1A1A; 
+    --text-light: #4D4D4D; 
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { 
+    /* Física de scroll magnético estricto para toda la web */
+    scroll-snap-type: y mandatory; 
+    scroll-padding-top: 80px; 
+    scroll-behavior: smooth; 
+}
+
+body { 
+    background-color: var(--bg-color); 
+    color: var(--text-color); 
+    font-family: 'Montserrat', sans-serif; 
+    line-height: 1.6; 
+}
+
+h1, h2, h3, h4 { text-transform: uppercase; font-weight: 300; letter-spacing: 0.15em; }
+a { text-decoration: none; color: inherit; }
+
+/* Anclaje magnético en cada sección */
+section {
+    scroll-snap-align: start;
+    scroll-snap-stop: always; 
+}
+
+/* ==========================================================================
+   2. ANIMACIONES GLOBALES & SPLASH SCREEN
+   ========================================================================== */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.8s ease-out forwards; }
+
+#splash-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background: #FAFAFA; display: flex; justify-content: center; align-items: center;
+    z-index: 9999; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.splash-text {
+    font-size: 1.8rem; font-weight: 300; letter-spacing: 4px;
+    color: #1A1A1A; animation: introText 2.5s ease forwards;
+}
+
+@keyframes introText {
+    0% { opacity: 0; transform: scale(0.95); }
+    20% { opacity: 1; transform: scale(1); }
+    70% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.8) translateY(-30px); }
+}
+
+body.loaded #splash-screen { transform: translateY(-100%); }
+
+/* ==========================================================================
+   3. NAVEGACIÓN
+   ========================================================================== */
+nav { 
+    position: fixed; top: 0; width: 100%; padding: 25px 5%; 
+    display: flex; justify-content: space-between; align-items: center; 
+    background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(5px); 
+    z-index: 1000; border-bottom: 1px solid #eaeaea; 
+}
+.logo { font-size: 1.2rem; font-weight: 600; letter-spacing: 0.2em; }
+.nav-links { display: flex; gap: 30px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+.nav-links a { transition: opacity 0.3s ease; }
+.nav-links a:hover { opacity: 0.5; }
+
+/* ==========================================================================
+   4. HERO SECTION (DISEÑO EDITORIAL LIGERO)
+   ========================================================================== */
+#hero {
+    position: relative; width: 100%; height: 100vh; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    overflow: hidden; margin-bottom: 0 !important; 
+}
+
+#hero-video {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover; z-index: -2;
+}
+
+.hero-overlay {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.35); /* Tinte oscuro parejo para garantizar lectura */
+    z-index: -1;
+}
+
+.hero-titles {
+    position: relative; z-index: 1; text-align: center;
+    background: transparent; border: none; padding: 0; box-shadow: none;
+    opacity: 0; animation: fadeIn 1s ease 2.8s forwards; 
+}
+
+.hero-titles h1 {
+    color: #ffffff; font-weight: 300; font-size: 2.8rem; /* Estilo fino y elegante */
+    letter-spacing: 12px; margin-bottom: 15px; text-transform: uppercase;
+    /* Aura oscura radial para separar el texto sin ensuciar */
+    text-shadow: 0px 0px 20px rgba(0,0,0,0.9), 0px 0px 40px rgba(0,0,0,0.6); 
+}
+
+.hero-titles .subtitle {
+    color: #f0f0f0; font-weight: 300; font-size: 0.85rem;
+    letter-spacing: 5px; text-transform: uppercase;
+    text-shadow: 0px 0px 15px rgba(0,0,0,0.9);
+}
+
+.scroll-indicator {
+    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    width: 20px; height: 30px; border: 1px solid #ffffff; border-radius: 10px; 
+    display: flex; justify-content: center; z-index: 1; opacity: 0;
+    animation: fadeIn 1s ease 3.5s forwards;
+}
+.scroll-indicator::after {
+    content: ''; width: 4px; height: 8px; background: #ffffff;
+    margin-top: 5px; border-radius: 2px; animation: scroll-anim 1.5s infinite;
+}
+@keyframes scroll-anim { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
+
+/* ==========================================================================
+   5. SECCIONES Y GRILLAS DE GALERÍA (ESTRUCTURA BLINDADA)
+   ========================================================================== */
+.gallery-section { padding: 100px 5% 60px 5%; }
+#academicos { padding-top: 80px; } 
+
+.section-header { margin-bottom: 60px; text-align: center; }
+.section-header h2 { font-size: 2rem; margin-bottom: 10px; }
+.section-header p { font-size: 0.9rem; color: var(--text-light); }
+
+/* Motor Paramétrico de la Grilla */
+.portfolio-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    grid-auto-rows: 300px; 
+    gap: 20px; 
+    grid-auto-flow: dense; 
+}
+
+/* Clases de Jerarquía Espacial (Inyectadas por JS) */
+.span-2x2 { grid-column: span 2; grid-row: span 2; } 
+.span-2x1 { grid-column: span 2; grid-row: span 1; } 
+.span-1x2 { grid-column: span 1; grid-row: span 2; } 
+
+/* ==========================================
+   FÍSICA DE LA TARJETA (AQUÍ ESTABA EL ERROR)
+   ========================================== */
+.portfolio-item { 
+    position: relative; /* CRÍTICO: Atrapa al texto flotante dentro de la caja */
+    overflow: hidden;   /* CRÍTICO: Corta cualquier imagen que intente salir */
+    background: #1A1A1A; /* Fondo base en caso de que la imagen tarde en cargar */
+    cursor: pointer; 
+    width: 100%;
+    height: 100%;
+    border-radius: 4px; /* Opcional: suaviza las esquinas arquitectónicas */
+}
+
+.portfolio-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Recorte inteligente al centro */
+    object-position: center; 
+    transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
+    display: block;
+}
+
+/* Overlay de Información (Regresa el Gradiente Oscuro) */
+.portfolio-info {
+    position: absolute; /* CRÍTICO: Flota sobre la imagen, no empuja el diseño */
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    padding: 70px 30px 30px 30px; 
+    background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.4) 60%, rgba(18, 18, 18, 0) 100%);
+    color: #FAFAFA; 
+    transform: translateY(100%); /* Oculto abajo por defecto */
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.4s ease;
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+    pointer-events: none; /* Evita que el texto bloquee el clic en la tarjeta */
+}
+
+/* Animación Hover */
+.portfolio-item:hover img { 
+    transform: scale(1.05); 
+    opacity: 0.6; 
+}
+.portfolio-item:hover .portfolio-info { 
+    transform: translateY(0); 
+    opacity: 1; 
+}
+
+.portfolio-info h3 { 
+    font-size: 1.2rem; 
+    font-weight: 400; 
+    letter-spacing: 0.1em; 
+    margin: 15px 0 5px 0; 
+    text-transform: uppercase; 
+}
+
+.tag-year { 
+    font-size: 0.75rem; 
+    font-weight: 300; 
+    border: 1px solid rgba(250, 250, 250, 0.6); 
+    padding: 4px 14px; 
+    letter-spacing: 0.15em; 
+    border-radius: 30px; 
+}
+
+/* Responsividad estricta para móviles/tablets */
+@media (max-width: 1024px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .span-2x2, .span-2x1 { grid-column: span 2; }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
+    /* En móvil se desactiva la jerarquía para scroll vertical fluido */
+    .span-2x2, .span-1x2, .span-2x1 { grid-column: span 1; grid-row: span 1; }
+}
+/* ==========================================================================
+   6. MODAL DE PROYECTOS (ESTRUCTURA DE DOS COLUMNAS)
+   ========================================================================== */
+.modal {
+    display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(250, 250, 250, 0.98); opacity: 0; transition: opacity 0.3s ease;
+}
+.modal.show { display: block; opacity: 1; }
+
+.modal-content {
+    display: flex; flex-direction: row; gap: 40px; margin: 5vh auto;
+    max-width: 90vw; height: 90vh; background: white; padding: 40px; position: relative;
+    border: 1px solid #eaeaea; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.close-modal { 
+    position: absolute; right: 20px; top: 10px; font-size: 40px; font-weight: 200; 
+    cursor: pointer; color: var(--text-color); transition: opacity 0.3s; z-index: 10;
+}
+.close-modal:hover { opacity: 0.5; }
+
+/* Sidebar Izquierdo */
+.modal-sidebar {
+    flex: 0 0 300px; display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid #eaeaea; padding-right: 40px;
+}
+.modal-sidebar h2 { font-size: 2rem; margin-bottom: 15px; }
+.tag-year.modal-tag { color: var(--text-color); border-color: var(--text-color); display: inline-block; margin-bottom: 20px;}
+.project-description p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; }
+
+/* Galería Derecha */
+.modal-main { flex: 1; display: flex; flex-direction: column; justify-content: center; overflow: hidden; position: relative; }
+.carousel-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
+
+.modal-gallery { 
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
+    scroll-behavior: smooth; width: 100%; height: 100%; gap: 20px; padding-bottom: 10px;
+}
+.modal-gallery::-webkit-scrollbar { height: 8px; }
+.modal-gallery::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+.modal-gallery::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+
+.modal-gallery img { 
+    scroll-snap-align: center; flex: 0 0 100%; width: 100%; height: 100%; 
+    object-fit: contain; 
+}
+
+/* Botones UI (Corregidos) */
+.slider-btn { 
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    background: rgba(26, 26, 26, 0.6); /* Un poco más de contraste */
+    backdrop-filter: blur(4px); 
+    color: #fff; 
+    border: 1px solid rgba(255, 255, 255, 0.2); 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    cursor: pointer; 
+    font-size: 1.2rem; 
+    z-index: 100; /* CRÍTICO: Forzamos prioridad máxima para asegurar que floten encima */
+    transition: all 0.4s ease; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+.slider-btn:hover { 
+    background: rgba(250, 250, 250, 0.95); 
+    color: #1A1A1A; 
+    transform: translateY(-50%) scale(1.15); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
+}
+
+/* CRÍTICO: Valores positivos para que los botones entren al lienzo en lugar de salirse */
+.prev-btn { left: 20px; }
+.next-btn { right: 20px; }
+
+/* ==========================================================================
+   7. CV Y FORMULARIO
+   ========================================================================== */
+.cv-section, .services-contact-section { padding: 80px 5% 40px 5%; background-color: var(--bg-color); border-top: 1px solid #eaeaea; }
+.cv-grid, .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1400px; margin: 0 auto; }
+.section-label { display: block; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--text-light); margin-bottom: 30px; border-bottom: 1px solid #1A1A1A; padding-bottom: 10px; }
+.cv-text-block h2 { font-size: 2rem; margin-bottom: 20px; font-weight: 400; }
+.bio-text { font-size: 0.95rem; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; text-align: justify; }
+.subsection-title { font-size: 1rem; font-weight: 600; margin: 20px 0 20px 0; }
+.experience-list { list-style: none; }
+.experience-list li { margin-bottom: 20px; border-left: 2px solid #eaeaea; padding-left: 15px; font-size: 0.85rem; }
+.experience-list li strong { display: block; font-size: 1rem; font-weight: 600; color: var(--text-color); margin-bottom: 5px; }
+.experience-list li span { display: block; color: var(--text-light); line-height: 1.4; }
+.download-btn { display: inline-block; margin-top: 20px; padding: 15px 25px; border: 1px solid var(--text-color); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; transition: all 0.3s ease; }
+.download-btn:hover { background-color: var(--text-color); color: var(--bg-color); }
+
+.skill-category { margin-bottom: 40px; }
+.skill-category h4 { font-size: 0.8rem; color: var(--text-light); margin-bottom: 20px; border-bottom: 1px dashed #eaeaea; padding-bottom: 10px; }
+.skill-bar { margin-bottom: 25px; }
+.skill-name { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
+.skill-track { width: 100%; height: 4px; background-color: #eaeaea; position: relative; overflow: hidden; border-radius: 2px; }
+.skill-fill { height: 100%; background-color: var(--text-color); width: 0; transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+.services-block { display: flex; flex-direction: column; }
+.service-item { margin-bottom: 30px; }
+.service-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
+.service-item p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+
+.minimal-form { display: flex; flex-direction: column; gap: 20px; }
+.form-group { width: 100%; }
+.minimal-form input, .minimal-form textarea { width: 100%; padding: 10px 0; background-color: transparent; border: none; border-bottom: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-color); outline: none; transition: border-color 0.3s ease; }
+.minimal-form textarea { resize: vertical; min-height: 80px; }
+.minimal-form input::placeholder, .minimal-form textarea::placeholder { color: #999; font-weight: 300; }
+.minimal-form input:focus, .minimal-form textarea:focus { border-bottom: 1px solid var(--text-color); }
+
+.file-upload-group { margin-top: 5px; }
+.custom-file-upload { display: inline-block; width: 100%; padding: 10px 0; border-bottom: 1px dashed #ccc; font-size: 0.85rem; color: var(--text-light); cursor: pointer; transition: all 0.3s ease; }
+.custom-file-upload:hover { border-bottom: 1px dashed var(--text-color); color: var(--text-color); }
+.submit-btn { background-color: var(--text-color); color: var(--bg-color); border: none; padding: 15px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; cursor: pointer; transition: background-color 0.3s ease, opacity 0.3s ease; margin-top: 10px; text-align: left; display: inline-block; align-self: flex-start; }
+.submit-btn:hover { background-color: #000; opacity: 0.8; }
+
+.legal-footer { padding: 20px 5%; text-align: center; background-color: var(--text-color); color: var(--bg-color); }
+.legal-footer p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+
+/* ==========================================================================
+   8. MEDIA QUERIES (RESPONSIVIDAD)
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    .span-2x2 { grid-column: span 2; }
+    .modal-content { max-width: 95vw; height: 95vh; padding: 20px; }
+}
+
+@media (max-width: 900px) {
+    .cv-grid, .services-grid { grid-template-columns: 1fr; gap: 60px; }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
+    .span-2x2, .span-1x2 { grid-column: span 1; grid-row: span 1; }
+    
+    .hero-titles h1 { font-size: 1.5rem !important; letter-spacing: 6px !important; }
+    .hero-titles .subtitle { font-size: 0.65rem !important; letter-spacing: 3px !important; }
+    
+    /* El modal se apila en celulares */
+    .modal-content { flex-direction: column; overflow-y: auto; height: auto; min-height: 90vh; }
+    .modal-sidebar { flex: none; width: 100%; border-right: none; border-bottom: 1px solid #eaeaea; padding-right: 0; padding-bottom: 20px; margin-bottom: 20px; }
+    .modal-gallery img { height: 50vh; }
+    .slider-btn { width: 40px; height: 40px; font-size: 1.2rem; }
+    .prev-btn { left: 0; } .next-btn { right: 0; }
+}
