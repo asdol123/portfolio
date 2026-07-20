@@ -4,7 +4,7 @@
         tipo: "academicos",
         titulo: "Construccion Modular Industrializada Aplicada a Edificios Multifamily en Santiago de Chile",
         year: "2026",
-        descripcion: "DescripciÃ³n en desarrollo...",
+        descripcion: "Edificio de vivienda industrializada en madera, con un sistema de construcción modular que permite una rápida",
         imagen_principal: "assets/img/academicos/proyecto-titulo/proyecto-titulo_01.png",
         galeria: ["assets/img/academicos/proyecto-titulo/proyecto-titulo_01.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_02.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_03.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_04.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_05.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_06.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_07.png", "assets/img/academicos/proyecto-titulo/proyecto-titulo_08.png"],
         clase_css: ""

@@ -352,11 +352,11 @@ nav {
 .legal-footer p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
 
 /* ==========================================================================
-   8. MEDIA QUERIES (RESPONSIVIDAD)
+   8. MEDIA QUERIES (RESPONSIVIDAD Y UX MÓVIL OPTIMIZADA)
    ========================================================================== */
 @media (max-width: 1024px) {
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-    .span-2x2 { grid-column: span 2; }
+    .span-2x2, .span-2x1 { grid-column: span 2; }
     .modal-content { max-width: 95vw; height: 95vh; padding: 20px; }
 }
 
@@ -365,16 +365,59 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
-    .span-2x2, .span-1x2 { grid-column: span 1; grid-row: span 1; }
+    /* 1. Navegación fluida: Apilamos el logo y los links al centro */
+    nav { flex-direction: column; padding: 15px 5%; gap: 12px; }
+    .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
+
+    /* 2. Optimización de espacios verticales (menos scroll vacío) */
+    .gallery-section, .cv-section, .services-contact-section { padding: 60px 5% 40px 5%; }
+    #academicos { padding-top: 100px; } /* Compensa el menú apilado */
+    .section-header { margin-bottom: 40px; }
+    .section-header h2 { font-size: 1.6rem; }
     
+    /* Hero Section: Tipografía ajustable */
     .hero-titles h1 { font-size: 1.5rem !important; letter-spacing: 6px !important; }
-    .hero-titles .subtitle { font-size: 0.65rem !important; letter-spacing: 3px !important; }
+    .hero-titles .subtitle { font-size: 0.65rem !important; letter-spacing: 3px !important; line-height: 1.5; padding: 0 10px; }
+
+    /* 3. Grilla Táctil (CRÍTICO: Mostrar información siempre) */
+    .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
+    .span-2x2, .span-1x2, .span-2x1 { grid-column: span 1; grid-row: span 1; }
     
-    /* El modal se apila en celulares */
-    .modal-content { flex-direction: column; overflow-y: auto; height: auto; min-height: 90vh; }
-    .modal-sidebar { flex: none; width: 100%; border-right: none; border-bottom: 1px solid #eaeaea; padding-right: 0; padding-bottom: 20px; margin-bottom: 20px; }
-    .modal-gallery img { height: 50vh; }
-    .slider-btn { width: 40px; height: 40px; font-size: 1.2rem; }
-    .prev-btn { left: 0; } .next-btn { right: 0; }
+    .portfolio-info { 
+        transform: translateY(0); /* Anula el efecto oculto del PC */
+        opacity: 1; 
+        /* Gradiente más intenso para asegurar lectura sobre renders claros */
+        background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.7) 60%, rgba(18, 18, 18, 0) 100%);
+        padding: 40px 20px 20px 20px;
+    }
+    
+    /* 4. Modal de Proyectos: Adaptación a columna única */
+    .modal-content { 
+        flex-direction: column; 
+        overflow-y: auto; 
+        height: auto; 
+        min-height: 90vh; 
+        padding: 45px 20px 20px 20px; /* Más padding arriba para no chocar con la 'X' */
+    }
+    
+    .modal-sidebar { 
+        flex: none; 
+        width: 100%; 
+        border-right: none; 
+        border-bottom: 1px solid #eaeaea; 
+        padding-right: 0; 
+        padding-bottom: 20px; 
+        margin-bottom: 20px; 
+    }
+    
+    .modal-gallery img { 
+        height: 45vh; /* La imagen toma un poco menos de la mitad de la pantalla */
+        object-fit: contain; 
+    }
+    
+    /* Botones de carrusel y cierre reajustados */
+    .slider-btn { width: 40px; height: 40px; font-size: 1rem; }
+    .prev-btn { left: 10px; } 
+    .next-btn { right: 10px; }
+    .close-modal { right: 15px; top: 5px; }
 }
