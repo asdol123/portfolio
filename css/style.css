@@ -1,199 +1,197 @@
 /* ==========================================================================
-   1. VARIABLES, CONFIGURACIÓN GLOBAL Y FÍSICA DE SCROLL
+   PORTAFOLIO DE ARQUITECTURA - ESTILO EDITORIAL HIGH-END (MINIMALISTA)
    ========================================================================== */
+
 :root { 
-    --bg-color: #FAFAFA; 
-    --text-color: #1A1A1A; 
-    --text-light: #4D4D4D; 
+    --bg-color: #FFFFFF; 
+    --bg-alt: #F9F9F8;
+    --text-color: #111111; 
+    --text-light: #666666; 
+    --border-color: #E8E8E8;
+    --accent-line: #111111;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html { 
-    /* Física de scroll magnético estricto para toda la web */
     scroll-snap-type: y mandatory; 
     scroll-padding-top: 80px; 
     scroll-behavior: smooth; 
+    background-color: var(--bg-color);
 }
 
 body { 
     background-color: var(--bg-color); 
     color: var(--text-color); 
-    font-family: 'Montserrat', sans-serif; 
-    line-height: 1.6; 
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif; 
+    line-height: 1.7; 
+    -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4 { text-transform: uppercase; font-weight: 300; letter-spacing: 0.15em; }
+h1, h2, h3, h4 { 
+    font-weight: 300; 
+    letter-spacing: 0.2em; 
+    text-transform: uppercase; 
+}
+
 a { text-decoration: none; color: inherit; }
 
-/* Anclaje magnético en cada sección */
+/* Anclaje magnético */
 section {
     scroll-snap-align: start;
     scroll-snap-stop: always; 
 }
 
 /* ==========================================================================
-   2. ANIMACIONES GLOBALES & SPLASH SCREEN
+   ANIMACIONES & SPLASH SCREEN
    ========================================================================== */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
-.fade-in { animation: fadeIn 0.8s ease-out forwards; }
+.fade-in { animation: fadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
 
 #splash-screen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: #FAFAFA; display: flex; justify-content: center; align-items: center;
-    z-index: 9999; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+    background: #FFFFFF; display: flex; justify-content: center; align-items: center;
+    z-index: 9999; transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .splash-text {
-    font-size: 1.8rem; font-weight: 300; letter-spacing: 4px;
-    color: #1A1A1A; animation: introText 2.5s ease forwards;
+    font-size: 1.2rem; font-weight: 300; letter-spacing: 0.35em;
+    color: var(--text-color); animation: introText 2.2s ease forwards;
 }
 
 @keyframes introText {
-    0% { opacity: 0; transform: scale(0.95); }
-    20% { opacity: 1; transform: scale(1); }
-    70% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(0.8) translateY(-30px); }
+    0% { opacity: 0; transform: scale(0.98); }
+    30% { opacity: 1; transform: scale(1); }
+    75% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: translateY(-20px); }
 }
 
-body.loaded #splash-screen { transform: translateY(-100%); }
+body.loaded #splash-screen { opacity: 0; visibility: hidden; pointer-events: none; }
 
 /* ==========================================================================
-   3. NAVEGACIÓN
+   NAVEGACIÓN EDITORIAL
    ========================================================================== */
 nav { 
-    position: fixed; top: 0; width: 100%; padding: 25px 5%; 
+    position: fixed; top: 0; width: 100%; padding: 25px 6%; 
     display: flex; justify-content: space-between; align-items: center; 
-    background: rgba(250, 250, 250, 0.95); backdrop-filter: blur(5px); 
-    z-index: 1000; border-bottom: 1px solid #eaeaea; 
+    background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); 
+    z-index: 1000; border-bottom: 1px solid var(--border-color); 
 }
-.logo { font-size: 1.2rem; font-weight: 600; letter-spacing: 0.2em; }
-.nav-links { display: flex; gap: 30px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
-.nav-links a { transition: opacity 0.3s ease, border-bottom 0.3s ease; opacity: 0.7; padding-bottom: 3px; }
-.nav-links a:hover, .nav-links a.active { opacity: 1; border-bottom: 1.5px solid var(--text-color); }
+.logo { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.25em; color: var(--text-color); }
+.nav-links { display: flex; gap: 35px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
+.nav-links a { transition: opacity 0.3s ease; opacity: 0.5; padding-bottom: 4px; position: relative; }
+.nav-links a::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px;
+    background: var(--text-color); transition: width 0.3s ease;
+}
+.nav-links a:hover, .nav-links a.active { opacity: 1; }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
 /* ==========================================================================
-   4. HERO SECTION (DISEÑO EDITORIAL LIGERO)
+   HERO SECTION
    ========================================================================== */
 #hero {
     position: relative; width: 100%; height: 100vh; 
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    overflow: hidden; margin-bottom: 0 !important; 
+    overflow: hidden; 
 }
 
 #hero-video {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    object-fit: cover; z-index: -2;
+    object-fit: cover; z-index: -2; filter: brightness(0.85) contrast(1.05);
 }
 
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.35); /* Tinte oscuro parejo para garantizar lectura */
-    z-index: -1;
+    background: rgba(0, 0, 0, 0.3); z-index: -1;
 }
 
 .hero-titles {
     position: relative; z-index: 1; text-align: center;
-    background: transparent; border: none; padding: 0; box-shadow: none;
-    opacity: 0; animation: fadeIn 1s ease 2.8s forwards; 
+    opacity: 0; animation: fadeIn 1s ease 2.2s forwards; 
 }
 
 .hero-titles h1 {
-    color: #ffffff; font-weight: 300; font-size: 2.8rem; /* Estilo fino y elegante */
-    letter-spacing: 12px; margin-bottom: 15px; text-transform: uppercase;
-    /* Aura oscura radial para separar el texto sin ensuciar */
-    text-shadow: 0px 0px 20px rgba(0,0,0,0.9), 0px 0px 40px rgba(0,0,0,0.6); 
+    color: #FFFFFF; font-weight: 300; font-size: 2.6rem; 
+    letter-spacing: 0.35em; margin-bottom: 15px; text-transform: uppercase;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.5);
 }
 
 .hero-titles .subtitle {
-    color: #f0f0f0; font-weight: 300; font-size: 0.85rem;
-    letter-spacing: 5px; text-transform: uppercase;
-    text-shadow: 0px 0px 15px rgba(0,0,0,0.9);
+    color: rgba(255, 255, 255, 0.85); font-weight: 300; font-size: 0.8rem;
+    letter-spacing: 0.25em; text-transform: uppercase;
 }
 
 .scroll-indicator {
-    position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-    width: 20px; height: 30px; border: 1px solid #ffffff; border-radius: 10px; 
+    position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%);
+    width: 18px; height: 28px; border: 1px solid rgba(255,255,255,0.7); border-radius: 9px; 
     display: flex; justify-content: center; z-index: 1; opacity: 0;
-    animation: fadeIn 1s ease 3.5s forwards;
+    animation: fadeIn 1s ease 3s forwards;
 }
 .scroll-indicator::after {
-    content: ''; width: 4px; height: 8px; background: #ffffff;
-    margin-top: 5px; border-radius: 2px; animation: scroll-anim 1.5s infinite;
+    content: ''; width: 3px; height: 6px; background: #FFFFFF;
+    margin-top: 5px; border-radius: 2px; animation: scroll-anim 1.6s infinite ease-in-out;
 }
 @keyframes scroll-anim { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(10px); opacity: 0; } }
 
 /* ==========================================================================
-   5. SECCIONES Y GRILLAS DE GALERÍA (ESTRUCTURA BLINDADA)
+   SECCIONES Y GRILLA DE GALERÍA EDITORIAL
    ========================================================================== */
-.gallery-section { padding: 100px 5% 60px 5%; }
-#academicos { padding-top: 80px; } 
+.gallery-section { padding: 120px 6% 80px 6%; background: var(--bg-color); }
+#academicos { padding-top: 100px; } 
 
-.section-header { margin-bottom: 60px; text-align: center; }
-.section-header h2 { font-size: 2rem; margin-bottom: 10px; }
-.section-header p { font-size: 0.9rem; color: var(--text-light); }
+.section-header { margin-bottom: 70px; text-align: left; position: relative; border-bottom: 1px solid var(--border-color); padding-bottom: 25px; }
+.section-label-number { font-size: 0.75rem; letter-spacing: 0.2em; color: var(--text-light); margin-bottom: 10px; display: block; }
+.section-header h2 { font-size: 1.8rem; font-weight: 300; letter-spacing: 0.2em; color: var(--text-color); margin-bottom: 10px; }
+.section-header p { font-size: 0.85rem; color: var(--text-light); font-weight: 300; letter-spacing: 0.05em; }
 
-/* Motor Paramétrico de la Grilla */
+/* Motor de la Grilla Architectura Pro */
 .portfolio-grid { 
     display: grid; 
     grid-template-columns: repeat(4, 1fr); 
-    grid-auto-rows: 300px; 
-    gap: 20px; 
+    grid-auto-rows: 320px; 
+    gap: 25px; 
     grid-auto-flow: dense; 
 }
 
-/* Clases de Jerarquía Espacial (Inyectadas por JS) */
 .span-2x2 { grid-column: span 2; grid-row: span 2; } 
 .span-2x1 { grid-column: span 2; grid-row: span 1; } 
 .span-1x2 { grid-column: span 1; grid-row: span 2; } 
 
-/* ==========================================
-   FÍSICA DE LA TARJETA (AQUÍ ESTABA EL ERROR)
-   ========================================== */
 .portfolio-item { 
-    position: relative; /* CRÍTICO: Atrapa al texto flotante dentro de la caja */
-    overflow: hidden;   /* CRÍTICO: Corta cualquier imagen que intente salir */
-    background: #1A1A1A; /* Fondo base en caso de que la imagen tarde en cargar */
+    position: relative; 
+    overflow: hidden;   
+    background: var(--bg-alt);
     cursor: pointer; 
-    width: 100%;
-    height: 100%;
-    border-radius: 4px; /* Opcional: suaviza las esquinas arquitectónicas */
+    width: 100%; height: 100%;
+    border: 1px solid var(--border-color);
 }
 
 .portfolio-item img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; /* Recorte inteligente al centro */
-    object-position: center; 
-    transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
+    width: 100%; height: 100%; 
+    object-fit: cover; object-position: center; 
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
     display: block;
 }
 
-/* Overlay de Información (Regresa el Gradiente Oscuro) */
 .portfolio-info {
-    position: absolute; /* CRÍTICO: Flota sobre la imagen, no empuja el diseño */
-    bottom: 0; 
-    left: 0; 
-    width: 100%; 
-    padding: 70px 30px 30px 30px; 
-    background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.4) 60%, rgba(18, 18, 18, 0) 100%);
-    color: #FAFAFA; 
-    transform: translateY(100%); /* Oculto abajo por defecto */
+    position: absolute; bottom: 0; left: 0; width: 100%; 
+    padding: 50px 25px 25px 25px; 
+    background: linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.2) 70%, rgba(17, 17, 17, 0) 100%);
+    color: #FFFFFF; 
+    transform: translateY(20px); 
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.4s ease;
-    display: flex; 
-    flex-direction: column; 
-    align-items: flex-start;
-    pointer-events: none; /* Evita que el texto bloquee el clic en la tarjeta */
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    display: flex; flex-direction: column; align-items: flex-start;
+    pointer-events: none; 
 }
 
-/* Animación Hover */
 .portfolio-item:hover img { 
-    transform: scale(1.05); 
-    opacity: 0.6; 
+    transform: scale(1.03); 
+    opacity: 0.95; 
 }
 .portfolio-item:hover .portfolio-info { 
     transform: translateY(0); 
@@ -201,35 +199,18 @@ nav {
 }
 
 .portfolio-info h3 { 
-    font-size: 1.2rem; 
-    font-weight: 400; 
-    letter-spacing: 0.1em; 
-    margin: 15px 0 5px 0; 
-    text-transform: uppercase; 
+    font-size: 1.05rem; font-weight: 300; 
+    letter-spacing: 0.15em; margin: 10px 0 0 0; 
 }
 
 .tag-year { 
-    font-size: 0.75rem; 
-    font-weight: 300; 
-    border: 1px solid rgba(250, 250, 250, 0.6); 
-    padding: 4px 14px; 
-    letter-spacing: 0.15em; 
-    border-radius: 30px; 
+    font-size: 0.7rem; font-weight: 300; 
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+    padding: 3px 12px; letter-spacing: 0.15em; 
 }
 
-/* Responsividad estricta para móviles/tablets */
-@media (max-width: 1024px) {
-    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-    .span-2x2, .span-2x1 { grid-column: span 2; }
-}
-
-@media (max-width: 768px) {
-    .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 350px; }
-    /* En móvil se desactiva la jerarquía para scroll vertical fluido */
-    .span-2x2, .span-1x2, .span-2x1 { grid-column: span 1; grid-row: span 1; }
-}
 /* ==========================================================================
-   6. MODAL DE PROYECTOS (ESTRUCTURA DE DOS COLUMNAS)
+   MODAL DE PROYECTOS
    ========================================================================== */
 dialog.modal {
     display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100vw; height: 100vh;
@@ -238,132 +219,111 @@ dialog.modal {
 }
 dialog.modal[open], .modal.show { display: flex; opacity: 1; justify-content: center; align-items: center; }
 dialog.modal::backdrop {
-    background-color: rgba(250, 250, 250, 0.95);
-    backdrop-filter: blur(8px);
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
 }
 
 .modal-content {
     display: flex; flex-direction: row; gap: 40px; margin: auto;
-    width: 90vw; height: 90vh; background: white; padding: 40px; position: relative;
-    border: 1px solid #eaeaea; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    width: 90vw; height: 90vh; background: #FFFFFF; padding: 50px; position: relative;
+    border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.05);
 }
 
 .close-modal { 
-    position: absolute; right: 20px; top: 10px; font-size: 32px; font-weight: 200; 
+    position: absolute; right: 25px; top: 20px; font-size: 28px; font-weight: 200; 
     cursor: pointer; color: var(--text-color); transition: opacity 0.3s; z-index: 10;
     background: none; border: none; line-height: 1;
 }
-.close-modal:hover { opacity: 0.5; }
+.close-modal:hover { opacity: 0.4; }
 
-/* Sidebar Izquierdo */
 .modal-sidebar {
-    flex: 0 0 300px; display: flex; flex-direction: column; justify-content: center;
-    border-right: 1px solid #eaeaea; padding-right: 40px;
+    flex: 0 0 320px; display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--border-color); padding-right: 40px;
 }
-.modal-sidebar h2 { font-size: 2rem; margin-bottom: 15px; }
-.tag-year.modal-tag { color: var(--text-color); border-color: var(--text-color); display: inline-block; margin-bottom: 20px;}
-.project-description p { font-size: 0.9rem; color: var(--text-light); line-height: 1.6; margin-bottom: 15px; }
+.modal-sidebar h2 { font-size: 1.6rem; font-weight: 300; margin-bottom: 15px; line-height: 1.3; }
+.tag-year.modal-tag { color: var(--text-color); border-color: var(--text-color); display: inline-block; margin-bottom: 20px; }
+.project-description p { font-size: 0.85rem; color: var(--text-light); line-height: 1.8; margin-bottom: 15px; font-weight: 300; }
 
-/* Galería Derecha */
 .modal-main { flex: 1; display: flex; flex-direction: column; justify-content: center; overflow: hidden; position: relative; }
 .carousel-wrapper { position: relative; width: 100%; height: 100%; display: flex; align-items: center; }
 
 .modal-gallery { 
     display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-    scroll-behavior: smooth; width: 100%; height: 100%; gap: 20px; padding-bottom: 10px;
+    scroll-behavior: smooth; width: 100%; height: 100%; gap: 20px;
 }
-.modal-gallery::-webkit-scrollbar { height: 8px; }
-.modal-gallery::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-.modal-gallery::-webkit-scrollbar-thumb { background: #888; border-radius: 10px; }
+.modal-gallery::-webkit-scrollbar { height: 4px; }
+.modal-gallery::-webkit-scrollbar-track { background: #F1F1F1; }
+.modal-gallery::-webkit-scrollbar-thumb { background: #111111; }
 
 .modal-gallery img { 
     scroll-snap-align: center; flex: 0 0 100%; width: 100%; height: 100%; 
     object-fit: contain; 
 }
 
-/* Botones UI (Corregidos) */
 .slider-btn { 
-    position: absolute; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    background: rgba(26, 26, 26, 0.6); /* Un poco más de contraste */
-    backdrop-filter: blur(4px); 
-    color: #fff; 
-    border: 1px solid rgba(255, 255, 255, 0.2); 
-    width: 50px; 
-    height: 50px; 
-    border-radius: 50%; 
-    cursor: pointer; 
-    font-size: 1.2rem; 
-    z-index: 100; /* CRÍTICO: Forzamos prioridad máxima para asegurar que floten encima */
-    transition: all 0.4s ease; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
+    position: absolute; top: 50%; transform: translateY(-50%); 
+    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(4px); 
+    color: var(--text-color); border: 1px solid var(--border-color); 
+    width: 45px; height: 45px; border-radius: 50%; cursor: pointer; 
+    font-size: 1rem; z-index: 100; transition: all 0.3s ease; 
+    display: flex; justify-content: center; align-items: center;
 }
-
-.slider-btn:hover { 
-    background: rgba(250, 250, 250, 0.95); 
-    color: #1A1A1A; 
-    transform: translateY(-50%) scale(1.15); 
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2); 
-}
-
-/* CRÍTICO: Valores positivos para que los botones entren al lienzo en lugar de salirse */
-.prev-btn { left: 20px; }
-.next-btn { right: 20px; }
+.slider-btn:hover { background: var(--text-color); color: #FFFFFF; }
+.prev-btn { left: 15px; } .next-btn { right: 15px; }
 
 /* ==========================================================================
-   7. CV Y FORMULARIO
+   CV Y SERVICIOS
    ========================================================================== */
-.cv-section, .services-contact-section { padding: 80px 5% 40px 5%; background-color: var(--bg-color); border-top: 1px solid #eaeaea; }
+.cv-section, .services-contact-section { padding: 100px 6% 60px 6%; background-color: var(--bg-alt); border-top: 1px solid var(--border-color); }
 .cv-grid, .services-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; max-width: 1400px; margin: 0 auto; }
-.section-label { display: block; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--text-light); margin-bottom: 30px; border-bottom: 1px solid #1A1A1A; padding-bottom: 10px; }
-.cv-text-block h2 { font-size: 2rem; margin-bottom: 20px; font-weight: 400; }
-.bio-text { font-size: 0.95rem; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; text-align: justify; }
-.subsection-title { font-size: 1rem; font-weight: 600; margin: 20px 0 20px 0; }
+.section-label { display: block; font-size: 0.7rem; letter-spacing: 0.25em; color: var(--text-light); margin-bottom: 25px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+
+.cv-text-block h2 { font-size: 1.8rem; margin-bottom: 20px; font-weight: 300; }
+.bio-text { font-size: 0.9rem; color: var(--text-light); line-height: 1.8; margin-bottom: 35px; font-weight: 300; }
+
+.subsection-title { font-size: 0.95rem; font-weight: 400; letter-spacing: 0.15em; margin: 30px 0 20px 0; }
 .experience-list { list-style: none; }
-.experience-list li { margin-bottom: 20px; border-left: 2px solid #eaeaea; padding-left: 15px; font-size: 0.85rem; }
-.experience-list li strong { display: block; font-size: 1rem; font-weight: 600; color: var(--text-color); margin-bottom: 5px; }
-.experience-list li span { display: block; color: var(--text-light); line-height: 1.4; }
-.download-btn { display: inline-block; margin-top: 20px; padding: 15px 25px; border: 1px solid var(--text-color); font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; transition: all 0.3s ease; }
-.download-btn:hover { background-color: var(--text-color); color: var(--bg-color); }
+.experience-list li { margin-bottom: 25px; border-left: 1px solid var(--border-color); padding-left: 20px; }
+.experience-list li strong { display: block; font-size: 0.95rem; font-weight: 400; color: var(--text-color); margin-bottom: 4px; letter-spacing: 0.05em; }
+.experience-list li span { display: block; color: var(--text-light); line-height: 1.6; font-size: 0.85rem; font-weight: 300; }
 
-.skill-category { margin-bottom: 40px; }
-.skill-category h4 { font-size: 0.8rem; color: var(--text-light); margin-bottom: 20px; border-bottom: 1px dashed #eaeaea; padding-bottom: 10px; }
-.skill-bar { margin-bottom: 25px; }
-.skill-name { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; letter-spacing: 0.1em; text-transform: uppercase; }
-.skill-track { width: 100%; height: 4px; background-color: #eaeaea; position: relative; overflow: hidden; border-radius: 2px; }
-.skill-fill { height: 100%; background-color: var(--text-color); width: 0; transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.download-btn { display: inline-block; margin-top: 20px; margin-right: 15px; padding: 12px 28px; border: 1px solid var(--text-color); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.2em; transition: all 0.3s ease; }
+.download-btn:hover { background-color: var(--text-color); color: #FFFFFF; }
 
-.services-block { display: flex; flex-direction: column; }
-.service-item { margin-bottom: 30px; }
-.service-item h3 { font-size: 1rem; font-weight: 600; margin-bottom: 10px; }
-.service-item p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
+.skill-category { margin-bottom: 35px; }
+.skill-category h4 { font-size: 0.75rem; font-weight: 400; color: var(--text-light); letter-spacing: 0.15em; margin-bottom: 18px; border-bottom: 1px dashed var(--border-color); padding-bottom: 8px; }
+.skill-bar { margin-bottom: 20px; }
+.skill-name { display: block; font-size: 0.75rem; font-weight: 400; margin-bottom: 6px; letter-spacing: 0.1em; text-transform: uppercase; }
+.skill-track { width: 100%; height: 2px; background-color: var(--border-color); position: relative; }
+.skill-fill { height: 100%; background-color: var(--text-color); width: 0; transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1); }
 
-.minimal-form { display: flex; flex-direction: column; gap: 20px; }
+.services-contact-section { background-color: var(--bg-color); }
+.service-item { margin-bottom: 35px; }
+.service-item h3 { font-size: 0.95rem; font-weight: 400; letter-spacing: 0.15em; margin-bottom: 10px; }
+.service-item p { font-size: 0.85rem; color: var(--text-light); line-height: 1.7; font-weight: 300; }
+
+.minimal-form { display: flex; flex-direction: column; gap: 25px; }
 .form-group { width: 100%; }
-.minimal-form input, .minimal-form textarea { width: 100%; padding: 10px 0; background-color: transparent; border: none; border-bottom: 1px solid #ccc; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--text-color); outline: none; transition: border-color 0.3s ease; }
-.minimal-form textarea { resize: vertical; min-height: 80px; }
+.minimal-form input, .minimal-form textarea { width: 100%; padding: 12px 0; background-color: transparent; border: none; border-bottom: 1px solid var(--border-color); font-family: 'Montserrat', sans-serif; font-size: 0.85rem; font-weight: 300; color: var(--text-color); outline: none; transition: border-color 0.3s ease; }
+.minimal-form textarea { resize: vertical; min-height: 90px; }
 .minimal-form input::placeholder, .minimal-form textarea::placeholder { color: #999; font-weight: 300; }
 .minimal-form input:focus, .minimal-form textarea:focus { border-bottom: 1px solid var(--text-color); }
 
 .file-upload-group { margin-top: 5px; }
-.custom-file-upload { display: inline-block; width: 100%; padding: 10px 0; border-bottom: 1px dashed #ccc; font-size: 0.85rem; color: var(--text-light); cursor: pointer; transition: all 0.3s ease; }
+.custom-file-upload { display: inline-block; width: 100%; padding: 12px 0; border-bottom: 1px dashed var(--border-color); font-size: 0.8rem; color: var(--text-light); font-weight: 300; cursor: pointer; transition: all 0.3s ease; }
 .custom-file-upload:hover { border-bottom: 1px dashed var(--text-color); color: var(--text-color); }
-.submit-btn { background-color: var(--text-color); color: var(--bg-color); border: none; padding: 15px 20px; font-family: 'Montserrat', sans-serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; cursor: pointer; transition: background-color 0.3s ease, opacity 0.3s ease; margin-top: 10px; text-align: left; display: inline-block; align-self: flex-start; }
-.submit-btn:hover { background-color: #000; opacity: 0.8; }
+.submit-btn { background-color: var(--text-color); color: #FFFFFF; border: none; padding: 14px 25px; font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.2em; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10px; align-self: flex-start; }
+.submit-btn:hover { background-color: #333333; }
 
-.legal-footer { padding: 20px 5%; text-align: center; background-color: var(--text-color); color: var(--bg-color); }
-.legal-footer p { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.7; }
+.legal-footer { padding: 30px 6%; text-align: center; background-color: var(--bg-alt); border-top: 1px solid var(--border-color); }
+.legal-footer p { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); }
 
 /* ==========================================================================
-   8. MEDIA QUERIES (RESPONSIVIDAD Y UX MÓVIL OPTIMIZADA)
+   MEDIA QUERIES (RESPONSIVIDAD MÓVIL)
    ========================================================================== */
 @media (max-width: 1024px) {
     .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
     .span-2x2, .span-2x1 { grid-column: span 2; }
-    .modal-content { max-width: 95vw; height: 95vh; padding: 20px; }
 }
 
 @media (max-width: 900px) {
@@ -371,59 +331,14 @@ dialog.modal::backdrop {
 }
 
 @media (max-width: 768px) {
-    /* 1. Navegación fluida: Apilamos el logo y los links al centro */
     nav { flex-direction: column; padding: 15px 5%; gap: 12px; }
     .nav-links { gap: 15px; flex-wrap: wrap; justify-content: center; }
-
-    /* 2. Optimización de espacios verticales (menos scroll vacío) */
     .gallery-section, .cv-section, .services-contact-section { padding: 60px 5% 40px 5%; }
-    #academicos { padding-top: 100px; } /* Compensa el menú apilado */
-    .section-header { margin-bottom: 40px; }
-    .section-header h2 { font-size: 1.6rem; }
-    
-    /* Hero Section: Tipografía ajustable */
-    .hero-titles h1 { font-size: 1.5rem !important; letter-spacing: 6px !important; }
-    .hero-titles .subtitle { font-size: 0.65rem !important; letter-spacing: 3px !important; line-height: 1.5; padding: 0 10px; }
-
-    /* 3. Grilla Táctil (CRÍTICO: Mostrar información siempre) */
+    #academicos { padding-top: 100px; }
+    .hero-titles h1 { font-size: 1.6rem; letter-spacing: 6px; }
     .portfolio-grid { grid-template-columns: 1fr; grid-auto-rows: 280px; }
     .span-2x2, .span-1x2, .span-2x1 { grid-column: span 1; grid-row: span 1; }
-    
-    .portfolio-info { 
-        transform: translateY(0); /* Anula el efecto oculto del PC */
-        opacity: 1; 
-        /* Gradiente más intenso para asegurar lectura sobre renders claros */
-        background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.7) 60%, rgba(18, 18, 18, 0) 100%);
-        padding: 40px 20px 20px 20px;
-    }
-    
-    /* 4. Modal de Proyectos: Adaptación a columna única */
-    .modal-content { 
-        flex-direction: column; 
-        overflow-y: auto; 
-        height: auto; 
-        min-height: 90vh; 
-        padding: 45px 20px 20px 20px; /* Más padding arriba para no chocar con la 'X' */
-    }
-    
-    .modal-sidebar { 
-        flex: none; 
-        width: 100%; 
-        border-right: none; 
-        border-bottom: 1px solid #eaeaea; 
-        padding-right: 0; 
-        padding-bottom: 20px; 
-        margin-bottom: 20px; 
-    }
-    
-    .modal-gallery img { 
-        height: 45vh; /* La imagen toma un poco menos de la mitad de la pantalla */
-        object-fit: contain; 
-    }
-    
-    /* Botones de carrusel y cierre reajustados */
-    .slider-btn { width: 40px; height: 40px; font-size: 1rem; }
-    .prev-btn { left: 10px; } 
-    .next-btn { right: 10px; }
-    .close-modal { right: 15px; top: 5px; }
+    .portfolio-info { transform: translateY(0); opacity: 1; }
+    .modal-content { flex-direction: column; overflow-y: auto; height: auto; min-height: 90vh; padding: 40px 20px 20px 20px; }
+    .modal-sidebar { flex: none; width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); padding: 0 0 20px 0; margin-bottom: 20px; }
 }
