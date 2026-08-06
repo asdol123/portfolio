@@ -88,8 +88,8 @@
                 </ul>
                 
                 <div class="bio-actions">
-                    <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" class="download-btn">LINKEDIN</a>
-                    <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" class="download-btn">DESCARGAR CV</a>
+                    <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" rel="noopener noreferrer" class="download-btn">LINKEDIN</a>
+                    <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">DESCARGAR CV</a>
                 </div>
             </div>
 
@@ -131,8 +131,9 @@
 
             <div class="contact-block">
                 <span class="section-label">INICIAR UN PROYECTO</span>
-                <form action="https://formsubmit.co/chilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
+                <form action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
                     <input type="hidden" name="_subject" value="¡Nuevo Lead desde el Portafolio!">
+                    <input type="hidden" name="_template" value="table">
                     <div class="form-group"><input type="text" name="Nombre" placeholder="Nombre o Estudio" required></div>
                     <div class="form-group"><input type="email" name="Email" placeholder="Correo" required></div>
                     <div class="form-group"><textarea name="Mensaje" placeholder="Mensaje..." rows="3" required></textarea></div>
@@ -149,9 +150,9 @@
     <footer class="legal-footer"><p>&copy; 2026 Adolfo Risopatrón Inzunza. Portafolio de Arquitectura.</p></footer>
 
     <!-- MODAL (Galería y Descripción) -->
-    <div id="project-modal" class="modal">
+    <dialog id="project-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button type="button" class="close-modal" aria-label="Cerrar modal">&times;</button>
             
             <!-- SIDEBAR DE INFORMACIÓN -->
             <div class="modal-sidebar fade-in">
@@ -163,13 +164,13 @@
             <!-- MAIN DE LA GALERÍA -->
             <div class="modal-main fade-in">
                 <div class="carousel-wrapper">
-                    <button class="slider-btn prev-btn">&#10094;</button>
+                    <button type="button" class="slider-btn prev-btn" aria-label="Proyecto anterior">&#10094;</button>
                     <div class="modal-gallery" id="modal-gallery"></div>
-                    <button class="slider-btn next-btn">&#10095;</button>
+                    <button type="button" class="slider-btn next-btn" aria-label="Proyecto siguiente">&#10095;</button>
                 </div>
             </div>
         </div>
-    </div>
+    </dialog>
 
     <script src="data/proyectos.js"></script>
     <script src="js/main.js"></script>

@@ -46,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalTitle.textContent = proyecto.titulo;
                 modalYear.textContent = proyecto.year;
                 
-                // FIX ESTRUCTURAL: Inyección segura de la descripción solo en el Modal
                 if (proyecto.descripcion && proyecto.descripcion.trim() !== "") {
                     modalDesc.innerHTML = proyecto.descripcion.split('\n').map(p => `<p>${p}</p>`).join('');
                 } else {
@@ -76,7 +75,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 modalGallery.scrollLeft = 0;
-                modal.classList.add('show');
+                
+                if (typeof modal.showModal === 'function') {
+                    modal.showModal();
+                } else {
+                    modal.classList.add('show');
+                }
                 document.body.style.overflow = 'hidden'; 
             });
 
@@ -92,36 +96,79 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
     // 2. LÓGICA DEL CARRUSEL INFINITO (MODAL)
     // ==========================================
-    nextBtn.addEventListener('click', () => {
-        const maxScrollLeft = modalGallery.scrollWidth - modalGallery.clientWidth;
-        if (modalGallery.scrollLeft >= maxScrollLeft - 5) {
-            modalGallery.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            modalGallery.scrollBy({ left: modalGallery.clientWidth, behavior: 'smooth' });
-        }
-    });
-
-    prevBtn.addEventListener('click', () => {
-        if (modalGallery.scrollLeft <= 5) {
+    if (nextBtn && prevBtn && modalGallery) {
+        nextBtn.addEventListener('click', () => {
             const maxScrollLeft = modalGallery.scrollWidth - modalGallery.clientWidth;
-            modalGallery.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
-        } else {
-            modalGallery.scrollBy({ left: -modalGallery.clientWidth, behavior: 'smooth' });
-        }
-    });
+            if (modalGallery.scrollLeft >= maxScrollLeft - 5) {
+                modalGallery.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                modalGallery.scrollBy({ left: modalGallery.clientWidth, behavior: 'smooth' });
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (modalGallery.scrollLeft <= 5) {
+                const maxScrollLeft = modalGallery.scrollWidth - modalGallery.clientWidth;
+                modalGallery.scrollTo({ left: maxScrollLeft, behavior: 'smooth' });
+            } else {
+                modalGallery.scrollBy({ left: -modalGallery.clientWidth, behavior: 'smooth' });
+            }
+        });
+    }
 
     // Cerrar Modal
     const closeModal = () => {
+        if (typeof modal.close === 'function' && modal.open) {
+            modal.close();
+        }
         modal.classList.remove('show');
         document.body.style.overflow = 'auto'; 
     };
-    btnClose.addEventListener('click', closeModal);
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
+
+    if (btnClose) {
+        btnClose.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            const rect = modal.getBoundingClientRect();
+            const isInDialog = (rect.top <= e.clientY && e.clientY <= rect.top + rect.height &&
+              rect.left <= e.clientX && e.clientX <= rect.left + rect.width);
+            if (!isInDialog || e.target === modal) {
+                closeModal();
+            }
+        });
+
+        modal.addEventListener('cancel', () => {
+            document.body.style.overflow = 'auto';
+        });
+    }
 
     // ==========================================
-    // 3. VALIDACIÓN FORMULARIO (10MB)
+    // 3. HIGHLIGHT DE NAVEGACIÓN SEGÚN SCROLL
+    // ==========================================
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentId = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentId}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.4 });
+
+    sections.forEach(section => navObserver.observe(section));
+
+    // ==========================================
+    // 4. VALIDACIÓN FORMULARIO (10MB)
     // ==========================================
     const fileInput = document.getElementById('file-upload');
     const fileNameDisplay = document.getElementById('file-name');
@@ -148,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 4. ANIMACIÓN BARRAS DE SOFTWARE (SCROLL)
+    // 5. ANIMACIÓN BARRAS DE SOFTWARE (SCROLL)
     // ==========================================
     const skillFills = document.querySelectorAll('.skill-fill');
     
