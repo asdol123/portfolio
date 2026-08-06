@@ -77,8 +77,8 @@ body.loaded #splash-screen { opacity: 0; visibility: hidden; pointer-events: non
 nav { 
     position: fixed; top: 0; width: 100%; padding: 25px 6%; 
     display: flex; justify-content: space-between; align-items: center; 
-    background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); 
-    z-index: 1000; border-bottom: 1px solid var(--border-color); 
+    background: rgba(255, 255, 255, 0.65); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    z-index: 1000; border-bottom: 1px solid rgba(255, 255, 255, 0.8); 
 }
 .logo { font-size: 1.1rem; font-weight: 600; letter-spacing: 0.25em; color: var(--text-color); }
 .nav-links { display: flex; gap: 35px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; }
@@ -147,66 +147,75 @@ nav {
 .section-header h2 { font-size: 1.8rem; font-weight: 300; letter-spacing: 0.2em; color: var(--text-color); margin-bottom: 10px; }
 .section-header p { font-size: 0.85rem; color: var(--text-light); font-weight: 300; letter-spacing: 0.05em; }
 
-/* Motor de la Grilla Architectura Pro */
+/* Motor de la Grilla Architectura Pro (Masonry Liquid Glass) */
 .portfolio-grid { 
-    display: grid; 
-    grid-template-columns: repeat(4, 1fr); 
-    grid-auto-rows: 320px; 
-    gap: 25px; 
-    grid-auto-flow: dense; 
+    column-count: 2; 
+    column-gap: 25px; 
+    width: 100%;
 }
-
-.span-2x2 { grid-column: span 2; grid-row: span 2; } 
-.span-2x1 { grid-column: span 2; grid-row: span 1; } 
-.span-1x2 { grid-column: span 1; grid-row: span 2; } 
+@media (max-width: 768px) {
+    .portfolio-grid { column-count: 1; }
+}
 
 .portfolio-item { 
     position: relative; 
     overflow: hidden;   
     background: var(--bg-alt);
     cursor: pointer; 
-    width: 100%; height: 100%;
+    width: 100%; 
+    display: inline-block; /* Esencial para Masonry */
+    margin-bottom: 25px; /* Reemplaza el gap vertical */
+    break-inside: avoid; /* Previene cortes de columna */
     border: 1px solid var(--border-color);
+    border-radius: 16px; /* Apple Style Squircles */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+    transform: translateZ(0); /* Hardware acceleration */
 }
 
 .portfolio-item img { 
-    width: 100%; height: 100%; 
+    width: 100%; height: auto; 
     object-fit: cover; object-position: center; 
-    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
     opacity: 1;
     display: block;
+    border-radius: 16px;
 }
 
 .portfolio-info {
-    position: absolute; bottom: 0; left: 0; width: 100%; 
-    padding: 50px 25px 25px 25px; 
-    background: linear-gradient(to top, rgba(17, 17, 17, 0.85) 0%, rgba(17, 17, 17, 0.2) 70%, rgba(17, 17, 17, 0) 100%);
-    color: #FFFFFF; 
-    transform: translateY(20px); 
+    position: absolute; bottom: 15px; left: 15px; width: calc(100% - 30px); 
+    padding: 20px; border-radius: 14px;
+    background: rgba(255, 255, 255, 0.7); 
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    color: #111111; 
+    transform: translateY(10px) scale(0.98); 
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.4s ease;
     display: flex; flex-direction: column; align-items: flex-start;
     pointer-events: none; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .portfolio-item:hover img { 
-    transform: scale(1.03); 
+    transform: scale(1.04); 
     opacity: 1; 
 }
 .portfolio-item:hover .portfolio-info { 
-    transform: translateY(0); 
+    transform: translateY(0) scale(1); 
     opacity: 1; 
 }
 
 .portfolio-info h3 { 
-    font-size: 1.05rem; font-weight: 300; 
-    letter-spacing: 0.15em; margin: 10px 0 0 0; 
+    font-size: 1.05rem; font-weight: 500; 
+    letter-spacing: 0.05em; margin: 10px 0 0 0; 
 }
 
 .tag-year { 
-    font-size: 0.7rem; font-weight: 300; 
-    border: 1px solid rgba(255, 255, 255, 0.5); 
-    padding: 3px 12px; letter-spacing: 0.15em; 
+    font-size: 0.7rem; font-weight: 500; 
+    border: 1px solid rgba(17, 17, 17, 0.2); 
+    padding: 3px 12px; letter-spacing: 0.1em; 
+    border-radius: 20px;
+    color: #444444;
 }
 
 /* ==========================================================================

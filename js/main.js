@@ -21,18 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.querySelector('.prev-btn');
     const nextBtn = document.querySelector('.next-btn');
 
-    // PATRÓN ALGORÍTMICO AUTOMÁTICO (Data-Driven Grid)
-    const patronGrilla = ["span-2x2", "", "span-1x2", "", "span-2x1", ""];
-
+    // El diseño ahora usa CSS Columns (Masonry), por lo que no forzamos clases de grid.
     if (typeof misProyectos !== 'undefined') {
         misProyectos.forEach((proyecto, index) => {
             const card = document.createElement('div');
             
-            // Asignación automática de jerarquía visual
-            const claseAutomatica = patronGrilla[index % patronGrilla.length];
-            card.className = `portfolio-item ${claseAutomatica}`;
+            // Asignación estándar sin clases rígidas
+            card.className = `portfolio-item`;
             
-            // FIX ESTRUCTURAL: Eliminamos la descripción de la tarjeta principal
+            // Tarjeta Liquid Glass
             card.innerHTML = `
                 <img src="${proyecto.imagen_principal}" alt="${proyecto.titulo}" loading="lazy">
                 <div class="portfolio-info">
