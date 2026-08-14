@@ -9,7 +9,10 @@
     --text-light: #666666; 
     --border-color: #E8E8E8;
     --accent-line: #111111;
+    --brand-red: #D92525;
 }
+
+.brand-red { color: var(--brand-red); font-weight: 500; }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
