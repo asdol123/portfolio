@@ -113,7 +113,8 @@ const misProyectos = [
         tipo: "profesionales",
         titulo: "Diseño Interior: Retail y Espacios Comerciales",
         year: "2026",
-        descripcion: "Visualización 3D para locales comerciales, áreas de exhibición y escaparates de marca.",
+        descripcion: "Diseño comercial y modelado CGI de escaparates desarrollado para Todeschini Chile. Derechos y proyectos correspondientes a la marca.",
+        acreditacion: "Todos los proyectos de interiorismo y visualizaciones CGI fueron desarrollados para Todeschini Chile. Diseños, marcas y proyectos sujetos y correspondientes a Todeschini Chile. Modelado 3D, iluminación y posproducción por Adolfo Risopatrón Inzunza para la marca.",
         imagen_principal: "assets/img/profesionales/diseno-interior/diseno-interior_01.png",
         galeria: [
             "assets/img/profesionales/diseno-interior/diseno-interior_01.png",
@@ -127,7 +128,8 @@ const misProyectos = [
         tipo: "profesionales",
         titulo: "Diseño Interior: Oficinas y Entornos Corporativos",
         year: "2026",
-        descripcion: "Entornos corporativos de trabajo flexible con integración de biofilia y acondicionamiento acústico.",
+        descripcion: "Entornos corporativos contemporáneos desarrollados para Todeschini Chile. Modelado 3D y visualización espacial para la marca.",
+        acreditacion: "Todos los proyectos de interiorismo y visualizaciones CGI fueron desarrollados para Todeschini Chile. Diseños, marcas y proyectos sujetos y correspondientes a Todeschini Chile. Modelado 3D, iluminación y posproducción por Adolfo Risopatrón Inzunza para la marca.",
         imagen_principal: "assets/img/profesionales/diseno-interior/diseno-interior_05.png",
         galeria: [
             "assets/img/profesionales/diseno-interior/diseno-interior_05.png",
@@ -141,7 +143,8 @@ const misProyectos = [
         tipo: "profesionales",
         titulo: "Diseño Interior: Arquitectura Residencial y Atmósferas",
         year: "2026",
-        descripcion: "Modelado y visualización de espacios residenciales con estudio de luz natural y texturas.",
+        descripcion: "Exploración fenomenológica y visualizaciones de atmósfera residencial desarrolladas para Todeschini Chile.",
+        acreditacion: "Todos los proyectos de interiorismo y visualizaciones CGI fueron desarrollados para Todeschini Chile. Diseños, marcas y proyectos sujetos y correspondientes a Todeschini Chile. Modelado 3D, iluminación y posproducción por Adolfo Risopatrón Inzunza para la marca.",
         imagen_principal: "assets/img/profesionales/diseno-interior/diseno-interior_09.png",
         galeria: [
             "assets/img/profesionales/diseno-interior/diseno-interior_09.png",

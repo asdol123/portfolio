@@ -124,6 +124,7 @@
                         <div class="modal-project-desc" id="modal-desc-body">
                             <p>Descripción técnica del proyecto.</p>
                         </div>
+                        <div id="modal-accreditation-box" class="modal-accreditation-box" style="display: none;"></div>
                     </div>
 
                     <div>
@@ -200,6 +201,22 @@
                 modalCategory.textContent = proyecto.tipo === 'academicos' ? 'INVESTIGACIÓN' : 'PRÁCTICA PROFESIONAL';
                 
                 modalDesc.innerHTML = `<p>${proyecto.descripcion || 'Documentación técnica en proceso.'}</p>`;
+
+                const modalAccreditationBox = document.getElementById('modal-accreditation-box');
+                const isTodeschini = Boolean(proyecto.acreditacion || (proyecto.id && proyecto.id.startsWith('diseno-interior')));
+                if (modalAccreditationBox) {
+                    if (isTodeschini) {
+                        const accText = proyecto.acreditacion || "Todos los proyectos de interiorismo y visualizaciones CGI fueron desarrollados para Todeschini Chile. Diseños, marcas y proyectos sujetos y correspondientes a Todeschini Chile. Modelado 3D, iluminación y posproducción por Adolfo Risopatrón Inzunza para la marca.";
+                        modalAccreditationBox.innerHTML = `
+                            <div class="modal-accreditation-tag">// ACREDITACIÓN INSTITUCIONAL: TODESCHINI CHILE</div>
+                            <p class="modal-accreditation-text">${accText}</p>
+                        `;
+                        modalAccreditationBox.style.display = 'block';
+                    } else {
+                        modalAccreditationBox.innerHTML = '';
+                        modalAccreditationBox.style.display = 'none';
+                    }
+                }
 
                 const wspMessage = `Hola Adolfo, me interesa consultar por un proyecto similar a: "${proyecto.titulo}" (${proyecto.year || '2026'}).`;
                 modalWspCta.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspMessage)}`;
@@ -278,6 +295,7 @@
 
                     const numTag = (isAcad ? countA : countP).toString().padStart(2, '0');
                     const photoCount = proj.galeria ? proj.galeria.length : 1;
+                    const isTodeschini = Boolean(proj.acreditacion || (proj.id && proj.id.startsWith('diseno-interior')));
 
                     const card = document.createElement('article');
                     card.className = 'ed-project-card';
@@ -289,9 +307,13 @@
                         <div class="ed-project-media">
                             <img src="${proj.imagen_principal}" alt="${proj.titulo}" loading="lazy">
                             <span class="ed-project-meta-pill">${numTag} // ${photoCount} ${photoCount === 1 ? 'LÁMINA' : 'LÁMINAS'}</span>
+                            ${isTodeschini ? '<span class="ed-project-brand-pill">TODESCHINI CHILE</span>' : ''}
                         </div>
                         <div class="ed-project-body">
-                            <span class="ed-project-year">${proj.year || '2026'} · ${isAcad ? 'INVESTIGACIÓN' : 'PRÁCTICA'}</span>
+                            <div class="ed-project-meta-row">
+                                <span class="ed-project-year">${proj.year || '2026'} · ${isAcad ? 'INVESTIGACIÓN' : 'PRÁCTICA'}</span>
+                                ${isTodeschini ? '<span class="ed-project-client-badge">PARA TODESCHINI CHILE</span>' : ''}
+                            </div>
                             <h3 class="ed-project-title">${proj.titulo}</h3>
                             <p class="ed-project-desc">${proj.descripcion || ''}</p>
                             <span class="ed-project-footer-link">

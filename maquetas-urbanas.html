@@ -94,6 +94,63 @@
             </div>
         </section>
 
+        <!-- INDICADOR VISUAL COMPARATIVO DE ESCALA EN TIEMPO REAL -->
+        <section class="scale-comparator-section" aria-label="Comparativa de escala y huella en tiempo real">
+            <div class="scale-comparator-header">
+                <div>
+                    <span class="scale-comparator-eyebrow">// PROPORCIÓN &amp; HUELLA FÍSICA EN TIEMPO REAL</span>
+                    <h2 class="scale-comparator-title" id="comparator-format-title">FORMATO ACTIVO: 10 × 10 CM (100 × 100 MM)</h2>
+                </div>
+                <div class="scale-comparator-tag" id="comparator-scale-tag">ESCALA RECOMENDADA: 1:2000 / 1:5000</div>
+            </div>
+
+            <div class="scale-stage-grid">
+                <!-- Visor Gráfico de Escala Relativa con retícula milimétrica -->
+                <div class="scale-canvas-box" aria-hidden="true">
+                    <div class="scale-desk-reference">
+                        <span class="scale-desk-label">ÁREA DE IMPRESIÓN BASE (250 × 250 mm)</span>
+                        
+                        <!-- Caja interactiva proporcional animada -->
+                        <div class="scale-footprint-box format-10x10" id="scale-footprint-box">
+                            <span class="scale-dimension-w" id="dim-w">100 mm</span>
+                            <span class="scale-dimension-h" id="dim-h">100 mm</span>
+                            <div class="scale-footprint-inner">
+                                <span class="scale-center-tag" id="footprint-inner-text">10 × 10 cm</span>
+                            </div>
+                        </div>
+
+                        <!-- Referencia de comparación visual -->
+                        <div class="scale-ref-card" title="Tarjeta de referencia estándar 85×55mm">
+                            <span>REF. 85×55mm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Desglose Técnico de la Huella y Cobertura Territorial -->
+                <div class="scale-info-panel">
+                    <div class="scale-info-row">
+                        <span class="scale-info-label">Superficie de Huella:</span>
+                        <strong class="scale-info-value" id="info-surface">100 cm² (0.01 m²)</strong>
+                    </div>
+                    <div class="scale-info-row">
+                        <span class="scale-info-label">Cobertura Territorial Real:</span>
+                        <strong class="scale-info-value" id="info-coverage">~200 m a 500 m de radio urbano</strong>
+                    </div>
+                    <div class="scale-info-row">
+                        <span class="scale-info-label">Detalle Topográfico:</span>
+                        <strong class="scale-info-value" id="info-detail">Curvas de nivel cada 1.0 m a 2.5 m</strong>
+                    </div>
+                    <div class="scale-info-row">
+                        <span class="scale-info-label">Tiempo de Manufactura:</span>
+                        <strong class="scale-info-value" id="info-time">Aprox. 6 a 10 horas continuas</strong>
+                    </div>
+                    <div class="scale-info-note">
+                        *El modelo se entrega en manufactura aditiva mate sobre base calibrada de presentación.
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FLUJO DE COTIZACIÓN FORMAL & NOTIFICACIÓN INMEDIATA -->
         <section class="order-dossier-wrap" aria-label="Formulario de solicitud formal">
             <div class="order-summary-bar">
@@ -197,8 +254,70 @@
             const submitBtn = document.getElementById('btn-submit-formal');
             const inputEmail = document.getElementById('input-email');
 
+            const compTitle = document.getElementById('comparator-format-title');
+            const compScaleTag = document.getElementById('comparator-scale-tag');
+            const dimW = document.getElementById('dim-w');
+            const dimH = document.getElementById('dim-h');
+            const footprintInner = document.getElementById('footprint-inner-text');
+            const footprintBox = document.getElementById('scale-footprint-box');
+            const infoSurface = document.getElementById('info-surface');
+            const infoCoverage = document.getElementById('info-coverage');
+            const infoDetail = document.getElementById('info-detail');
+            const infoTime = document.getElementById('info-time');
+
             let currentFormat = "10 × 10 cm";
             let currentPrice = "$9.990 CLP";
+
+            const SCALE_DATA = {
+                "10 × 10 cm": {
+                    title: "FORMATO ACTIVO: 10 × 10 CM (100 × 100 MM)",
+                    scale: "ESCALA RECOMENDADA: 1:2000 / 1:5000",
+                    dimW: "100 mm",
+                    dimH: "100 mm",
+                    innerText: "10 × 10 cm",
+                    boxClass: "scale-footprint-box format-10x10",
+                    surface: "100 cm² (0.01 m²)",
+                    coverage: "~200 m a 500 m de radio urbano",
+                    detail: "Curvas de nivel cada 1.0 m a 2.5 m",
+                    time: "Aprox. 6 a 10 horas continuas"
+                },
+                "15 × 15 cm": {
+                    title: "FORMATO ACTIVO: 15 × 15 CM (150 × 150 MM)",
+                    scale: "ESCALA RECOMENDADA: 1:1000 / 1:2000",
+                    dimW: "150 mm",
+                    dimH: "150 mm",
+                    innerText: "15 × 15 cm",
+                    boxClass: "scale-footprint-box format-15x15",
+                    surface: "225 cm² (0.0225 m²)",
+                    coverage: "~400 m a 800 m de entorno barrial",
+                    detail: "Edificaciones volumétricas completas y vías principales",
+                    time: "Aprox. 12 a 18 horas continuas"
+                },
+                "20 × 20 cm": {
+                    title: "FORMATO ACTIVO: 20 × 20 CM (200 × 200 MM)",
+                    scale: "ESCALA RECOMENDADA: 1:500 / 1:1000",
+                    dimW: "200 mm",
+                    dimH: "200 mm",
+                    innerText: "20 × 20 cm",
+                    boxClass: "scale-footprint-box format-20x20",
+                    surface: "400 cm² (0.04 m²)",
+                    coverage: "~800 m a 1.5 km de polígono territorial",
+                    detail: "Alta densidad de detalle urbano, manzana y topografía",
+                    time: "Aprox. 20 a 30 horas continuas"
+                },
+                "Medida Especial": {
+                    title: "FORMATO ACTIVO: MEDIDA ESPECIAL (HASTA 50 × 50 CM O MODULAR)",
+                    scale: "ESCALA A MEDIDA (CONCURSOS / MASTERPLANS)",
+                    dimW: "Variable",
+                    dimH: "Variable",
+                    innerText: "Medida Especial",
+                    boxClass: "scale-footprint-box format-especial",
+                    surface: "Modular / Múltiples baldosas",
+                    coverage: "Polígono territorial ilimitado por ensamblaje",
+                    detail: "Definido por bases técnicas o memoria de concurso",
+                    time: "A convenir según superficie total"
+                }
+            };
 
             function selectFormat(card) {
                 cards.forEach(c => {
@@ -217,6 +336,21 @@
                 if (hiddenFormat) hiddenFormat.value = currentFormat;
                 if (hiddenPrice) hiddenPrice.value = currentPrice;
                 if (formSubject) formSubject.value = `Solicitud Cotización Formal: Maqueta Urbana ${currentFormat}`;
+
+                // Actualizar bloque comparador de escala
+                const data = SCALE_DATA[currentFormat] || SCALE_DATA["10 × 10 cm"];
+                if (data) {
+                    if (compTitle) compTitle.textContent = data.title;
+                    if (compScaleTag) compScaleTag.textContent = data.scale;
+                    if (dimW) dimW.textContent = data.dimW;
+                    if (dimH) dimH.textContent = data.dimH;
+                    if (footprintInner) footprintInner.textContent = data.innerText;
+                    if (footprintBox) footprintBox.className = data.boxClass;
+                    if (infoSurface) infoSurface.textContent = data.surface;
+                    if (infoCoverage) infoCoverage.textContent = data.coverage;
+                    if (infoDetail) infoDetail.textContent = data.detail;
+                    if (infoTime) infoTime.textContent = data.time;
+                }
 
                 // Actualizar botón de WhatsApp directo
                 if (wspDirectBtn) {

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ALZADO ROJO · Fabricación Digital 3D de Arquitectura. Tarifa oficial: $85 CLP/g + $1.000 CLP/h. Calculadora en tiempo real y cotización directa por WhatsApp.">
     <meta name="theme-color" content="#FFFFFF">
-    <title>Fabricación Digital 3D ($85/g + $1.000/h) | ALZADO ROJO</title>
+    <title>Fabricación Digital 3D &amp; Prototipado | ALZADO ROJO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -39,7 +39,7 @@
         <!-- ENCABEZADO MONOGRÁFICO SOBRIO -->
         <div class="ed-hero-title-wrap">
             <span class="ed-eyebrow">DOSSIER TÉCNICO 02 // MANUFACTURA ADITIVA</span>
-            <h1 class="ed-page-title">FABRICACIÓN DIGITAL 3D</h1>
+            <h1 class="ed-page-title">FABRICACIÓN DIGITAL 3D &amp; PROTOTIPADO</h1>
             <p class="ed-page-subtitle">
                 Materialización de modelos y prototipos arquitectónicos con tolerancia milimétrica en PLA mate no reflectante y resina de alta resolución.
             </p>
@@ -48,8 +48,8 @@
         <!-- CALCULADORA DE 2 INPUTS LIMPIOS -->
         <section class="calc-clean-card" aria-label="Calculadora de Fabricación 3D">
             <div class="calc-tariff-banner">
-                <span class="calc-tariff-badge">TARIFA OFICIAL: $85 CLP / g + $1.000 CLP / h</span>
-                <span class="calc-tariff-subtitle">Calcula el presupuesto estimado de impresión</span>
+                <span class="calc-tariff-badge">TARIFA TÉCNICA: $85 CLP / g + $1.000 CLP / h</span>
+                <span class="calc-tariff-subtitle">Calcula el presupuesto estimado de impresión en tiempo real</span>
             </div>
 
             <div class="calc-inputs-row">
@@ -71,6 +71,43 @@
                         <span class="calc-unit-tag">h</span>
                     </div>
                     <span id="calc-hours-hint" class="calc-auto-hint">Estimado automático: 4 h (1h cada 30g)</span>
+                </div>
+            </div>
+
+            <!-- INDICADOR VISUAL DINÁMICO DE PRODUCCIÓN EN TIEMPO REAL -->
+            <div class="calc-live-meter" aria-live="polite">
+                <div class="meter-header">
+                    <span class="meter-title">// TELEMETRÍA ESTIMADA DE PRODUCCIÓN</span>
+                    <span class="meter-status-tag" id="meter-status-text">PROTOTIPO MEDIO · 4.0H</span>
+                </div>
+
+                <!-- Barra gráfica proporcional dinámica -->
+                <div class="meter-bar-track" title="Distribución de costos estimados: Material vs Máquina">
+                    <div class="meter-segment segment-material" id="meter-bar-material" style="width: 68%;">
+                        <span class="meter-segment-label" id="meter-label-mat">PLA: 68%</span>
+                    </div>
+                    <div class="meter-segment segment-machine" id="meter-bar-machine" style="width: 32%;">
+                        <span class="meter-segment-label" id="meter-label-mach">MÁQ: 32%</span>
+                    </div>
+                </div>
+
+                <!-- Ficha técnica secundaria en tiempo real -->
+                <div class="meter-metrics-row">
+                    <div class="meter-metric-item">
+                        <span class="metric-key">USO DE BOBINA:</span>
+                        <strong class="metric-val" id="meter-spool-pct">10.0%</strong>
+                        <span class="metric-sub">(de 1.000g PLA)</span>
+                    </div>
+                    <div class="meter-metric-item">
+                        <span class="metric-key">CICLO DE IMPRESIÓN:</span>
+                        <strong class="metric-val" id="meter-cycle-text">4.0 h</strong>
+                        <span class="metric-sub">estimadas</span>
+                    </div>
+                    <div class="meter-metric-item">
+                        <span class="metric-key">TASA HORARIA EFECTIVA:</span>
+                        <strong class="metric-val" id="meter-ratio-text">$3.125/h</strong>
+                        <span class="metric-sub">PLA + Máquina</span>
+                    </div>
                 </div>
             </div>
 
@@ -165,6 +202,16 @@
             const totalVal = document.getElementById('calc-total-val');
             const wspBtn = document.getElementById('btn-calc-wsp');
 
+            // Elementos del monitor visual dinámico
+            const meterBarMat = document.getElementById('meter-bar-material');
+            const meterBarMach = document.getElementById('meter-bar-machine');
+            const meterLabelMat = document.getElementById('meter-label-mat');
+            const meterLabelMach = document.getElementById('meter-label-mach');
+            const meterStatusText = document.getElementById('meter-status-text');
+            const meterSpoolPct = document.getElementById('meter-spool-pct');
+            const meterCycleText = document.getElementById('meter-cycle-text');
+            const meterRatioText = document.getElementById('meter-ratio-text');
+
             const PRICE_GRAM = 85;
             const PRICE_HOUR = 1000;
 
@@ -201,6 +248,48 @@
                 if (breakdownGramsVal) breakdownGramsVal.textContent = `${grams}g × $85 = ${formatCLP(matCost)}`;
                 if (breakdownHoursVal) breakdownHoursVal.textContent = `${hours}h × $1.000 = ${formatCLP(machCost)}`;
                 if (totalVal) totalVal.textContent = formattedTotal;
+
+                // Actualización del monitor dinámico en tiempo real
+                if (meterBarMat && meterBarMach) {
+                    let pctMat = 50;
+                    let pctMach = 50;
+                    if (total > 0) {
+                        pctMat = Math.round((matCost / total) * 100);
+                        pctMach = 100 - pctMat;
+                    }
+
+                    meterBarMat.style.width = `${pctMat}%`;
+                    meterBarMach.style.width = `${pctMach}%`;
+
+                    if (meterLabelMat) meterLabelMat.textContent = `PLA: ${pctMat}% ($${Math.round(matCost).toLocaleString('es-CL')})`;
+                    if (meterLabelMach) meterLabelMach.textContent = `MÁQ: ${pctMach}% ($${Math.round(machCost).toLocaleString('es-CL')})`;
+
+                    if (meterSpoolPct) {
+                        const spoolRatio = ((grams / 1000) * 100).toFixed(1);
+                        meterSpoolPct.textContent = `${spoolRatio}%`;
+                    }
+
+                    if (meterCycleText) {
+                        meterCycleText.textContent = `${hours.toFixed(1)} h`;
+                    }
+
+                    if (meterRatioText) {
+                        const effectiveRatio = hours > 0 ? Math.round(total / hours) : 0;
+                        meterRatioText.textContent = `$${effectiveRatio.toLocaleString('es-CL')}/h`;
+                    }
+
+                    if (meterStatusText) {
+                        let statusTag = "VOLUMETRÍA INICIAL";
+                        if (hours <= 2) {
+                            statusTag = `PROTOTIPADO RÁPIDO · ${hours}H`;
+                        } else if (hours <= 8) {
+                            statusTag = `PRODUCCIÓN MEDIA · ${hours}H`;
+                        } else {
+                            statusTag = `PRODUCCIÓN INTENSIVA // GRAN ESCALA · ${hours}H`;
+                        }
+                        meterStatusText.textContent = statusTag;
+                    }
+                }
 
                 if (wspBtn) {
                     const horasTipo = isManual ? '(manuales)' : '(estimadas)';

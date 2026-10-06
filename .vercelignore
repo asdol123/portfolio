@@ -1,0 +1,17 @@
+# Archivos confidenciales y temporales
+recovery-codes.txt
+Thumbs.db
+.DS_Store
+*.mp4
+
+# Scripts de mantenimiento local de Windows
+*.bat
+scripts/*.ps1
+scripts/organizador.ps1
+scripts/actualizar.ps1
+scripts/compile-pdf.ps1
+scripts/compile-pdf.js
+generate_pdf.js
+
+# Perfiles temporales
+.temp_chrome_print_profile/
