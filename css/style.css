@@ -8,11 +8,11 @@
    -------------------------------------------------------------------------- */
 :root {
     /* Superficies & Fondos (Modo Claro Exclusivo) */
-    --bg-primary: #FCFCFB;
+    --bg-primary: #FFFFFF;
     --bg-surface: #FFFFFF;
-    --bg-surface-elevated: #F6F6F4;
-    --bg-alt: #F4F4F0;
-    --bg-hover: #ECECE7;
+    --bg-surface-elevated: #F8F9FA;
+    --bg-alt: #F4F5F7;
+    --bg-hover: #EDEDF0;
     --bg-contrast: #121214;
     
     /* Compatibilidad hacia atrás */
@@ -49,11 +49,11 @@
     --shadow-card-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.10), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
 
     /* Glassmorphism & Overlays */
-    --glass-nav: rgba(252, 252, 251, 0.92);
-    --glass-card: rgba(255, 255, 255, 0.9);
+    --glass-nav: rgba(255, 255, 255, 0.94);
+    --glass-card: rgba(255, 255, 255, 0.95);
     --glass-border: rgba(255, 255, 255, 0.9);
     --modal-overlay: rgba(18, 18, 20, 0.72);
-    --hero-overlay: radial-gradient(circle at center, rgba(252, 252, 251, 0.45) 0%, rgba(252, 252, 251, 0.88) 100%);
+    --hero-overlay: radial-gradient(circle at center, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.9) 100%);
 
     /* Radios & Layout */
     --radius-sm: 6px;
@@ -2148,4 +2148,327 @@ dialog.modal::backdrop {
     color: var(--text-secondary);
     line-height: 1.7;
     font-weight: 300;
+}
+
+/* ==========================================================================
+   VIÑETAS EDITORIALES DE EFICIENCIA ENERGÉTICA
+   ========================================================================== */
+.energy-card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.energy-feature-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+    margin-bottom: 6px;
+}
+
+.energy-bullets-list {
+    list-style: none;
+    margin: 16px 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.energy-bullets-list li {
+    font-size: 0.86rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-weight: 300;
+}
+
+.energy-bullets-list li strong {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.energy-bullets-list li::before {
+    content: "■";
+    color: var(--brand-red);
+    font-size: 0.65rem;
+    flex-shrink: 0;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   HERO VIDEO EN PORTADA (MINIMALISTA DE ALTO IMPACTO)
+   ========================================================================== */
+.hero-video-container {
+    position: relative;
+    width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: #121214;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-subtle);
+    aspect-ratio: 16 / 9;
+}
+
+.hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(18, 18, 20, 0.05) 0%, rgba(18, 18, 20, 0.45) 100%);
+    pointer-events: none;
+}
+
+.hero-video-badge {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(18, 18, 20, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #FFFFFF;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+}
+
+.hero-video-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    background: #25D366;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 6px #25D366;
+}
+
+/* ==========================================================================
+   TARJETAS VISUALES DE SERVICIOS (ALTO IMPACTO VISUAL)
+   ========================================================================== */
+.services-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+    .services-visual-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+.service-visual-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-visual-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--brand-red-border);
+}
+
+.service-visual-thumb {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: var(--bg-alt);
+}
+
+@media (min-width: 1200px) {
+    .service-visual-thumb {
+        height: 290px;
+    }
+}
+
+.service-visual-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.service-visual-card:hover .service-visual-img {
+    transform: scale(1.05);
+}
+
+.service-visual-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(18, 18, 20, 0.05) 0%, rgba(18, 18, 20, 0.5) 100%);
+    transition: background 0.3s ease;
+}
+
+.service-visual-card:hover .service-visual-overlay {
+    background: linear-gradient(180deg, rgba(18, 18, 20, 0.1) 0%, rgba(18, 18, 20, 0.65) 100%);
+}
+
+.service-visual-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: var(--brand-red);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    z-index: 2;
+}
+
+.service-visual-content {
+    padding: 28px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: space-between;
+    background: var(--bg-surface);
+}
+
+.service-visual-title {
+    font-size: 1.35rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.service-visual-desc {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    font-weight: 300;
+    margin-bottom: 22px;
+}
+
+.service-visual-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.service-visual-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+    transition: gap 0.25s ease;
+}
+
+.service-visual-card:hover .service-visual-cta {
+    gap: 14px;
+}
+
+.service-visual-tag {
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+/* ==========================================================================
+   LAYOUT CALCULADORA 3D AVANZADA
+   ========================================================================== */
+.calc-inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+    .calc-inputs-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+.calc-hint {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1.4;
+}
+
+.calc-hint.auto-active {
+    color: var(--brand-red);
+    font-weight: 500;
+}
+
+.calc-formula-display {
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+}
+
+.calc-formula-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calc-formula-row strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.calc-formula-badge {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--brand-red);
+    font-weight: 600;
 }
