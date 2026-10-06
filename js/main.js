@@ -6,48 +6,13 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================
-    // 0. CONTROL DE TEMA (CLARO / OSCURO)
+    // 0. MODO CLARO EXCLUSIVO
     // ==========================================
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const metaThemeColor = document.getElementById('meta-theme-color');
-
-    function applyTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        try {
-            localStorage.setItem('ar_theme', theme);
-        } catch (e) {
-            console.warn('LocalStorage inaccesible para tema:', e);
-        }
-
-        if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', theme === 'dark' ? '#0D0D10' : '#FCFCFB');
-        }
-
-        if (themeToggleBtn) {
-            themeToggleBtn.setAttribute('aria-label', theme === 'dark' ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
-        }
-    }
-
-    // Inicializar tema guardado o según preferencia del sistema
-    let initialTheme = 'light';
+    document.documentElement.setAttribute('data-theme', 'light');
     try {
-        const savedTheme = localStorage.getItem('ar_theme');
-        if (savedTheme === 'dark' || savedTheme === 'light') {
-            initialTheme = savedTheme;
-        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            initialTheme = 'dark';
-        }
+        localStorage.removeItem('ar_theme');
     } catch (e) {
-        console.warn(e);
-    }
-    applyTheme(initialTheme);
-
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            applyTheme(nextTheme);
-        });
+        // Ignorar si LocalStorage está restringido
     }
 
     // ==========================================
