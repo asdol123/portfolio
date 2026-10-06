@@ -797,7 +797,8 @@ body > nav {
 /* --------------------------------------------------------------------------
    8. MODAL DE VISUALIZACIÓN PREMIUM DE PROYECTOS
    -------------------------------------------------------------------------- */
-dialog.modal {
+dialog.modal,
+dialog.project-modal {
     display: none;
     position: fixed;
     z-index: 2000;
@@ -815,20 +816,24 @@ dialog.modal {
 }
 
 dialog.modal[open],
-.modal.show {
+dialog.project-modal[open],
+.modal.show,
+.project-modal.show {
     display: flex;
     opacity: 1;
     justify-content: center;
     align-items: center;
 }
 
-dialog.modal::backdrop {
+dialog.modal::backdrop,
+dialog.project-modal::backdrop {
     background-color: var(--modal-overlay);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
 }
 
-.modal-dialog-shell {
+.modal-dialog-shell,
+.modal-wrapper {
     width: 92vw;
     max-width: 1420px;
     height: 90vh;
@@ -850,7 +855,8 @@ dialog.modal::backdrop {
 }
 
 /* Barra Superior del Modal */
-.modal-top-bar {
+.modal-top-bar,
+.modal-header-bar {
     padding: 16px 28px;
     display: flex;
     justify-content: space-between;
@@ -860,7 +866,8 @@ dialog.modal::backdrop {
     flex-shrink: 0;
 }
 
-.modal-breadcrumbs {
+.modal-breadcrumbs,
+.modal-breadcrumb {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -869,7 +876,8 @@ dialog.modal::backdrop {
     font-weight: 500;
 }
 
-.modal-crumb-tag {
+.modal-crumb-tag,
+#modal-category-label {
     color: var(--brand-red);
 }
 
@@ -877,17 +885,20 @@ dialog.modal::backdrop {
     color: var(--text-muted);
 }
 
-.modal-crumb-year {
+.modal-crumb-year,
+#modal-crumb-year {
     color: var(--text-secondary);
 }
 
-.modal-top-controls {
+.modal-top-controls,
+.modal-actions-right {
     display: flex;
     align-items: center;
     gap: 16px;
 }
 
-.modal-counter-badge {
+.modal-counter-badge,
+.gallery-counter {
     font-size: 0.72rem;
     letter-spacing: 0.15em;
     font-weight: 500;
@@ -920,7 +931,8 @@ dialog.modal::backdrop {
 }
 
 /* Cuerpo del Modal (Split View) */
-.modal-content {
+.modal-content,
+.modal-body-layout {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
@@ -929,7 +941,8 @@ dialog.modal::backdrop {
 }
 
 /* Visor de Láminas / Imágenes */
-.modal-main {
+.modal-main,
+.modal-viewer-column {
     flex: 1 1 65%;
     display: flex;
     flex-direction: column;
@@ -939,7 +952,8 @@ dialog.modal::backdrop {
     overflow: hidden;
 }
 
-.carousel-wrapper {
+.carousel-wrapper,
+.modal-gallery-stage {
     position: relative;
     width: 100%;
     flex-grow: 1;
@@ -950,7 +964,8 @@ dialog.modal::backdrop {
     overflow: hidden;
 }
 
-.modal-gallery {
+.modal-gallery,
+.modal-gallery-track {
     display: flex;
     align-items: center;
     width: 100%;
@@ -959,14 +974,16 @@ dialog.modal::backdrop {
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     gap: 20px;
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none;
 }
 
-.modal-gallery::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
+.modal-gallery::-webkit-scrollbar,
+.modal-gallery-track::-webkit-scrollbar {
+    display: none;
 }
 
-.modal-gallery img {
+.modal-gallery img,
+.modal-gallery-track img {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
@@ -1009,7 +1026,8 @@ dialog.modal::backdrop {
 .next-btn { right: 24px; }
 
 /* Tira de Miniaturas Inferior */
-.modal-thumbnails-strip {
+.modal-thumbnails-strip,
+.modal-thumbnails-track {
     display: flex;
     gap: 10px;
     padding: 12px 24px;
@@ -1049,7 +1067,8 @@ dialog.modal::backdrop {
 }
 
 /* Barra Lateral de Información Editorial */
-.modal-sidebar {
+.modal-sidebar,
+.modal-info-column {
     flex: 0 0 380px;
     display: flex;
     flex-direction: column;
@@ -1059,10 +1078,12 @@ dialog.modal::backdrop {
     overflow-y: auto;
 }
 
-.modal-sidebar-header {
+.modal-sidebar-header,
+.modal-info-scroll {
     margin-bottom: 24px;
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-subtle);
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .modal-tag-row {
@@ -1078,12 +1099,29 @@ dialog.modal::backdrop {
     color: var(--text-muted);
 }
 
-.modal-title {
+.modal-title,
+.modal-heading-title {
     font-size: 1.4rem;
     font-weight: 300;
     letter-spacing: 0.1em;
     line-height: 1.35;
     color: var(--text-primary);
+}
+
+.modal-divider-line {
+    width: 100%;
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 14px 0 16px;
+}
+
+.modal-tag-year {
+    display: inline-block;
+    font-size: 0.72rem;
+    color: var(--brand-red);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
 }
 
 .modal-sidebar-body {
@@ -1092,15 +1130,18 @@ dialog.modal::backdrop {
     padding-right: 6px;
 }
 
-.modal-sidebar-body::-webkit-scrollbar {
+.modal-sidebar-body::-webkit-scrollbar,
+.modal-info-scroll::-webkit-scrollbar {
     width: 4px;
 }
 
-.modal-sidebar-body::-webkit-scrollbar-thumb {
+.modal-sidebar-body::-webkit-scrollbar-thumb,
+.modal-info-scroll::-webkit-scrollbar-thumb {
     background: var(--border-medium);
     border-radius: 2px;
 }
 
+.modal-text-desc p,
 .project-description p {
     font-size: 0.88rem;
     color: var(--text-secondary);
@@ -1109,13 +1150,15 @@ dialog.modal::backdrop {
     font-weight: 300;
 }
 
-.modal-sidebar-footer {
-    margin-top: 24px;
+.modal-sidebar-footer,
+.modal-footer-cta {
+    margin-top: auto;
     padding-top: 20px;
     border-top: 1px solid var(--border-subtle);
 }
 
-.modal-action-btn {
+.modal-action-btn,
+.modal-btn-action {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1131,10 +1174,37 @@ dialog.modal::backdrop {
     transition: all 0.25s ease;
 }
 
-.modal-action-btn:hover {
+.modal-btn-action.primary {
+    background: var(--brand-red);
+    color: #FFFFFF;
+    border-color: var(--brand-red);
+}
+
+.modal-action-btn:hover,
+.modal-btn-action:hover {
     background: var(--brand-red);
     border-color: var(--brand-red);
     color: #FFFFFF;
+}
+
+@media (max-width: 900px) {
+    .modal-content,
+    .modal-body-layout {
+        flex-direction: column;
+    }
+    .modal-sidebar,
+    .modal-info-column {
+        flex: 1 1 auto;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+        padding: 24px;
+        max-height: 280px;
+    }
+    .modal-main,
+    .modal-viewer-column {
+        flex: 1 1 50vh;
+        min-height: 280px;
+    }
 }
 
 /* --------------------------------------------------------------------------
