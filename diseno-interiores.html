@@ -3,421 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ALZADO ROJO | Diseño de Interiores, Retail Comercial, Entornos Corporativos y Atmósferas Residenciales por Adolfo Risopatrón Inzunza. Galería fotorrealista y planimetría técnica.">
+    <meta name="description" content="ALZADO ROJO · Arquitectura Interior & Atmósferas CGI por Adolfo Risopatrón Inzunza. Galería curada de 6 visualizaciones fotorrealistas de alta gama para retail comercial y residencias.">
     <meta name="theme-color" content="#FFFFFF">
-    <title>Diseño de Interiores &amp; Atmósferas | ALZADO ROJO</title>
+    <title>Arquitectura Interior &amp; Atmósferas CGI | ALZADO ROJO</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=8">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/editorial.css?v=1">
 </head>
 <body>
-    <!-- CABECERA Y NAVEGACIÓN PRINCIPAL -->
-    <header class="site-header">
-        <nav class="navbar" aria-label="Navegación principal">
-            <a href="index.html" class="logo" aria-label="Alzado Rojo - Inicio">
-                ALZADO <span class="brand-red">ROJO</span>
-                <span class="logo-accent" aria-hidden="true"></span>
-            </a>
 
-            <!-- ENLACES DE NAVEGACIÓN -->
-            <div class="nav-links" id="primary-nav">
-                <a href="index.html" class="nav-link">Inicio</a>
-                <a href="maquetas-3d.html" class="nav-link">Maquetas 3D</a>
-                <a href="eficiencia-energetica.html" class="nav-link">Eficiencia Energética</a>
-                <a href="diseno-interiores.html" class="nav-link active">Diseño Interior</a>
-                <a href="proyectos.html" class="nav-link">Proyectos</a>
-                <a href="sobre-mi.html" class="nav-link">Sobre Mí</a>
-                <a href="#contacto" class="nav-link">Contacto</a>
-            </div>
-
-            <!-- CONTROLES ADICIONALES (WHATSAPP Y MENÚ MÓVIL) -->
-            <div class="nav-actions">
-                <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="header-wsp-btn" title="Contactar por WhatsApp">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                    </svg>
-                    <span>WHATSAPP</span>
+    <!-- CABECERA EDITORIAL MINIMALISTA -->
+    <header class="ed-header">
+        <div class="ed-header-inner">
+            <div class="ed-logo-block">
+                <a href="index.html" class="ed-logo" aria-label="Alzado Rojo - Portada">
+                    ALZADO <span class="brand-red">ROJO</span>
                 </a>
-
-                <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="primary-nav">
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                    <span class="hamburger-bar"></span>
-                </button>
+                <span class="ed-sublogo">AR ARQ SpA · ARQUITECTURA &amp; FABRICACIÓN DIGITAL</span>
             </div>
-        </nav>
+
+            <nav class="ed-header-nav" aria-label="Navegación de retorno">
+                <a href="index.html" class="ed-back-link">
+                    <span aria-hidden="true">←</span>
+                    <span>DIRECTORIO</span>
+                </a>
+            </nav>
+        </div>
     </header>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main id="main-content">
-        <!-- HERO DE SERVICIO -->
-        <section class="gallery-section" style="padding-top: 130px; padding-bottom: 50px;">
-            <div class="section-header" style="max-width: 900px; margin: 0 auto; text-align: center;">
-                <span class="section-label-number" style="display: inline-block; margin-bottom: 12px;">03 / ARQUITECTURA INTERIOR &amp; VISUALIZACIÓN</span>
-                <h1 style="font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 300; letter-spacing: -0.02em; margin-bottom: 18px;">
-                    Diseño de Interiores &amp; <strong>Atmósferas</strong>
-                </h1>
-                <div class="header-line" style="margin: 0 auto 20px;"></div>
-                <p class="section-description" style="max-width: 720px; margin: 0 auto;">
-                    Creación integral de espacios con identidad de marca, ergonomía rigurosa y calidez sensorial para retail comercial, oficinas corporativas y residencias de autor.
+    <main class="ed-main" id="main-content">
+
+        <!-- ENCABEZADO MONOGRÁFICO SOBRIO -->
+        <div class="ed-hero-title-wrap">
+            <span class="ed-eyebrow">DOSSIER TÉCNICO 04 // VISUALIZACIÓN &amp; ESPACIALIDAD</span>
+            <h1 class="ed-page-title">ARQUITECTURA INTERIOR &amp; ATMÓSFERAS CGI</h1>
+            <p class="ed-page-subtitle">
+                Diseño espacial, iluminación sensorial y visualización fotorrealista de alto impacto para proyectos de retail comercial, oficinas y espacios habitacionales de autor.
+            </p>
+        </div>
+
+        <!-- SELECCIÓN EDITORIAL: 6 RENDERS DE ALTA GAMA -->
+        <section aria-label="Galería de Renders Seleccionados">
+            <div style="margin-bottom: 24px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ed-text-muted);">
+                CURATORÍA FOTORREALISTA // 06 VISUALIZACIONES SELECCIONADAS
+            </div>
+
+            <div class="interior-editorial-grid">
+                <!-- Render 01 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_01.png" alt="Retail Comercial - Vitrina y Acceso" loading="eager">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 01</span>
+                        <h2 class="interior-name">Vitrina &amp; Acceso Comercial</h2>
+                    </div>
+                </article>
+
+                <!-- Render 02 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_02.png" alt="Retail Comercial - Módulos de Exhibición" loading="eager">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 02</span>
+                        <h2 class="interior-name">Módulos de Exhibición &amp; Iluminación LED</h2>
+                    </div>
+                </article>
+
+                <!-- Render 03 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_03.png" alt="Perspectiva Interior y Luminarias" loading="lazy">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 03</span>
+                        <h2 class="interior-name">Atmósfera Luminotécnica y Recorridos</h2>
+                    </div>
+                </article>
+
+                <!-- Render 04 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_04.png" alt="Detalle de Mobiliario y Materialidad" loading="lazy">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 04</span>
+                        <h2 class="interior-name">Mobiliario a Medida &amp; Texturas Cálidas</h2>
+                    </div>
+                </article>
+
+                <!-- Render 05 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_06.png" alt="Integración Espacial Retail" loading="lazy">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 05</span>
+                        <h2 class="interior-name">Integración Espacial y Escaparates</h2>
+                    </div>
+                </article>
+
+                <!-- Render 06 -->
+                <article class="interior-item">
+                    <div class="interior-img-wrap">
+                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_11.png" alt="Ambiente Comercial y Flujos de Clientes" loading="lazy">
+                    </div>
+                    <div class="interior-caption">
+                        <span class="interior-code">CGI / 06</span>
+                        <h2 class="interior-name">Perspectiva Comercial &amp; Flujos de Acceso</h2>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- LLAMADA A LA ACCIÓN DIRECTA -->
+        <section style="border: 1px solid var(--ed-border); padding: 40px 32px; background: #FFFFFF; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px;">
+            <div>
+                <span class="ed-eyebrow" style="margin-bottom: 6px;">DISPONIBILIDAD PARA ENCARGOS</span>
+                <div style="font-size: 1.35rem; font-weight: 400; color: var(--ed-text); margin-bottom: 6px;">
+                    Desarrollo de proyectos de arquitectura interior &amp; renders comerciales
+                </div>
+                <p style="font-size: 0.88rem; color: var(--ed-text-secondary); max-width: 600px;">
+                    Cotizamos planimetría ejecutiva de mobiliario, especificación de acabados y renders fotorrealistas de alta definición para presentaciones de marca y venta inmobiliaria.
                 </p>
             </div>
+
+            <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20me%20interesa%20consultar%20disponibilidad%20para%20un%20proyecto%20de%20dise%C3%B1o%20de%20interiores%20/%20renders%20CGI." target="_blank" rel="noopener noreferrer" class="btn-ed-primary" style="white-space: nowrap;">
+                <span>CONSULTAR DISPONIBILIDAD</span>
+                <span aria-hidden="true">➔</span>
+            </a>
         </section>
 
-        <!-- SECCIÓN 1: RETAIL & ESPACIOS COMERCIALES (01-04) -->
-        <section class="gallery-section" style="padding-top: 10px;">
-            <div class="section-header">
-                <div class="section-meta-row">
-                    <span class="section-label-number">ÁREA 01</span>
-                    <span class="section-count-pill">RETAIL &amp; COMERCIAL</span>
-                </div>
-                <h2>Espacios Comerciales &amp; Escaparates de Marca</h2>
-                <div class="header-line"></div>
-                <p class="section-description">Diseño estratégico de recorridos de compra, iluminación focal para productos y mobiliario a medida para tiendas y locales comerciales.</p>
-            </div>
-
-            <div class="interior-grid">
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_01.png" data-title="Retail Comercial - Vitrina y Área de Acceso" data-desc="Distribución focal de iluminación y escaparates con acentos en madera cálida.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_01.png" alt="Retail Comercial 01" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Vitrinas &amp; Acceso Principal</h3>
-                        <p class="interior-card-desc">Transición visual desde el espacio público hacia la experiencia inmersiva del local comercial.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_02.png" data-title="Retail Comercial - Exhibición Modular" data-desc="Mobiliario perimetral empotrado con retroiluminación LED continua.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_02.png" alt="Retail Comercial 02" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Módulos de Exhibición</h3>
-                        <p class="interior-card-desc">Sistemas modulares flexibles adaptables a rotaciones estacionales de catálogo.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_03.png" data-title="Retail Comercial - Isla Central y Caja" data-desc="Mesón de atención monolítico con contraste de texturas mates y metálicas.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_03.png" alt="Retail Comercial 03" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Punto de Venta &amp; Atención</h3>
-                        <p class="interior-card-desc">Configuración espacial orientada a flujos ágiles y experiencia de cliente memorable.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_04.png" data-title="Retail Comercial - Detalle de Materialidad" data-desc="Encuentro constructivo de madera natural, perfiles de acero negro y pavimentos continuos.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_04.png" alt="Retail Comercial 04" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Materialidad &amp; Texturas</h3>
-                        <p class="interior-card-desc">Selección rigurosa de acabados de alta resistencia al tráfico peatonal intensivo.</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 2: OFICINAS & CORPORATIVO (05-08) -->
-        <section class="gallery-section">
-            <div class="section-header">
-                <div class="section-meta-row">
-                    <span class="section-label-number">ÁREA 02</span>
-                    <span class="section-count-pill">CORPORATIVO &amp; TRABAJO</span>
-                </div>
-                <h2>Entornos Corporativos &amp; Oficinas Flexibles</h2>
-                <div class="header-line"></div>
-                <p class="section-description">Espacios de trabajo colaborativo que integran biofilia, zonificación acústica y bienestar para equipos de alta exigencia.</p>
-            </div>
-
-            <div class="interior-grid">
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_05.png" data-title="Oficinas - Sala de Reuniones Ejecutiva" data-desc="Mesa de directorio integrada con panel acústico ranurado de roble.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_05.png" alt="Oficinas 05" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Directorio &amp; Conectividad</h3>
-                        <p class="interior-card-desc">Espacio representativo optimizado para videoconferencia y privacidad sonora.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_06.png" data-title="Oficinas - Coworking y Open Space" data-desc="Estaciones operativas con jardineras suspendidas y luz cenital difusa.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_06.png" alt="Oficinas 06" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Áreas de Trabajo Abiertas</h3>
-                        <p class="interior-card-desc">Equilibrio entre dinamismo compartido y micro-espacios para concentración individual.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_07.png" data-title="Oficinas - Zona Lounge y Café" data-desc="Espacio informal de desconexión y encuentros espontáneos.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_07.png" alt="Oficinas 07" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Lounge &amp; Cafetería</h3>
-                        <p class="interior-card-desc">Ambiente distendido con mobiliario ergonómico y paleta cromática relajante.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_08.png" data-title="Oficinas - Cabinas Telefónicas y Phone Booths" data-desc="Módulos fonoabsorbentes para llamadas confidenciales.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_08.png" alt="Oficinas 08" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Privacidad &amp; Acústica</h3>
-                        <p class="interior-card-desc">Soluciones técnicas para evitar la propagación de ruido en plantas libres.</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 3: ARQUITECTURA RESIDENCIAL & ATMÓSFERAS (09-14) -->
-        <section class="gallery-section">
-            <div class="section-header">
-                <div class="section-meta-row">
-                    <span class="section-label-number">ÁREA 03</span>
-                    <span class="section-count-pill">RESIDENCIAL &amp; HOGAR</span>
-                </div>
-                <h2>Arquitectura Residencial &amp; Atmósferas Cálidas</h2>
-                <div class="header-line"></div>
-                <p class="section-description">Diseño y visualización fotorrealista de viviendas particulares: livings conectados, cocinas de vanguardia y dormitorios serenos.</p>
-            </div>
-
-            <div class="interior-grid">
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_09.png" data-title="Residencial - Living Principal" data-desc="Amplios ventanales con ingreso de luz rasante y mobiliario de líneas limpias.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_09.png" alt="Residencial 09" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Living Principal</h3>
-                        <p class="interior-card-desc">Integración fluida entre el paisaje exterior y el confort interior.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_10.png" data-title="Residencial - Cocina Integrada con Isla" data-desc="Mesón de cuarzo satinado y carpintería oculta en madera oscura.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_10.png" alt="Residencial 10" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Cocina &amp; Comedor Diario</h3>
-                        <p class="interior-card-desc">Centro neurálgico del hogar con tecnología empotrada y estética minimalista.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_11.png" data-title="Residencial - Suite Principal" data-desc="Dormitorio con cabecera en lamas de madera y luminarias colgantes de diseño.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_11.png" alt="Residencial 11" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Suite Principal</h3>
-                        <p class="interior-card-desc">Atmósfera serena orientada al descanso y la introspección visual.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_12.png" data-title="Residencial - Baño de Autor" data-desc="Revestimientos de gran formato porcelánico y grifería empotrada negro mate.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_12.png" alt="Residencial 12" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Baño Principal Spa</h3>
-                        <p class="interior-card-desc">Detalles escultóricos, nichos iluminados y espejos retroiluminados antivaho.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_13.png" data-title="Residencial - Rincón de Lectura y Estudio" data-desc="Biblioteca empotrada a medida y butaca ergonómica junto al ventanal.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_13.png" alt="Residencial 13" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Estudio &amp; Biblioteca</h3>
-                        <p class="interior-card-desc">Rincón íntimo con iluminación puntual regulable y acústica controlada.</p>
-                    </div>
-                </article>
-
-                <article class="interior-card" data-full="assets/img/profesionales/diseno-interior/diseno-interior_14.png" data-title="Residencial - Terraza y Quincho Integrado" data-desc="Espacio exterior protegido con pérgola de madera y parrilla empotrada.">
-                    <div class="interior-card-img-wrap">
-                        <img src="assets/img/profesionales/diseno-interior/diseno-interior_14.png" alt="Residencial 14" class="interior-card-img" loading="lazy">
-                    </div>
-                    <div class="interior-card-body">
-                        <h3 class="interior-card-title">Terraza &amp; Quincho</h3>
-                        <p class="interior-card-desc">Continuidad interior-exterior para celebraciones y vida al aire libre.</p>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- SECCIÓN DE CONTACTO DIRECTO -->
-        <section id="contacto" class="services-contact-section" style="border-top: 1px solid var(--border-subtle);">
-            <div class="services-grid">
-                <div class="services-block">
-                    <span class="section-label">COTIZACIÓN DE INTERIORISMO</span>
-                    <h2>TRANSFORMEMOS TU ESPACIO</h2>
-                    <p class="services-sub">
-                        Desarrollamos proyectos completos: desde el concepto y visualización 3D hasta la planimetría de detalle para maestros y fabricantes.
-                    </p>
-                    
-                    <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 25px;">
-                        <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20me%20gustar%C3%ADa%20cotizar%20un%20proyecto%20de%20dise%C3%B1o%20de%20interiores." target="_blank" rel="noopener noreferrer" class="btn-sales-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; text-decoration: none;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                            <span>WHATSAPP (+56 9 7541 2203)</span>
-                        </a>
-                        <a href="mailto:contacto@ar-arq.cl?subject=Consulta%20Diseno%20Interiores" class="btn-sales-secondary" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width: fit-content; text-decoration: none;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                            <span>CORREO (contacto@ar-arq.cl)</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Formulario Rápido -->
-                <div class="contact-block">
-                    <form action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
-                        <input type="hidden" name="_subject" value="Nuevo Mensaje Cotización Diseño Interiores">
-                        <input type="hidden" name="_captcha" value="false">
-                        <input type="hidden" name="_template" value="table">
-
-                        <div class="form-row">
-                            <label for="form-name-int" class="form-label">Nombre Completo *</label>
-                            <input type="text" id="form-name-int" name="Nombre" placeholder="Tu nombre o empresa" required class="form-input">
-                        </div>
-
-                        <div class="form-row">
-                            <label for="form-email-int" class="form-label">Correo Electrónico *</label>
-                            <input type="email" id="form-email-int" name="Email" placeholder="correo@ejemplo.cl" required class="form-input">
-                        </div>
-
-                        <div class="form-row">
-                            <label for="form-msg-int" class="form-label">Tipo de Espacio y Metros Cuadrados Aproximados *</label>
-                            <textarea id="form-msg-int" name="Mensaje" rows="3" placeholder="Ej: Remodelación de oficina 120m2 en Providencia..." required class="form-input"></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-btn" style="width: 100%;">
-                            <span>ENVIAR SOLICITUD</span>
-                            <span class="btn-arrow" aria-hidden="true">➔</span>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <!-- LIGHTBOX MODAL PARA IMÁGENES DE INTERIORISMO -->
-    <dialog id="interior-lightbox" class="project-modal" aria-labelledby="lightbox-title">
-        <div class="modal-wrapper" style="max-width: 1100px;">
-            <div class="modal-header-bar">
-                <span id="lightbox-title" style="font-weight: 500; font-size: 0.95rem; color: var(--text-primary);">Detalle de Espacio</span>
-                <button type="button" class="close-modal" id="close-lightbox-btn" aria-label="Cerrar visor">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
+    <!-- PIE DE PÁGINA EDITORIAL -->
+    <footer class="ed-footer">
+        <div class="ed-footer-inner">
+            <div class="ed-footer-author">
+                Adolfo Risopatrón Inzunza · Arquitecto &amp; Magíster MASE
             </div>
-            <div style="padding: 20px; background: var(--bg-surface); text-align: center;">
-                <img id="lightbox-img" src="" alt="Vista ampliada" style="max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: var(--radius-sm); box-shadow: var(--shadow-md);">
-                <p id="lightbox-desc" style="margin-top: 15px; font-size: 0.9rem; color: var(--text-secondary); font-weight: 300;"></p>
-                <div style="margin-top: 20px;">
-                    <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20me%20interesa%20un%20proyecto%20de%20dise%C3%B1o%20interior%20similar%20a%20este." target="_blank" rel="noopener noreferrer" class="btn-sales-primary" style="display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; text-decoration: none;">
-                        <span>CONSULTAR POR ESTE ESTILO EN WHATSAPP</span> ➔
-                    </a>
-                </div>
+            <div class="ed-footer-links-row">
+                <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="ed-footer-link">
+                    <span>WHATSAPP (+56 9 7541 2203)</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:adolchilemods@gmail.com" class="ed-footer-link">
+                    <span>adolchilemods@gmail.com</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:contacto@ar-arq.cl" class="ed-footer-link">
+                    <span>contacto@ar-arq.cl</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
             </div>
-        </div>
-    </dialog>
-
-    <!-- FOOTER EDITORIAL -->
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-left">
-                <span class="footer-brand">ALZADO <strong class="brand-red">ROJO</strong></span>
-                <p class="footer-tagline">Estudio de Arquitectura &amp; Fabricación Digital • Adolfo Risopatrón Inzunza</p>
-                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">
-                    Santiago, Chile • WhatsApp: <a href="https://wa.me/56975412203" target="_blank" style="color: var(--text-primary); text-decoration: none;">+56 9 7541 2203</a> • <a href="mailto:contacto@ar-arq.cl" style="color: var(--text-primary); text-decoration: none;">contacto@ar-arq.cl</a>
-                </p>
-            </div>
-            <div class="footer-right">
-                <nav class="footer-nav" aria-label="Navegación de pie de página">
-                    <a href="index.html">Inicio</a>
-                    <a href="maquetas-3d.html">Maquetas 3D</a>
-                    <a href="eficiencia-energetica.html">Eficiencia Energética</a>
-                    <a href="diseno-interiores.html">Diseño Interior</a>
-                    <a href="proyectos.html">Proyectos</a>
-                    <a href="sobre-mi.html">Sobre Mí</a>
-                </nav>
-                <span class="footer-copy">© 2026 ALZADO ROJO. Todos los derechos reservados.</span>
+            <div class="ed-footer-copy">
+                © 2026 ALZADO ROJO · AR ARQ SpA · Arquitectura Interior, Visualización CGI y Planimetría Técnica.
             </div>
         </div>
     </footer>
 
-    <!-- BOTÓN FLOTANTE DE WHATSAPP -->
-    <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="floating-wsp-btn" title="Contactar por WhatsApp (+56 9 7541 2203)" aria-label="Contactar por WhatsApp">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-        </svg>
-    </a>
-
-    <!-- SCRIPT LIGHTBOX & MENÚ -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const lightbox = document.getElementById('interior-lightbox');
-            const lightboxImg = document.getElementById('lightbox-img');
-            const lightboxTitle = document.getElementById('lightbox-title');
-            const lightboxDesc = document.getElementById('lightbox-desc');
-            const closeBtn = document.getElementById('close-lightbox-btn');
-
-            document.querySelectorAll('.interior-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    const fullSrc = card.getAttribute('data-full');
-                    const title = card.getAttribute('data-title');
-                    const desc = card.getAttribute('data-desc');
-
-                    if (lightbox && lightboxImg) {
-                        lightboxImg.src = fullSrc;
-                        if (lightboxTitle) lightboxTitle.textContent = title;
-                        if (lightboxDesc) lightboxDesc.textContent = desc;
-
-                        if (typeof lightbox.showModal === 'function') {
-                            lightbox.showModal();
-                        } else {
-                            lightbox.classList.add('show');
-                        }
-                    }
-                });
-            });
-
-            if (closeBtn && lightbox) {
-                closeBtn.addEventListener('click', () => {
-                    if (typeof lightbox.close === 'function') {
-                        lightbox.close();
-                    } else {
-                        lightbox.classList.remove('show');
-                    }
-                });
-            }
-
-            if (lightbox) {
-                lightbox.addEventListener('click', (e) => {
-                    if (e.target === lightbox) {
-                        if (typeof lightbox.close === 'function') lightbox.close();
-                        lightbox.classList.remove('show');
-                    }
-                });
-            }
-
-            // Menú móvil
-            const mobileNavToggle = document.getElementById('mobile-nav-toggle');
-            const primaryNav = document.getElementById('primary-nav');
-            if (mobileNavToggle && primaryNav) {
-                mobileNavToggle.addEventListener('click', () => {
-                    const isOpen = primaryNav.classList.toggle('open');
-                    mobileNavToggle.classList.toggle('open', isOpen);
-                });
-            }
-        });
-    </script>
 </body>
 </html>

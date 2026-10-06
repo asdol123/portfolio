@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ALZADO ROJO · Maquetas Urbanas & Territoriales en impresión 3D de alta precisión. Formatos 10x10, 15x15, 20x20 cm y medidas especiales para oficinas, inmobiliarias y concursos.">
+    <meta name="theme-color" content="#FFFFFF">
+    <title>Maquetas Urbanas &amp; Territoriales | ALZADO ROJO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/editorial.css?v=1">
+</head>
+<body>
+
+    <!-- CABECERA EDITORIAL LIMPIA -->
+    <header class="ed-header">
+        <div class="ed-header-inner">
+            <div class="ed-logo-block">
+                <a href="index.html" class="ed-logo" aria-label="Alzado Rojo - Portada">
+                    ALZADO <span class="brand-red">ROJO</span>
+                </a>
+                <span class="ed-sublogo">AR ARQ SpA · ARQUITECTURA &amp; FABRICACIÓN DIGITAL</span>
+            </div>
+
+            <nav class="ed-header-nav" aria-label="Navegación de retorno">
+                <a href="index.html" class="ed-back-link">
+                    <span aria-hidden="true">←</span>
+                    <span>DIRECTORIO</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="ed-main" id="main-content">
+
+        <!-- ENCABEZADO MONOGRÁFICO SOBRIO -->
+        <div class="ed-hero-title-wrap">
+            <span class="ed-eyebrow">DOSSIER TÉCNICO 01 // FABRICACIÓN TERRITORIAL</span>
+            <h1 class="ed-page-title">MAQUETAS URBANAS &amp; TERRITORIALES</h1>
+            <p class="ed-page-subtitle">
+                Materialización volumétrica de tramas urbanas, curvas de nivel GIS y loteos inmobiliarios en manufactura aditiva mate de alta pureza visual.
+            </p>
+        </div>
+
+        <!-- TARJETAS INTERACTIVAS DE FORMATO Y TAMAÑO -->
+        <section aria-label="Selección de formato de maqueta">
+            <div style="margin-bottom: 16px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ed-text-muted);">
+                PASO 1 / SELECCIONA EL FORMATO REQUERIDO
+            </div>
+
+            <div class="format-grid" id="format-cards-grid">
+                <!-- Tarjeta 10x10 cm -->
+                <div class="format-card selected" data-format="10 × 10 cm" data-price="$9.990 CLP" data-scale="1:2000 / 1:5000" tabindex="0" role="button" aria-pressed="true">
+                    <div>
+                        <div class="format-size">10 × 10 cm</div>
+                        <div class="format-scale">Escala 1:2000 / 1:5000</div>
+                        <p class="format-desc">Manzana urbana concentrada, hitos arquitectónicos, monumentos y formato de escritorio de alta compacidad.</p>
+                    </div>
+                    <div class="format-price">$9.990 CLP</div>
+                </div>
+
+                <!-- Tarjeta 15x15 cm -->
+                <div class="format-card" data-format="15 × 15 cm" data-price="$18.990 CLP" data-scale="1:1000 / 1:2000" tabindex="0" role="button" aria-pressed="false">
+                    <div>
+                        <div class="format-size">15 × 15 cm</div>
+                        <div class="format-scale">Escala 1:1000 / 1:2000</div>
+                        <p class="format-desc">Sector barrial extendido, master plan preliminar y estudios de inserción morfológica de escala media.</p>
+                    </div>
+                    <div class="format-price">$18.990 CLP</div>
+                </div>
+
+                <!-- Tarjeta 20x20 cm -->
+                <div class="format-card" data-format="20 × 20 cm" data-price="$29.990 CLP" data-scale="1:500 / 1:1000" tabindex="0" role="button" aria-pressed="false">
+                    <div>
+                        <div class="format-size">20 × 20 cm</div>
+                        <div class="format-scale">Escala 1:500 / 1:1000</div>
+                        <p class="format-desc">Loteos completos, topografía pronunciada de alta cota y conjuntos residenciales con detalle vial profundo.</p>
+                    </div>
+                    <div class="format-price">$29.990 CLP</div>
+                </div>
+
+                <!-- Tarjeta Medida Especial -->
+                <div class="format-card" data-format="Medida Especial" data-price="A convenir" data-scale="Escala Variable" tabindex="0" role="button" aria-pressed="false">
+                    <div>
+                        <div class="format-size">Medida Especial</div>
+                        <div class="format-scale">Escala Variable</div>
+                        <p class="format-desc">Ensamble modular de gran escala, salas de venta inmobiliarias, maquetas seccionales y concursos públicos.</p>
+                    </div>
+                    <div class="format-price">A convenir</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FLUJO DE COTIZACIÓN FORMAL & NOTIFICACIÓN INMEDIATA -->
+        <section class="order-dossier-wrap" aria-label="Formulario de solicitud formal">
+            <div class="order-summary-bar">
+                <div>
+                    <span class="order-summary-title">FORMATO ACTIVO EN COTIZACIÓN</span>
+                    <div class="order-summary-val" id="summary-format-display">10 × 10 cm · $9.990 CLP</div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--ed-text-secondary);">
+                    Acabado: PLA Mate Blanco Arquitectónico · Base calibrada
+                </div>
+            </div>
+
+            <!-- Banner de éxito inline -->
+            <div id="form-success-alert" class="form-success-banner" role="status">
+                ✓ Solicitud de cotización formal registrada. Se ha abierto la notificación automática en WhatsApp y te remitiremos el desglose oficial al correo indicado.
+            </div>
+
+            <form id="urban-quote-form" action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data">
+                <!-- Parámetros FormSubmit -->
+                <input type="hidden" name="_subject" id="form-subject" value="Solicitud Cotización Formal: Maqueta Urbana 10 × 10 cm">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="Formato_Seleccionado" id="input-hidden-format" value="10 × 10 cm">
+                <input type="hidden" name="Precio_Base" id="input-hidden-price" value="$9.990 CLP">
+
+                <div class="order-form-grid">
+                    <div class="ed-form-field">
+                        <label for="input-name" class="ed-form-label">Nombre o Empresa *</label>
+                        <input type="text" id="input-name" name="Nombre" placeholder="Tu nombre o despacho de arquitectura" required class="ed-input">
+                    </div>
+
+                    <div class="ed-form-field">
+                        <label for="input-email" class="ed-form-label">Correo Electrónico *</label>
+                        <input type="email" id="input-email" name="Email" placeholder="correo@empresa.cl" required class="ed-input">
+                    </div>
+
+                    <div class="ed-form-field">
+                        <label for="input-location" class="ed-form-label">Comuna / Ubicación del Proyecto *</label>
+                        <input type="text" id="input-location" name="Comuna_Ubicacion" placeholder="Ej: Providencia, Las Condes, Viña del Mar..." required class="ed-input">
+                    </div>
+                </div>
+
+                <div class="ed-form-field" style="margin-bottom: 24px;">
+                    <label for="input-link" class="ed-form-label">Enlace a Plano, CAD, KMZ o Drive (Opcional)</label>
+                    <input type="text" id="input-link" name="Enlace_Referencia" placeholder="https://drive.google.com/... o enlace de descarga" class="ed-input">
+                </div>
+
+                <div class="ed-actions-row">
+                    <button type="submit" id="btn-submit-formal" class="btn-ed-primary">
+                        <span>SOLICITAR COTIZACIÓN FORMAL</span>
+                        <span aria-hidden="true">➔</span>
+                    </button>
+
+                    <a id="btn-wsp-direct" href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20coordinar%20una%20Maqueta%20Urbana%20de%2010%20%C3%97%2010%20cm." target="_blank" rel="noopener noreferrer" class="btn-ed-secondary">
+                        <span>COORDINAR POR WHATSAPP DIRECTO</span>
+                        <span aria-hidden="true">➔</span>
+                    </a>
+                </div>
+            </form>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA EDITORIAL -->
+    <footer class="ed-footer">
+        <div class="ed-footer-inner">
+            <div class="ed-footer-author">
+                Adolfo Risopatrón Inzunza · Arquitecto &amp; Magíster MASE
+            </div>
+            <div class="ed-footer-links-row">
+                <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="ed-footer-link">
+                    <span>WHATSAPP (+56 9 7541 2203)</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:adolchilemods@gmail.com" class="ed-footer-link">
+                    <span>adolchilemods@gmail.com</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:contacto@ar-arq.cl" class="ed-footer-link">
+                    <span>contacto@ar-arq.cl</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+            </div>
+            <div class="ed-footer-copy">
+                © 2026 ALZADO ROJO · AR ARQ SpA · Taller de Maquetería Urbana y Territorial de Precisión.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE INTERACTIVIDAD & FLUJO DE COTIZACIÓN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.format-card');
+            const summaryDisplay = document.getElementById('summary-format-display');
+            const hiddenFormat = document.getElementById('input-hidden-format');
+            const hiddenPrice = document.getElementById('input-hidden-price');
+            const formSubject = document.getElementById('form-subject');
+            const wspDirectBtn = document.getElementById('btn-wsp-direct');
+            const form = document.getElementById('urban-quote-form');
+            const successAlert = document.getElementById('form-success-alert');
+            const submitBtn = document.getElementById('btn-submit-formal');
+            const inputEmail = document.getElementById('input-email');
+
+            let currentFormat = "10 × 10 cm";
+            let currentPrice = "$9.990 CLP";
+
+            function selectFormat(card) {
+                cards.forEach(c => {
+                    c.classList.remove('selected');
+                    c.setAttribute('aria-pressed', 'false');
+                });
+                card.classList.add('selected');
+                card.setAttribute('aria-pressed', 'true');
+
+                currentFormat = card.getAttribute('data-format') || "10 × 10 cm";
+                currentPrice = card.getAttribute('data-price') || "$9.990 CLP";
+
+                if (summaryDisplay) {
+                    summaryDisplay.textContent = `${currentFormat} · ${currentPrice}`;
+                }
+                if (hiddenFormat) hiddenFormat.value = currentFormat;
+                if (hiddenPrice) hiddenPrice.value = currentPrice;
+                if (formSubject) formSubject.value = `Solicitud Cotización Formal: Maqueta Urbana ${currentFormat}`;
+
+                // Actualizar botón de WhatsApp directo
+                if (wspDirectBtn) {
+                    const wspMsg = `Hola Adolfo, deseo coordinar una Maqueta Urbana de ${currentFormat} (${currentPrice}).`;
+                    wspDirectBtn.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspMsg)}`;
+                }
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => selectFormat(card));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectFormat(card);
+                    }
+                });
+            });
+
+            // Flujo de envío formal y apertura sincronizada de WhatsApp
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const emailVal = inputEmail ? inputEmail.value.trim() : 'correo';
+                    const prefilledWsp = `Hola Adolfo, acabo de solicitar la cotización formal para una Maqueta Urbana de ${currentFormat} a mi correo ${emailVal}.`;
+                    const wspUrl = `https://wa.me/56975412203?text=${encodeURIComponent(prefilledWsp)}`;
+
+                    // Abrir WhatsApp automáticamente en ventana emergente o pestaña
+                    window.open(wspUrl, '_blank');
+
+                    // Procesar el envío formal vía FormSubmit AJAX
+                    const formData = new FormData(form);
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = `<span>ENVIANDO SOLICITUD...</span>`;
+                    }
+
+                    try {
+                        const response = await fetch('https://formsubmit.co/ajax/adolchilemods@gmail.com', {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        });
+                        if (!response.ok) throw new Error('HTTP ' + response.status);
+
+                        if (successAlert) {
+                            successAlert.style.display = 'block';
+                            successAlert.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                        if (submitBtn) {
+                            submitBtn.innerHTML = `<span>SOLICITUD ENVIADA CON ÉXITO ✓</span>`;
+                        }
+                    } catch (err) {
+                        // Fallback estándar en caso de restricción de red
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = `<span>SOLICITAR COTIZACIÓN FORMAL ➔</span>`;
+                        }
+                        form.submit();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
