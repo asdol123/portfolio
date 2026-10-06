@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALZADO ROJO — Portafolio Monográfico de Arquitectura | Adolfo Risopatrón Inzunza</title>
+    <meta name="description" content="Portafolio monográfico editorial impreso de arquitectura, modelado paramétrico y tecnología espacial por Adolfo Risopatrón Inzunza. Formato A4 apaisado de alta definición.">
+    
+    <!-- Tipografía Editorial Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Estilos específicos de impresión y visor editorial -->
+    <link rel="stylesheet" href="css/portfolio-pdf.css">
+</head>
+<body>
+
+    <!-- =======================================================================
+         BARRA DE HERRAMIENTAS FLOTANTE (Solo pantalla / Oculta en impresión)
+         ======================================================================= -->
+    <header class="screen-toolbar" role="banner" aria-label="Herramientas del Portafolio">
+        <div class="toolbar-brand">
+            ALZADO <span>ROJO</span>
+            <span class="toolbar-badge">A4 LANDSCAPE • MONOGRAFÍA PDF</span>
+        </div>
+
+        <div class="toolbar-actions">
+            <div class="toolbar-page-nav">
+                <label for="page-selector">Ir a lámina:</label>
+                <select id="page-selector" class="toolbar-select" aria-label="Seleccionar lámina para desplazarse">
+                    <option value="lamina-01">01 / Portada Monográfica</option>
+                    <option value="lamina-02">02 / Perfil &amp; Índice de Obras</option>
+                    <option value="lamina-03">03 / P1: Sistema Modular en Madera (Principal)</option>
+                    <option value="lamina-04">04 / P1: Sistema Modular en Madera (Técnica)</option>
+                    <option value="lamina-05">05 / P2: Centro Cultural &amp; Galería (Principal)</option>
+                    <option value="lamina-06">06 / P2: Centro Cultural &amp; Galería (Técnica)</option>
+                    <option value="lamina-07">07 / P3: Parque Cementerio en Pichilemu (Principal)</option>
+                    <option value="lamina-08">08 / P3: Parque Cementerio en Pichilemu (Paisaje)</option>
+                    <option value="lamina-09">09 / P4: Planimetría Técnica &amp; Estándar (Principal)</option>
+                    <option value="lamina-10">10 / P4: Planimetría Técnica &amp; Estándar (Técnica)</option>
+                    <option value="lamina-11">11 / Contraportada Editorial</option>
+                </select>
+            </div>
+
+            <a href="index.html" class="toolbar-btn" title="Volver al portafolio web interactivo">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                Web Principal
+            </a>
+
+            <button type="button" class="toolbar-btn primary" onclick="window.print()" title="Imprimir o guardar como PDF en orientación horizontal A4">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                Exportar / Imprimir PDF
+            </button>
+        </div>
+    </header>
+
+    <!-- =======================================================================
+         CONTENEDOR GENERAL DE LÁMINAS IMPRIMIBLES (11 LÁMINAS A4 LANDSCAPE)
+         ======================================================================= -->
+    <main class="portfolio-viewport" id="portfolio-monograph" role="main">
+
+        <!-- ===================================================================
+             LÁMINA 01: PORTADA MONOGRÁFICA (ULTRA-MINIMALISTA)
+             =================================================================== -->
+        <article class="page page-cover" id="lamina-01" aria-label="Lámina 01: Portada Monográfica">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <div class="cover-main-grid">
+                <div class="cover-titles-block">
+                    <h1 class="cover-huge-title">ALZADO <span>ROJO</span></h1>
+                    <div class="cover-brand-rule"></div>
+                    <div class="cover-author-highlight">ADOLFO RISOPATRÓN INZUNZA</div>
+                    <div class="cover-subtitle-minimal">PORTAFOLIO DE ARQUITECTURA • 2026</div>
+                </div>
+
+                <div class="cover-visual-side">
+                    <div class="cover-hero-crop">
+                        <img src="assets/img/academicos/proyecto-titulo/proyecto-titulo_01.png" alt="Sistema Modular en Madera para Edificios Multifamily por Adolfo Risopatrón Inzunza">
+                    </div>
+                </div>
+            </div>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 02: PERFIL PROFESIONAL & ÍNDICE GENERAL (MINIMALISTA)
+             =================================================================== -->
+        <article class="page" id="lamina-02" aria-label="Lámina 02: Perfil Profesional & Índice">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PERFIL &amp; ÍNDICE DE OBRAS</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 02</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="profile-grid-minimal">
+                    <!-- Columna Izquierda: Semblanza -->
+                    <div class="profile-minimal-left">
+                        <div class="profile-heading-minimal">
+                            <span class="editorial-tag">ARQUITECTURA &amp; INVESTIGACIÓN</span>
+                            <h2 class="profile-author-title">ADOLFO RISOPATRÓN INZUNZA</h2>
+                            <p class="profile-author-role">Arquitecto &amp; M.Sc. Arquitectura Sustentable y Energía</p>
+                            <div class="minimal-red-line"></div>
+                        </div>
+
+                        <div class="profile-bio-minimal">
+                            <p>
+                                Arquitecto especializado en diseño paramétrico, prefabricación en madera y sustentabilidad. Enfoque integral que articula la optimización pasiva basada en datos con el rigor constructivo y la precisión del detalle ejecutivo para materializar arquitecturas de alto rendimiento ambiental y espacial.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Índice Limpio -->
+                    <div class="profile-minimal-right">
+                        <div class="toc-header-minimal">
+                            <span class="editorial-tag">SELECCIÓN DE PROYECTOS</span>
+                            <h3 class="editorial-title" style="font-size: 11pt;">ÍNDICE DE OBRAS</h3>
+                        </div>
+
+                        <div class="toc-items-minimal">
+                            <div class="toc-row-minimal">
+                                <span class="toc-row-num">01</span>
+                                <span class="toc-row-title">SISTEMA MODULAR EN MADERA MULTIFAMILY</span>
+                                <span class="toc-row-year">2026</span>
+                            </div>
+
+                            <div class="toc-row-minimal">
+                                <span class="toc-row-num">02</span>
+                                <span class="toc-row-title">CENTRO CULTURAL &amp; GALERÍA DE ARTE CONTEMPORÁNEO</span>
+                                <span class="toc-row-year">2026</span>
+                            </div>
+
+                            <div class="toc-row-minimal">
+                                <span class="toc-row-num">03</span>
+                                <span class="toc-row-title">PARQUE CEMENTERIO EN PICHILEMU</span>
+                                <span class="toc-row-year">2026</span>
+                            </div>
+
+                            <div class="toc-row-minimal">
+                                <span class="toc-row-num">04</span>
+                                <span class="toc-row-title">PLANIMETRÍA TÉCNICA &amp; ESTÁNDAR EJECUTIVO</span>
+                                <span class="toc-row-year">2024</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">PERFIL &amp; ÍNDICE DE OBRAS</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">02</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 03: PROYECTO 1 — SISTEMA MODULAR EN MADERA MULTIFAMILY
+             Lámina Principal (Hero Render + Ficha Editorial)
+             =================================================================== -->
+        <article class="page" id="lamina-03" aria-label="Lámina 03: Proyecto 01 - Sistema Modular en Madera (Principal)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 01 — INVESTIGACIÓN ACADÉMICA &amp; APLICADA</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 03</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">01</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">SISTEMA MODULAR EN MADERA MULTIFAMILY</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Sistema constructivo prefabricado en madera contralaminada (CLT) y entramado ligero para vivienda colectiva en altura. Morfología bioclimática optimizada mediante modelado paramétrico para máxima captación solar pasiva, ventilación cruzada y drástica reducción de huella de carbono.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gran Formato Apaisado de Imagen Principal -->
+                    <div class="hero-landscape-media">
+                        <div class="hero-landscape-frame">
+                            <img src="assets/img/academicos/proyecto-titulo/proyecto-titulo_01.png" alt="Vista exterior panorámica del Sistema Modular en Madera para Edificios Multifamily">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">SISTEMA MODULAR EN MADERA PARA EDIFICIOS MULTIFAMILY — VISTA GENERAL</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">03</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 04: PROYECTO 1 — SISTEMA MODULAR EN MADERA MULTIFAMILY
+             Lámina Técnica (Despiece Estructural, Módulo & Simulación Térmica)
+             =================================================================== -->
+        <article class="page" id="lamina-04" aria-label="Lámina 04: Proyecto 01 - Sistema Modular en Madera (Técnica)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 01 — DESPIECE ESTRUCTURAL, MODULARIDAD &amp; SIMULACIÓN</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 04</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">01</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">SISTEMA MODULAR EN MADERA MULTIFAMILY</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Despiece axonométrico del módulo prefabricado en CLT, detalle de encuentros estructurales para montaje en seco y simulación paramétrica de radiación solar y confort pasivo.</p>
+                        </div>
+                    </div>
+
+                    <div class="technical-layout-landscape">
+                        <!-- Nivel Superior: Axonometría Panorámica Apaisada a Ancho Completo -->
+                        <div class="tech-landscape-top">
+                            <div class="tech-landscape-frame">
+                                <img src="assets/img/academicos/proyecto-titulo/proyecto-titulo_04.png" alt="Axonometría explotada del módulo habitacional prefabricado en CLT">
+                            </div>
+                        </div>
+
+                        <!-- Nivel Inferior: Dos Formatos Apaisados 16:9 en Paralelo -->
+                        <div class="tech-landscape-bottom">
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame">
+                                    <img src="assets/img/academicos/proyecto-titulo/proyecto-titulo_05.png" alt="Detalle constructivo de unión entre módulos y fijaciones metálicas">
+                                </div>
+                            </div>
+
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame">
+                                    <img src="assets/img/academicos/proyecto-titulo/proyecto-titulo_08.png" alt="Análisis paramétrico de radiación solar y ventilación pasiva en DesignBuilder">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">SISTEMA MODULAR EN MADERA — DOCUMENTACIÓN TÉCNICA, DESPIECE &amp; DESEMPEÑO</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">04</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 05: PROYECTO 2 — CENTRO CULTURAL Y GALERÍA DE ARTE
+             Lámina Principal (Hero Render + Ficha Editorial)
+             =================================================================== -->
+        <article class="page" id="lamina-05" aria-label="Lámina 05: Proyecto 02 - Centro Cultural y Galería (Principal)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 02 — EQUIPAMIENTO PÚBLICO &amp; ARQUITECTURA CÍVICA</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 05</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">02</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">CENTRO CULTURAL &amp; GALERÍA DE ARTE CONTEMPORÁNEO</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Intervención topográfica excavada que restituye el parque público en cubierta. Estructura monumental de vigas cajón en hormigón a la vista y lucarnas perimetrales que bañan las salas de exhibición con luz cenital difusa y homogénea, estabilizando pasivamente la temperatura interior de las galerías.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gran Formato Apaisado de Imagen Principal -->
+                    <div class="hero-landscape-media">
+                        <div class="hero-landscape-frame">
+                            <img src="assets/img/academicos/taller-07/taller-07_12.png" alt="Vista interior monumental del Centro Cultural y Galería de Arte Contemporáneo con retícula de hormigón y lucarnas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">CENTRO CULTURAL Y GALERÍA DE ARTE — VISTA DE LA NAVE EXPOSITIVA PRINCIPAL</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">05</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 06: PROYECTO 2 — CENTRO CULTURAL Y GALERÍA DE ARTE
+             Lámina Técnica (Planta General, Corte Transversal & Relación Topográfica)
+             =================================================================== -->
+        <article class="page" id="lamina-06" aria-label="Lámina 06: Proyecto 02 - Centro Cultural (Técnica)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 02 — PLANIMETRÍA EDITORIAL &amp; RELACIÓN TOPOGRÁFICA</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 06</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">02</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">CENTRO CULTURAL &amp; GALERÍA DE ARTE CONTEMPORÁNEO</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Planta general de arquitectura y secciones constructivas analíticas. Inserción topográfica bajo rasante y modulación de vigas y lucarnas cenitales para iluminación natural homogénea.</p>
+                        </div>
+                    </div>
+
+                    <div class="technical-layout-landscape">
+                        <!-- Nivel Superior: Planta General Panorámica Apaisada a Ancho Completo -->
+                        <div class="tech-landscape-top">
+                            <div class="tech-landscape-frame">
+                                <img src="assets/img/academicos/taller-07/taller-07_04.png" alt="Planta general de arquitectura del Centro Cultural">
+                            </div>
+                        </div>
+
+                        <!-- Nivel Inferior: Dos Cortes Apaisados 16:9 en Paralelo -->
+                        <div class="tech-landscape-bottom">
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame">
+                                    <img src="assets/img/academicos/taller-07/taller-07_05.png" alt="Corte transversal constructivo del Centro Cultural">
+                                </div>
+                            </div>
+
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame">
+                                    <img src="assets/img/academicos/taller-07/taller-07_06.png" alt="Corte longitudinal y detalle de lucarnas cenitales">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">CENTRO CULTURAL — PLANTA GENERAL, SECCIÓN TOPOGRÁFICA &amp; DETALLE LUMÍNICO</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">06</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 07: PROYECTO 3 — PARQUE CEMENTERIO EN PICHILEMU
+             Lámina Principal (Hero Render + Ficha Minimalista)
+             =================================================================== -->
+        <article class="page" id="lamina-07" aria-label="Lámina 07: Proyecto 03 - Parque Cementerio en Pichilemu (Principal)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 03 — ARQUITECTURA PAISAJÍSTICA &amp; MEMORIAL</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 07</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">03</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">PARQUE CEMENTERIO EN PICHILEMU</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Propuesta paisajística y conmemorativa en la topografía costera de Pichilemu. Articulación de terrazas verdes, columbarios modulares de hormigón visto y muros de piedra integrados a la pendiente natural.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gran Formato Apaisado de Imagen Principal -->
+                    <div class="hero-landscape-media">
+                        <div class="hero-landscape-frame">
+                            <img src="assets/img/profesionales/renders/renders_04.png" alt="Vista monumental de columbarios de hormigón y muros de piedra en la colina del Parque Cementerio en Pichilemu">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">PARQUE CEMENTERIO EN PICHILEMU — PROPUESTA PAISAJÍSTICA &amp; CONMEMORATIVA</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">07</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 08: PROYECTO 3 — PARQUE CEMENTERIO EN PICHILEMU
+             Lámina Paisajística & Técnica (Columbarios, Terrazas & Recorridos)
+             =================================================================== -->
+        <article class="page" id="lamina-08" aria-label="Lámina 08: Proyecto 03 - Parque Cementerio en Pichilemu (Paisaje & Columbarios)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 03 — COLUMBARIOS, TERRAZAS &amp; PAISAJE COSTERO</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 08</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">03</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">PARQUE CEMENTERIO EN PICHILEMU</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2026</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Perspectivas paisajísticas del conjunto memorial, articulación de terrazas verdes escalonadas y columbarios modulares de hormigón integrados a la ladera costera.</p>
+                        </div>
+                    </div>
+
+                    <div class="technical-layout-landscape">
+                        <!-- Nivel Superior: Columbarios Panorámicos a Ancho Completo -->
+                        <div class="tech-landscape-top">
+                            <div class="tech-landscape-frame cover-mode">
+                                <img src="assets/img/profesionales/renders/renders_06.png" alt="Perspectiva paisajística de terrazas y arquitectura memorial en Parque Cementerio Pichilemu">
+                            </div>
+                        </div>
+
+                        <!-- Nivel Inferior: Dos Formatos Apaisados 16:9 en Paralelo -->
+                        <div class="tech-landscape-bottom">
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame cover-mode">
+                                    <img src="assets/img/profesionales/renders/renders_05.png" alt="Terrazas verdes y plataformas escalonadas en Parque Cementerio">
+                                </div>
+                            </div>
+
+                            <div class="tech-bottom-col">
+                                <div class="tech-landscape-frame cover-mode">
+                                    <img src="assets/img/profesionales/renders/renders_07.png" alt="Espacios de contemplación memorial abiertos al mar en Pichilemu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">PARQUE CEMENTERIO EN PICHILEMU — ARQUITECTURA MEMORIAL, COLUMBARIOS &amp; PAISAJE</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">08</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 09: PROYECTO 4 — PLANIMETRÍA TÉCNICA & ESTÁNDAR EJECUTIVO
+             Lámina Principal (Planta Arquitectónica Ejecutiva)
+             =================================================================== -->
+        <article class="page" id="lamina-09" aria-label="Lámina 09: Proyecto 04 - Planimetría Técnica (Principal)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 04 — DOCUMENTACIÓN EJECUTIVA &amp; ESTÁNDAR GRÁFICO</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 09</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">04</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">PLANIMETRÍA TÉCNICA &amp; ESTÁNDAR EJECUTIVO</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Documentación ejecutiva de arquitectura y detalles constructivos a escala 1:50, 1:20 y 1:5. Rigurosa disciplina de valorización gráfica, coordinación de especialidades e identificación precisa de encuentros para faena y montaje en seco.</p>
+                        </div>
+                    </div>
+
+                    <!-- Gran Formato Apaisado de Planta Ejecutiva -->
+                    <div class="hero-landscape-media">
+                        <div class="hero-landscape-frame contain-mode">
+                            <img src="assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_01.png" alt="Planta arquitectónica ejecutiva con rigurosa valorización de líneas">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">PLANIMETRÍA TÉCNICA — PLANTA ARQUITECTÓNICA EJECUTIVA &amp; EJES CONSTRUCTIVOS</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">09</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 10: PROYECTO 4 — PLANIMETRÍA TÉCNICA & DETALLE CONSTRUCTIVO
+             Lámina Técnica (Cortes por Fachada, Detalles 1:20/1:5 & Axonometría)
+             =================================================================== -->
+        <article class="page" id="lamina-10" aria-label="Lámina 10: Proyecto 04 - Planimetría Técnica (Técnica)">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <header class="sheet-header">
+                <div class="sheet-header-left">
+                    <span class="brand-tag">ALZADO <span>ROJO</span></span>
+                    <span class="separator">/</span>
+                    <span>PROYECTO 04 — CORTES ANALÍTICOS, ENCUENTROS &amp; DETALLES</span>
+                </div>
+                <div class="sheet-header-right">
+                    <span class="dossier-code">DOSSIER MONOGRÁFICO 2026</span>
+                    <span class="separator">|</span>
+                    <span>PÁG. 10</span>
+                </div>
+            </header>
+
+            <div class="sheet-body">
+                <div class="project-hero-landscape">
+                    <!-- Cabecera Minimalista: Solo Título, Año y Breve Descripción -->
+                    <div class="project-header-minimal">
+                        <div class="header-minimal-left">
+                            <span class="editorial-num">04</span>
+                            <div class="header-minimal-titles">
+                                <h2 class="editorial-title">PLANIMETRÍA TÉCNICA &amp; ESTÁNDAR EJECUTIVO</h2>
+                                <div class="editorial-year-tag">
+                                    <span class="tag-year">2024</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="header-minimal-right">
+                            <p class="editorial-brief">Sección constructiva general por fachada a escala 1:20, detalles de encuentro milimétrico 1:5 y secuencia axonométrica de capas de aislamiento para montaje en seco.</p>
+                        </div>
+                    </div>
+
+                    <div class="technical-grid-asym">
+                        <!-- Panel Izquierdo: Sección Constructiva General 1:20 -->
+                        <div class="asym-left-pane">
+                            <div class="tech-frame-wrapper">
+                                <img src="assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_06.png" alt="Sección constructiva general de fachada y entrepisos">
+                            </div>
+                        </div>
+
+                        <!-- Panel Derecho: Detalle 1:5 y Axonometría de Capas -->
+                        <div class="asym-right-stack">
+                            <div class="asym-stack-item">
+                                <div class="asym-stack-frame">
+                                    <img src="assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_08.png" alt="Detalle de encuentro constructivo milimétrico a escala 1:5">
+                                </div>
+                            </div>
+
+                            <div class="asym-stack-item">
+                                <div class="asym-stack-frame">
+                                    <img src="assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_09.jpg" alt="Despiece axonométrico de capas constructivas y montaje">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <div class="sheet-footer-left">
+                    <strong>ALZADO ROJO</strong>
+                    <span>|</span>
+                    <span>ADOLFO RISOPATRÓN INZUNZA</span>
+                </div>
+                <div class="sheet-footer-center">PLANIMETRÍA TÉCNICA — SECCIONES ANALÍTICAS, DETALLES 1:5 &amp; SECUENCIA DE CAPAS</div>
+                <div class="sheet-footer-right">
+                    <span class="page-num-accent">10</span>
+                    <span class="page-total">/ 11</span>
+                </div>
+            </footer>
+        </article>
+
+
+        <!-- ===================================================================
+             LÁMINA 11: CONTRAPORTADA EDITORIAL & COLOFÓN
+             =================================================================== -->
+        <article class="page page-colofon" id="lamina-11" aria-label="Lámina 11: Contraportada Editorial & Colofón">
+            <div class="register-cross reg-top-left" aria-hidden="true"></div>
+            <div class="register-cross reg-top-right" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-left" aria-hidden="true"></div>
+            <div class="register-cross reg-bottom-right" aria-hidden="true"></div>
+
+            <div class="colofon-top-bar">
+                <span>ALZADO ROJO • ARQUITECTURA &amp; CONSTRUCCIÓN</span>
+                <span>EDICIÓN 2026</span>
+            </div>
+
+            <div class="colofon-body-minimal">
+                <div class="colofon-center-box">
+                    <div class="colofon-brand-symbol">
+                        ALZADO <span>ROJO</span>
+                    </div>
+                    <div class="minimal-red-line" style="margin: 0 auto 5mm auto;"></div>
+
+                    <h2 class="colofon-author-title">ADOLFO RISOPATRÓN INZUNZA</h2>
+                    <p class="colofon-author-sub">Arquitecto &amp; M.Sc. Arquitectura Sustentable y Energía</p>
+
+                    <div class="colofon-contacts-stack">
+                        <div class="colofon-contact-row">
+                            <span class="contact-lbl">Email</span>
+                            <a href="mailto:adolchilemods@gmail.com">adolchilemods@gmail.com</a>
+                        </div>
+                        <div class="colofon-contact-row">
+                            <span class="contact-lbl">LinkedIn</span>
+                            <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" rel="noopener noreferrer">linkedin.com/in/adolfo-risopatron-inzunza</a>
+                        </div>
+                        <div class="colofon-contact-row">
+                            <span class="contact-lbl">Portafolio Web</span>
+                            <a href="https://ar-arq.cl" target="_blank" rel="noopener noreferrer">ar-arq.cl</a>
+                        </div>
+                        <div class="colofon-contact-row">
+                            <span class="contact-lbl">Teléfono</span>
+                            <a href="tel:+56984196391">+56 9 8419 6391</a>
+                        </div>
+                        <div class="colofon-contact-row">
+                            <span class="contact-lbl">Ubicación</span>
+                            <span>Santiago de Chile</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="colofon-bottom-minimal">
+                <span>ALZADO ROJO &copy; 2026 • ADOLFO RISOPATRÓN INZUNZA</span>
+                <span>SANTIAGO DE CHILE</span>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Script para interactividad en pantalla (navegación fluida y selector) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const selector = document.getElementById('page-selector');
+            if (selector) {
+                selector.addEventListener('change', (e) => {
+                    const targetId = e.target.value;
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            }
+
+            // Atajos de teclado para avanzar o retroceder láminas en pantalla
+            const pages = Array.from(document.querySelectorAll('.page'));
+            let currentIndex = 0;
+
+            window.addEventListener('keydown', (e) => {
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+                    return;
+                }
+                if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    if (currentIndex < pages.length - 1) {
+                        currentIndex++;
+                        pages[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        if (selector) selector.value = pages[currentIndex].id;
+                    }
+                } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        pages[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        if (selector) selector.value = pages[currentIndex].id;
+                    }
+                }
+            });
+
+            // Actualizar selector según scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                        const id = entry.target.id;
+                        if (selector && selector.value !== id) {
+                            selector.value = id;
+                            currentIndex = pages.findIndex(p => p.id === id);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            pages.forEach(p => observer.observe(p));
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+{
+  "proyectosSeleccionados": [
+    {
+      "id": "sistema-modular-madera-multifamily",
+      "numero": "01",
+      "slug": "proyecto-titulo",
+      "titulo": "Sistema Modular en Madera para Edificios Multifamily",
+      "subtitulo": "Vivienda Colectiva Prefabricada en Altura mediante Madera Masiva (CLT y Entramado Ligero) y Optimización Bioclimática Paramétrica",
+      "categoria": "Sostenibilidad & Prefabricación en Madera Masiva",
+      "year": "2026",
+      "ficha_tecnica": {
+        "año": "2026",
+        "ubicacion": "Macul / La Florida (Nodo Intermodal Metro Pedrero), Santiago, Chile",
+        "tipologia": "Residencial Colectivo Multifamily & Placa Cívico-Comercial en Altura",
+        "area_escala": "14.500 m² construidos | 2 torres (hasta 14 niveles) | 195 unidades modulares",
+        "estado": "Proyecto de Grado Magíster (MASE UC) — Distinción Máxima",
+        "autoria": "Adolfo Risopatrón Inzunza (Profesores Guías: Felipe Victorero, Diego Palma)",
+        "software_instrumentos": [
+          "Rhinoceros 3D + Grasshopper (Optimización paramétrica modular y volumétrica)",
+          "Autodesk Revit (Modelado BIM, coordinación de especialidades e interferencias)",
+          "DesignBuilder + EnergyPlus (Simulación termo-lumínica y demanda energética)",
+          "Athena Impact Estimator (Evaluación de Ciclo de Vida ACV y balance GWP de carbono)",
+          "Twinmotion + Adobe Photoshop (CGI, ambientación y post-producción editorial)"
+        ],
+        "etiquetas_clave": [
+          "Madera Masiva (Mass Timber)",
+          "CLT (Cross-Laminated Timber)",
+          "Prefabricación Off-Site",
+          "Eficiencia Bioclimática",
+          "Ciclo de Vida (LCA / GWP)",
+          "Densificación Urbana"
+        ]
+      },
+      "metricas_destacadas": [
+        {
+          "label": "Balance de Carbono Incorporado",
+          "valor": "-258 kg CO₂eq/m² en etapas de producto"
+        },
+        {
+          "label": "Reducción de Demanda Térmica",
+          "valor": "38.5% respecto a caso base normativo"
+        },
+        {
+          "label": "Logística Modular",
+          "valor": "4 tipologías transportables en camión estándar"
+        },
+        {
+          "label": "Velocidad de Montaje",
+          "valor": "Reducción estimada del 45% en faena seca"
+        }
+      ],
+      "memoria_descriptiva": {
+        "conceptual": "Propuesta de arquitectura habitacional colectiva concebida para mitigar el déficit habitacional urbano bajo un paradigma estricto de sostenibilidad ambiental, descarbonización y economía circular. El proyecto articula dos volúmenes residenciales de media y alta densidad sobre una placa cívico-comercial permeable y activa que dialoga directamente con la estación intermodal del Metro Pedrero. Esta configuración define un patio interior protegido del ruido metropolitano que regula el microclima comunitario, restablece la permeabilidad del suelo a través de jardines de infiltración y fomenta la cohesión vecinal mediante áreas públicas integradas.",
+        "tecnico_constructivo": "El sistema estructural se resuelve mediante un núcleo rígido de hormigón armado en fundaciones y placa basal comercial que da sustento al apilamiento de módulos volumétricos industrializados 'off-site' de madera contralaminada (CLT) y entramado ligero para las unidades de vivienda. Las uniones mecánicas autoperforantes y tolerancias milimétricas optimizan los tiempos de faena seca y garantizan alta resistencia sismo-resistente. En el ámbito bioclimático, las fachadas nor-oriente incorporan aleros y celosías calculados paramétricamente mediante simulaciones en DesignBuilder, reduciendo las cargas de sobrecalentamiento estival y maximizando las ganancias solares pasivas de invierno, logrando una huella de carbono negativa certificada en la fase de materiales."
+      },
+      "imagenes": [
+        {
+          "src": "assets/img/academicos/proyecto-titulo/proyecto-titulo_01.png",
+          "alt": "Visualización exterior del conjunto residencial modular en madera y su inserción cívico-urbana",
+          "epigrafe": "Visualización volumétrica exterior y articulación del conjunto habitacional con la placa cívico-urbana y el espacio público.",
+          "tipo": "render_exterior",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/proyecto-titulo/proyecto-titulo_05.png",
+          "alt": "Corte bioclimático longitudinal a escala 1:75",
+          "epigrafe": "Corte bioclimático longitudinal (Esc. 1:75): Análisis de radiación solar estacional, corrientes convectivas, patios y conectividad urbana.",
+          "tipo": "corte_bioclimatico",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/proyecto-titulo/proyecto-titulo_06.png",
+          "alt": "Axonometría explotada de sistemas constructivos a escala 1:200",
+          "epigrafe": "Axonometría explotada estructural (Esc. 1:200): Subsuelos de estacionamiento, placa de equipamiento comunitario y apilamiento modular CLT.",
+          "tipo": "axonometria_constructiva",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/proyecto-titulo/proyecto-titulo_07.png",
+          "alt": "Detalles constructivos de muros y losas, fases de montaje y curvas de demanda energética",
+          "epigrafe": "Documentación constructiva: Detalles multicapa (CLT vs. Entramado vs. Hormigón), etapas de montaje y demanda energética normalizada.",
+          "tipo": "detalles_constructivos",
+          "destacada": false
+        },
+        {
+          "src": "assets/img/academicos/proyecto-titulo/proyecto-titulo_02.png",
+          "alt": "Elevación técnica Nor-Oriente y gráficos de análisis de ciclo de vida ACV",
+          "epigrafe": "Elevación técnica Nor-Oriente (Esc. 1:100), iteraciones de protección solar y comparación de Potencial de Calentamiento Global (GWP).",
+          "tipo": "elevacion_tecnica",
+          "destacada": false
+        }
+      ]
+    },
+    {
+      "id": "centro-cultural-galeria-arte",
+      "numero": "02",
+      "slug": "taller-07",
+      "titulo": "Centro Cultural y Galería de Arte Contemporáneo",
+      "subtitulo": "Equipamiento Cívico Topográfico, Retícula Estructural de Vigas Monumentales y Confort Lumínico Cenital",
+      "categoria": "Equipamiento Cívico & Estructuras Monumentales",
+      "year": "2026",
+      "ficha_tecnica": {
+        "año": "2026",
+        "ubicacion": "Parque Bicentenario Cerrillos / Eje Cívico Cultural, Santiago, Chile",
+        "tipologia": "Infraestructura Cultural Pública, Museo Cívico y Galerías de Arte",
+        "area_escala": "8.800 m² construidos cubiertos | 24.000 m² de parque público y cubierta verde transitable",
+        "estado": "Proyecto Académico de Excelencia / Taller VII de Arquitectura",
+        "autoria": "Adolfo Risopatrón Inzunza",
+        "software_instrumentos": [
+          "Rhinoceros 3D (Modelado geométrico de cubierta topográfica e inserción espacial)",
+          "Grasshopper (Optimización solar cenital paramétrica y cálculo de lucarnas)",
+          "Autodesk AutoCAD & Revit (Documentación planimétrica ejecutiva y coordinación)",
+          "Twinmotion + Lumion (Simulaciones de luz difusa diurna/nocturna y recorridos espaciales)",
+          "Adobe Photoshop & Illustrator (Composición editorial y post-producción gráfica)"
+        ],
+        "etiquetas_clave": [
+          "Arquitectura Topográfica",
+          "Hormigón Visto Postensado",
+          "Vigas Monumentales",
+          "Luz Cenital Difusa",
+          "Cubierta Transitable",
+          "Espacio Museográfico"
+        ]
+      },
+      "metricas_destacadas": [
+        {
+          "label": "Luces Estructurales Libres",
+          "valor": "Hasta 30 metros sin pilares intermedios"
+        },
+        {
+          "label": "Iluminación Natural en Galerías",
+          "valor": "100% luz cenital indirecta no degradante"
+        },
+        {
+          "label": "Inercia Térmica",
+          "valor": "Aislación pasiva por masa de terreno semisubterráneo"
+        },
+        {
+          "label": "Superficie de Parque Devuelta",
+          "valor": "100% de la huella recuperada como cubierta verde"
+        }
+      ],
+      "memoria_descriptiva": {
+        "conceptual": "Intervención topográfica concebida como un refugio cívico semisubterráneo que entrelaza la geografía del parque público con el recorrido contemplativo del arte contemporáneo y el patrimonio cultural. En lugar de erigir un volumen disruptivo sobre el horizonte llano de Cerrillos, el edificio se deprime e inserta suavemente en el terreno, restituyendo la totalidad de su huella al uso de la comunidad a través de una colina artificial transitable con miradores hacia el cordón montañoso. El vacío arquitectónico interior se transforma en un santuario sensorial de silencio, cobijo y serenidad lumínica.",
+        "tecnico_constructivo": "La espacialidad de las grandes naves de exposición se estructura a partir de una retícula ortogonal de vigas monumentales de hormigón armado postensado que salvan luces continuas de hasta 30 metros, permitiendo albergar esculturas masivas y piezas históricas de escala aérea sin interrupciones visuales. La iluminación interior se resuelve con rigor técnico mediante un sistema de lucarnas longitudinales y cenitales perimetrales con orientación solar calibrada, las cuales filtran la radiación directa e inundan las salas con luz difusa homogénea. Esta condición protege las piezas de arte del daño ultravioleta, suprime el deslumbramiento y reduce a niveles mínimos el gasto eléctrico en climatización e iluminación artificial durante el día."
+      },
+      "imagenes": [
+        {
+          "src": "assets/img/academicos/taller-07/taller-07_12.png",
+          "alt": "Visualización interior inmersiva de la nave de exhibición con luz cenital",
+          "epigrafe": "Perspectiva interior inmersiva de la nave expositiva principal: Atmósfera lumínica cenital difusa y estructura de hormigón a la vista.",
+          "tipo": "render_interior",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/taller-07/taller-07_02.png",
+          "alt": "Secciones arquitectónicas longitudinales y transversales completas",
+          "epigrafe": "Secciones arquitectónicas generales: Inserción topográfica en ladera, ritmo de vigas monumentales y cubierta verde transitable.",
+          "tipo": "secciones_tecnicas",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/taller-07/taller-07_06.png",
+          "alt": "Planta general de distribución Nivel -3.00 a escala 1:500",
+          "epigrafe": "Planta general de distribución Nivel -3.00 (Esc. 1:500): Trazado ortogonal, núcleos de servicio, rampas y áreas expositivas.",
+          "tipo": "planta_arquitectonica",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/academicos/taller-07/taller-07_11.png",
+          "alt": "Detalle técnico planimétrico de rampa de acceso, lucarnas y cafetería",
+          "epigrafe": "Planimetría ejecutiva de acceso y recepción: Rampa helicoidal deprimida, lucarnas lineales, control de boletos y cafetería.",
+          "tipo": "detalle_planimetrico",
+          "destacada": false
+        },
+        {
+          "src": "assets/img/academicos/taller-07/taller-07_01.png",
+          "alt": "Planta de emplazamiento urbano e inserción territorial en Cerrillos",
+          "epigrafe": "Planta de emplazamiento territorial (Esc. 1:2000): Inserción en el Parque Bicentenario Cerrillos y articulación con Villa Panamericana.",
+          "tipo": "masterplan_urbano",
+          "destacada": false
+        }
+      ]
+    },
+    {
+      "id": "infraestructura-ferroviaria-efe",
+      "numero": "03",
+      "slug": "renders-efe",
+      "titulo": "Infraestructura Ferroviaria EFE: Estación y Espacio Público",
+      "subtitulo": "Intermodalidad Metropolitana de Gran Escala, Envolventes Cívicas y CGI de Alta Fidelidad",
+      "categoria": "Infraestructura de Transporte & CGI Urbano",
+      "year": "2026",
+      "ficha_tecnica": {
+        "año": "2026",
+        "ubicacion": "Eje Ferroviario Batuco / Red Metropolitana Central, Región Metropolitana, Chile",
+        "tipologia": "Infraestructura de Transporte Ferroviario, Terminales Intermodales & Espacio Cívico",
+        "area_escala": "Masterplan de Movilidad e Infraestructura Cívico-Ferroviaria (> 45.000 m² de intervención)",
+        "estado": "Desarrollo Profesional / Encargo para Empresa de los Ferrocarriles del Estado (EFE)",
+        "autoria": "Adolfo Risopatrón Inzunza (Alzado Rojo)",
+        "software_instrumentos": [
+          "Rhinoceros 3D (Modelado volumétrico de naves de estación y marquesinas de andén)",
+          "Autodesk AutoCAD (Coordinación con trazados de vías férreas e ingeniería de transporte)",
+          "Twinmotion + Unreal Engine (Simulación CGI fotorrealista de alto tráfico en tiempo real)",
+          "Adobe Photoshop (Post-producción atmosférica, calibración lumínica y fotomontaje urbano)",
+          "Adobe Lightroom (Gradación cromática cinematográfica y balance tonal)"
+        ],
+        "etiquetas_clave": [
+          "Infraestructura Ferroviaria",
+          "EFE Trenes de Chile",
+          "Transporte Masivo",
+          "Diseño Cívico Intermodal",
+          "Visualización CGI Avanzada",
+          "Espacio Público Peatonal"
+        ]
+      },
+      "metricas_destacadas": [
+        {
+          "label": "Escala de Proyecto",
+          "valor": "Infraestructura de escala metropolitana regional"
+        },
+        {
+          "label": "Resolución de Modelado",
+          "valor": "Modelado BIM/CGI de alta precisión milimétrica"
+        },
+        {
+          "label": "Validación de Circulaciones",
+          "valor": "Simulación de flujos peatonales masivos en hora punta"
+        },
+        {
+          "label": "Impacto Urbano",
+          "valor": "Regeneración de bordes segregados por la faja férrea"
+        }
+      ],
+      "memoria_descriptiva": {
+        "conceptual": "Proyecto de infraestructura pública estratégica desarrollado para respaldar la modernización y expansión del transporte de pasajeros sobre rieles en la zona norte de la Región Metropolitana. Históricamente, las líneas férreas han actuado como barreras físicas que fracturan el territorio; la propuesta redefine este paradigma transformando la nueva Estación Batuco en una bisagra cívica y un punto de encuentro vecinal. Mediante amplias explanadas de acceso arboladas, trazados concéntricos de adoquines y áreas de permanencia con vegetación de bajo requerimiento hídrico, se consolida un espacio público de bienvenida que dignifica la experiencia diaria del usuario.",
+        "tecnico_constructivo": "La propuesta arquitectónica aborda la complejidad de un recinto de alto tráfico mediante una volumetría sobria construida en hormigón arquitectónico visto, zócalos de mampostería resistente y paneles de acero corten que confieren identidad institucional y alta resistencia al desgaste. Los andenes de pasajeros se protegen mediante marquesinas de geometría depurada soportadas por columnas cilíndricas de acero inoxidable, coordinadas con sistemas de pasarelas y rampas subterráneas que garantizan accesibilidad universal continua según normativa vigente. Las visualizaciones CGI fotorrealistas se elaboraron con estándares internacionales de iluminación física, análisis de sombras estacionales y representación verosímil de materiales de alto tránsito."
+      },
+      "imagenes": [
+        {
+          "src": "assets/img/profesionales/renders/renders_01.png",
+          "alt": "Visualización CGI general de la Estación EFE con plaza de acceso y tren en andén",
+          "epigrafe": "Visualización CGI de conjunto: Plaza cívica circular de acceso intermodal, edificio de estación y tren suburbano en andén.",
+          "tipo": "render_aereo_estacion",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/renders/renders_02.png",
+          "alt": "Fachada principal de acceso peatonal Estación Batuco EFE Redes de Chile",
+          "epigrafe": "Fachada principal de acceso peatonal Estación Batuco: Imagen corporativa EFE, carpinterías metálicas y paisajismo árido.",
+          "tipo": "render_acceso_estacion",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/renders/renders_03.png",
+          "alt": "Andén de pasajeros y tren interurbano EFE bajo marquesina de hormigón",
+          "epigrafe": "Andén de pasajeros y material rodante EFE: Marquesina de hormigón y acero, pavimento podotáctil y bajadas bajo nivel.",
+          "tipo": "render_anden_ferroviario",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/renders/renders_05.png",
+          "alt": "Pabellón cívico y explanada paisajística en atardecer con monumento cónico",
+          "epigrafe": "Intervención de espacio público cívico: Monumento cónico, aguja escultórica y senderos paisajísticos en iluminación de atardecer.",
+          "tipo": "render_espacio_publico",
+          "destacada": false
+        },
+        {
+          "src": "assets/img/profesionales/renders/renders_09.png",
+          "alt": "Rampa peatonal paisajística de conexión urbana con vistas panorámicas",
+          "epigrafe": "Rampa peatonal paisajística: Muros de contención en mampostería pétrea, taludes verdes y articulación topográfica de ladera.",
+          "tipo": "render_paisajismo_urbano",
+          "destacada": false
+        }
+      ]
+    },
+    {
+      "id": "planimetria-tecnica-detalle-constructivo",
+      "numero": "04",
+      "slug": "planimetria-tecnica",
+      "titulo": "Planimetría Técnica & Detalle Constructivo",
+      "subtitulo": "Rigor Ejecutivo, Axonometrías Analíticas y Post-Producción Gráfica Editorial de Arquitectura Moderna",
+      "categoria": "Documentación Ejecutiva & Rigor Planimétrico",
+      "year": "2024",
+      "ficha_tecnica": {
+        "año": "2024",
+        "ubicacion": "Entorno Académico y Consultoría Profesional Especializada, Santiago, Chile",
+        "tipologia": "Documentación Ejecutiva, Análisis Tipológico & Síntesis Editorial de Arquitectura",
+        "area_escala": "Escalas analíticas diversas (1:20 detalles de encuentro a 1:2000 cartografía territorial)",
+        "estado": "Portafolio Técnico y Desarrollo Gráfico Editorial Profesional",
+        "autoria": "Adolfo Risopatrón Inzunza (Alzado Rojo)",
+        "software_instrumentos": [
+          "Autodesk AutoCAD (Dibujo vectorial milimétrico y rigor en jerarquías de línea ISO)",
+          "Autodesk Revit (Extracción de secciones analíticas BIM y compatibilización constructiva)",
+          "Rhinoceros 3D (Modelado axonométrico de ensambles constructivos tridimensionales)",
+          "Adobe Photoshop (Valorización tonal, aplicación de texturas tectónicas y síntesis analógica)",
+          "Adobe Illustrator (Diagramación editorial, balance cromático monocromo y rotulación técnica)"
+        ],
+        "etiquetas_clave": [
+          "Planimetría Ejecutiva",
+          "Detalles Constructivos",
+          "Jerarquía de Línea",
+          "Diagramación Editorial",
+          "Farnsworth House",
+          "Fallingwater",
+          "Cartografía Topográfica"
+        ]
+      },
+      "metricas_destacadas": [
+        {
+          "label": "Precisión Gráfica",
+          "valor": "Espesores de pluma normalizados con legibilidad de 0.05 a 0.8 mm"
+        },
+        {
+          "label": "Estándar Editorial",
+          "valor": "Sistemas gráficos para publicaciones internacionales y licitaciones"
+        },
+        {
+          "label": "Gama Cromática",
+          "valor": "Paleta bicromática cálida de alto contraste perceptivo"
+        },
+        {
+          "label": "Versatilidad de Escalas",
+          "valor": "Del detalle milimétrico de losa a la cuenca territorial"
+        }
+      ],
+      "memoria_descriptiva": {
+        "conceptual": "La planimetría arquitectónica no es únicamente una herramienta utilitaria de instrucción constructiva, sino la manifestación intelectual más pura del pensamiento espacial de un arquitecto. Esta serie de trabajos de post-producción gráfica y análisis tipológico profundiza en iconos de la arquitectura moderna y contemporánea —como la Casa Farnsworth de Ludwig Mies van der Rohe y la Casa de la Cascada de Frank Lloyd Wright— depurando el dibujo técnico de excesos superficiales. El resultado es un lenguaje editorial de extraordinaria pulcritud que revela con claridad inmediata las relaciones de masa, vacío, gravedad y horizonte natural.",
+        "tecnico_constructivo": "El corpus técnico combina la precisión del dibujo vectorial milimétrico con el tratamiento textural digital de alta densidad, estableciendo una jerarquía de plumillas estricta (de 0.05 mm para tramas de superficie hasta 0.8 mm para cortes de suelo o muros portantes). En las secciones constructivas, se detallan con minuciosidad los encuentros de losas aligeradas, pilares de acero de alma abierta, aislaciones hidrófugas y barandillas acristaladas empotradas. En el ámbito territorial, se emplean curvas de nivel topográficas con valorización graduada y punteados estocásticos para representar densidades de biomasa, micro-relieves y cuencas fluviales, garantizando una comprensión inmediata tanto para comités técnicos de obra como para jurados editoriales internacionales."
+      },
+      "imagenes": [
+        {
+          "src": "assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_03.png",
+          "alt": "Planta técnica de la Casa Farnsworth con entorno boscoso y valorización tonal",
+          "epigrafe": "Planta arquitectónica técnica y contexto natural: Composición gráfica editorial de la Casa Farnsworth (Mies van der Rohe).",
+          "tipo": "planta_editorial",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_01.png",
+          "alt": "Corte transversal técnico mostrando estructura flotante y relación con el plano de suelo",
+          "epigrafe": "Sección transversal constructiva: Claridad estructural de losa flotante, columnas de acero y valorización de línea de corte.",
+          "tipo": "seccion_constructiva",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_07.png",
+          "alt": "Sección arquitectónica en ladera de la Casa de la Cascada de Frank Lloyd Wright",
+          "epigrafe": "Sección analítica en ladera: Inserción geológica, voladizos de hormigón armado y bosque nativo en Fallingwater (F.L. Wright).",
+          "tipo": "seccion_analitica",
+          "destacada": true
+        },
+        {
+          "src": "assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_08.png",
+          "alt": "Planimetría técnica y síntesis vegetal de articulación espacial moderna",
+          "epigrafe": "Planimetría técnica y síntesis vegetal: Composición de vacíos, senderos peatonales y articulación espacial en planta.",
+          "tipo": "planta_territorial",
+          "destacada": false
+        },
+        {
+          "src": "assets/img/profesionales/planimetria-tecnica/planimetria-tecnica_09.jpg",
+          "alt": "Masterplan topográfico de curvas de nivel, cuencas y lectura del territorio",
+          "epigrafe": "Masterplan topográfico de curvas de nivel: Cartografía técnica avanzada, relieve de cuencas y lectura macro-territorial.",
+          "tipo": "cartografia_topografica",
+          "destacada": false
+        }
+      ]
+    }
+  ],
+  "metadataPortafolio": {
+    "autor": {
+      "nombre": "Adolfo Risopatrón Inzunza",
+      "marca": "Alzado Rojo",
+      "titulo_principal": "Arquitecto & Magíster en Arquitectura Sustentable y Energía",
+      "universidad": "Pontificia Universidad Católica de Chile (ARQ-UC / MASE)",
+      "email": "adolchilemods@gmail.com",
+      "linkedin": "https://www.linkedin.com/in/adolfo-risopatron-inzunza/",
+      "año_edicion": "2026",
+      "version": "Edición Postulaciones y Licitaciones Internacionales"
+    },
+    "resumen_perfil": "Especialista en la convergencia entre diseño arquitectónico riguroso, modelado paramétrico avanzado (Rhinoceros + Grasshopper / BIM Revit) y simulación de eficiencia energética (DesignBuilder + EnergyPlus / Athena LCA). Experiencia probada en edificación prefabricada en madera masiva (CLT), infraestructura cívico-ferroviaria de gran escala para EFE y producción editorial de planimetría ejecutiva de alta precisión.",
+    "total_proyectos": 4,
+    "fecha_generacion": "2026-09-25"
+  }
+}

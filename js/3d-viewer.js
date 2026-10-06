@@ -1,21 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. LÓGICA DE COTIZADOR
+    // 1. LÓGICA DE COTIZADOR (Tarifas Oficiales Alzado Rojo: $90 CLP/g, -20% Ready to Print)
     const gramsInput = document.getElementById('grams-input');
     const discountCheck = document.getElementById('discount-check');
     const priceDisplay = document.getElementById('total-price');
-    const basePricePerGram = 95;
 
     function calculatePrice() {
         const grams = parseFloat(gramsInput.value) || 0;
-        let total = grams * basePricePerGram;
-        
-        if (discountCheck.checked) {
-            total = total * 0.75; // 25% discount
+        const isReadyToPrint = discountCheck ? discountCheck.checked : false;
+
+        let total = 0;
+        if (typeof window !== 'undefined' && window.AlzadoQuote && typeof window.AlzadoQuote.calculateArchitecturalQuote === 'function') {
+            const res = window.AlzadoQuote.calculateArchitecturalQuote({
+                grams,
+                isReadyToPrint,
+                quality: 'standard',
+                infill: 'standard',
+                material: 'pla_matte'
+            });
+            total = res.total;
+        } else {
+            const basePricePerGram = 90;
+            let subtotal = grams * basePricePerGram;
+            total = isReadyToPrint ? Math.round(subtotal * 0.80) : Math.round(subtotal);
         }
         
         // Format to CLP (e.g. 15.000)
         const formattedTotal = Math.round(total).toLocaleString('es-CL');
-        priceDisplay.innerHTML = `$${formattedTotal} <span style="font-size: 1rem; color: var(--text-color);">CLP</span>`;
+        if (priceDisplay) {
+            priceDisplay.innerHTML = `$${formattedTotal} <span style="font-size: 1rem; color: var(--text-color);">CLP</span>`;
+        }
     }
 
     if (gramsInput && discountCheck) {

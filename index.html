@@ -1,181 +1,845 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALZADO ROJO | Arquitectura & Manufactura 3D</title>
+    <meta name="description" content="ALZADO ROJO | Estudio de Arquitectura y Taller de Fabricación Digital 3D. Maquetas de arquitectura ($90/g, -20% OFF), maquetas urbanas topográficas y asesoría legal DOM.">
+    <meta name="theme-color" content="#FCFCFB" id="meta-theme-color">
+    <title>ALZADO ROJO | Servicios de Arquitectura &amp; Fabricación Digital 3D</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=5">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=7">
+    <link rel="stylesheet" href="css/servicios.css?v=2">
+
+    <!-- Three.js y dependencias para visor interactivo STL -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
 </head>
 <body>
-    <!-- PANTALLA DE INTRODUCCIÓN (SPLASH SCREEN) -->
-    <div id="splash-screen">
-        <h1 class="splash-text">ALZADO <span class="brand-red">ROJO</span></h1>
-    </div>
+    <!-- CABECERA Y NAVEGACIÓN PRINCIPAL -->
+    <header class="site-header">
+        <nav class="navbar" aria-label="Navegación principal">
+            <a href="#hero" class="logo" aria-label="Alzado Rojo - Servicios">
+                ALZADO <span class="brand-red">ROJO</span>
+                <span class="logo-accent" aria-hidden="true"></span>
+            </a>
 
-    <!-- NAVEGACIÓN -->
-    <nav>
-        <div class="logo">ALZADO <span class="brand-red">ROJO</span></div>
-        <div class="nav-links">
-            <a href="index.html#hero">Inicio</a>
-            <a href="index.html#academicos">Investigación</a>
-            <a href="index.html#profesionales">Práctica</a>
-            <a href="impresion-3d.html" class="nav-3d">Manufactura 3D</a>
-            <a href="index.html#sobre-mi">Perfil</a>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION FULLSCREEN -->
-    <section id="hero">
-        <div class="hero-overlay"></div>
-        
-        <video autoplay loop muted playsinline id="hero-video">
-            <source src="assets/video/interactivo.mp4" type="video/mp4">
-        </video>
-
-        <div class="hero-titles">
-            <h1>ALZADO <span class="brand-red">ROJO</span></h1>
-            <p class="subtitle">Arquitectura • Data-Driven Design • Impresión 3D</p>
-        </div>
-        
-        <div class="scroll-indicator"></div>
-    </section>
-
-    <!-- PROYECTOS ACADÉMICOS -->
-    <section id="academicos" class="gallery-section">
-        <div class="section-header">
-            <span class="section-label-number">01 / INVESTIGACIÓN Y PROYECTOS</span>
-            <h2>Proyectos Académicos</h2>
-            <p>Investigación paramétrica, eficiencia energética y planimetría técnica avanzada.</p>
-        </div>
-        <div class="portfolio-grid" id="grid-academicos"></div>
-    </section>
-
-    <!-- PROYECTOS PROFESIONALES -->
-    <section id="profesionales" class="gallery-section">
-        <div class="section-header">
-            <span class="section-label-number">02 / EJECUCIÓN Y PRÁCTICA</span>
-            <h2>Proyectos Profesionales</h2>
-            <p>Arquitectura interior comercial, prototipado 3D y visualizaciones interactivas.</p>
-        </div>
-        <div class="portfolio-grid" id="grid-profesionales"></div>
-    </section>
-
-    <!-- SECCIÓN: SOBRE MÍ Y CV -->
-    <section id="sobre-mi" class="cv-section">
-        <div class="cv-grid">
-            <div class="cv-text-block">
-                <span class="section-label">03 / PERFIL PROFESIONAL</span>
-                <h2>ADOLFO RISOPATRÓN INZUNZA</h2>
-                <p class="bio-text">
-                    Arquitecto y Magíster en Arquitectura Sustentable y Energía. Especialista en la hibridación entre el diseño espacial y la gestión de datos. Mi enfoque es técnico y orientado a resultados, priorizando flujos de trabajo eficientes desde el desarrollo paramétrico hasta la ejecución en obra.
-                </p>
-                
-                <h3 class="subsection-title">Competencias Proyectuales</h3>
-                <ul class="experience-list">
-                    <li>
-                        <strong>Gestión y Metodología Lean</strong>
-                        <span>Capacidad para optimizar plazos de entrega y priorizar tareas críticas en entornos de oficina de alta demanda.</span>
-                    </li>
-                    <li>
-                        <strong>Iteración Colaborativa</strong>
-                        <span>Proceso de diseño abierto a retroalimentación técnica y ajuste constante con el cliente y equipo de especialidades.</span>
-                    </li>
-                    <li>
-                        <strong>Curiosidad Técnica & I+D</strong>
-                        <span>Búsqueda proactiva de nuevas tecnologías (IA/Automatización) para reducir tiempos de modelado y planimetría.</span>
-                    </li>
-                </ul>
-                
-                <div class="bio-actions">
-                    <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" rel="noopener noreferrer" class="download-btn">LINKEDIN</a>
-                    <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" rel="noopener noreferrer" class="download-btn">DESCARGAR CV</a>
-                </div>
+            <!-- ENLACES DE NAVEGACIÓN -->
+            <div class="nav-links" id="primary-nav">
+                <a href="#maquetas-3d" class="nav-link">Maquetas 3D</a>
+                <a href="#maquetas-urbanas" class="nav-link">Maquetas Urbanas</a>
+                <a href="#arquitectura-legal" class="nav-link">Arquitectura Legal &amp; DOM</a>
+                <a href="portfolio.html" class="nav-link" style="color: var(--brand-red); font-weight: 600;">Portafolio Digital ➔</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
             </div>
 
-            <!-- Columna Derecha: Habilidades -->
-            <div class="skills-block">
-                <span class="section-label">HERRAMIENTAS TÉCNICAS</span>
-                <div class="skill-category">
-                    <h4>Modelado Paramétrico & BIM</h4>
-                    <div class="skill-bar"><span class="skill-name">Rhinoceros + Grasshopper</span><div class="skill-track"><div class="skill-fill" data-width="95%"></div></div></div>
-                    <div class="skill-bar"><span class="skill-name">Revit + Archicad</span><div class="skill-track"><div class="skill-fill" data-width="85%"></div></div></div>
-                </div>
-                <div class="skill-category">
-                    <h4>Simulación & Data-Driven</h4>
-                    <div class="skill-bar"><span class="skill-name">Design Builder + Athena</span><div class="skill-track"><div class="skill-fill" data-width="80%"></div></div></div>
-                    <div class="skill-bar"><span class="skill-name">Power BI + Integración IA</span><div class="skill-track"><div class="skill-fill" data-width="90%"></div></div></div>
-                </div>
-                <div class="skill-category">
-                    <h4>Visualización</h4>
-                    <div class="skill-bar"><span class="skill-name">Twinmotion + Photoshop</span><div class="skill-track"><div class="skill-fill" data-width="95%"></div></div></div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <!-- CONTROLES ADICIONALES (COTIZACIÓN ACTIVA, TEMA, MENÚ MÓVIL) -->
+            <div class="nav-actions">
+                <!-- Botón Cotización Activa en Navbar -->
+                <button type="button" id="nav-quote-btn" class="hero-cta-btn secondary-cta" style="padding: 8px 16px; font-size: 0.75rem; border-radius: var(--radius-sm); display: inline-flex; align-items: center; gap: 8px; cursor: pointer;">
+                    <span>COTIZACIÓN</span>
+                    <span class="quote-count-badge" style="display: none;">0</span>
+                </button>
 
-    <!-- SECCIÓN: SERVICIOS Y CONTACTO -->
-    <section id="servicios" class="services-contact-section">
-        <div class="services-grid">
-            <div class="services-block">
-                <span class="section-label">04 / SERVICIOS ESPECIALIZADOS</span>
-                <div class="service-item">
-                    <h3>01. FABRICACIÓN DIGITAL 3D</h3>
-                    <p>Modelado de precisión y prototipado FDM de alta velocidad para maquetas volumétricas, estudios de asoleamiento y análisis de ensambles.</p>
-                </div>
-                <div class="service-item">
-                    <h3>02. SIMULACIÓN ENERGÉTICA</h3>
-                    <p>Análisis paramétrico (radiación, autonomía lumínica) utilizando datos climáticos para fundamentar estrategias de diseño pasivo.</p>
-                </div>
-            </div>
+                <!-- Botón Modo Claro / Oscuro -->
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema de color" title="Alternar tema claro/oscuro">
+                    <svg class="theme-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
 
-            <div class="contact-block">
-                <span class="section-label">INICIAR UN PROYECTO</span>
-                <form action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
-                    <input type="hidden" name="_subject" value="¡Nuevo Lead desde el Portafolio!">
-                    <input type="hidden" name="_template" value="table">
-                    <div class="form-group"><input type="text" name="Nombre" placeholder="Nombre o Estudio" required></div>
-                    <div class="form-group"><input type="email" name="Email" placeholder="Correo" required></div>
-                    <div class="form-group"><textarea name="Mensaje" placeholder="Mensaje..." rows="3" required></textarea></div>
-                    <div class="form-group file-upload-group">
-                        <label for="file-upload" class="custom-file-upload"><span id="file-name">📎 Adjuntar archivo (Max 10MB)</span></label>
-                        <input id="file-upload" type="file" name="attachment" style="display: none;">
+                <!-- Botón Hamburguesa Móvil -->
+                <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="primary-nav">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="main-content">
+
+        <!-- ===================================================================
+             HERO SECTION: VENTAS Y POSICIONAMIENTO COMERCIAL
+             =================================================================== -->
+        <section id="hero" class="hero-sales" aria-label="Introducción a servicios Alzado Rojo">
+            <div class="hero-sales-inner">
+                <div class="hero-sales-left">
+                    <span class="hero-sales-badge">ESTUDIO DE ARQUITECTURA &amp; TALLER DE FABRICACIÓN 3D</span>
+                    <h1 class="hero-sales-title">
+                        Servicios de Arquitectura &amp; <strong>Fabricación Digital</strong>
+                    </h1>
+                    <p class="hero-sales-desc">
+                        Materializamos tus proyectos mediante maquetas 3D de alta precisión ($90/g, -20% si tu archivo está listo), maquetas urbanas topográficas a medida y expedientes técnicos para regularizaciones DOM, fusiones y subdivisiones prediales.
+                    </p>
+
+                    <div class="hero-sales-cta-row">
+                        <a href="#maquetas-3d" class="btn-sales-primary">
+                            COTIZAR MAQUETA 3D ↓
+                        </a>
+                        <a href="#maquetas-urbanas" class="btn-sales-secondary">
+                            MAQUETAS URBANAS ↓
+                        </a>
+                        <a href="portfolio.html" class="btn-sales-portfolio">
+                            Ver Portafolio Digital ➔
+                        </a>
                     </div>
-                    <button type="submit" class="submit-btn">ENVIAR COTIZACIÓN ➔</button>
+                </div>
+
+                <div class="hero-sales-right">
+                    <div class="hero-value-cards">
+                        <div class="hero-value-card">
+                            <span class="hero-value-icon">📐</span>
+                            <div>
+                                <h3 class="hero-value-title">Maquetas de Arquitectura ($90/g)</h3>
+                                <p class="hero-value-desc">Tolerancia milimétrica, PLA mate arquitectónico o resina UV. <strong>20% de descuento</strong> si tu modelo está listo para imprimir.</p>
+                            </div>
+                        </div>
+
+                        <div class="hero-value-card">
+                            <span class="hero-value-icon">🗺️</span>
+                            <div>
+                                <h3 class="hero-value-title">Maquetas Urbanas Topográficas</h3>
+                                <p class="hero-value-desc">Datos geoespaciales reales. Formatos desde 10x10 cm ($9.990) hasta 25x25 cm ($29.990 🔥) y piezas de gran formato.</p>
+                            </div>
+                        </div>
+
+                        <div class="hero-value-card">
+                            <span class="hero-value-icon">🏛️</span>
+                            <div>
+                                <h3 class="hero-value-title">Arquitectura Legal &amp; DOM</h3>
+                                <p class="hero-value-desc">Regularización de edificaciones (Ley del Mono), fusión de roles, subdivisión predial (SAG/CBR) y diseño BIM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SECCIÓN 1: MAQUETAS DE ARQUITECTURA (IMPRESIÓN 3D)
+             =================================================================== -->
+        <section id="maquetas-3d" class="section-services">
+            <div class="section-services-header">
+                <span class="section-subtitle-tag">01 / FABRICACIÓN DIGITAL DE PRECISIÓN</span>
+                <h2 class="section-services-title">Maquetas de Arquitectura en Impresión 3D</h2>
+                <p class="section-services-p">
+                    Calcula en vivo el presupuesto técnico para tu maqueta. Tarifa oficial de <strong>$90 CLP por gramo</strong>, con <strong>20% de descuento directo</strong> si el archivo está listo y optimizado para imprimir.
+                </p>
+            </div>
+
+            <div class="arch-quote-grid">
+                <!-- Visor 3D Interactivo STL -->
+                <div class="stl-viewer-wrapper">
+                    <div class="stl-canvas-container" id="stl-canvas-container">
+                        <div class="stl-drop-overlay" id="stl-drop-overlay">
+                            <span class="stl-drop-icon">📦</span>
+                            <h3 class="stl-drop-title">Arrastra o sube tu archivo STL</h3>
+                            <p class="stl-drop-sub">Visualiza la volumetría en 3D interactivo con rotación orbital de 360°.</p>
+                            <input type="file" id="stl-file-input" class="stl-file-hidden" accept=".stl" aria-label="Subir archivo STL">
+                            <button type="button" class="btn-sales-secondary" style="pointer-events: none;">
+                                SELECCIONAR ARCHIVO STL
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="stl-viewer-toolbar">
+                        <div class="stl-hint">
+                            <span>🖱️ Clic y arrastrar para orbitar | Rueda para zoom</span>
+                        </div>
+                        <button type="button" id="stl-reset-btn" class="btn-sales-secondary" style="display: none; padding: 4px 10px; font-size: 0.72rem;">
+                            Cambiar STL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Panel de Cotización Paramétrica -->
+                <div class="arch-quote-panel" id="arch-quote-panel">
+                    <div class="panel-header">
+                        <h3 class="panel-title">Cotizador de Impresión 3D</h3>
+                        <span class="panel-badge-rate">$90 CLP / g base</span>
+                    </div>
+
+                    <!-- Input de Peso -->
+                    <div class="form-group-quote">
+                        <label for="arch-grams" class="label-quote">
+                            <span>Peso Estimado del Modelo</span>
+                            <span class="label-quote-hint">Obtenido de Bambu Studio / Cura / PrusaSlicer</span>
+                        </label>
+                        <div class="input-with-pill">
+                            <input type="number" id="arch-grams" min="1" max="15000" value="150" placeholder="Ej: 150">
+                            <span class="input-pill-unit">gramos</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox Ready to Print (-20% OFF) -->
+                    <label class="checkbox-card" for="arch-ready-to-print">
+                        <input type="checkbox" id="arch-ready-to-print" checked>
+                        <div class="checkbox-card-content">
+                            <div class="checkbox-card-title">
+                                <span>Llegar e imprimir (Ready to Print)</span>
+                                <span class="badge-discount-tag">-20% OFF</span>
+                            </div>
+                            <p class="checkbox-card-desc">El modelo está a escala, con orientación óptima, sin mallas no-manifold ni errores geométricos.</p>
+                        </div>
+                    </label>
+
+                    <!-- Selector Calidad de Capa -->
+                    <div class="form-group-quote">
+                        <label for="arch-quality" class="label-quote">
+                            <span>Calidad de Impresión (Altura de Capa)</span>
+                        </label>
+                        <select id="arch-quality" class="select-quote">
+                            <option value="draft">Draft / Rápida (0.28 mm) • Maquetas volumétricas preliminares</option>
+                            <option value="standard" selected>Standard (0.20 mm) • Equilibrio óptimo recomendado</option>
+                            <option value="high">Alta Precisión (0.12 mm) • Entregas finales y concursos (+15%)</option>
+                            <option value="ultra">Detalle Ultra (0.08 mm) • Máxima fidelidad y celosías finas (+30%)</option>
+                        </select>
+                    </div>
+
+                    <!-- Selector de Relleno (Infill) -->
+                    <div class="form-group-quote">
+                        <label for="arch-infill" class="label-quote">
+                            <span>Densidad de Relleno (Infill)</span>
+                        </label>
+                        <select id="arch-infill" class="select-quote">
+                            <option value="light">Ligero (10%) • Cuerpos cerrados de bajo esfuerzo</option>
+                            <option value="standard" selected>Standard (20%) • Recomendado para la mayoría de maquetas</option>
+                            <option value="structural">Estructural (40%) • Voladizos o piezas mecánicas (+5%)</option>
+                            <option value="solid">Sólido (100%) • Macizo y máxima resistencia (+15%)</option>
+                        </select>
+                    </div>
+
+                    <!-- Selector de Material -->
+                    <div class="form-group-quote">
+                        <label for="arch-material" class="label-quote">
+                            <span>Material de Manufactura</span>
+                        </label>
+                        <select id="arch-material" class="select-quote">
+                            <option value="pla_matte" selected>PLA Arquitectónico Mate • Textura tipo yeso, sin brillos (+10%)</option>
+                            <option value="pla_standard">PLA Estándar • Colores neutros técnicos</option>
+                            <option value="resin_uv">Resina UV de Alto Detalle (SLA) • Microdetalles escala 1:200</option>
+                        </select>
+                    </div>
+
+                    <!-- Tarjeta de Desglose en Vivo -->
+                    <div class="quote-breakdown-card">
+                        <div class="breakdown-row">
+                            <span>Tarifa efectiva por gramo:</span>
+                            <strong id="arch-effective-rate">$99 CLP</strong>
+                        </div>
+                        <div class="breakdown-row">
+                            <span>Subtotal bruto:</span>
+                            <span id="arch-subtotal-display">$14.850 CLP</span>
+                        </div>
+                        <div class="breakdown-row discount-row" id="arch-discount-row">
+                            <span>Descuento "Ready to Print" (20%):</span>
+                            <span id="arch-discount-display">-$2.970 CLP</span>
+                        </div>
+                        <div class="breakdown-row total-row">
+                            <span>Presupuesto Estimado:</span>
+                            <div>
+                                <span class="total-number" id="arch-total-display">$11.880</span>
+                                <span class="total-unit">CLP</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Acciones de Cotización -->
+                    <div class="panel-actions-row">
+                        <button type="button" class="btn-add-quote" id="btn-add-arch-quote">
+                            + AGREGAR A COTIZACIÓN
+                        </button>
+                        <a href="https://wa.me/56993188597" target="_blank" rel="noopener noreferrer" class="btn-wsp-instant" id="btn-wsp-arch-direct">
+                            COTIZAR POR WHATSAPP
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SECCIÓN 2: MAQUETAS URBANAS TOPOGRÁFICAS 3D
+             =================================================================== -->
+        <section id="maquetas-urbanas" class="section-services urban-section">
+            <div class="urban-header-copy">
+                <span class="section-subtitle-tag">02 / MAQUETAS TOPOGRÁFICAS TERRITORIALES</span>
+                <h2 class="urban-statement-main">
+                    "Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única."
+                </h2>
+                <p class="urban-statement-sub">
+                    Capturamos el relieve y trazado urbano de cualquier lugar mediante datos geoespaciales. Diseño técnico, limpio y a medida.
+                </p>
+            </div>
+
+            <!-- Barra de Personalización Urbana -->
+            <div class="urban-customizer-bar">
+                <div class="urban-customizer-item">
+                    <label for="urban-city-select" class="customizer-label">Ciudad o Coordenadas:</label>
+                    <select id="urban-city-select" class="urban-city-select">
+                        <option value="santiago" selected>Santiago (Centro, San Cristóbal, Cordillera)</option>
+                        <option value="concepcion">Concepción (Río Biobío, Cerros, Centro)</option>
+                        <option value="valparaiso">Valparaíso &amp; Viña del Mar (Bahía y Quebradas)</option>
+                        <option value="ny">New York (Manhattan, Central Park)</option>
+                        <option value="paris">París (Sena, Île de la Cité, Torre Eiffel)</option>
+                        <option value="custom">Otra ciudad o coordenada personalizada...</option>
+                    </select>
+                    <input type="text" id="urban-custom-city-input" class="custom-city-input" placeholder="Ej: Tokio, Puerto Varas...">
+                </div>
+
+                <div class="urban-customizer-item">
+                    <label class="urban-frame-toggle" for="urban-frame-checkbox">
+                        <input type="checkbox" id="urban-frame-checkbox">
+                        <span>Marco negro perimetral opcional (+<strong>$2.500 CLP</strong>)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Grid de los 4 Formatos Oficiales -->
+            <div class="urban-formats-grid">
+                <!-- 10x10 cm -->
+                <div class="urban-card">
+                    <div>
+                        <h3 class="urban-size-title">10x10 cm</h3>
+                        <p class="urban-size-desc">Formato compacto de bolsillo, ideal para manzanas emblemáticas o monumentos.</p>
+                    </div>
+                    <div class="urban-price-box">
+                        <div class="urban-price-number">$9.990</div>
+                        <div class="urban-price-unit">CLP</div>
+                    </div>
+                    <button type="button" class="btn-select-urban" data-size="10x10">
+                        COTIZAR 10x10 CM
+                    </button>
+                </div>
+
+                <!-- 15x15 cm -->
+                <div class="urban-card">
+                    <div>
+                        <h3 class="urban-size-title">15x15 cm</h3>
+                        <p class="urban-size-desc">Formato de escritorio para sectores específicos y elevaciones topográficas.</p>
+                    </div>
+                    <div class="urban-price-box">
+                        <div class="urban-price-number">$19.990</div>
+                        <div class="urban-price-unit">CLP</div>
+                    </div>
+                    <button type="button" class="btn-select-urban" data-size="15x15">
+                        COTIZAR 15x15 CM
+                    </button>
+                </div>
+
+                <!-- 20x20 cm -->
+                <div class="urban-card">
+                    <div>
+                        <h3 class="urban-size-title">20x20 cm</h3>
+                        <p class="urban-size-desc">Tamaño intermedio con excelente nivel de detalle barrial y curvas de nivel.</p>
+                    </div>
+                    <div class="urban-price-box">
+                        <div class="urban-price-number">$25.990</div>
+                        <div class="urban-price-unit">CLP</div>
+                    </div>
+                    <button type="button" class="btn-select-urban" data-size="20x20">
+                        COTIZAR 20x20 CM
+                    </button>
+                </div>
+
+                <!-- 25x25 cm 🔥 Mejor Valor -->
+                <div class="urban-card best-value">
+                    <span class="badge-best-value">Mejor valor 🔥</span>
+                    <div>
+                        <h3 class="urban-size-title">25x25 cm</h3>
+                        <p class="urban-size-desc">Formato amplio para contextos metropolitanos extendidos. Máxima relación tamaño-valor.</p>
+                    </div>
+                    <div class="urban-price-box">
+                        <div class="urban-price-number">$29.990</div>
+                        <div class="urban-price-unit">CLP</div>
+                    </div>
+                    <button type="button" class="btn-select-urban" data-size="25x25">
+                        COTIZAR 25x25 CM 🔥
+                    </button>
+                </div>
+            </div>
+
+            <!-- Banner Gran Formato & Pedidos por Volumen -->
+            <div class="urban-large-format-banner">
+                <div class="banner-content">
+                    <h4>Proyectos de Gran Formato &amp; Pedidos por Volumen</h4>
+                    <p>Desarrollamos maquetas de gran formato (ensambladas por cuadrantes hasta 100x100 cm) y fabricaciones seriadas para despachos de arquitectura, inmobiliarias y museos. Descuentos por volumen: 10% (3-5 unid), 15% (6-10 unid) y 20% (+11 unid).</p>
+                </div>
+                <div class="banner-actions">
+                    <button type="button" class="btn-select-urban" data-size="gran_formato" style="background: var(--brand-red); color: #fff; border: none; padding: 14px 22px;">
+                        CONSULTAR GRAN FORMATO
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SECCIÓN 3: SERVICIOS DE ARQUITECTURA TRADICIONAL & DOM
+             =================================================================== -->
+        <section id="arquitectura-legal" class="section-services">
+            <div class="section-services-header">
+                <span class="section-subtitle-tag">03 / ARQUITECTURA LEGAL, PREDIAL &amp; DOM</span>
+                <h2 class="section-services-title">Servicios de Arquitectura Tradicional</h2>
+                <p class="section-services-p">
+                    Tramitaciones técnicas rigurosas y proyectos ejecutivos conforme a la LGUC, OGUC, Ley 20.898 y resoluciones SAG / Conservador de Bienes Raíces (CBR).
+                </p>
+            </div>
+
+            <div class="arch-services-grid">
+                <!-- 1. Regularización DOM -->
+                <article class="service-card">
+                    <div class="service-card-top">
+                        <div class="service-card-meta">
+                            <span class="service-category-badge">Normativa &amp; Legal</span>
+                            <span class="service-legal-pill">Ley 20.898 / LGUC</span>
+                        </div>
+                        <h3 class="service-card-title">Regularización de Edificaciones</h3>
+                        <div class="service-card-sub">DOM / Ley del Mono</div>
+                        <p class="service-card-desc">Tramitación de expediente técnico ante la Dirección de Obras Municipales para viviendas o ampliaciones sin recepción final previa.</p>
+                        
+                        <div class="service-deliverables-title">Entregables Principales:</div>
+                        <ul class="service-deliverables-list">
+                            <li>Levantamiento planimétrico in situ</li>
+                            <li>Plano de emplazamiento, plantas, cortes y elevaciones (1:50 / 1:100)</li>
+                            <li>Memoria explicativa y Especificaciones Técnicas Resumidas (EETT)</li>
+                            <li>Informe de habitabilidad y gestión ante DOM hasta Recepción Final</li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <div class="service-footer-info">
+                            <span class="service-timeline">Plazo: 4 a 8 semanas</span>
+                            <span class="service-base-price">Desde $350.000 CLP</span>
+                        </div>
+                        <button type="button" class="btn-request-service" data-service-id="regularizacion">
+                            SOLICITAR COTIZACIÓN FORMAL ➔
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 2. Fusión de Roles -->
+                <article class="service-card">
+                    <div class="service-card-top">
+                        <div class="service-card-meta">
+                            <span class="service-category-badge">Predial &amp; Jurídico</span>
+                            <span class="service-legal-pill">LGUC Art. 63</span>
+                        </div>
+                        <h3 class="service-card-title">Fusión de Roles</h3>
+                        <div class="service-card-sub">Unificación de predios colindantes</div>
+                        <p class="service-card-desc">Procedimiento técnico y legal para unir dos o más propiedades o lotes contiguos bajo una sola unidad territorial ante DOM, CBR y SII.</p>
+                        
+                        <div class="service-deliverables-title">Entregables Principales:</div>
+                        <ul class="service-deliverables-list">
+                            <li>Estudio de títulos y Certificado de Informaciones Previas (CIP)</li>
+                            <li>Plano de situación actual con deslindes y cabidas</li>
+                            <li>Plano de fusión unificado con cuadro de superficies</li>
+                            <li>Minuta de deslindes para inscripción en el CBR</li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <div class="service-footer-info">
+                            <span class="service-timeline">Plazo: 4 a 6 semanas</span>
+                            <span class="service-base-price">Desde $420.000 CLP</span>
+                        </div>
+                        <button type="button" class="btn-request-service" data-service-id="fusion_roles">
+                            SOLICITAR COTIZACIÓN FORMAL ➔
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 3. Subdivisión Predial -->
+                <article class="service-card">
+                    <div class="service-card-top">
+                        <div class="service-card-meta">
+                            <span class="service-category-badge">Predial &amp; Jurídico</span>
+                            <span class="service-legal-pill">DL 3.516 (SAG) / DOM</span>
+                        </div>
+                        <h3 class="service-card-title">Subdivisión Predial</h3>
+                        <div class="service-card-sub">Loteos agrícolas y subdivisiones urbanas</div>
+                        <p class="service-card-desc">Fraccionamiento de un predio matriz en lotes independientes. En suelo rural aplica certificación SAG (mínimo 5.000 m²); en suelo urbano resolución DOM.</p>
+                        
+                        <div class="service-deliverables-title">Entregables Principales:</div>
+                        <ul class="service-deliverables-list">
+                            <li>Levantamiento topográfico georreferenciado (GNSS / WGS84)</li>
+                            <li>Plano de subdivisión predial con accesos y servidumbres</li>
+                            <li>Memoria explicativa técnica de subdivisión</li>
+                            <li>Ingreso de expediente SAG/DOM e inscripción de roles en CBR</li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <div class="service-footer-info">
+                            <span class="service-timeline">Plazo: 6 a 12 semanas</span>
+                            <span class="service-base-price">Desde $650.000 CLP</span>
+                        </div>
+                        <button type="button" class="btn-request-service" data-service-id="subdivision_predial">
+                            SOLICITAR COTIZACIÓN FORMAL ➔
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 4. Diseño Arquitectónico y BIM -->
+                <article class="service-card">
+                    <div class="service-card-top">
+                        <div class="service-card-meta">
+                            <span class="service-category-badge">Diseño &amp; Construcción</span>
+                            <span class="service-legal-pill">PlanBIM / OGUC</span>
+                        </div>
+                        <h3 class="service-card-title">Diseño Arquitectónico y BIM</h3>
+                        <div class="service-card-sub">Anteproyectos &amp; Modelado LOD 200 - 350</div>
+                        <p class="service-card-desc">Desarrollo integral de proyectos residenciales, comerciales o corporativos en flujos paramétricos BIM para máxima coordinación espacial.</p>
+                        
+                        <div class="service-deliverables-title">Entregables Principales:</div>
+                        <ul class="service-deliverables-list">
+                            <li>Modelo federado tridimensional BIM (IFC / Revit / Archicad)</li>
+                            <li>Planimetría ejecutiva completa 1:50 y detalles 1:20 / 1:10</li>
+                            <li>Renders fotorrealistas de alta resolución (4K)</li>
+                            <li>Cubicaciones automáticas de partidas y optimización</li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <div class="service-footer-info">
+                            <span class="service-timeline">Plazo: 4 a 10 semanas</span>
+                            <span class="service-base-price">Desde $850.000 CLP</span>
+                        </div>
+                        <button type="button" class="btn-request-service" data-service-id="diseno_bim">
+                            SOLICITAR COTIZACIÓN FORMAL ➔
+                        </button>
+                    </div>
+                </article>
+
+                <!-- 5. Asesoría Normativa y Cabida -->
+                <article class="service-card">
+                    <div class="service-card-top">
+                        <div class="service-card-meta">
+                            <span class="service-category-badge">Normativa &amp; Legal</span>
+                            <span class="service-legal-pill">PRC / PRMS / OGUC</span>
+                        </div>
+                        <h3 class="service-card-title">Asesoría Normativa &amp; Cabida</h3>
+                        <div class="service-card-sub">Maximización del potencial edificable</div>
+                        <p class="service-card-desc">Análisis urbanístico exhaustivo del Certificado de Informaciones Previas (CIP) para determinar volumetría máxima construible y rentabilidad.</p>
+                        
+                        <div class="service-deliverables-title">Entregables Principales:</div>
+                        <ul class="service-deliverables-list">
+                            <li>Cuadro normativo comparativo (alturas, rasantes, distanciamientos)</li>
+                            <li>Modelo volumétrico 3D de envolvente máxima</li>
+                            <li>Alternativas de distribución programática</li>
+                            <li>Informe técnico de factibilidad inmobiliaria</li>
+                        </ul>
+                    </div>
+                    <div class="service-card-footer">
+                        <div class="service-footer-info">
+                            <span class="service-timeline">Plazo: 1 a 2 semanas</span>
+                            <span class="service-base-price">Desde $290.000 CLP</span>
+                        </div>
+                        <button type="button" class="btn-request-service" data-service-id="estudio_cabida">
+                            SOLICITAR COTIZACIÓN FORMAL ➔
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SECCIÓN 4: CONEXIÓN AL PORTAFOLIO DIGITAL (portfolio.html)
+             =================================================================== -->
+        <section class="portfolio-bridge-section">
+            <div class="portfolio-bridge-box">
+                <div class="bridge-content">
+                    <span class="section-subtitle-tag">PORTAFOLIO DIGITAL &amp; MONOGRAFÍA</span>
+                    <h3>¿Quieres ver el rigor técnico detrás de nuestro trabajo?</h3>
+                    <p>
+                        Visita la página de nuestro <strong>Portafolio Digital</strong> con los proyectos de investigación, tesis de magíster en sustentabilidad y energía, viviendas colectivas prefabricadas y planimetrías ejecutivas desarrolladas por el arquitecto <strong>Adolfo Risopatrón</strong>.
+                    </p>
+                    <div class="bridge-actions">
+                        <a href="portfolio.html" class="btn-sales-primary">
+                            EXPLORAR PORTAFOLIO DIGITAL ➔
+                        </a>
+                        <a href="portfolio-pdf.html" target="_blank" rel="noopener noreferrer" class="btn-sales-secondary">
+                            Dossier Monográfico (A4 PDF)
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bridge-specs-grid">
+                    <div class="bridge-spec-card">
+                        <div class="bridge-spec-number">100%</div>
+                        <div class="bridge-spec-label">Planimetría Vectorial</div>
+                    </div>
+                    <div class="bridge-spec-card">
+                        <div class="bridge-spec-number">BIM</div>
+                        <div class="bridge-spec-label">Modelado Paramétrico</div>
+                    </div>
+                    <div class="bridge-spec-card">
+                        <div class="bridge-spec-number">0.08mm</div>
+                        <div class="bridge-spec-label">Ultra Resolución 3D</div>
+                    </div>
+                    <div class="bridge-spec-card">
+                        <div class="bridge-spec-number">Chile</div>
+                        <div class="bridge-spec-label">Cobertura Nacional</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================================================================
+             SECCIÓN 5: FORMULARIO DE CONTACTO RÁPIDO
+             =================================================================== -->
+        <section id="contacto" class="section-services" style="padding-top: 40px;">
+            <div class="section-services-header">
+                <span class="section-subtitle-tag">COMUNICACIÓN DIRECTA</span>
+                <h2 class="section-services-title">Inicia tu Requerimiento</h2>
+                <p class="section-services-p">
+                    Habla directamente con nosotros para coordinar visitas técnicas, revisión de archivos CAD/BIM o especificaciones para maquetas especiales.
+                </p>
+            </div>
+
+            <div style="max-width: 650px; margin: 0 auto; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 36px 32px; box-shadow: var(--shadow-sm);">
+                <form action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
+                    <input type="hidden" name="_subject" value="¡Nuevo Contacto Comercial desde Alzado Rojo!">
+                    <input type="hidden" name="_template" value="table">
+
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="contact-name" class="label-quote" style="margin-bottom: 6px;">Nombre o Empresa *</label>
+                        <input type="text" id="contact-name" name="Nombre" placeholder="Tu nombre o estudio" required class="select-quote" style="cursor: text;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="contact-phone" class="label-quote" style="margin-bottom: 6px;">Teléfono o WhatsApp *</label>
+                        <input type="tel" id="contact-phone" name="Telefono" placeholder="+56 9 9318 8597" required class="select-quote" style="cursor: text;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 16px;">
+                        <label for="contact-email" class="label-quote" style="margin-bottom: 6px;">Correo Electrónico *</label>
+                        <input type="email" id="contact-email" name="Email" placeholder="contacto@ejemplo.cl" required class="select-quote" style="cursor: text;">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <label for="contact-msg" class="label-quote" style="margin-bottom: 6px;">Detalle del Servicio o Proyecto *</label>
+                        <textarea id="contact-msg" name="Mensaje" rows="4" placeholder="Describe brevemente el tipo de maqueta, escala, o trámite municipal que necesitas..." required class="select-quote" style="cursor: text; min-height: 100px; resize: vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-sales-primary" style="width: 100%; justify-content: center;">
+                        ENVIAR MENSAJE DIRECTO ➔
+                    </button>
                 </form>
             </div>
+        </section>
+    </main>
+
+    <!-- FOOTER LEGAL Y DE CONTACTO -->
+    <footer class="legal-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">ALZADO <span class="brand-red">ROJO</span></span>
+                <p>Estudio de Arquitectura &amp; Taller de Fabricación Digital 3D</p>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Subir al Inicio ↑</a>
+                <a href="portfolio.html">Portafolio Digital (Proyectos &amp; Láminas)</a>
+                <a href="https://wa.me/56993188597" target="_blank" rel="noopener noreferrer">WhatsApp (+56 9 9318 8597)</a>
+                <a href="portfolio-pdf.html" target="_blank" rel="noopener noreferrer">Dossier Monográfico PDF (A4)</a>
+            </div>
+            <div class="footer-copy">
+                <p>&copy; 2026 ALZADO ROJO | Adolfo Risopatrón Inzunza. Todos los derechos reservados.</p>
+            </div>
         </div>
-    </section>
+    </footer>
 
-    <footer class="legal-footer"><p>&copy; 2026 Adolfo Risopatrón Inzunza. Portafolio de Arquitectura.</p></footer>
-
-    <!-- MODAL (Galería y Descripción) -->
-    <dialog id="project-modal" class="modal">
-        <div class="modal-content">
-            <button type="button" class="close-modal" aria-label="Cerrar modal">&times;</button>
-            
-            <!-- SIDEBAR DE INFORMACIÓN -->
-            <div class="modal-sidebar fade-in">
-                <h2 id="modal-title"></h2>
-                <span id="modal-year" class="tag-year modal-tag"></span>
-                <div id="modal-desc" class="project-description"></div>
+    <!-- ===================================================================
+         MODAL DE COTIZACIÓN FORMAL ("EL FORMATO FINO")
+         Hoja técnica membretada oficial con opción de impresión A4 y envío WhatsApp
+         =================================================================== -->
+    <div id="formal-quote-modal" class="formal-quote-modal" role="dialog" aria-modal="true" aria-labelledby="modal-doc-title">
+        <div class="formal-quote-dialog" id="formal-quote-dialog">
+            <!-- Barra superior del modal -->
+            <div class="quote-modal-topbar">
+                <div class="quote-modal-topbar-title">
+                    <span>🏛️</span>
+                    <span id="modal-doc-title">Cotización Formal de Servicios</span>
+                </div>
+                <div class="quote-modal-topbar-actions">
+                    <button type="button" class="btn-close-modal" id="btn-close-modal" aria-label="Cerrar cotización">✕</button>
+                </div>
             </div>
 
-            <!-- MAIN DE LA GALERÍA -->
-            <div class="modal-main fade-in">
-                <div class="carousel-wrapper">
-                    <button type="button" class="slider-btn prev-btn" aria-label="Proyecto anterior">&#10094;</button>
-                    <div class="modal-gallery" id="modal-gallery"></div>
-                    <button type="button" class="slider-btn next-btn" aria-label="Proyecto siguiente">&#10095;</button>
+            <!-- Hoja Técnica Membretada (Documento imprimible) -->
+            <div class="quote-document-scroll" id="formal-quote-document">
+                <div class="quote-sheet-letterhead">
+                    <div class="letterhead-brand-block">
+                        <h2>ALZADO <span class="brand-red">ROJO</span></h2>
+                        <p>Arquitectura &amp; Fabricación Digital</p>
+                        <p style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px;">contacto@alzado-rojo.cl • +56 9 9318 8597 • Santiago, Chile</p>
+                    </div>
+                    <div class="letterhead-folio-box">
+                        <div class="folio-number" id="quote-folio-display">AR-2026-0000</div>
+                        <div class="folio-date">Fecha: <span id="quote-date-display">06/10/2026</span></div>
+                        <div class="folio-validity">Vigencia: <span id="quote-validity-display">15 días corridos</span></div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Mandante / Cliente -->
+                <div class="quote-client-section">
+                    <div class="quote-client-title">Datos del Mandante</div>
+                    <div class="quote-client-grid">
+                        <div class="quote-client-field">
+                            <label for="client-name" class="quote-client-label">Nombre / Contacto</label>
+                            <input type="text" id="client-name" class="quote-client-input" placeholder="Nombre completo">
+                        </div>
+                        <div class="quote-client-field">
+                            <label for="client-company" class="quote-client-label">Empresa / Estudio</label>
+                            <input type="text" id="client-company" class="quote-client-input" placeholder="Opcional">
+                        </div>
+                        <div class="quote-client-field">
+                            <label for="client-rut" class="quote-client-label">RUT</label>
+                            <input type="text" id="client-rut" class="quote-client-input" placeholder="Ej: 12.345.678-9">
+                        </div>
+                        <div class="quote-client-field">
+                            <label for="client-phone" class="quote-client-label">Teléfono / WhatsApp</label>
+                            <input type="tel" id="client-phone" class="quote-client-input" placeholder="+56 9 ...">
+                        </div>
+                        <div class="quote-client-field">
+                            <label for="client-email" class="quote-client-label">Correo Electrónico</label>
+                            <input type="email" id="client-email" class="quote-client-input" placeholder="contacto@correo.cl">
+                        </div>
+                        <div class="quote-client-field">
+                            <label for="client-city" class="quote-client-label">Comuna / Ciudad</label>
+                            <input type="text" id="client-city" class="quote-client-input" placeholder="Ej: Las Condes, Santiago">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabla de Partidas Cotizadas -->
+                <div class="quote-items-section">
+                    <div class="quote-items-title">Desglose Técnico de Partidas</div>
+                    <div class="quote-table-wrapper">
+                        <table class="quote-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 45%;">Partida / Especificación</th>
+                                    <th style="width: 10%; text-align: center;">Cant.</th>
+                                    <th style="width: 15%; text-align: right;">Unitario</th>
+                                    <th style="width: 12%; text-align: right;">Dscto.</th>
+                                    <th style="width: 13%; text-align: right;">Subtotal</th>
+                                    <th style="width: 5%; text-align: center;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="quote-items-tbody">
+                                <!-- Filas generadas dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Resumen Financiero y Condiciones Comerciales -->
+                <div class="quote-financials-layout">
+                    <!-- Condiciones Comerciales Oficiales -->
+                    <div class="quote-terms-box">
+                        <div class="quote-terms-title">Condiciones Comerciales Oficiales</div>
+                        <ul class="quote-terms-list">
+                            <li><strong>Modalidad de pago:</strong> 50% de anticipo al inicio / 50% saldo contra entrega conforme o pre-despacho.</li>
+                            <li><strong>Plazos de producción:</strong> 3 a 7 días hábiles para piezas 3D estándar. Obras mayores según cronograma acordado.</li>
+                            <li><strong>Despachos:</strong> Cobertura a todo Chile vía Starken, Chilexpress o retiro sin costo en taller.</li>
+                            <li><strong>Validación técnica:</strong> Sujeto a inspección geométrica previa de los archivos STL/OBJ (estanqueidad manifold).</li>
+                            <li><strong>Validez:</strong> 15 días corridos desde su emisión.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Totales Financieros e IVA -->
+                    <div class="quote-totals-card">
+                        <div class="totals-row">
+                            <span>Subtotal Neto:</span>
+                            <strong id="quote-subtotal-neto">$0 CLP</strong>
+                        </div>
+                        <div class="totals-row" id="quote-discounts-row" style="color: var(--brand-red); display: none;">
+                            <span>Descuentos acumulados:</span>
+                            <strong id="quote-total-discounts">-$0 CLP</strong>
+                        </div>
+                        <div class="totals-row">
+                            <span>Neto Ajustado:</span>
+                            <strong id="quote-neto-ajustado">$0 CLP</strong>
+                        </div>
+
+                        <!-- Switch de IVA (19%) -->
+                        <div class="iva-toggle-row">
+                            <span>Incluir IVA (19% Factura)</span>
+                            <label class="iva-switch" for="quote-iva-toggle">
+                                <input type="checkbox" id="quote-iva-toggle">
+                                <span class="iva-slider"></span>
+                            </label>
+                        </div>
+                        <div class="totals-row" id="quote-iva-row" style="display: none;">
+                            <span>IVA (19%):</span>
+                            <strong id="quote-iva-amount">$0 CLP</strong>
+                        </div>
+
+                        <div class="totals-grand-total">
+                            <span>TOTAL:</span>
+                            <span class="grand-total-amount" id="quote-total-final">$0 CLP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pie de Acciones del Modal -->
+            <div class="quote-modal-footer">
+                <div class="footer-actions-left">
+                    <button type="button" class="btn-modal-clear" id="btn-modal-clear">
+                        Vaciar cotización
+                    </button>
+                </div>
+                <div class="footer-actions-right">
+                    <button type="button" class="btn-modal-print" id="btn-modal-print" title="Imprimir documento formal o guardar como PDF en hoja A4">
+                        <span>🖨️</span>
+                        <span>IMPRIMIR / PDF</span>
+                    </button>
+                    <a href="https://wa.me/56993188597" target="_blank" rel="noopener noreferrer" class="btn-modal-wsp" id="btn-modal-wsp">
+                        <span>💬</span>
+                        <span>HABLAR POR WHATSAPP</span>
+                    </a>
                 </div>
             </div>
         </div>
-    </dialog>
+    </div>
 
-    <script src="data/proyectos.js"></script>
-    <script src="js/main.js"></script>
+    <!-- ===================================================================
+         DOCK FLOTANTE (BOTÓN DE COTIZACIÓN ACTIVA & WHATSAPP DIRECTO)
+         =================================================================== -->
+    <div class="floating-actions-dock" aria-label="Acciones rápidas">
+        <button type="button" class="floating-quote-pill" id="floating-quote-pill" style="display: none;" title="Abrir cotización activa">
+            <span>📋</span>
+            <span>Ver Cotización</span>
+            <span class="quote-count-badge">0</span>
+        </button>
+
+        <a href="https://wa.me/56993188597" target="_blank" rel="noopener noreferrer" class="floating-wsp-btn" title="Contactar por WhatsApp (+56 9 9318 8597)" aria-label="Contactar por WhatsApp">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86.173.086.275.072.376-.044.101-.116.433-.506.549-.68.116-.173.231-.145.39-.086s1.011.477 1.184.564.289.13.332.203c.043.072.043.419-.101.824z"/>
+            </svg>
+        </a>
+    </div>
+
+    <!-- TOAST DE NOTIFICACIÓN FLOTANTE -->
+    <div id="ar-toast" class="ar-toast" role="status" aria-live="polite"></div>
+
+    <!-- SCRIPTS DE DATOS, COTIZACIÓN Y LÓGICA FRONTEND -->
+    <script src="data/servicios-arquitectura.js"></script>
+    <script src="js/quote-calculator.js"></script>
+    <script src="js/formal-quote.js"></script>
+    <script src="js/servicios-ui.js"></script>
 </body>
 </html>

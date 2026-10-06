@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ALZADO ROJO | Portafolio Digital de Arquitectura, Modelado Paramétrico y Proyectos por Adolfo Risopatrón Inzunza.">
+    <meta name="theme-color" content="#FCFCFB" id="meta-theme-color">
+    <title>Portafolio Digital | ALZADO ROJO - Adolfo Risopatrón</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=7">
+</head>
+<body>
+    <!-- PANTALLA DE INTRODUCCIÓN (SPLASH SCREEN) -->
+    <div id="splash-screen" role="status" aria-label="Cargando portafolio digital">
+        <div class="splash-inner">
+            <h1 class="splash-text">ALZADO <span class="brand-red">ROJO</span></h1>
+            <div class="splash-line"></div>
+            <p class="splash-sub">PORTAFOLIO DIGITAL DE ARQUITECTURA</p>
+        </div>
+    </div>
+
+    <!-- CABECERA Y NAVEGACIÓN PRINCIPAL -->
+    <header class="site-header">
+        <nav class="navbar" aria-label="Navegación principal del portafolio">
+            <a href="index.html" class="logo" aria-label="Alzado Rojo - Servicios y Cotizador">
+                ALZADO <span class="brand-red">ROJO</span>
+                <span class="logo-accent" aria-hidden="true"></span>
+            </a>
+
+            <!-- ENLACES DE NAVEGACIÓN -->
+            <div class="nav-links" id="primary-nav">
+                <a href="index.html" class="nav-link" style="color: var(--brand-red); font-weight: 600;">← Servicios &amp; Cotizador</a>
+                <a href="#hero" class="nav-link active">Inicio</a>
+                <a href="#academicos" class="nav-link">Investigación</a>
+                <a href="#profesionales" class="nav-link">Práctica</a>
+                <a href="index.html#maquetas-3d" class="nav-link nav-3d">Manufactura 3D</a>
+                <a href="#sobre-mi" class="nav-link">Perfil</a>
+                <a href="#contacto" class="nav-link">Contacto</a>
+            </div>
+
+            <!-- CONTROLES ADICIONALES (TEMA Y MENÚ MÓVIL) -->
+            <div class="nav-actions">
+                <!-- Botón hacia Servicios Comerciales -->
+                <a href="index.html" class="hero-cta-btn secondary-cta" style="padding: 8px 16px; font-size: 0.75rem; border-radius: var(--radius-sm); text-decoration: none;">
+                    COTIZAR SERVICIOS ➔
+                </a>
+
+                <!-- Botón Modo Claro / Oscuro -->
+                <button type="button" id="theme-toggle" class="theme-toggle-btn" aria-label="Cambiar tema de color" title="Alternar tema claro/oscuro">
+                    <svg class="theme-icon sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-icon moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <!-- Botón Hamburguesa Móvil -->
+                <button type="button" id="mobile-nav-toggle" class="mobile-nav-toggle" aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="primary-nav">
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                    <span class="hamburger-bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main id="main-content">
+        <!-- HERO SECTION FULLSCREEN -->
+        <section id="hero" class="hero-section" aria-label="Portada de Alzado Rojo Portafolio">
+            <div class="hero-overlay" aria-hidden="true"></div>
+            
+            <video autoplay loop muted playsinline id="hero-video" aria-hidden="true">
+                <source src="assets/video/interactivo.mp4" type="video/mp4">
+            </video>
+
+            <div class="hero-titles fade-in">
+                <span class="hero-tagline">PORTAFOLIO MONOGRÁFICO DE ARQUITECTURA</span>
+                <h1 class="hero-brand">ADOLFO <span class="brand-red">RISOPATRÓN</span></h1>
+                <p class="subtitle">Arquitecto • Magíster en Arquitectura Sustentable y Energía • Modelado Paramétrico</p>
+                <div class="hero-actions">
+                    <a href="#academicos" class="hero-cta-btn primary-cta">EXPLORAR PROYECTOS <span class="cta-arrow">↓</span></a>
+                    <a href="index.html" class="hero-cta-btn secondary-cta">SERVICIOS &amp; COTIZADOR <span class="cta-arrow">➔</span></a>
+                </div>
+            </div>
+            
+            <a href="#academicos" class="scroll-indicator" aria-label="Desplazarse hacia abajo a proyectos">
+                <span class="scroll-mouse"></span>
+                <span class="scroll-label">SCROLL</span>
+            </a>
+        </section>
+
+        <!-- PROYECTOS ACADÉMICOS -->
+        <section id="academicos" class="gallery-section">
+            <div class="section-header">
+                <div class="section-meta-row">
+                    <span class="section-label-number">01 / INVESTIGACIÓN Y PROYECTOS</span>
+                    <span class="section-count-pill" id="count-academicos">INVESTIGACIÓN</span>
+                </div>
+                <h2>Proyectos Académicos &amp; Magíster</h2>
+                <div class="header-line"></div>
+                <p class="section-description">Investigación paramétrica, eficiencia energética, vivienda colectiva y planimetría técnica avanzada aplicada a la arquitectura sustentable.</p>
+            </div>
+            <div class="portfolio-grid structured-grid" id="grid-academicos" role="region" aria-label="Galería de proyectos académicos"></div>
+        </section>
+
+        <!-- PROYECTOS PROFESIONALES -->
+        <section id="profesionales" class="gallery-section">
+            <div class="section-header">
+                <div class="section-meta-row">
+                    <span class="section-label-number">02 / EJECUCIÓN Y PRÁCTICA</span>
+                    <span class="section-count-pill" id="count-profesionales">PRÁCTICA</span>
+                </div>
+                <h2>Proyectos Profesionales</h2>
+                <div class="header-line"></div>
+                <p class="section-description">Arquitectura interior comercial, prototipado 3D, visualizaciones interactivas, renders de alta gama y documentación de infraestructura.</p>
+            </div>
+            <div class="portfolio-grid structured-grid" id="grid-profesionales" role="region" aria-label="Galería de proyectos profesionales"></div>
+        </section>
+
+        <!-- SECCIÓN: SOBRE MÍ Y CV -->
+        <section id="sobre-mi" class="cv-section">
+            <div class="cv-grid">
+                <!-- Columna Izquierda: Bio & Experiencia -->
+                <div class="cv-text-block">
+                    <span class="section-label">03 / PERFIL PROFESIONAL</span>
+                    <h2>ADOLFO RISOPATRÓN INZUNZA</h2>
+                    <p class="bio-intro">Arquitecto &amp; Magíster en Arquitectura Sustentable y Energía</p>
+                    <p class="bio-text">
+                        Especialista en la convergencia estratégica entre el diseño espacial riguroso y la optimización basada en datos. Mi enfoque es técnico, estructurado y orientado a resultados de alto impacto, priorizando flujos de trabajo eficientes desde el desarrollo paramétrico hasta la ejecución de proyectos complejos.
+                    </p>
+                    
+                    <h3 class="subsection-title">Competencias Proyectuales</h3>
+                    <ul class="experience-list">
+                        <li>
+                            <div class="exp-bullet" aria-hidden="true"></div>
+                            <div class="exp-content">
+                                <strong>Gestión y Metodología Lean</strong>
+                                <span>Capacidad para optimizar plazos de entrega, coordinar equipos multidisciplinarios y priorizar tareas críticas en entornos de oficina de alta exigencia.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="exp-bullet" aria-hidden="true"></div>
+                            <div class="exp-content">
+                                <strong>Iteración Colaborativa &amp; Precisión</strong>
+                                <span>Proceso de diseño abierto a retroalimentación técnica, validación paramétrica constante con el cliente y compatibilización milimétrica de especialidades.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="exp-bullet" aria-hidden="true"></div>
+                            <div class="exp-content">
+                                <strong>Curiosidad Técnica &amp; I+D Digital</strong>
+                                <span>Investigación proactiva y adopción de tecnologías de automatización, simulaciones termo-lumínicas y modelado computacional para elevar la calidad constructiva.</span>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="bio-actions">
+                        <a href="portfolio-pdf.html" target="_blank" rel="noopener noreferrer" class="download-btn secondary" title="Abrir dossier monográfico imprimible en alta definición A4">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 8px;"><rect width="18" height="14" x="3" y="5" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+                            DOSSIER PDF (A4)
+                        </a>
+                        <a href="https://www.linkedin.com/in/adolfo-risopatron-inzunza/" target="_blank" rel="noopener noreferrer" class="download-btn secondary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="margin-right: 8px;"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            LINKEDIN
+                        </a>
+                        <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" rel="noopener noreferrer" class="download-btn primary">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="margin-right: 8px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                            DESCARGAR CV
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Columna Derecha: Habilidades & Herramientas -->
+                <div class="skills-block">
+                    <span class="section-label">HERRAMIENTAS TÉCNICAS &amp; SOFTWARE</span>
+                    
+                    <div class="skill-category">
+                        <h4>Modelado Paramétrico &amp; BIM</h4>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span class="skill-name">Rhinoceros + Grasshopper</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-width="95%"></div></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span class="skill-name">Revit + Archicad</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-width="85%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Simulación Energética &amp; Data-Driven</h4>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span class="skill-name">Design Builder + Athena</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-width="80%"></div></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span class="skill-name">Power BI + Integración Algorítmica</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-width="90%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h4>Visualización Arquitectónica &amp; Post-Producción</h4>
+                        <div class="skill-bar">
+                            <div class="skill-info">
+                                <span class="skill-name">Twinmotion + Photoshop + Illustrator</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-track"><div class="skill-fill" data-width="95%"></div></div>
+                        </div>
+                    </div>
+
+                    <div class="studio-badge-box">
+                        <div class="badge-icon" aria-hidden="true">📐</div>
+                        <div class="badge-content">
+                            <strong>Estándar Editorial &amp; Rigor Técnico</strong>
+                            <p>Desarrollo integral de planimetrías ejecutivas, memorias de cálculo sustentable y documentación para aprobación municipal.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BANNER DE TRANSICIÓN HACIA SERVICIOS COMERCIALES -->
+        <section class="gallery-section" style="padding-top: 20px; padding-bottom: 60px;">
+            <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 50px 40px; text-align: center; max-width: 1000px; margin: 0 auto; box-shadow: var(--shadow-sm);">
+                <span class="section-label">TALLER &amp; CONSULTORÍA</span>
+                <h2 style="margin: 15px 0 10px; font-size: 2rem;">¿Buscas materializar una maqueta o tramitar un expediente?</h2>
+                <p style="color: var(--text-secondary); max-width: 650px; margin: 0 auto 30px; font-weight: 300;">
+                    Fabricamos maquetas 3D con tolerancia milimétrica ($90/g, -20% si está lista para imprimir), maquetas topográficas urbanas y tramitamos regularizaciones DOM, subdivisiones y fusiones prediales.
+                </p>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="index.html" class="hero-cta-btn primary-cta" style="text-decoration: none;">
+                        VER CATÁLOGO &amp; COTIZADOR EN VIVO ➔
+                    </a>
+                    <a href="https://wa.me/56993188597" target="_blank" rel="noopener noreferrer" class="hero-cta-btn secondary-cta" style="text-decoration: none; border-color: #25D366; color: #25D366;">
+                        WHATSAPP DIRECTO (+56 9 9318 8597)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN: CONTACTO DIRECTO -->
+        <section id="contacto" class="services-contact-section">
+            <div class="services-grid">
+                <div class="services-block">
+                    <span class="section-label">CONTACTO PROFESIONAL</span>
+                    <h2>CONVERSEMOS SOBRE TU PROYECTO</h2>
+                    <p class="services-sub">Disponible para colaboraciones proyectuales, consultorías energéticas y dirección de expedientes técnicos.</p>
+                    <div style="margin-top: 30px; line-height: 2;">
+                        <p><strong>Ubicación:</strong> Santiago, Chile</p>
+                        <p><strong>WhatsApp:</strong> <a href="https://wa.me/56993188597" target="_blank" style="color: var(--brand-red); text-decoration: none;">+56 9 9318 8597</a></p>
+                        <p><strong>Email:</strong> <a href="mailto:contacto@alzado-rojo.cl" style="color: var(--text-primary); text-decoration: none;">contacto@alzado-rojo.cl</a></p>
+                    </div>
+                </div>
+
+                <div class="contact-block">
+                    <div class="contact-header">
+                        <span class="section-label">MENSAJE DIRECTO</span>
+                        <h3>ENVÍAME UN MENSAJE</h3>
+                        <p>Responderé a la brevedad con la información técnica necesaria.</p>
+                    </div>
+
+                    <form action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data" class="minimal-form">
+                        <input type="hidden" name="_subject" value="¡Nuevo Contacto desde Portafolio Alzado Rojo!">
+                        <input type="hidden" name="_template" value="table">
+                        
+                        <div class="form-group">
+                            <label for="form-nombre" class="form-label">Nombre o Estudio *</label>
+                            <input type="text" id="form-nombre" name="Nombre" placeholder="Tu nombre" required class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-email" class="form-label">Correo Electrónico *</label>
+                            <input type="email" id="form-email" name="Email" placeholder="correo@ejemplo.cl" required class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="form-mensaje" class="form-label">Mensaje *</label>
+                            <textarea id="form-mensaje" name="Mensaje" placeholder="Describe brevemente tu consulta o requerimiento..." rows="4" required class="form-input form-textarea"></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span>ENVIAR MENSAJE</span>
+                            <span class="btn-arrow" aria-hidden="true">➔</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER LEGAL Y DE CONTACTO -->
+    <footer class="legal-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <span class="footer-logo">ALZADO <span class="brand-red">ROJO</span></span>
+                <p>Arquitectura, Sustentabilidad, Data-Driven Design y Fabricación Digital</p>
+            </div>
+            <div class="footer-links">
+                <a href="#hero">Subir al Inicio ↑</a>
+                <a href="index.html">Servicios &amp; Cotizador Formal</a>
+                <a href="portfolio-pdf.html" target="_blank" rel="noopener noreferrer">Dossier Monográfico (A4 PDF)</a>
+                <a href="assets/Adolfo_Risopatron_CV.pdf" target="_blank" rel="noopener noreferrer">Currículum PDF</a>
+            </div>
+            <div class="footer-copy">
+                <p>&copy; 2026 Adolfo Risopatrón Inzunza. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL DE VISUALIZACIÓN PREMIUM (Galería y Descripción) -->
+    <dialog id="project-modal" class="modal" aria-labelledby="modal-title" aria-modal="true">
+        <div class="modal-dialog-shell">
+            <!-- Barra Superior del Modal -->
+            <div class="modal-top-bar">
+                <div class="modal-breadcrumbs">
+                    <span class="modal-crumb-tag" id="modal-category-label">PROYECTO</span>
+                    <span class="crumb-separator" aria-hidden="true">/</span>
+                    <span class="modal-crumb-year" id="modal-crumb-year">2026</span>
+                </div>
+                <div class="modal-top-controls">
+                    <span class="modal-counter-badge" id="modal-counter">1 / 1</span>
+                    <button type="button" class="close-modal" id="close-modal-btn" aria-label="Cerrar modal (Esc)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cuerpo del Modal -->
+            <div class="modal-content">
+                <!-- Visor Central de Imágenes -->
+                <div class="modal-main">
+                    <div class="carousel-wrapper">
+                        <button type="button" class="slider-btn prev-btn" id="modal-prev-btn" aria-label="Imagen anterior">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="15 18 9 12 15 6"></polyline>
+                            </svg>
+                        </button>
+                        
+                        <div class="modal-gallery" id="modal-gallery" tabindex="0" role="region" aria-label="Láminas del proyecto"></div>
+
+                        <button type="button" class="slider-btn next-btn" id="modal-next-btn" aria-label="Imagen siguiente">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="9 18 15 12 9 6"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <!-- Miniaturas de Navegación Rápida -->
+                    <div class="modal-thumbnails-strip" id="modal-thumbnails" aria-label="Miniaturas de láminas"></div>
+                </div>
+
+                <!-- Barra Lateral de Información Editorial -->
+                <aside class="modal-sidebar">
+                    <div class="modal-sidebar-header">
+                        <div class="modal-tag-row">
+                            <span id="modal-year" class="tag-year modal-tag">2026</span>
+                            <span class="tag-status">DOCUMENTACIÓN TÉCNICA</span>
+                        </div>
+                        <h2 id="modal-title" class="modal-title">Título del Proyecto</h2>
+                    </div>
+
+                    <div class="modal-sidebar-body">
+                        <div id="modal-desc" class="project-description"></div>
+                    </div>
+
+                    <div class="modal-sidebar-footer">
+                        <a href="index.html" class="modal-action-btn" id="modal-quote-link">
+                            <span>COTIZAR O CONSULTAR ESTE SERVICIO</span>
+                            <span aria-hidden="true">➔</span>
+                        </a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </dialog>
+
+    <!-- ARCHIVOS DE DATOS Y LÓGICA FRONTEND -->
+    <script src="data/proyectos.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

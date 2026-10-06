@@ -1,0 +1,1142 @@
+/* ==========================================================================
+   ALZADO ROJO | PORTAFOLIO MONOGRÁFICO EDITORIAL (A4 LANDSCAPE)
+   Diseñado para exportación e impresión física en alta resolución (PDF)
+   Formato: A4 Apaisado (297mm x 210mm) | Retícula Suiza Minimalista
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. VARIABLES DE DISEÑO EDITORIAL & TOKENS TIPOGRÁFICOS
+   -------------------------------------------------------------------------- */
+:root {
+    --brand-red: #D92525;
+    --brand-red-deep: #B71C1C;
+    --brand-red-subtle: rgba(217, 37, 37, 0.08);
+    --brand-red-border: rgba(217, 37, 37, 0.25);
+
+    --ink-black: #111113;
+    --ink-dark: #222226;
+    --ink-mid: #55555C;
+    --ink-light: #7E7E88;
+    --ink-subtle: #A8A8B2;
+    --ink-hairline: #D8D8DF;
+
+    --paper-white: #FFFFFF;
+    --paper-warm: #FCFCFB;
+    --paper-surface: #F8F9FA;
+    --paper-contrast: #F1F2F5;
+
+    --screen-bg: #1A1A1E;
+    --screen-card-border: #32323A;
+
+    --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Dimensiones estándar A4 Apaisado */
+    --page-width: 297mm;
+    --page-height: 210mm;
+    --margin-top: 10mm;
+    --margin-bottom: 9mm;
+    --margin-sides: 13mm;
+}
+
+/* --------------------------------------------------------------------------
+   2. RESET DE PÁGINA & REGLAS DE IMPRESIÓN (@page / @media print)
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: 297mm 210mm;
+    margin: 0;
+}
+
+html, body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: var(--screen-bg);
+    font-family: var(--font-sans);
+    color: var(--ink-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Controles de visualización en pantalla */
+.screen-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 54px;
+    background: rgba(18, 18, 20, 0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    color: #FFFFFF;
+}
+
+.toolbar-brand {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar-brand span {
+    color: var(--brand-red);
+}
+
+.toolbar-badge {
+    font-size: 10px;
+    font-weight: 500;
+    color: #A0A0AA;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    margin-left: 6px;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 7px 15px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: var(--font-sans);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.toolbar-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.toolbar-btn.primary {
+    background: var(--brand-red);
+    border-color: var(--brand-red);
+}
+
+.toolbar-btn.primary:hover {
+    background: var(--brand-red-deep);
+}
+
+.toolbar-page-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #B0B0BA;
+}
+
+.toolbar-select {
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 12px;
+    font-family: var(--font-sans);
+    outline: none;
+    cursor: pointer;
+}
+
+.toolbar-select option {
+    background: #222226;
+    color: #FFFFFF;
+}
+
+/* Contenedor de Láminas para Pantalla */
+.portfolio-viewport {
+    padding: 74px 0 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* --------------------------------------------------------------------------
+   3. ESTRUCTURA FUNDAMENTAL DE CADA LÁMINA (.page)
+   -------------------------------------------------------------------------- */
+.page {
+    width: var(--page-width);
+    height: var(--page-height);
+    max-width: var(--page-width);
+    max-height: var(--page-height);
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+    background-color: var(--paper-white);
+    padding: var(--margin-top) var(--margin-sides) var(--margin-bottom) var(--margin-sides);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2);
+    page-break-after: always;
+    break-after: page;
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+/* Cruces de registro suizas de imprenta */
+.register-cross {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    pointer-events: none;
+}
+.register-cross::before,
+.register-cross::after {
+    content: '';
+    position: absolute;
+    background: var(--ink-hairline);
+}
+.register-cross::before {
+    top: 3.5px;
+    left: 0;
+    width: 8px;
+    height: 1px;
+}
+.register-cross::after {
+    left: 3.5px;
+    top: 0;
+    width: 1px;
+    height: 8px;
+}
+.reg-top-left { top: 4mm; left: 5mm; }
+.reg-top-right { top: 4mm; right: 5mm; }
+.reg-bottom-left { bottom: 4mm; left: 5mm; }
+.reg-bottom-right { bottom: 4mm; right: 5mm; }
+
+/* --------------------------------------------------------------------------
+   4. CABECERA & PIE DE PÁGINA EDITORIALES (HEADER & FOOTER)
+   -------------------------------------------------------------------------- */
+.sheet-header {
+    height: 6mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5pt solid var(--ink-hairline);
+    padding-bottom: 2mm;
+    margin-bottom: 3.5mm;
+    font-size: 7pt;
+    font-weight: 500;
+    color: var(--ink-mid);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.sheet-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sheet-header-left .brand-tag {
+    font-weight: 700;
+    color: var(--ink-black);
+}
+
+.sheet-header-left .brand-tag span {
+    color: var(--brand-red);
+}
+
+.sheet-header-left .separator {
+    color: var(--ink-hairline);
+}
+
+.sheet-header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--ink-light);
+    font-size: 6.5pt;
+}
+
+.sheet-header-right .dossier-code {
+    font-weight: 600;
+    color: var(--ink-dark);
+}
+
+.sheet-footer {
+    height: 5.5mm;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 0.5pt solid var(--ink-hairline);
+    padding-top: 1.5mm;
+    margin-top: 3mm;
+    font-size: 6.5pt;
+    font-weight: 500;
+    color: var(--ink-light);
+    letter-spacing: 0.10em;
+}
+
+.sheet-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sheet-footer-left strong {
+    font-weight: 600;
+    color: var(--ink-dark);
+    letter-spacing: 0.12em;
+}
+
+.sheet-footer-center {
+    font-size: 6pt;
+    color: var(--ink-subtle);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.sheet-footer-right {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 8pt;
+    color: var(--ink-black);
+}
+
+.sheet-footer-right .page-num-accent {
+    color: var(--brand-red);
+}
+
+.sheet-footer-right .page-total {
+    font-weight: 500;
+    font-size: 6.5pt;
+    color: var(--ink-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   5. CONTENEDOR CENTRAL DE CONTENIDO (.sheet-body)
+   -------------------------------------------------------------------------- */
+.sheet-body {
+    flex: 1;
+    height: 172mm;
+    max-height: 172mm;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   6. TIPOGRAFÍA & JERARQUÍAS EDITORIALES
+   -------------------------------------------------------------------------- */
+.editorial-num {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--brand-red);
+    letter-spacing: 0.1em;
+    display: inline-block;
+    margin-bottom: 1.5mm;
+}
+
+.editorial-tag {
+    font-size: 6.2pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-light);
+    display: block;
+    margin-bottom: 1mm;
+}
+
+.editorial-title {
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--ink-black);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 1.8mm;
+}
+
+.editorial-subtitle {
+    font-size: 7.5pt;
+    font-weight: 400;
+    color: var(--ink-mid);
+    line-height: 1.35;
+    margin-bottom: 2.8mm;
+}
+
+.editorial-lead {
+    font-size: 6.8pt;
+    font-weight: 400;
+    color: var(--ink-dark);
+    line-height: 1.5;
+    text-align: justify;
+    margin-bottom: 2.5mm;
+}
+
+.editorial-lead p + p {
+    margin-top: 1.5mm;
+}
+
+/* --------------------------------------------------------------------------
+   7. TABLA DE METADATOS & FICHA TÉCNICA
+   -------------------------------------------------------------------------- */
+.meta-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2.5mm;
+    font-size: 6.5pt;
+}
+
+.meta-table tr {
+    border-bottom: 0.5pt solid var(--paper-contrast);
+}
+
+.meta-table tr:first-child {
+    border-top: 0.5pt solid var(--ink-hairline);
+}
+
+.meta-table td {
+    padding: 1.3mm 0;
+    vertical-align: top;
+}
+
+.meta-table .label {
+    width: 32%;
+    font-weight: 600;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.meta-table .value {
+    width: 68%;
+    font-weight: 500;
+    color: var(--ink-black);
+}
+
+.meta-table .value strong {
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   8. COMPONENTES VISUALES: IMÁGENES, MARCOS & EPÍGRAFES
+   -------------------------------------------------------------------------- */
+.img-frame {
+    position: relative;
+    background: var(--paper-surface);
+    border: 0.5pt solid var(--ink-hairline);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-frame.contain-img img {
+    object-fit: contain;
+    background: #FFFFFF;
+}
+
+.caption-block {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    margin-top: 1.5mm;
+    font-size: 5.8pt;
+    line-height: 1.35;
+    color: var(--ink-mid);
+}
+
+.caption-num {
+    font-weight: 700;
+    color: var(--brand-red);
+    font-size: 6.2pt;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+}
+
+.caption-text {
+    font-weight: 400;
+    color: var(--ink-mid);
+}
+
+.caption-text strong {
+    font-weight: 600;
+    color: var(--ink-black);
+}
+
+/* --------------------------------------------------------------------------
+   9. ESQUEMA DE LÁMINAS ESPECÍFICAS
+   -------------------------------------------------------------------------- */
+
+/* --- LÁMINA 1: PORTADA MONOGRÁFICA (ULTRA-MINIMALISTA SUIZA) --- */
+.page-cover {
+    padding: 16mm 18mm 14mm 18mm;
+    justify-content: center;
+    background: #FFFFFF;
+}
+
+.cover-main-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 125mm 1fr;
+    gap: 16mm;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.cover-titles-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.cover-huge-title {
+    font-size: 38pt;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink-black);
+    text-transform: uppercase;
+    margin-bottom: 5mm;
+}
+
+.cover-huge-title span {
+    color: var(--brand-red);
+}
+
+.cover-brand-rule {
+    width: 38px;
+    height: 2.5px;
+    background: var(--brand-red);
+    margin-bottom: 6mm;
+}
+
+.cover-author-highlight {
+    font-size: 13pt;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    color: var(--ink-black);
+    text-transform: uppercase;
+    margin-bottom: 3.5mm;
+}
+
+.cover-subtitle-minimal {
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: 0.20em;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+}
+
+.cover-visual-side {
+    height: 100%;
+    max-height: 178mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.cover-hero-crop {
+    width: 100%;
+    height: 100%;
+    max-height: 178mm;
+    border: 0.5pt solid var(--ink-hairline);
+    position: relative;
+    overflow: hidden;
+    background: #000000;
+}
+
+.cover-hero-crop img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --- LÁMINA 2: PERFIL PROFESIONAL & ÍNDICE GENERAL (MINIMALISTA) --- */
+.profile-grid-minimal {
+    display: grid;
+    grid-template-columns: 115mm 1fr;
+    gap: 16mm;
+    height: 100%;
+    align-items: center;
+}
+
+.profile-minimal-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 0.5pt solid var(--ink-hairline);
+    padding-right: 14mm;
+}
+
+.profile-heading-minimal {
+    margin-bottom: 4mm;
+}
+
+.profile-author-title {
+    font-size: 15pt;
+    font-weight: 800;
+    color: var(--ink-black);
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+    line-height: 1.15;
+}
+
+.profile-author-role {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: var(--brand-red);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 4.5mm;
+}
+
+.minimal-red-line {
+    width: 32px;
+    height: 2px;
+    background: var(--brand-red);
+    margin-bottom: 5mm;
+}
+
+.profile-bio-minimal p {
+    font-size: 8.2pt;
+    line-height: 1.65;
+    color: var(--ink-dark);
+    text-align: justify;
+}
+
+.profile-minimal-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.toc-header-minimal {
+    margin-bottom: 6mm;
+}
+
+.toc-items-minimal {
+    display: flex;
+    flex-direction: column;
+    gap: 4mm;
+}
+
+.toc-row-minimal {
+    display: grid;
+    grid-template-columns: 14mm 1fr 18mm;
+    align-items: baseline;
+    padding: 3.5mm 0;
+    border-bottom: 0.5pt solid var(--paper-contrast);
+}
+
+.toc-row-minimal:first-child {
+    border-top: 0.5pt solid var(--ink-hairline);
+}
+
+.toc-row-minimal:last-child {
+    border-bottom: 0.5pt solid var(--ink-hairline);
+}
+
+.toc-row-num {
+    font-size: 12pt;
+    font-weight: 800;
+    color: var(--brand-red);
+    letter-spacing: 0.02em;
+}
+
+.toc-row-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--ink-black);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.toc-row-year {
+    text-align: right;
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--brand-red);
+    letter-spacing: 0.08em;
+}
+
+/* --- LÁMINAS DE PROYECTOS: LAYOUT HERO APAISADO (Láminas 3, 5, 7, 9) --- */
+.project-hero-landscape {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 3.5mm;
+    min-height: 0;
+}
+
+.project-header-minimal {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 0.5pt solid var(--ink-hairline);
+    padding-bottom: 2mm;
+    margin-bottom: 0;
+    flex-shrink: 0;
+}
+
+.header-minimal-left {
+    display: flex;
+    align-items: baseline;
+    gap: 4mm;
+}
+
+.header-minimal-left .editorial-num {
+    font-size: 17pt;
+    font-weight: 800;
+    color: var(--brand-red);
+    line-height: 1;
+    margin-bottom: 0;
+    letter-spacing: -0.02em;
+}
+
+.header-minimal-titles {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-minimal-titles .editorial-title {
+    font-size: 11.5pt;
+    font-weight: 700;
+    color: var(--ink-black);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    margin-bottom: 0.8mm;
+}
+
+.header-minimal-titles .editorial-year-tag {
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: var(--brand-red);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    display: flex;
+    align-items: center;
+}
+
+.header-minimal-titles .editorial-year-tag .tag-year {
+    color: var(--brand-red);
+    font-weight: 800;
+}
+
+.header-minimal-right {
+    max-width: 140mm;
+}
+
+.header-minimal-right .editorial-brief {
+    font-size: 6.8pt;
+    line-height: 1.42;
+    color: var(--ink-dark);
+    text-align: justify;
+    margin: 0;
+    font-weight: 400;
+}
+
+.hero-landscape-media {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+}
+
+.hero-landscape-frame {
+    width: 100%;
+    height: 100%;
+    flex: 1;
+    min-height: 0;
+    border: 0.5pt solid var(--ink-hairline);
+    background: #000000;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-landscape-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-landscape-frame.contain-mode {
+    background: #FFFFFF;
+}
+
+.hero-landscape-frame.contain-mode img {
+    object-fit: contain;
+}
+
+/* --- LÁMINAS DE PROYECTOS: LAYOUT TÉCNICO APAISADO (Láminas 4, 6, 8) --- */
+.technical-layout-landscape {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5mm;
+    height: 100%;
+    min-height: 0;
+}
+
+.tech-landscape-top {
+    flex: 1.05;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 0;
+}
+
+.tech-landscape-top .tech-landscape-frame {
+    width: 100%;
+    height: 100%;
+    border: 0.5pt solid var(--ink-hairline);
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-landscape-top .tech-landscape-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.tech-landscape-top .tech-landscape-frame.cover-mode {
+    background: #000000;
+}
+
+.tech-landscape-top .tech-landscape-frame.cover-mode img {
+    object-fit: cover;
+}
+
+.tech-landscape-bottom {
+    flex: 0.95;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    width: 100%;
+    min-height: 0;
+}
+
+.tech-bottom-col {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.tech-bottom-col .tech-landscape-frame {
+    width: 100%;
+    height: 100%;
+    border: 0.5pt solid var(--ink-hairline);
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tech-bottom-col .tech-landscape-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.tech-bottom-col .tech-landscape-frame.cover-mode {
+    background: #000000;
+}
+
+.tech-bottom-col .tech-landscape-frame.cover-mode img {
+    object-fit: cover;
+}
+
+/* Grilla técnica asimétrica (Lámina 10) */
+.technical-grid-asym {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 155mm 109mm;
+    gap: 6mm;
+    height: 100%;
+    min-height: 0;
+}
+
+.asym-left-pane {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.asym-left-pane .tech-frame-wrapper {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 0.5pt solid var(--ink-hairline);
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.asym-left-pane .tech-frame-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.asym-right-stack {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 4.5mm;
+    height: 100%;
+    min-height: 0;
+}
+
+.asym-stack-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+.asym-stack-frame {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 0.5pt solid var(--ink-hairline);
+    overflow: hidden;
+    position: relative;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.asym-stack-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+/* --- LÁMINA 11: CONTRAPORTADA EDITORIAL (MINIMALISTA) --- */
+.page-colofon {
+    padding: 14mm 16mm 12mm 16mm;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.colofon-top-bar {
+    border-bottom: 0.5pt solid var(--ink-hairline);
+    padding-bottom: 2.5mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+}
+
+.colofon-body-minimal {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10mm 0;
+}
+
+.colofon-center-box {
+    text-align: center;
+    max-width: 130mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.colofon-brand-symbol {
+    font-size: 32pt;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--ink-black);
+    text-transform: uppercase;
+    margin-bottom: 3.5mm;
+    line-height: 1;
+}
+
+.colofon-brand-symbol span {
+    color: var(--brand-red);
+}
+
+.colofon-author-title {
+    font-size: 14pt;
+    font-weight: 800;
+    color: var(--ink-black);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5mm;
+}
+
+.colofon-author-sub {
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: var(--ink-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    margin-bottom: 8mm;
+}
+
+.colofon-contacts-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2.8mm;
+    width: 100%;
+    max-width: 95mm;
+}
+
+.colofon-contact-row {
+    display: grid;
+    grid-template-columns: 24mm 1fr;
+    align-items: center;
+    font-size: 7.2pt;
+    padding: 1.8mm 0;
+    border-bottom: 0.5pt solid var(--paper-contrast);
+    text-align: left;
+}
+
+.colofon-contact-row:last-child {
+    border-bottom: none;
+}
+
+.contact-lbl {
+    font-weight: 700;
+    color: var(--brand-red);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 6.5pt;
+}
+
+.colofon-contact-row a {
+    color: var(--ink-black);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.colofon-contact-row a:hover {
+    color: var(--brand-red);
+}
+
+.colofon-contact-row span {
+    color: var(--ink-dark);
+    font-weight: 500;
+}
+
+.colofon-bottom-minimal {
+    border-top: 0.5pt solid var(--ink-hairline);
+    padding-top: 2.5mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 6.5pt;
+    font-weight: 600;
+    color: var(--ink-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+/* --------------------------------------------------------------------------
+   10. MEDIDAS Y REGLAS ESTRICTAS DE IMPRESIÓN (@media print)
+   -------------------------------------------------------------------------- */
+@media print {
+    html, body {
+        width: 297mm !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        background: #FFFFFF !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .screen-toolbar,
+    .screen-page-indicator {
+        display: none !important;
+    }
+
+    .portfolio-viewport {
+        padding: 0 !important;
+        gap: 0 !important;
+        background: transparent !important;
+        width: 297mm !important;
+    }
+
+    .page {
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        max-width: 297mm !important;
+        max-height: 210mm !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    }
+
+    /* Eliminar cualquier sombra o artefacto que altere la pureza del PDF */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
