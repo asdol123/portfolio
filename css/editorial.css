@@ -417,6 +417,72 @@ button, input, textarea, select {
 /* ==========================================================================
    2. DOSSIER MAQUETAS URBANAS & TERRITORIALES
    ========================================================================== */
+.step-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ed-text-muted);
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.type-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  margin-bottom: 32px;
+}
+
+.type-card {
+  border: 1px solid var(--ed-border);
+  background: #FFFFFF;
+  padding: 22px 20px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.type-card:hover {
+  border-color: var(--ed-border-dark);
+}
+
+.type-card:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.type-card.selected {
+  border: 2px solid var(--ed-red);
+  background: #FFF8F8;
+  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.08);
+}
+
+.type-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--ed-red);
+  margin-bottom: 8px;
+  display: inline-block;
+  text-transform: uppercase;
+}
+
+.type-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ed-text);
+  margin-bottom: 6px;
+}
+
+.type-desc {
+  font-size: 0.8rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
 .format-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -621,6 +687,235 @@ button, input, textarea, select {
   padding: 16px 20px;
   margin-bottom: 20px;
   font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   PORTAFOLIO CLASIFICADO DE PROYECTOS & LIGHTBOX (23 REGISTROS)
+   ========================================================================== */
+.portfolio-gallery-section {
+  margin: 56px 0 44px;
+}
+
+.portfolio-gallery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+  border-bottom: 1px solid var(--ed-border);
+  padding-bottom: 18px;
+  margin-bottom: 28px;
+}
+
+.portfolio-gallery-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 4px;
+  color: var(--ed-text);
+}
+
+.gallery-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.gallery-tab {
+  border: 1px solid var(--ed-border);
+  background: #FFFFFF;
+  color: var(--ed-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.gallery-tab:hover {
+  border-color: var(--ed-border-dark);
+}
+
+.gallery-tab.active {
+  background: var(--ed-text);
+  color: #FFFFFF;
+  border-color: var(--ed-text);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: opacity 0.25s ease;
+}
+
+.gallery-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #F0F0F0;
+  border: 1px solid var(--ed-border);
+  cursor: pointer;
+  display: block;
+}
+
+.gallery-thumb:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+
+.gallery-thumb:hover img,
+.gallery-thumb:focus img {
+  transform: scale(1.05);
+}
+
+.gallery-tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #FFFFFF;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 3px 7px;
+  letter-spacing: 0.1em;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  pointer-events: none;
+}
+
+.gallery-info {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ed-text-secondary);
+  line-height: 1.3;
+}
+
+/* Modal / Lightbox Minimalista */
+.lightbox-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+}
+
+.lightbox-content {
+  position: relative;
+  z-index: 2;
+  max-width: 90vw;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.lightbox-img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border: 1px solid #333333;
+  background: #000000;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-caption {
+  color: #FFFFFF;
+  font-size: 0.85rem;
+  margin-top: 12px;
+  letter-spacing: 0.05em;
+  text-align: center;
+  font-weight: 500;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  background: transparent;
+  border: none;
+  color: #FFFFFF;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 6px;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.lightbox-close:hover {
+  color: var(--ed-red);
+  transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+  .type-selector-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .portfolio-gallery-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .gallery-tabs {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery-tab {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .lightbox-close {
+    top: -36px;
+    right: 0;
+  }
+  .lightbox-img {
+    max-height: 70vh;
+  }
 }
 
 /* ==========================================================================

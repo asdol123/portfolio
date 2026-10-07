@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/editorial.css?v=1">
+    <link rel="stylesheet" href="css/editorial.css?v=2">
 </head>
 <body>
 
@@ -45,11 +45,31 @@
             </p>
         </div>
 
-        <!-- TARJETAS INTERACTIVAS DE FORMATO Y TAMAÑO -->
-        <section aria-label="Selección de formato de maqueta">
-            <div style="margin-bottom: 16px; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ed-text-muted);">
-                PASO 1 / SELECCIONA EL FORMATO REQUERIDO
+        <!-- PASO 1: SELECCIÓN DE TIPO DE MAQUETA -->
+        <section aria-label="Selección de tipo de maqueta">
+            <div class="step-label">PASO 1 / SELECCIONA EL TIPO DE MAQUETA</div>
+            <div class="type-selector-grid" id="type-selector-grid">
+                <div class="type-card selected" data-type="Maqueta Urbana & GIS" tabindex="0" role="button" aria-pressed="true">
+                    <span class="type-badge">GIS &amp; TERRITORIO</span>
+                    <div class="type-title">Maqueta Urbana &amp; GIS</div>
+                    <p class="type-desc">Tramas urbanas, curvas de nivel GIS, cuadros de ciudades y loteos inmobiliarios.</p>
+                </div>
+                <div class="type-card" data-type="Maqueta de Arquitectura" tabindex="0" role="button" aria-pressed="false">
+                    <span class="type-badge">EDIFICACIÓN</span>
+                    <div class="type-title">Maqueta de Arquitectura</div>
+                    <p class="type-desc">Edificios residenciales, secciones constructivas, claustros y volumetrías de concurso.</p>
+                </div>
+                <div class="type-card" data-type="Maqueta de Diseño & Objetos" tabindex="0" role="button" aria-pressed="false">
+                    <span class="type-badge">OBJETOS &amp; DETALLES</span>
+                    <div class="type-title">Maqueta de Diseño &amp; Objetos</div>
+                    <p class="type-desc">Piezas paramétricas, cúpulas, componentes singulares y detalles constructivos.</p>
+                </div>
             </div>
+        </section>
+
+        <!-- PASO 2: TARJETAS INTERACTIVAS DE FORMATO Y TAMAÑO -->
+        <section aria-label="Selección de formato de maqueta">
+            <div class="step-label">PASO 2 / SELECCIONA EL FORMATO REQUERIDO</div>
 
             <div class="format-grid" id="format-cards-grid">
                 <!-- Tarjeta 10x10 cm -->
@@ -151,12 +171,209 @@
             </div>
         </section>
 
+        <!-- PORTAFOLIO CLASIFICADO DE PROYECTOS (23 REGISTROS) -->
+        <section class="portfolio-gallery-section" aria-label="Portafolio de maquetas realizadas">
+            <div class="portfolio-gallery-header">
+                <div>
+                    <span class="ed-eyebrow">// REGISTRO DE TALLER &amp; FABRICACIÓN</span>
+                    <h2 class="portfolio-gallery-title">PORTAFOLIO DE PROYECTOS</h2>
+                </div>
+                <!-- Pestañas de filtrado -->
+                <div class="gallery-tabs" role="tablist">
+                    <button type="button" class="gallery-tab active" data-filter="all" role="tab" aria-selected="true">TODOS (23)</button>
+                    <button type="button" class="gallery-tab" data-filter="urbana" role="tab" aria-selected="false">URBANAS (16)</button>
+                    <button type="button" class="gallery-tab" data-filter="arquitectura" role="tab" aria-selected="false">ARQUITECTURA (5)</button>
+                    <button type="button" class="gallery-tab" data-filter="diseno" role="tab" aria-selected="false">DISEÑO (2)</button>
+                </div>
+            </div>
+
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- 16 URBANAS -->
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Santiago Costanera Center">
+                        <img src="images/urbana-01.png" alt="Santiago Costanera Center" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Santiago · Costanera Center</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver París Torre Eiffel">
+                        <img src="images/urbana-02.png" alt="París Torre Eiffel" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">París · Torre Eiffel &amp; Sena</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Topografía Malla Digital">
+                        <img src="images/urbana-03.jpg" alt="Topografía Malla Digital" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Topografía · Malla Digital 3D</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Relieve Modelo Territorial">
+                        <img src="images/urbana-04.jpg" alt="Relieve Modelo Territorial" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Relieve · Modelo Territorial GIS</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Nueva York Manhattan">
+                        <img src="images/urbana-05.jpg" alt="Nueva York Manhattan" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Nueva York · Manhattan Enmarcado</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Chicago Cuadro Urbano">
+                        <img src="images/urbana-06.jpg" alt="Chicago Cuadro Urbano" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Chicago · Damero y Costa</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Santiago Cama de Impresión">
+                        <img src="images/urbana-07.jpg" alt="Santiago Cama de Impresión" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Santiago · Manufactura en Taller</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Inserción Urbana Manzana">
+                        <img src="images/urbana-08.jpg" alt="Inserción Urbana Manzana" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Inserción Urbana · Entorno y Proyecto</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Cuadro Topográfico Enmarcado">
+                        <img src="images/urbana-09.jpg" alt="Cuadro Topográfico Enmarcado" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Cuadro Topográfico · Curvas de Nivel</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Mural Modular 4 Paneles">
+                        <img src="images/urbana-10.jpg" alt="Mural Modular 4 Paneles" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Mural Modular · 4 Paneles Topográficos</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Relieve Territorial Rasante">
+                        <img src="images/urbana-11.jpg" alt="Relieve Territorial Rasante" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Relieve Territorial · Rasante</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Estratos Topográficos">
+                        <img src="images/urbana-12.jpg" alt="Estratos Topográficos" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Estratos Topográficos · Detalle de Cota</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Textura de Terreno Macro">
+                        <img src="images/urbana-13.jpg" alt="Textura de Terreno Macro" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Textura de Terreno · Macro Relieve</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Santiago Cerro Santa Lucía">
+                        <img src="images/urbana-14.jpg" alt="Santiago Cerro Santa Lucía" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Santiago · Cerro Santa Lucía</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Pirámides de Egipto Isométrica">
+                        <img src="images/urbana-15.jpg" alt="Pirámides de Egipto Isométrica" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Guiza · Pirámides de Egipto (Isométrica)</div>
+                </div>
+                <div class="gallery-item" data-category="urbana">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Pirámides de Egipto Cenital">
+                        <img src="images/urbana-16.jpg" alt="Pirámides de Egipto Cenital" loading="lazy">
+                        <span class="gallery-tag">URBANA</span>
+                    </div>
+                    <div class="gallery-info">Guiza · Pirámides de Egipto (Cenital)</div>
+                </div>
+
+                <!-- 5 ARQUITECTURA -->
+                <div class="gallery-item" data-category="arquitectura">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Sección Volumétrica Celosías">
+                        <img src="images/arquitectura-01.jpg" alt="Sección Volumétrica Celosías" loading="lazy">
+                        <span class="gallery-tag">ARQUITECTURA</span>
+                    </div>
+                    <div class="gallery-info">Sección Volumétrica · Celosías y Estructura</div>
+                </div>
+                <div class="gallery-item" data-category="arquitectura">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Edificio Residencial Terrazas">
+                        <img src="images/arquitectura-02.jpg" alt="Edificio Residencial Terrazas" loading="lazy">
+                        <span class="gallery-tag">ARQUITECTURA</span>
+                    </div>
+                    <div class="gallery-info">Edificio Residencial · Terrazas y Pilares</div>
+                </div>
+                <div class="gallery-item" data-category="arquitectura">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Vivienda Unifamiliar Voladizo">
+                        <img src="images/arquitectura-03.jpg" alt="Vivienda Unifamiliar Voladizo" loading="lazy">
+                        <span class="gallery-tag">ARQUITECTURA</span>
+                    </div>
+                    <div class="gallery-info">Vivienda Unifamiliar · Voladizo y Columnas</div>
+                </div>
+                <div class="gallery-item" data-category="arquitectura">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Edificio Claustro Fachada Reticular">
+                        <img src="images/arquitectura-04.jpg" alt="Edificio Patio Central" loading="lazy">
+                        <span class="gallery-tag">ARQUITECTURA</span>
+                    </div>
+                    <div class="gallery-info">Edificio Claustro · Fachada Reticular</div>
+                </div>
+                <div class="gallery-item" data-category="arquitectura">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Conjunto Habitacional Montaje con Grúa">
+                        <img src="images/arquitectura-05.png" alt="Conjunto Habitacional Logística" loading="lazy">
+                        <span class="gallery-tag">ARQUITECTURA</span>
+                    </div>
+                    <div class="gallery-info">Conjunto Habitacional · Montaje con Grúa</div>
+                </div>
+
+                <!-- 2 DISEÑO -->
+                <div class="gallery-item" data-category="diseno">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Diseño Paramétrico Agujas y Cúpulas">
+                        <img src="images/diseno-01.jpg" alt="Diseño Paramétrico Agujas" loading="lazy">
+                        <span class="gallery-tag">DISEÑO</span>
+                    </div>
+                    <div class="gallery-info">Diseño Paramétrico · Agujas y Cúpulas</div>
+                </div>
+                <div class="gallery-item" data-category="diseno">
+                    <div class="gallery-thumb" tabindex="0" role="button" aria-label="Ver Detalle Constructivo Alero y Tensores">
+                        <img src="images/diseno-02.jpg" alt="Detalle Constructivo Alero" loading="lazy">
+                        <span class="gallery-tag">DISEÑO</span>
+                    </div>
+                    <div class="gallery-info">Detalle Constructivo · Alero y Tensores</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODAL / LIGHTBOX MINIMALISTA -->
+        <div id="lightbox-modal" class="lightbox-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption">
+            <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+            <div class="lightbox-content">
+                <button type="button" class="lightbox-close" id="lightbox-close-btn" aria-label="Cerrar vista ampliada">✕</button>
+                <img src="" alt="" id="lightbox-img" class="lightbox-img">
+                <div id="lightbox-caption" class="lightbox-caption"></div>
+            </div>
+        </div>
+
         <!-- FLUJO DE COTIZACIÓN FORMAL & NOTIFICACIÓN INMEDIATA -->
         <section class="order-dossier-wrap" aria-label="Formulario de solicitud formal">
+            <div class="step-label">PASO 3 / SOLICITUD DE COTIZACIÓN FORMAL</div>
             <div class="order-summary-bar">
                 <div>
-                    <span class="order-summary-title">FORMATO ACTIVO EN COTIZACIÓN</span>
-                    <div class="order-summary-val" id="summary-format-display">10 × 10 cm · $9.990 CLP</div>
+                    <span class="order-summary-title">CONFIGURACIÓN EN COTIZACIÓN</span>
+                    <div class="order-summary-val" id="summary-format-display">Maqueta Urbana &amp; GIS · 10 × 10 cm · $9.990 CLP</div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--ed-text-secondary);">
                     Acabado: PLA Mate Blanco Arquitectónico · Base calibrada
@@ -170,9 +387,10 @@
 
             <form id="urban-quote-form" action="https://formsubmit.co/adolchilemods@gmail.com" method="POST" enctype="multipart/form-data">
                 <!-- Parámetros FormSubmit -->
-                <input type="hidden" name="_subject" id="form-subject" value="Solicitud Cotización Formal: Maqueta Urbana 10 × 10 cm">
+                <input type="hidden" name="_subject" id="form-subject" value="Solicitud Cotización: Maqueta Urbana & GIS (10 × 10 cm)">
                 <input type="hidden" name="_captcha" value="false">
                 <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="Tipo_Maqueta" id="input-hidden-type" value="Maqueta Urbana & GIS">
                 <input type="hidden" name="Formato_Seleccionado" id="input-hidden-format" value="10 × 10 cm">
                 <input type="hidden" name="Precio_Base" id="input-hidden-price" value="$9.990 CLP">
 
@@ -204,7 +422,7 @@
                         <span aria-hidden="true">➔</span>
                     </button>
 
-                    <a id="btn-wsp-direct" href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20coordinar%20una%20Maqueta%20Urbana%20de%2010%20%C3%97%2010%20cm." target="_blank" rel="noopener noreferrer" class="btn-ed-secondary">
+                    <a id="btn-wsp-direct" href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20cotizar%20una%20Maqueta%20Urbana%20%26%20GIS%20en%20formato%2010%20%C3%97%2010%20cm." target="_blank" rel="noopener noreferrer" class="btn-ed-secondary">
                         <span>COORDINAR POR WHATSAPP DIRECTO</span>
                         <span aria-hidden="true">➔</span>
                     </a>
@@ -243,7 +461,12 @@
     <!-- SCRIPT DE INTERACTIVIDAD & FLUJO DE COTIZACIÓN -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.format-card');
+            // Elementos de Selección de Tipo
+            const typeCards = document.querySelectorAll('.type-card');
+            const hiddenType = document.getElementById('input-hidden-type');
+
+            // Elementos de Selección de Formato
+            const formatCards = document.querySelectorAll('.format-card');
             const summaryDisplay = document.getElementById('summary-format-display');
             const hiddenFormat = document.getElementById('input-hidden-format');
             const hiddenPrice = document.getElementById('input-hidden-price');
@@ -254,6 +477,7 @@
             const submitBtn = document.getElementById('btn-submit-formal');
             const inputEmail = document.getElementById('input-email');
 
+            // Elementos de Comparador de Escala
             const compTitle = document.getElementById('comparator-format-title');
             const compScaleTag = document.getElementById('comparator-scale-tag');
             const dimW = document.getElementById('dim-w');
@@ -265,6 +489,18 @@
             const infoDetail = document.getElementById('info-detail');
             const infoTime = document.getElementById('info-time');
 
+            // Elementos de Galería y Pestañas
+            const galleryTabs = document.querySelectorAll('.gallery-tab');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            // Elementos de Modal Lightbox
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+            const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+
+            let currentType = "Maqueta Urbana & GIS";
             let currentFormat = "10 × 10 cm";
             let currentPrice = "$9.990 CLP";
 
@@ -319,8 +555,48 @@
                 }
             };
 
+            function updateSummaryAndLinks() {
+                if (summaryDisplay) {
+                    summaryDisplay.textContent = `${currentType} · ${currentFormat} · ${currentPrice}`;
+                }
+                if (hiddenType) hiddenType.value = currentType;
+                if (hiddenFormat) hiddenFormat.value = currentFormat;
+                if (hiddenPrice) hiddenPrice.value = currentPrice;
+                if (formSubject) {
+                    formSubject.value = `Solicitud Cotización: ${currentType} (${currentFormat})`;
+                }
+                if (wspDirectBtn) {
+                    const wspMsg = `Hola Adolfo, deseo cotizar una ${currentType} en formato ${currentFormat}.`;
+                    wspDirectBtn.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspMsg)}`;
+                }
+            }
+
+            // Manejo de Selector de Tipo de Maqueta (Paso 1)
+            function selectType(card) {
+                typeCards.forEach(c => {
+                    c.classList.remove('selected');
+                    c.setAttribute('aria-pressed', 'false');
+                });
+                card.classList.add('selected');
+                card.setAttribute('aria-pressed', 'true');
+
+                currentType = card.getAttribute('data-type') || "Maqueta Urbana & GIS";
+                updateSummaryAndLinks();
+            }
+
+            typeCards.forEach(card => {
+                card.addEventListener('click', () => selectType(card));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        selectType(card);
+                    }
+                });
+            });
+
+            // Manejo de Selector de Formato (Paso 2)
             function selectFormat(card) {
-                cards.forEach(c => {
+                formatCards.forEach(c => {
                     c.classList.remove('selected');
                     c.setAttribute('aria-pressed', 'false');
                 });
@@ -329,13 +605,6 @@
 
                 currentFormat = card.getAttribute('data-format') || "10 × 10 cm";
                 currentPrice = card.getAttribute('data-price') || "$9.990 CLP";
-
-                if (summaryDisplay) {
-                    summaryDisplay.textContent = `${currentFormat} · ${currentPrice}`;
-                }
-                if (hiddenFormat) hiddenFormat.value = currentFormat;
-                if (hiddenPrice) hiddenPrice.value = currentPrice;
-                if (formSubject) formSubject.value = `Solicitud Cotización Formal: Maqueta Urbana ${currentFormat}`;
 
                 // Actualizar bloque comparador de escala
                 const data = SCALE_DATA[currentFormat] || SCALE_DATA["10 × 10 cm"];
@@ -352,14 +621,10 @@
                     if (infoTime) infoTime.textContent = data.time;
                 }
 
-                // Actualizar botón de WhatsApp directo
-                if (wspDirectBtn) {
-                    const wspMsg = `Hola Adolfo, deseo coordinar una Maqueta Urbana de ${currentFormat} (${currentPrice}).`;
-                    wspDirectBtn.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspMsg)}`;
-                }
+                updateSummaryAndLinks();
             }
 
-            cards.forEach(card => {
+            formatCards.forEach(card => {
                 card.addEventListener('click', () => selectFormat(card));
                 card.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -369,13 +634,86 @@
                 });
             });
 
+            // Filtrado de Pestañas de Portafolio
+            galleryTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const filter = tab.getAttribute('data-filter') || 'all';
+
+                    galleryTabs.forEach(t => {
+                        t.classList.remove('active');
+                        t.setAttribute('aria-selected', 'false');
+                    });
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+
+                    galleryItems.forEach(item => {
+                        const cat = item.getAttribute('data-category');
+                        if (filter === 'all' || cat === filter) {
+                            item.style.display = '';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Modal Lightbox Minimalista
+            function openLightbox(imgSrc, imgAlt, caption) {
+                if (!lightboxModal || !lightboxImg) return;
+                lightboxImg.src = imgSrc;
+                lightboxImg.alt = imgAlt || 'Maqueta Alzado Rojo';
+                if (lightboxCaption) {
+                    lightboxCaption.textContent = caption || imgAlt || '';
+                }
+                lightboxModal.classList.add('active');
+                lightboxModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                if (!lightboxModal) return;
+                lightboxModal.classList.remove('active');
+                lightboxModal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+
+            document.querySelectorAll('.gallery-thumb').forEach(thumb => {
+                const img = thumb.querySelector('img');
+                const info = thumb.closest('.gallery-item')?.querySelector('.gallery-info');
+                const captionText = info ? info.textContent.trim() : (img?.alt || '');
+
+                const handleOpen = () => {
+                    if (img) openLightbox(img.src, img.alt, captionText);
+                };
+
+                thumb.addEventListener('click', handleOpen);
+                thumb.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleOpen();
+                    }
+                });
+            });
+
+            if (lightboxCloseBtn) {
+                lightboxCloseBtn.addEventListener('click', closeLightbox);
+            }
+            if (lightboxBackdrop) {
+                lightboxBackdrop.addEventListener('click', closeLightbox);
+            }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightboxModal && lightboxModal.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+
             // Flujo de envío formal y apertura sincronizada de WhatsApp
             if (form) {
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
 
                     const emailVal = inputEmail ? inputEmail.value.trim() : 'correo';
-                    const prefilledWsp = `Hola Adolfo, acabo de solicitar la cotización formal para una Maqueta Urbana de ${currentFormat} a mi correo ${emailVal}.`;
+                    const prefilledWsp = `Hola Adolfo, acabo de solicitar la cotización formal para una ${currentType} en formato ${currentFormat} a mi correo ${emailVal}.`;
                     const wspUrl = `https://wa.me/56975412203?text=${encodeURIComponent(prefilledWsp)}`;
 
                     // Abrir WhatsApp automáticamente en ventana emergente o pestaña
