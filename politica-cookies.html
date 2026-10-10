@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Política de Cookies y Almacenamiento Local de ALZADO ROJO (AR ARQ SpA). Panel de preferencias interactivas y transparencia técnica sin rastreo invasivo.">
+    <meta name="theme-color" content="#FFFFFF">
+    <title>Política de Cookies | ALZADO ROJO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/editorial.css?v=2">
+</head>
+<body>
+
+    <!-- CABECERA EDITORIAL MINIMALISTA -->
+    <header class="ed-header">
+        <div class="ed-header-inner">
+            <div class="ed-logo-block">
+                <a href="index.html" class="ed-logo" aria-label="Alzado Rojo - Portada">
+                    ALZADO <span class="brand-red">ROJO</span>
+                </a>
+                <span class="ed-sublogo">AR ARQ SpA · FABRICACIÓN DIGITAL</span>
+            </div>
+
+            <nav class="ed-header-nav" aria-label="Navegación de retorno">
+                <a href="index.html" class="ed-back-link">
+                    <span aria-hidden="true">←</span>
+                    <span>DIRECTORIO</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="ed-main" id="main-content">
+
+        <!-- ENCABEZADO MONOGRÁFICO SOBRIO -->
+        <div class="ed-hero-title-wrap">
+            <span class="ed-eyebrow">// GESTIÓN Y PREFERENCIAS DE ALMACENAMIENTO</span>
+            <h1 class="ed-page-title">POLÍTICA DE COOKIES</h1>
+            <p class="ed-page-subtitle">
+                Información técnica y transparente sobre el uso de almacenamiento local de preferencias en el navegador y panel de control del usuario.
+            </p>
+        </div>
+
+        <div class="legal-container">
+
+            <div class="legal-meta-bar">
+                <span class="legal-meta-item">DOCUMENTO: <strong>AR-LGL-03-COOK</strong></span>
+                <span class="legal-meta-item">JURISDICCIÓN: <strong>REPÚBLICA DE CHILE</strong></span>
+                <span class="legal-meta-item">ACTUALIZACIÓN: <strong>OCTUBRE 2026</strong></span>
+            </div>
+
+            <!-- PANEL INTERACTIVO DE CONTROL DE PREFERENCIAS -->
+            <div class="legal-highlight-box" style="border-left: 4px solid var(--ed-red); background: #FAFAFA;">
+                <h3>Panel de Control y Preferencias del Usuario</h3>
+                <p>
+                    Usted tiene en todo momento la libertad de consultar, aceptar o revocar el consentimiento sobre el almacenamiento de cookies en este navegador. Al presionar el botón inferior, se restablecerá su elección y se desplegará de inmediato el selector de preferencias para que tome una nueva decisión.
+                </p>
+                <div class="btn-reset-cookies-wrap">
+                    <button type="button" class="btn-ed-secondary" id="btn-reset-cookies" onclick="if(window.AR_COOKIES) window.AR_COOKIES.resetConsent();">
+                        <span>RECONFIGURAR PREFERENCIAS DE COOKIES</span>
+                        <span class="btn-arrow" aria-hidden="true">➔</span>
+                    </button>
+                    <span id="cookie-status-indicator" style="font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ed-text-muted);">
+                        ESTADO ACTUAL: <strong style="color: var(--ed-text);" id="cookie-status-text">DETECTANDO...</strong>
+                    </span>
+                </div>
+            </div>
+
+            <article class="legal-article">
+                <h2><span class="legal-num">01 //</span> ¿Qué son las Cookies y el Almacenamiento Local?</h2>
+                <p>
+                    Una <strong>cookie</strong> o clave de <strong>LocalStorage</strong> es un pequeño fragmento de texto o dato que un servidor web envía al navegador del usuario para registrar configuraciones básicas, recordar elecciones de interfaz o garantizar la seguridad de la navegación.
+                </p>
+                <p>
+                    A diferencia de sitios web convencionales o portales comerciales invasivos, <strong>ALZADO ROJO prioriza la sobriedad técnica y el respeto absoluto a la privacidad</strong>: no implementamos píxeles de retargeting, ni rastreadores publicitarios cruzados de terceros, ni motores de analítica invasiva.
+                </p>
+            </article>
+
+            <article class="legal-article">
+                <h2><span class="legal-num">02 //</span> Tecnologías Utilizadas en este Sitio Web</h2>
+                <p>
+                    En nuestra plataforma solo intervienen herramientas técnicas indispensables para el funcionamiento y diseño editorial suizo del sitio:
+                </p>
+
+                <div class="legal-table-wrap">
+                    <table class="legal-table">
+                        <thead>
+                            <tr>
+                                <th>Clave / Nombre</th>
+                                <th>Tipo</th>
+                                <th>Proveedor</th>
+                                <th>Finalidad Técnica</th>
+                                <th>Persistencia</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ar_cookie_consent</strong></td>
+                                <td>Técnica (LocalStorage)</td>
+                                <td>ALZADO ROJO (Propia)</td>
+                                <td>Almacena la elección de consentimiento del usuario (`accepted` o `necessary`) para evitar desplegar reiteradamente el banner de aviso.</td>
+                                <td>Persistente (hasta borrado de datos o reset)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ar_cookie_consent_date</strong></td>
+                                <td>Técnica (LocalStorage)</td>
+                                <td>ALZADO ROJO (Propia)</td>
+                                <td>Marca temporal en formato ISO de la fecha y hora en que se registró la decisión del usuario, garantizando trazabilidad de consentimiento.</td>
+                                <td>Persistente</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Google Fonts</strong></td>
+                                <td>Recurso Estático (CDN)</td>
+                                <td>Google LLC</td>
+                                <td>Descarga de tipografía 'Montserrat' para la composición editorial y legibilidad de láminas y proyectos arquitectónicos.</td>
+                                <td>Caché de navegador del usuario</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>A. Cookies Técnicas Estrictamente Necesarias</h3>
+                <p>
+                    Son aquellas requeridas para el correcto funcionamiento de las funciones operativas de la plataforma, como la persistencia de las opciones de privacidad y la navegación segura mediante cifrado TLS/HTTPS. Estas no requieren consentimiento previo para ser utilizadas según los estándares técnicos internacionales.
+                </p>
+
+                <h3>B. Ausencia de Cookies Publicitarias y de Rastreo</h3>
+                <p>
+                    Reiteramos nuestro compromiso con la transparencia: este sitio <strong>no utiliza cookies publicitarias, redes de afiliación de terceros ni herramientas de huella digital de dispositivo (device fingerprinting)</strong>.
+                </p>
+            </article>
+
+            <article class="legal-article">
+                <h2><span class="legal-num">03 //</span> Cómo Desactivar o Eliminar Cookies desde su Navegador</h2>
+                <p>
+                    Además de utilizar nuestro botón interactivo de reconfiguración, el usuario puede permitir, bloquear o eliminar en cualquier momento los datos almacenados en su navegador mediante los ajustes de privacidad propios de cada software:
+                </p>
+                <ul>
+                    <li>
+                        <strong>Google Chrome:</strong> Menú Configuración &gt; Privacidad y seguridad &gt; Cookies y otros datos de sitios web.
+                    </li>
+                    <li>
+                        <strong>Mozilla Firefox:</strong> Menú Ajustes &gt; Privacidad &amp; Seguridad &gt; Cookies y datos del sitio.
+                    </li>
+                    <li>
+                        <strong>Apple Safari (macOS / iOS):</strong> Preferencias &gt; Privacidad &gt; Administrar datos de sitios web.
+                    </li>
+                    <li>
+                        <strong>Microsoft Edge:</strong> Configuración &gt; Cookies y permisos del sitio &gt; Administrar y eliminar cookies y datos del sitio.
+                    </li>
+                </ul>
+                <p>
+                    Si decide deshabilitar el almacenamiento técnico por completo desde las opciones de su navegador, el sitio seguirá siendo accesible, pero su elección de consentimiento se solicitará nuevamente en cada visita.
+                </p>
+            </article>
+
+            <article class="legal-article">
+                <h2><span class="legal-num">04 //</span> Consultas sobre Gestión de Cookies</h2>
+                <p>
+                    Si tiene inquietudes acerca del funcionamiento de nuestros mecanismos de almacenamiento o desea solicitar aclaraciones sobre la presente política, por favor contáctenos a través de nuestro correo: <a href="mailto:adolchilemods@gmail.com">adolchilemods@gmail.com</a>.
+                </p>
+            </article>
+
+        </div>
+
+    </main>
+
+    <!-- PIE DE PÁGINA EDITORIAL -->
+    <footer class="ed-footer">
+        <div class="ed-footer-inner">
+            <div class="ed-footer-author">
+                Adolfo Risopatrón Inzunza · Arquitecto y Magíster MASE (Pontificia Universidad Católica)
+            </div>
+            <div class="ed-footer-links-row">
+                <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="ed-footer-link">
+                    <span>WHATSAPP (+56 9 7541 2203)</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:adolchilemods@gmail.com" class="ed-footer-link">
+                    <span>CORREO</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+            </div>
+            <div class="ed-footer-legal-row">
+                <a href="politica-privacidad.html" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="terminos-condiciones.html" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="politica-cookies.html" class="ed-footer-legal-link">POLÍTICA DE COOKIES</a>
+            </div>
+            <div class="ed-footer-copy">
+                © 2026 ALZADO ROJO · AR ARQ SpA · Santiago de Chile. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
+    <script src="js/cookies.js" defer></script>
+
+    <!-- SCRIPT AUXILIAR DE MONITOREO DEL ESTADO DEL PANEL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusText = document.getElementById('cookie-status-text');
+            function updateStatusDisplay() {
+                if (!statusText) return;
+                const status = (window.AR_COOKIES && typeof window.AR_COOKIES.getConsentStatus === 'function') 
+                    ? window.AR_COOKIES.getConsentStatus() 
+                    : (localStorage ? localStorage.getItem('ar_cookie_consent') : null);
+
+                if (status === 'accepted') {
+                    statusText.textContent = 'TODAS ACEPTADAS';
+                    statusText.style.color = '#2e7d32';
+                } else if (status === 'necessary') {
+                    statusText.textContent = 'SOLO NECESARIAS';
+                    statusText.style.color = '#111111';
+                } else {
+                    statusText.textContent = 'SIN CONFIGURAR (PENDIENTE)';
+                    statusText.style.color = '#d92525';
+                }
+            }
+
+            updateStatusDisplay();
+            window.addEventListener('cookieConsentChanged', updateStatusDisplay);
+        });
+    </script>
+</body>
+</html>

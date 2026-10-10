@@ -818,6 +818,14 @@
                 <span>ALZADO ROJO &copy; 2026 • ADOLFO RISOPATRÓN INZUNZA</span>
                 <span>SANTIAGO DE CHILE</span>
             </div>
+
+            <div class="ed-footer-legal-row" style="margin-top: 14px; font-size: 0.65rem; justify-content: center; display: flex; gap: 10px; border-top: 1px solid rgba(0,0,0,0.08); padding-top: 10px;">
+                <a href="politica-privacidad.html" class="ed-footer-legal-link" style="color: #666; text-decoration: none;">POLÍTICA DE PRIVACIDAD</a>
+                <span class="ed-footer-legal-sep" style="color: #ccc;">·</span>
+                <a href="terminos-condiciones.html" class="ed-footer-legal-link" style="color: #666; text-decoration: none;">TÉRMINOS Y CONDICIONES</a>
+                <span class="ed-footer-legal-sep" style="color: #ccc;">·</span>
+                <a href="politica-cookies.html" class="ed-footer-legal-link" style="color: #666; text-decoration: none;">POLÍTICA DE COOKIES</a>
+            </div>
         </article>
 
     </main>
@@ -839,7 +847,6 @@
             // Atajos de teclado para avanzar o retroceder láminas en pantalla
             const pages = Array.from(document.querySelectorAll('.page'));
             let currentIndex = 0;
-
             window.addEventListener('keydown', (e) => {
                 if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
                     return;
@@ -877,5 +884,7 @@
             pages.forEach(p => observer.observe(p));
         });
     </script>
+    <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
+    <script src="js/cookies.js" defer></script>
 </body>
 </html>

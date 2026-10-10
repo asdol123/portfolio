@@ -404,13 +404,13 @@
                             <span class="direct-arrow" aria-hidden="true">➔</span>
                         </a>
 
-                        <a href="mailto:contacto@ar-arq.cl" class="btn-direct-card mail-card" title="Enviar correo electrónico directo">
+                        <a href="mailto:adolchilemods@gmail.com" class="btn-direct-card mail-card" title="Enviar correo electrónico directo">
                             <div class="direct-icon" aria-hidden="true">
                                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
                             </div>
                             <div class="direct-text">
-                                <span class="direct-label">CORREO CORPORATIVO</span>
-                                <strong class="direct-val">contacto@ar-arq.cl</strong>
+                                <span class="direct-label">CORREO ELECTRÓNICO</span>
+                                <strong class="direct-val">CORREO</strong>
                             </div>
                             <span class="direct-arrow" aria-hidden="true">➔</span>
                         </a>
@@ -477,13 +477,16 @@
                     <span aria-hidden="true">➔</span>
                 </a>
                 <a href="mailto:adolchilemods@gmail.com" class="ed-footer-link">
-                    <span>adolchilemods@gmail.com</span>
+                    <span>CORREO</span>
                     <span aria-hidden="true">➔</span>
                 </a>
-                <a href="mailto:contacto@ar-arq.cl" class="ed-footer-link">
-                    <span>contacto@ar-arq.cl</span>
-                    <span aria-hidden="true">➔</span>
-                </a>
+            </div>
+            <div class="ed-footer-legal-row">
+                <a href="politica-privacidad.html" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="terminos-condiciones.html" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="politica-cookies.html" class="ed-footer-legal-link">POLÍTICA DE COOKIES</a>
             </div>
             <div class="ed-footer-copy">
                 © 2026 ALZADO ROJO · AR ARQ SpA · Santiago de Chile. Todos los derechos reservados.
@@ -702,7 +705,7 @@
                     } catch (err) {
                         if (feedbackBox) {
                             feedbackBox.className = 'form-feedback-msg error';
-                            feedbackBox.innerHTML = 'No fue posible completar el envío automático. Puedes escribirnos directamente a <a href="mailto:contacto@ar-arq.cl" style="text-decoration: underline; font-weight: 600;">contacto@ar-arq.cl</a> o al <a href="https://wa.me/56975412203" target="_blank" style="text-decoration: underline; font-weight: 600;">WhatsApp +56 9 7541 2203</a>.';
+                            feedbackBox.innerHTML = 'No fue posible completar el envío automático. Puedes escribirnos directamente a <a href="mailto:adolchilemods@gmail.com" style="text-decoration: underline; font-weight: 600;">Correo</a> o al <a href="https://wa.me/56975412203" target="_blank" style="text-decoration: underline; font-weight: 600;">WhatsApp +56 9 7541 2203</a>.';
                         }
                     } finally {
                         submitBtn.disabled = false;
@@ -712,5 +715,7 @@
             }
         });
     </script>
+    <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
+    <script src="js/cookies.js" defer></script>
 </body>
 </html>
