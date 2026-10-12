@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual Maestro de Flujos de Trabajo en SketchUp para Arquitectura • Alzado Rojo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 15mm 16mm 15mm 16mm;
+      @bottom-left {
+        content: "ALZADO ROJO // MANUAL TÉCNICO DE SKETCHUP";
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8pt;
+        letter-spacing: 0.12em;
+        color: #888888;
+      }
+      @bottom-right {
+        content: "PÁG. " counter(page);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8pt;
+        font-weight: 600;
+        color: #888888;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #111111;
+      background: #FFFFFF;
+      line-height: 1.4;
+      font-size: 9.2pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ========================================================
+       PORTADA EDITORIAL (PÁGINA 1)
+    ======================================================== */
+    .cover-page {
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justifyContent: center;
+      min-height: 88vh;
+      border-left: 6px solid #D92525;
+      padding-left: 36px;
+      padding-top: 40px;
+    }
+
+    .cover-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .cover-header-square {
+      width: 14px;
+      height: 14px;
+      background: #D92525;
+    }
+
+    .cover-brand {
+      font-size: 14pt;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #D92525;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: rgba(217, 37, 37, 0.08);
+      color: #D92525;
+      font-weight: 800;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      padding: 6px 14px;
+      margin-bottom: 25px;
+      align-self: flex-start;
+      border: 1px solid rgba(217, 37, 37, 0.2);
+    }
+
+    .cover-title {
+      font-size: 32pt;
+      font-weight: 800;
+      color: #111111;
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .cover-title span {
+      color: #D92525;
+    }
+
+    .cover-subtitle {
+      font-size: 11.5pt;
+      color: #555555;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 45px;
+      max-width: 95%;
+    }
+
+    .cover-meta {
+      margin-top: 50px;
+      font-size: 9.5pt;
+      color: #777777;
+      border-top: 1px solid #EEEEEE;
+      padding-top: 24px;
+      line-height: 1.8;
+    }
+
+    .cover-meta strong {
+      color: #111111;
+    }
+
+    /* ========================================================
+       REGLA CRÍTICA: CADA TÍTULO COMIENZA EN UNA PÁGINA NUEVA
+    ======================================================== */
+    .chapter-page {
+      page-break-before: always;
+      break-before: page;
+      padding-top: 10px;
+    }
+
+    .chapter-eyebrow {
+      font-size: 9pt;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      color: #D92525;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    h1 {
+      font-size: 17pt;
+      font-weight: 800;
+      color: #111111;
+      border-bottom: 2px solid #D92525;
+      padding-bottom: 10px;
+      margin-top: 0;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h2 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #111111;
+      margin-top: 12px;
+      margin-bottom: 6px;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 11pt;
+      font-weight: 700;
+      color: #333333;
+      margin-top: 14px;
+      margin-bottom: 8px;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    p {
+      margin: 0 0 8px 0;
+      color: #333333;
+    }
+
+    /* Comandos y Atajos */
+    .cmd-badge {
+      background: #111111;
+      color: #FFFFFF;
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 9.5pt;
+      padding: 3px 8px;
+      font-weight: 600;
+      display: inline-block;
+      letter-spacing: 0.05em;
+    }
+
+    .cmd-red {
+      background: #D92525;
+      color: #FFFFFF;
+    }
+
+    /* Tablas Técnicas Suizas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 8px 0 10px 0;
+      font-size: 8.8pt;
+      line-height: 1.35;
+      page-break-inside: auto;
+      break-inside: auto;
+    }
+    tr {
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    th {
+      background: #FAFAFA;
+      color: #111111;
+      font-weight: 800;
+      text-align: left;
+      padding: 8px 10px;
+      border-bottom: 2px solid #D92525;
+      border-top: 1px solid #EEEEEE;
+      letter-spacing: 0.04em;
+    }
+
+    td {
+      padding: 6px 10px;
+      border-bottom: 1px solid #EEEEEE;
+      vertical-align: top;
+      color: #333333;
+    }
+
+    tr:nth-child(even) td {
+      background: #FDFDFD;
+    }
+
+    /* Cajas de Alerta (Callouts) */
+    .callout {
+      border: 1px solid #EEEEEE;
+      padding: 6px 10px;
+      margin: 8px 0;
+      font-size: 9.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .callout-tip {
+      background: #FBFDFB;
+      border-left: 4px solid #10B981;
+      color: #1A4D2E;
+    }
+
+    .callout-warning {
+      background: #FDFBFB;
+      border-left: 4px solid #D92525;
+      color: #7A1C1C;
+    }
+
+    .callout-important {
+      background: #F7FAFC;
+      border-left: 4px solid #111111;
+      color: #1A202C;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 9pt;
+    }
+
+    /* Tarjetas de Paso (Step Cards) */
+    .step-card {
+      background: #FAFAFA;
+      border: 1px solid #EEEEEE;
+      border-left: 3px solid #111111;
+      padding: 6px 10px;
+      margin-bottom: 6px;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    .step-card.active {
+      border-left-color: #D92525;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .step-number {
+      background: #D92525;
+      color: #FFFFFF;
+      font-weight: 800;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 10.5pt;
+      font-weight: 800;
+      color: #111111;
+    }
+
+    .footer-note {
+      margin-top: 35px;
+      border-top: 1px solid #EEEEEE;
+      padding-top: 14px;
+      font-size: 8.5pt;
+      color: #777777;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================
+       PORTADA EDITORIAL (PÁG 1)
+  ======================================================== -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-header-square"></div>
+      <div class="cover-brand">ALZADO ROJO</div>
+    </div>
+    <div class="cover-badge">SKETCHUP PRO • MODELADO NATIVO PURO</div>
+    <div class="cover-title">Manual Maestro de<br>Flujos de Trabajo en<br><span>Arquitectura</span></div>
+    <div class="cover-subtitle">
+      Guía de alta velocidad, arquitectura sin plugins, fórmulas de duplicación paramétrica, jerarquía de Tags y disciplina de grupos y componentes para estudiantes y estudios profesionales.
+    </div>
+    <div class="cover-meta">
+      <strong>Software:</strong> SketchUp Pro (Versiones 2023 - 2026) &nbsp;|&nbsp;
+      <strong>Enfoque:</strong> Arquitectura, Interiorismo & Fabricación Digital<br>
+      <strong>Autor:</strong> Adolfo Risopatrón Inzunza &nbsp;|&nbsp;
+      <strong>Estudio:</strong> ALZADO ROJO (AR ARQ SpA • ar-arq.cl)<br>
+      <strong>Edición:</strong> Antigravity Manual Engine • Santiago, Chile (Octubre 2026)
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 1 (PÁG 2 NUEVA): CHEATSHEET DE ATAJOS
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 01 • PRODUCTIVIDAD MOTRIZ</div>
+    <h1>1. Cheatsheet de Atajos Nativos Esenciales</h1>
+    <p>
+      Trabajar con ambas manos (mano izquierda posicionada en el teclado y mano derecha en el ratón) duplica la velocidad de producción y erradica el tiempo muerto de buscar botones en barras de herramientas. Los comandos nativos más críticos para arquitectura son:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 22%;">Tecla / Atajo</th>
+          <th style="width: 25%;">Herramienta</th>
+          <th>Uso Arquitectónico & Función Clave</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cmd-badge">Espacio</span></td>
+          <td><strong>Seleccionar</strong></td>
+          <td>Vuelve al puntero neutro. Clic: cara/arista. Doble clic: cara + aristas. Triple clic: toda la geometría continua enlazada.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">L</span></td>
+          <td><strong>Línea</strong></td>
+          <td>Trazado de muros, divisiones y subdivisiones en planta.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">R</span></td>
+          <td><strong>Rectángulo</strong></td>
+          <td>Permite ingresar dimensiones directas por teclado (ej: <code>0.15, 3.50</code> para tabiques o losas).</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">P</span></td>
+          <td><strong>Push / Pull</strong></td>
+          <td>Extrusión vertical de losas y muros. Doble clic repite automáticamente la última altura memorizada.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">M</span></td>
+          <td><strong>Mover / Copiar</strong></td>
+          <td>Desplazamiento. Presionar <span class="cmd-badge">Ctrl</span> activa el modo Copia (aparece el símbolo <code>+</code> en el cursor).</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">Q</span></td>
+          <td><strong>Rotar</strong></td>
+          <td>Giro en cualquier plano. Presionar <span class="cmd-badge">Ctrl</span> permite rotar duplicando radialmente.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">F</span></td>
+          <td><strong>Equidistancia (Offset)</strong></td>
+          <td>Generación de espesores instantáneos de muros perimetrales (ej. teclear <code>0.15</code> o <code>0.20</code>).</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">S</span></td>
+          <td><strong>Escala</strong></td>
+          <td>Presionar <span class="cmd-badge">Ctrl</span> escala simétricamente desde el centro. Presionar <span class="cmd-badge">Shift</span> fuerza proporción libre.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">T</span></td>
+          <td><strong>Cinta Métrica (Tape)</strong></td>
+          <td>Generación de líneas guía infinitas y reescalado métrico global del modelo completo.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">K</span></td>
+          <td><strong>Back Edges</strong></td>
+          <td>Muestra aristas traseras punteadas sin activar rayos X; ideal para alinear pilares interiores con tabiques.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">Shift + Z</span></td>
+          <td><strong>Zoom Extensión</strong></td>
+          <td>Enfoca todo el proyecto instantáneamente si te desorientas al orbitar o sufres corte de cámara.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+      <div class="callout-title">💡 Tip de Ergonomía Profesional</div>
+      Coloca la mano izquierda en posición base (pulgar en Espacio, índice en F/R, anular en L/M). No levantes la mirada hacia el teclado; el dibujo arquitectónico fluido es pura memoria muscular.
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 2 (PÁG 3 NUEVA): DUPLICACIÓN PARAMÉTRICA (ARRAYS)
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 02 • REPETICIÓN PARAMÉTRICA NATIVA</div>
+    <h1>2. Fórmulas de Duplicación Paramétrica (Arrays)</h1>
+    <p>
+      SketchUp posee fórmulas matemáticas nativas para generar series arquitectónicas complejas (peldaños de escaleras, pilares modulares, pérgolas, vigas y vanos continuos) sin necesidad de medir uno por uno ni recurrir a plugins externos.
+    </p>
+
+    <h2>A. Fórmula de Multiplicación: Repetición a Distancia Fija</h2>
+    <p>
+      Se utiliza cuando conoces la separación exacta entre módulos (ej. vigas a <code>0.80 m</code> o peldaños con huella de <code>0.28 m</code>):
+    </p>
+
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Selección y Activación de Copia</div>
+      </div>
+      Selecciona el grupo o componente del elemento inicial. Presiona <span class="cmd-badge">M</span> y toca <span class="cmd-badge">Ctrl</span> (aparecerá el símbolo <code>+</code> junto al cursor).
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Fijar Dirección y Primer Intervalo</div>
+      </div>
+      Haz clic en el punto base y mueve el cursor en el eje deseado (bloquea con las flechas de dirección). Escribe la distancia exacta del módulo (ej: <code>0.80</code>) y presiona <span class="cmd-badge">Enter</span>.
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">Aplicar Multiplicador Numérico (*N o Nx)</div>
+      </div>
+      Inmediatamente después, sin hacer clic en ninguna parte ni tocar el ratón, escribe <span class="cmd-badge cmd-red">*8</span> o <span class="cmd-badge cmd-red">8x</span> en el teclado y presiona <span class="cmd-badge">Enter</span>. SketchUp generará 8 copias automáticas en serie.
+    </div>
+
+    <div class="callout callout-tip">
+      <div class="callout-title">💡 Corrección Dinámica al Vuelo</div>
+      Si notas que 8 vigas fueron pocas o demasiadas, <strong>no borres nada</strong>: escribe directamente <code>*12</code> o <code>*5</code> y presiona Enter; SketchUp recalculará la cantidad de copias instantáneamente.
+    </div>
+
+    <h2>B. Fórmula de División: Repartición Equidistante Total</h2>
+    <p>
+      Se utiliza cuando tienes una longitud total fija y necesitas repartir elementos uniformemente (ej. 15 barrotes dentro de un vano de baranda de <code>3.20 m</code>):
+    </p>
+
+    <div class="step-card active">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">Mover Copia al Límite Opuesto</div>
+      </div>
+      Selecciona el elemento extremo, presiona <span class="cmd-badge">M + Ctrl</span> y lleva la copia directamente hasta el punto final opuesto del vano. Haz clic para fijarla.
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">Dividir el Espacio (/N)</div>
+      </div>
+      Sin tocar el ratón, escribe <span class="cmd-badge cmd-red">/6</span> (para dividir el vano en 6 intervalos iguales) y presiona <span class="cmd-badge">Enter</span>. El espacio queda perfectamente modularizado al milímetro.
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 3 (PÁG 4 NUEVA): BLOQUEO DE EJES Y PRECISIÓN
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 03 • PRECISIÓN ORTOGONAL ESTRICTA</div>
+    <h1>3. Bloqueo de Ejes con las Flechas de Dirección</h1>
+    <p>
+      El mayor error en entregas de arquitectura son los "muros fuera de plomo" y geometrías deformadas causadas por orbitar y dibujar confiando solo en el ojo. Las flechas de dirección son el ancla ortogonal obligatoria:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 25%;">Tecla de Dirección</th>
+          <th style="width: 28%;">Eje Bloqueado</th>
+          <th>Función y Comportamiento en Modelo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="cmd-badge cmd-red">Flecha Arriba [ ↑ ]</span></td>
+          <td><strong>Eje Azul (Z)</strong></td>
+          <td>Fuerza movimiento vertical estricto (plomada perfecta). Nunca un muro se desviará en diagonal hacia el fondo.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">Flecha Derecha [ → ]</span></td>
+          <td><strong>Eje Rojo (X)</strong></td>
+          <td>Fuerza alineación longitudinal exacta paralela a la fachada principal.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">Flecha Izquierda [ ← ]</span></td>
+          <td><strong>Eje Verde (Y)</strong></td>
+          <td>Fuerza alineación transversal exacta en profundidad ortogonal.</td>
+        </tr>
+        <tr>
+          <td><span class="cmd-badge">Flecha Abajo [ ↓ ]</span></td>
+          <td><strong>Perpendicular / Paralelo</strong></td>
+          <td>Bloquea la inferencia paralela o perpendicular a cualquier arista o plano existente que esté inclinado (ej. cubiertas con pendiente).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-important">
+      <div class="callout-title">📌 Regla de Oro de las Caras Planas</div>
+      Si una cara no se cierra tras dibujar 4 líneas, el 99% de las veces se debe a que uno de los vértices no está coplanar (quedó flotando en el espacio tridimensional). Bloquear con las flechas elimina este error para siempre.
+    </div>
+
+    <h2>Aislamiento Quirúrgico: "Ocultar el Resto del Modelo"</h2>
+    <p>
+      Al diseñar muebles de cocina, baños pequeños o carpinterías interiores densas, la cámara choca con muros y losas exteriores. En lugar de luchar contra el zoom:
+    </p>
+    <ul>
+      <li><strong>Ruta Oficial:</strong> Menú <code>Ver &gt; Edición de componentes &gt; Ocultar el resto del modelo</code>.</li>
+      <li><strong>Atajo Recomendado:</strong> Asigna <span class="cmd-badge">Alt + I</span> o <span class="cmd-badge">H</span> en <em>Preferencias &gt; Métodos abreviados</em>.</li>
+      <li><strong>Resultado:</strong> Al hacer doble clic en cualquier grupo o componente, todo el edificio exterior desaparece al instante. Puedes orbitar a 360° en un baño de 2x2 m con total libertad. Al salir, todo el contexto reaparece.</li>
+    </ul>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 4 (PÁG 5 NUEVA): ETIQUETAS Y LEY UNTAGGED
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 04 • GESTIÓN DE CAPAS Y RENDIMIENTO</div>
+    <h1>4. La Regla de Oro de las Etiquetas: La Ley "Untagged"</h1>
+    <p>
+      El 90% de los archivos de SketchUp que colapsan la computadora, presentan geometrías pegajosas o desaparecen misteriosamente al apagar capas sufren por una gestión caótica de etiquetas.
+    </p>
+
+    <div class="callout callout-warning">
+      <div class="callout-title">⚠️ La Ley Inquebrantable de Modelado</div>
+      <strong>TODA arista, cara o línea primaria debe dibujarse SIEMPRE en "Sin etiqueta" (Untagged / Layer0).</strong><br>
+      Las etiquetas (Tags) NUNCA se asignan a líneas sueltas; se asignan exclusivamente al contenedor exterior (Grupo o Componente). El lápiz activo de dibujo debe permanecer siempre en <em>Untagged</em>.
+    </div>
+
+    <h2>Estructura de Tags Recomendada para Proyectos AEC</h2>
+    <p>Organiza tus carpetas de etiquetas respetando la secuencia constructiva real de la obra:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 30%;">Nombre de la Etiqueta</th>
+          <th style="width: 25%;">Tipo Contenedor</th>
+          <th>Contenido Permitido</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>00_ENTORNO-TERRENO</code></td>
+          <td>Grupo Sólido</td>
+          <td>Topografía natural, curvas de nivel, aceras y contexto urbano.</td>
+        </tr>
+        <tr>
+          <td><code>01_ESTRUCTURA</code></td>
+          <td>Componentes</td>
+          <td>Fundaciones, pilares, vigas maestras y losas estructurales.</td>
+        </tr>
+        <tr>
+          <td><code>02_MUROS_EXTERIORES</code></td>
+          <td>Grupos Sólidos</td>
+          <td>Envolvente térmica, albañilería exterior, antepechos.</td>
+        </tr>
+        <tr>
+          <td><code>03_MUROS_INTERIORES</code></td>
+          <td>Grupos</td>
+          <td>Tabiquería de yeso-cartón, divisiones interiores livianas.</td>
+        </tr>
+        <tr>
+          <td><code>04_LOSAS-CIELOS</code></td>
+          <td>Grupos</td>
+          <td>Contrapisos, losas de entrepiso, pavimentos y cielos falsos.</td>
+        </tr>
+        <tr>
+          <td><code>05_CARPINTERIAS</code></td>
+          <td>Componentes</td>
+          <td>Marcos, hojas de puertas, ventanales y vidrios aislantes.</td>
+        </tr>
+        <tr>
+          <td><code>06_MOBILIARIO</code></td>
+          <td>Componentes</td>
+          <td>Muebles de cocina, sanitarios, closets (apagar al modelar).</td>
+        </tr>
+        <tr>
+          <td><code>07_VEGETACION-ESCALA</code></td>
+          <td>Componentes Proxies</td>
+          <td>Árboles 3D, figuras humanas y vehículos (apagar siempre en trabajo activo).</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-tip">
+      <div class="callout-title">💡 Auditoría Inmediata con "Color por Etiqueta"</div>
+      En la esquina superior de la bandeja de Etiquetas, haz clic en el menú desplegable y activa <strong>Color por etiqueta (Color by Tag)</strong>. Todo el modelo se pintará automáticamente con el color de su capa. Si ves una viga con el color de vidrios o tabiques, detectas el error constructivo en 1 segundo.
+    </div>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 5 (PÁG 6 NUEVA): GRUPOS VS COMPONENTES
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 05 • DISCIPLINA ARQUITECTÓNICA</div>
+    <h1>5. Grupos vs Componentes: Eficiencia Estructural</h1>
+    <p>
+      La diferencia entre un modelo que pesa 300 MB y uno que pesa 35 MB radica en el uso correcto de componentes frente a grupos sueltos.
+    </p>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number">G</div>
+        <div class="step-title">¿Cuándo usar Componente? (Tecla [ G ])</div>
+      </div>
+      <p>
+        <strong>Para todo elemento que se repita dos o más veces en el proyecto:</strong> puertas, ventanas, peldaños, pilares modulares, barandas, luminarias o enchufes.
+      </p>
+      <ul>
+        <li><strong>Vinculación paramétrica viva:</strong> Modificas el picaporte de una sola puerta y las 45 puertas del edificio se actualizan automáticamente en tiempo real.</li>
+        <li><strong>Optimización brutal de RAM:</strong> SketchUp almacena la geometría una sola vez en memoria y solo guarda coordenadas de posición para las repeticiones, reduciendo el peso del archivo <code>.skp</code> hasta en un 80%.</li>
+      </ul>
+    </div>
+
+    <div class="step-card">
+      <div class="step-header">
+        <div class="step-number" style="background: #111111;">Ctrl+G</div>
+        <div class="step-title">¿Cuándo usar Grupo? (Ctrl + G)</div>
+      </div>
+      <p>
+        <strong>Para elementos únicos e irrepetibles del edificio:</strong> la losa de fundación, la cubierta asimétrica, el terreno topográfico o un muro curvo singular. El grupo aísla la geometría para que no se pegue al resto del modelo, pero no propaga modificaciones.
+      </p>
+    </div>
+
+    <h2>Convertir en Único (Make Unique): Variaciones Controladas</h2>
+    <p>
+      Si tienes 20 puertas de 80 cm y necesitas que la del baño sea de 70 cm manteniendo el mismo diseño de marco y tirador:
+    </p>
+    <ol>
+      <li>Selecciona únicamente la instancia que deseas modificar.</li>
+      <li>Haz clic derecho sobre ella y pulsa <span class="cmd-badge">Convertir en único (Make Unique)</span>.</li>
+      <li>Esa puerta se independizará de las otras 19; ahora puedes editar su ancho sin alterar las puertas principales.</li>
+    </ol>
+  </div>
+
+  <!-- ========================================================
+       CAPÍTULO 6 (PÁG 7 NUEVA): OPTIMIZACIÓN EXTREMA Y TROUBLESHOOTING
+  ======================================================== -->
+  <div class="chapter-page">
+    <div class="chapter-eyebrow">// CAPÍTULO 06 • RENDIMIENTO & RESOLUCIÓN DE FALLAS</div>
+    <h1>6. Optimización sin Lag y Solución de Problemas</h1>
+    <p>
+      Aplica estas 4 rutinas nativas cuando tu archivo supere los 50 MB o la navegación comience a dar tirones:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 30%;">Técnica de Rendimiento</th>
+          <th>Acción y Procedimiento Nativo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Desactivar Perfiles (Profiles)</strong></td>
+          <td>En <em>Bandeja Estilos &gt; Edición &gt; Ajustes de aristas</em>, desmarca la casilla <strong>Perfiles</strong> y deja solo marcado "Aristas". La fluidez de la tarjeta gráfica mejorará hasta un 300%.</td>
+        </tr>
+        <tr>
+          <td><strong>Purgar Geometría Huérfana</strong></td>
+          <td>Ve a <em>Ventana &gt; Información del modelo &gt; Estadísticas &gt; Purgar no usados</em>. Elimina componentes, capas y texturas borradas que siguen consumiendo memoria RAM oculta.</td>
+        </tr>
+        <tr>
+          <td><strong>Escena de Trabajo Ultra Rápida</strong></td>
+          <td>Crea una escena llamada <code>00_WORK_FAST</code> con estilo sombreado simple sin sombras solares, sin texturas pesadas ni niebla. Modela ahí con alta fluidez y usa escenas con sombras solo para entregar.</td>
+        </tr>
+        <tr>
+          <td><strong>Invertir Caras Azules</strong></td>
+          <td>Todas las caras exteriores deben verse blancas (cara frontal). Si ves caras azuladas/grises, haz clic derecho y pulsa <strong>Invertir caras</strong>; las caras invertidas provocan agujeros negros en motores de render.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Troubleshooting: Fallas Comunes y Solución Inmediata</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 30%;">Problema Frecuente</th>
+          <th>Causa Técnica y Solución en 1 Paso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Geometría pegajosa (Sticky Geometry)</strong></td>
+          <td>Dibujaste líneas sin agrupar y se fusionaron con la losa. <em>Solución:</em> Selecciona con triple clic, corta con <span class="cmd-badge">Ctrl + X</span>, crea un grupo vacío y usa <em>Edición &gt; Pegar en su sitio</em>.</td>
+        </tr>
+        <tr>
+          <td><strong>Corte de cámara (Camera Clipping)</strong></td>
+          <td>El modelo se corta como si hubiera un plano invisible al acercarte. <em>Solución:</em> Cambia de <em>Proyección paralela</em> a <em>Perspectiva</em>, o pulsa <span class="cmd-badge">Shift + Z</span> (Zoom extensión) para resetear el cono visual.</td>
+        </tr>
+        <tr>
+          <td><strong>Push/Pull no perfora el vano</strong></td>
+          <td>Las caras frontal y trasera del muro no son perfectamente paralelas. <em>Solución:</em> Extruye hasta tocar exactamente la arista posterior hasta que aparezca el aviso magenta "En la arista".</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="footer-note">
+      <strong>ALZADO ROJO // ESTUDIO DE ARQUITECTURA & FABRICACIÓN DIGITAL</strong> • Santiago, Chile • www.ar-arq.cl
+    </div>
+  </div>
+
+</body>
+</html>
