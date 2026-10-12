@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ALZADO ROJO | Repositorio de Manuales Técnicos y Guías de Usuario en PDF para Arquitectura, Modelado 3D, CGI y Fabricación Digital. Descargas directas y lectura online.">
+    <meta name="theme-color" content="#FFFFFF">
+    <title>Manuales Técnicos · Repositorio de Guías PDF | ALZADO ROJO</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/editorial.css?v=4">
+</head>
+<body>
+
+    <!-- CABECERA EDITORIAL MINIMALISTA -->
+    <header class="ed-header">
+        <div class="ed-header-inner">
+            <div class="ed-logo-block">
+                <a href="index.html" class="ed-logo" aria-label="Alzado Rojo - Portada">
+                    ALZADO <span class="brand-red">ROJO</span>
+                </a>
+                <span class="ed-sublogo">AR ARQ SpA · FABRICACIÓN DIGITAL</span>
+            </div>
+
+            <nav class="ed-header-nav" aria-label="Navegación de retorno">
+                <a href="index.html" class="ed-back-link">
+                    <span aria-hidden="true">←</span>
+                    <span>DIRECTORIO</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CUERPO PRINCIPAL EDITORIAL -->
+    <main class="manuals-container" id="main-content">
+
+        <!-- HERO EDITORIAL -->
+        <section class="ed-hero-title-wrap" aria-label="Encabezado del Repositorio">
+            <span class="ed-eyebrow">// REPOSITORIO DE GUÍAS TÉCNICAS Y FLUJOS DE TRABAJO</span>
+            <h1 class="ed-page-title">MANUALES TÉCNICOS</h1>
+            <p class="ed-page-subtitle">
+                Documentación técnica, flujos de trabajo profesionales y guías descargables en PDF para arquitectos y modeladores. El complemento oficial de nuestros carruseles de Instagram.
+            </p>
+        </section>
+
+        <!-- PESTAÑAS DE FILTRADO INTERACTIVAS -->
+        <div class="manual-tabs" role="tablist" aria-label="Filtrar manuales por especialidad">
+            <button type="button" class="manual-tab-btn active" role="tab" aria-selected="true" data-filter="all">TODOS (3)</button>
+            <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="render">RENDERIZADO (1)</button>
+            <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="maquetas">FABRICACIÓN DIGITAL (1)</button>
+            <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="modelado">MODELADO 3D (1)</button>
+        </div>
+
+        <!-- GRILLA DE MANUALES -->
+        <section class="manuals-grid" aria-label="Listado de Manuales Disponibles">
+
+            <!-- 1. MANUAL DE RENDERIZADO ARQUITECTÓNICO -->
+            <article class="manual-card" data-category="render">
+                <div class="manual-card-header">
+                    <span class="manual-badge">CGI Y RENDERIZADO</span>
+                    <span class="manual-format-tag">PDF OFICIAL</span>
+                </div>
+                <div class="manual-card-body">
+                    <h2 class="manual-title">Manual de Renderizado Arquitectónico</h2>
+                    <p class="manual-desc">Flujos de trabajo, iluminación física y materiales PBR para visualización de alto impacto.</p>
+                    <div class="manual-software-tags" aria-label="Software cubierto">
+                        <span class="manual-software-tag">Chaos V-Ray</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Enscape</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">D5 Render</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Twinmotion</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Photoshop</span>
+                    </div>
+                    <div class="manual-meta">
+                        <span class="manual-meta-item">
+                            <svg class="manual-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            10 Páginas
+                        </span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">PDF Vectorial</span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">Nivel Intermedio y Avanzado</span>
+                    </div>
+                </div>
+                <div class="manual-actions">
+                    <a href="manuales/manual-renderizado.pdf" download="Manual-Renderizado-Alzado-Rojo.pdf" class="btn-ed-primary">DESCARGAR PDF (GRATIS) ➔</a>
+                    <a href="manuales/manual-renderizado.html" target="_blank" class="btn-ed-secondary">LEER ONLINE</a>
+                </div>
+            </article>
+
+            <!-- 2. MANUAL DE FABRICACIÓN DE MAQUETAS 3D -->
+            <article class="manual-card" data-category="maquetas">
+                <div class="manual-card-header">
+                    <span class="manual-badge">FABRICACIÓN 3D Y TOPOGRAFÍA GIS</span>
+                    <span class="manual-format-tag">PDF OFICIAL</span>
+                </div>
+                <div class="manual-card-body">
+                    <h2 class="manual-title">Manual de Fabricación de Maquetas 3D</h2>
+                    <p class="manual-desc">De datos satelitales a la impresión física: modelado territorial, solidificación manifold y post-procesado.</p>
+                    <div class="manual-software-tags" aria-label="Software cubierto">
+                        <span class="manual-software-tag">QGIS</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Rhinoceros 3D</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Blender</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">PrusaSlicer</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Bambu Studio</span>
+                    </div>
+                    <div class="manual-meta">
+                        <span class="manual-meta-item">
+                            <svg class="manual-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            9 Páginas
+                        </span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">PDF Vectorial</span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">Nivel Profesional</span>
+                    </div>
+                </div>
+                <div class="manual-actions">
+                    <a href="manuales/manual-maquetas.pdf" download="Manual-Maquetas-3D-Alzado-Rojo.pdf" class="btn-ed-primary">DESCARGAR PDF (GRATIS) ➔</a>
+                    <a href="manuales/manual-maquetas.html" target="_blank" class="btn-ed-secondary">LEER ONLINE</a>
+                </div>
+            </article>
+
+            <!-- 3. MANUAL DE SKETCHUP PRODUCTIVIDAD -->
+            <article class="manual-card" data-category="modelado">
+                <div class="manual-card-header">
+                    <span class="manual-badge badge-pending">EN PREPARACIÓN · PRÓXIMO LANZAMIENTO</span>
+                    <span class="manual-format-tag format-soon">PRÓXIMAMENTE</span>
+                </div>
+                <div class="manual-card-body">
+                    <h2 class="manual-title">Manual de SketchUp Productividad</h2>
+                    <p class="manual-desc">Metodología ágil de modelado arquitectónico, optimización de componentes limpios y atajos de alta velocidad.</p>
+                    <div class="manual-software-tags" aria-label="Software cubierto">
+                        <span class="manual-software-tag">SketchUp Pro</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">LayOut</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Extensiones Lean</span>
+                    </div>
+                    <div class="manual-meta">
+                        <span class="manual-meta-item">
+                            <svg class="manual-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            En Redacción
+                        </span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">Formato PDF Descargable</span>
+                    </div>
+                </div>
+                <div class="manual-actions">
+                    <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20me%20interesa%20el%20Manual%20de%20SketchUp%20cuando%20est%C3%A9%20disponible." target="_blank" rel="noopener noreferrer" class="btn-ed-secondary full-width">NOTIFICARME POR WHATSAPP ➔</a>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- BANNER DE INTEGRACIÓN CON INSTAGRAM -->
+        <section class="instagram-bridge-card" aria-label="Comunidad y Redes">
+            <div class="instagram-bridge-content">
+                <span class="bridge-eyebrow">// COMUNIDAD Y REDES</span>
+                <h2 class="bridge-title">¿LLEGASTE DESDE INSTAGRAM?</h2>
+                <p class="bridge-desc">
+                    Nuestros carruseles resumen los conceptos clave en 10 láminas; estos manuales contienen la guía técnica completa con comandos, tablas y configuraciones numéricas.
+                </p>
+            </div>
+            <div class="bridge-action">
+                <a href="https://www.instagram.com/alzado_rojo" target="_blank" rel="noopener noreferrer" class="btn-ed-primary bridge-btn">
+                    <span>SEGUIR EN INSTAGRAM</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA EDITORIAL -->
+    <footer class="ed-footer">
+        <div class="ed-footer-inner">
+            <div class="ed-footer-author">
+                Adolfo Risopatrón Inzunza · Arquitecto y Magíster MASE
+            </div>
+            <div class="ed-footer-links-row">
+                <a href="index.html" class="ed-footer-link">
+                    <span>PORTADA Y DIRECTORIO</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="sobre-mi.html" class="ed-footer-link">
+                    <span>PERFIL PROFESIONAL (ADOLFO RISOPATRÓN)</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="ed-footer-link">
+                    <span>WHATSAPP (+56 9 7541 2203)</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+                <a href="mailto:adolchilemods@gmail.com" class="ed-footer-link">
+                    <span>CORREO</span>
+                    <span aria-hidden="true">➔</span>
+                </a>
+            </div>
+            <div class="ed-footer-legal-row">
+                <a href="politica-privacidad.html" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="terminos-condiciones.html" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
+                <span class="ed-footer-legal-sep">·</span>
+                <a href="politica-cookies.html" class="ed-footer-legal-link">POLÍTICA DE COOKIES</a>
+            </div>
+            <div class="ed-footer-copy">
+                © 2026 ALZADO ROJO · AR ARQ SpA · Santiago de Chile. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPT DE FILTRADO INTERACTIVO Y ACCESIBILIDAD -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = Array.from(document.querySelectorAll('.manual-tab-btn'));
+            const cards = Array.from(document.querySelectorAll('.manual-card'));
+
+            function setFilter(filter, targetTab) {
+                tabs.forEach(tab => {
+                    const isSelected = (tab === targetTab);
+                    tab.classList.toggle('active', isSelected);
+                    tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+                    tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+                });
+
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
+                        card.classList.remove('manual-hidden');
+                    } else {
+                        card.classList.add('manual-hidden');
+                    }
+                });
+            }
+
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('click', () => {
+                    const filter = tab.getAttribute('data-filter');
+                    setFilter(filter, tab);
+                });
+
+                // Soporte de navegación por teclado en WAI-ARIA tabs
+                tab.addEventListener('keydown', (e) => {
+                    let nextIndex = null;
+                    if (e.key === 'ArrowRight') {
+                        nextIndex = (index + 1) % tabs.length;
+                    } else if (e.key === 'ArrowLeft') {
+                        nextIndex = (index - 1 + tabs.length) % tabs.length;
+                    }
+
+                    if (nextIndex !== null) {
+                        e.preventDefault();
+                        const nextTab = tabs[nextIndex];
+                        nextTab.focus();
+                        const filter = nextTab.getAttribute('data-filter');
+                        setFilter(filter, nextTab);
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
+    <script src="js/cookies.js" defer></script>
+</body>
+</html>

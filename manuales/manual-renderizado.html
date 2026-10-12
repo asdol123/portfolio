@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual de Renderizado Arquitectónico | Alzado Rojo</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1a202c;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Portada */
+    .cover-page {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90vh;
+      border-left: 8px solid #D92525;
+      padding: 40px 0 30px 36px;
+    }
+
+    .cover-header {
+      margin-top: 20px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: #FEF2F2;
+      color: #D92525;
+      border: 1px solid #FCA5A5;
+      font-weight: 700;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-size: 30pt;
+      font-weight: 900;
+      color: #111827;
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title span {
+      color: #D92525;
+    }
+
+    .cover-subtitle {
+      font-size: 13.5pt;
+      color: #4b5563;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 92%;
+      margin: 0 0 30px 0;
+    }
+
+    .cover-software-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 30px;
+      max-width: 95%;
+    }
+
+    .software-pill {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .software-pill .name {
+      font-weight: 700;
+      font-size: 10pt;
+      color: #1f2937;
+      display: block;
+    }
+
+    .software-pill .role {
+      font-size: 7.5pt;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .cover-footer {
+      border-top: 2px solid #f3f4f6;
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 8.5pt;
+      color: #6b7280;
+    }
+
+    .cover-footer strong {
+      color: #1f2937;
+    }
+
+    .brand-signature {
+      text-align: right;
+    }
+
+    .brand-signature .logo-text {
+      font-weight: 800;
+      font-size: 11pt;
+      color: #D92525;
+      letter-spacing: 1px;
+    }
+
+    /* Jerarquía Tipográfica */
+    h1 {
+      font-size: 17pt;
+      font-weight: 800;
+      color: #111827;
+      border-bottom: 2.5px solid #D92525;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+
+    h2 {
+      font-size: 12pt;
+      font-weight: 700;
+      color: #B91C1C;
+      margin-top: 20px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+      color: #374151;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 12px 0;
+      padding-left: 20px;
+      color: #374151;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .section-desc {
+      font-size: 9.5pt;
+      color: #6b7280;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    /* Comandos y Atajos */
+    .cmd-badge {
+      background: #1f2937;
+      color: #f9fafb;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 8.5pt;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .key-badge {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-bottom: 2px solid #9ca3af;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 8pt;
+      padding: 1px 6px;
+      color: #1f2937;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    /* Tablas Técnicas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+
+    th {
+      background: #111827;
+      color: #f9fafb;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #111827;
+      font-size: 8.5pt;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 7px 10px;
+      border: 1px solid #e5e7eb;
+      vertical-align: top;
+      color: #374151;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    tr:hover td {
+      background: #fef2f2;
+    }
+
+    /* Cajas de Alerta (Callouts) */
+    .callout {
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+      line-height: 1.45;
+    }
+
+    .callout-tip {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      color: #166534;
+    }
+
+    .callout-warning {
+      background: #fffbeb;
+      border-left: 4px solid #d97706;
+      color: #92400e;
+    }
+
+    .callout-important {
+      background: #fef2f2;
+      border-left: 4px solid #D92525;
+      color: #991b1b;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Pasos Numerados (Workflow) */
+    .step-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-left: 3.5px solid #D92525;
+      border-radius: 5px;
+      padding: 11px 14px;
+      margin-bottom: 11px;
+      page-break-inside: avoid;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 6px;
+    }
+
+    .step-number {
+      background: #D92525;
+      color: #ffffff;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .step-content {
+      font-size: 9pt;
+      color: #4b5563;
+      padding-left: 31px;
+    }
+
+    .step-content p {
+      margin: 0 0 6px 0;
+      font-size: 9pt;
+    }
+
+    .step-content ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .step-content li {
+      font-size: 8.5pt;
+      margin-bottom: 2px;
+    }
+
+    /* Grid de Parámetros */
+    .param-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 10px 0 14px 0;
+      page-break-inside: avoid;
+    }
+
+    .param-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 8px 11px;
+    }
+
+    .param-card .label {
+      font-size: 8pt;
+      color: #6b7280;
+      text-transform: uppercase;
+      font-weight: 700;
+      display: block;
+    }
+
+    .param-card .value {
+      font-size: 10pt;
+      color: #111827;
+      font-weight: 800;
+      font-family: 'Consolas', monospace;
+      margin-top: 2px;
+    }
+
+    .param-card .note {
+      font-size: 8pt;
+      color: #4b5563;
+      margin-top: 3px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .footer-note {
+      font-size: 7.5pt;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA EDITORIAL -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-badge">ALZADO ROJO • GUÍA TÉCNICA DE VISUALIZACIÓN</div>
+      <div class="cover-title">Manual de <span>Renderizado</span> Arquitectónico</div>
+      <div class="cover-subtitle">Flujos de trabajo, iluminación física y materiales PBR para visualización de alto impacto visual y rigor constructivo.</div>
+      
+      <div class="cover-software-grid">
+        <div class="software-pill">
+          <span class="name">Chaos V-Ray</span>
+          <span class="role">Producción Fotorrealista</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Enscape 3D</span>
+          <span class="role">Iteración Tiempo Real</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">D5 Render</span>
+          <span class="role">Ray Tracing GPU / IA</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Twinmotion</span>
+          <span class="role">Entorno &amp; Paisajismo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div>
+        <strong>Autor:</strong> Adolfo Risopatrón &bull; Arquitectura &amp; Diseño<br>
+        <strong>Estándar:</strong> Alzado Rojo Workflow v2.4 &bull; A4 Vectorial<br>
+        <strong>Requisitos:</strong> GPU RTX 3060 o superior (VRAM &ge; 8 GB) &bull; RAM &ge; 32 GB
+      </div>
+      <div class="brand-signature">
+        <div class="logo-text">ALZADO ROJO</div>
+        <span>Santiago de Chile &bull; 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: CHEATSHEET Y ATAJOS -->
+  <h1>1. Cheatsheet de Atajos &amp; Control Rápido</h1>
+  <p class="section-desc">Consola y comandos de navegación indispensables en los principales motores y postproducción.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Software</th>
+        <th style="width: 25%;">Atajo / Comando</th>
+        <th style="width: 30%;">Acción Clave</th>
+        <th style="width: 23%;">Contexto de Uso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Chaos V-Ray</strong></td>
+        <td><span class="key-badge">Shift</span> + <span class="key-badge">F</span></td>
+        <td>Safe Frame (Marco Seguro)</td>
+        <td>Asegura el encuadre real de salida</td>
+      </tr>
+      <tr>
+        <td><strong>Chaos V-Ray</strong></td>
+        <td><span class="cmd-badge">vrayVFB</span></td>
+        <td>Abrir Virtual Frame Buffer</td>
+        <td>Inspección de capas, curvas y denoiser</td>
+      </tr>
+      <tr>
+        <td><strong>Enscape 3D</strong></td>
+        <td><span class="key-badge">U</span> / <span class="key-badge">I</span></td>
+        <td>Ajuste horario solar</td>
+        <td>Variación rápida de ángulo de sombras</td>
+      </tr>
+      <tr>
+        <td><strong>Enscape 3D</strong></td>
+        <td><span class="key-badge">Shift</span> + <span class="key-badge">F11</span></td>
+        <td>Captura render panorámico 360°</td>
+        <td>Visualización interactiva y VR</td>
+      </tr>
+      <tr>
+        <td><strong>D5 Render</strong></td>
+        <td><span class="key-badge">F8</span></td>
+        <td>Perspectiva de 2 Puntos (Vertical Tilt)</td>
+        <td>Corrección inmediata de fugas verticales</td>
+      </tr>
+      <tr>
+        <td><strong>D5 Render</strong></td>
+        <td><span class="key-badge">Space</span> + <span class="key-badge">Click</span></td>
+        <td>Cuentagotas de material PBR</td>
+        <td>Edición instantánea de textura en visor</td>
+      </tr>
+      <tr>
+        <td><strong>Twinmotion</strong></td>
+        <td><span class="key-badge">F10</span></td>
+        <td>Path Tracer Toggle</td>
+        <td>Alternar cálculo de rebotes no sesgados</td>
+      </tr>
+      <tr>
+        <td><strong>Twinmotion</strong></td>
+        <td><span class="key-badge">M</span></td>
+        <td>Biblioteca de materiales / Pintura rápida</td>
+        <td>Distribución masiva de vegetación</td>
+      </tr>
+      <tr>
+        <td><strong>Adobe Photoshop</strong></td>
+        <td><span class="key-badge">Ctrl</span> + <span class="key-badge">Shift</span> + <span class="key-badge">A</span></td>
+        <td>Filtro Camera Raw</td>
+        <td>Gradación cromática y corrección de curvas</td>
+      </tr>
+      <tr>
+        <td><strong>Adobe Photoshop</strong></td>
+        <td><span class="key-badge">Ctrl</span> + <span class="key-badge">Alt</span> + <span class="key-badge">Shift</span> + <span class="key-badge">E</span></td>
+        <td>Stamp Visible (Copia integrada)</td>
+        <td>Crear capa unificada para post-pro final</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">💡 Tip de Productividad: Doble Pantalla Calibrada</div>
+    Mantén el viewport de modelado en tu monitor primario y el frame buffer / ventana de render en tiempo real (Enscape/D5) en el secundario a escala 100%. Nunca evalúes la nitidez o el ruido con zoom digital superior al 100% en previsualización.
+  </div>
+
+  <!-- SECCIÓN 2: COMPOSICIÓN Y CÁMARA -->
+  <div class="page-break"></div>
+  <h1>2. Composición Óptica &amp; Cámara Arquitectónica</h1>
+  <p class="section-desc">Reglas geométricas para reproducir la mirada del ojo humano y la fotografía editorial rigurosa.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Distancia Focal y Ángulo de Visión (Field of View - FOV)</div>
+    </div>
+    <div class="step-content">
+      <p>El error más recurrente en renders es el uso de lentes ultra gran angulares no justificados, que deforman los elementos perimetrales (columnas inclinadas, mobiliario distorsionado):</p>
+      <ul>
+        <li><strong>Vistas Exteriores de Edificios:</strong> Utiliza entre <span class="cmd-badge">28 mm y 35 mm</span> (FOV 54° a 65°). Esta distancia aplana sutilmente los planos, genera monumentalidad y evita que las cornisas se estiren artificialmente.</li>
+        <li><strong>Vistas Interiores / Espacios Reducidos:</strong> Utiliza entre <span class="cmd-badge">18 mm y 24 mm</span> (FOV 74° a 90°). Jamás desciendas por debajo de 16 mm a menos que sea un baño de 2 m²; de lo contrario, el espacio parecerá una piscina vacía o una maqueta distorsionada.</li>
+        <li><strong>Tomas de Detalle y Mobiliario:</strong> Emplea entre <span class="cmd-badge">50 mm y 85 mm</span> con profundidad de campo (DOF) sutil para jerarquizar texturas constructivas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Altura de Cámara Humana (Eye-Level Calibrado)</div>
+    </div>
+    <div class="step-content">
+      <p>Configura la coordenada Z de la cámara y del objetivo (Target) a <strong>1.50 m – 1.60 m</strong> del piso terminado. Esto sitúa al observador en una experiencia espacial verídica.</p>
+      <ul>
+        <li><strong>Prohibido el "Ángulo Flotante":</strong> Evita colocar la cámara a 2.30 m o 3.00 m (salvo axonometrías o planos picados intencionales). El espectador percibe inconscientemente la falta de gravedad y rechaza la imagen.</li>
+        <li><strong>Tomas Bajas (Low Angle):</strong> Para arquitectura corporativa o cívica, una altura de 0.80 m – 1.00 m enfatiza la verticalidad y dramatismo de la fachada.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">3</div>
+      <div class="step-title">Corrección de Dos Puntos de Fuga (Vertical Tilt Shift)</div>
+    </div>
+    <div class="step-content">
+      <p>En fotografía de arquitectura profesional con lentes descentrables (Tilt-Shift), las líneas verticales de los muros deben ser <strong>estrictamente paralelas y perpendiculares al horizonte</strong> (ángulo de 90°):</p>
+      <ul>
+        <li><strong>V-Ray:</strong> Activa <em>Camera &gt; Vertical Tilt &gt; Auto Guess Vertical Tilt</em>.</li>
+        <li><strong>D5 Render:</strong> Presiona <span class="key-badge">F8</span> o activa <em>Two-Point Perspective</em> en el menú superior de cámara.</li>
+        <li><strong>Enscape:</strong> En <em>Visual Settings &gt; Camera</em>, selecciona <em>Projection: Two-Point</em>.</li>
+        <li><strong>Twinmotion:</strong> En <em>Camera Settings</em>, activa la casilla <em>Tilt &amp; Shift</em>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="param-grid">
+    <div class="param-card">
+      <span class="label">Composición de Fachadas</span>
+      <div class="value">28 mm &bull; H: 1.55 m</div>
+      <div class="note">Vertical Tilt activo; 1/3 cielo, 2/3 arquitectura y suelo.</div>
+    </div>
+    <div class="param-card">
+      <span class="label">Interiores / Living Room</span>
+      <div class="value">22 mm &bull; H: 1.50 m</div>
+      <div class="note">Nivelado con antepecho de ventana o respaldos.</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-title">⚠️ Advertencia: Exceso de Corrección en Tomas Aéreas</div>
+    No fuerces la corrección de dos puntos de fuga en vistas de pájaro o tomas picadas superiores a 30° de inclinación, ya que la geometría superior se abrirá hacia afuera produciendo un efecto visual aberrante ("cabeza invertida").
+  </div>
+
+  <!-- SECCIÓN 3: ILUMINACIÓN FÍSICA -->
+  <div class="page-break"></div>
+  <h1>3. Iluminación Física &amp; Calibración Fotométrica</h1>
+  <p class="section-desc">Estrategias de iluminación basadas en leyes físicas de emisión, dispersión y rebote atmosférico.</p>
+
+  <h2>A. Sol Dinámico vs. Cielos HDRI Calibrados</h2>
+  <p>La iluminación exterior se sostiene sobre dos esquemas principales:</p>
+  <ul>
+    <li><strong>HDRI Calibrado (High Dynamic Range Image):</strong> Aporta información lumínica no comprimida de 32 bits por canal con sombras suaves, color ambiental exacto y reflejos nítidos. Utiliza archivos HDRI de al menos <strong>8K o 16K</strong> sin nubes pixeladas. Ajusta la rotación (Azimut) para generar sombras diagonales rasantes a 30°–45° respecto a la fachada principal, revelando volúmenes y bajorrelieves.</li>
+    <li><strong>Sol Físico (Sun &amp; Sky Model):</strong> Ideal para control de sombras exactas según geolocalización, mes del año y hora del día. Mantén la turbidez atmosférica entre <strong>2.5 y 3.2</strong> y el ozono en <strong>0.35</strong> para evitar cielos artificialmente amarillentos.</li>
+  </ul>
+
+  <h2>B. Temperatura de Color (Escala Kelvin)</h2>
+  <p>El balance cromático es la clave para evitar renders monocromáticos y fríos. La regla de oro es combinar fuentes cálidas y frías de manera justificada:</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Fuente Lumínica</th>
+        <th style="width: 20%;">Kelvin (K)</th>
+        <th style="width: 30%;">Tono Resultante</th>
+        <th style="width: 25%;">Aplicación Sugerida</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Vela / Fuego chimenea</td>
+        <td><strong>1800K – 2200K</strong></td>
+        <td>Ámbar rojizo profundo</td>
+        <td>Fogones de terraza, chimeneas</td>
+      </tr>
+      <tr>
+        <td>Lámpara incandescente / LED cálido</td>
+        <td><strong>2700K – 3000K</strong></td>
+        <td>Blanco cálido suave</td>
+        <td>Dormitorios, living, tiras LED en carpintería</td>
+      </tr>
+      <tr>
+        <td>Luz halógena / Spots comerciales</td>
+        <td><strong>3500K – 4000K</strong></td>
+        <td>Blanco neutro de confort</td>
+        <td>Cocinas, baños, oficinas de trabajo</td>
+      </tr>
+      <tr>
+        <td>Luz solar directa (mediodía despejado)</td>
+        <td><strong>5200K – 5600K</strong></td>
+        <td>Blanco solar equilibrado</td>
+        <td>Sol exterior directo</td>
+      </tr>
+      <tr>
+        <td>Cielo nublado / Luz de sombra</td>
+        <td><strong>6500K – 7500K</strong></td>
+        <td>Azul celeste frío</td>
+        <td>Ambiente de sombras exteriores</td>
+      </tr>
+      <tr>
+        <td>Hora azul (Blue Hour)</td>
+        <td><strong>8000K – 10000K</strong></td>
+        <td>Azul cobalto intenso</td>
+        <td>Contraste con ventanales cálidos</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>C. Iluminación Artificial &amp; Archivos IES</h2>
+  <p>Nunca utilices luces puntuales genéricas (Omni lights) sin atenuación física. Emplea archivos <strong>IES (Illuminating Engineering Society)</strong> provistos por fabricantes reales (Erco, Iguzzini, Philips, Flos). El archivo IES modela la distribución fotométrica real con el haz cónico de luz, penumbras suaves y recorte del reflector.</p>
+
+  <div class="callout callout-important">
+    <div class="callout-title">❗ Importante: Doble Vidrio y Refracción Solar</div>
+    Al iluminar interiores, asegúrate de que los vidrios tengan espesor real (doble cristal de 6 mm con cámara de 12 mm). En V-Ray, activa <em>Affect Shadows</em> en el material del vidrio; en caso contrario, el vidrio bloqueará la luz solar directa arrojando sombras de muro opaco al suelo interior.
+  </div>
+
+  <!-- SECCIÓN 4: MATERIALES PBR REALISTAS -->
+  <div class="page-break"></div>
+  <h1>4. Materiales PBR Realistas (Physically Based Rendering)</h1>
+  <p class="section-desc">Estructuración técnica de capas y mapas para garantizar que los materiales respondan verosímilmente bajo cualquier condición de luz.</p>
+
+  <h2>A. Regla Sagrada del Albedo (Base Color)</h2>
+  <p>En la física del mundo real, <strong>ningún material natural o manufacturado absorbe el 100% de la luz ni refleja el 100% de los fotones</strong>. Si configuras un color RGB puro, romperás el cálculo de rebotes de la iluminación global (GI):</p>
+  <ul>
+    <li><strong>Rango Seguro de Reflectancia sRGB:</strong> Mantén todos los colores base entre <strong>30 y 230</strong>.</li>
+    <li><strong>Muros Blancos / Enyesados:</strong> Asigna valores RGB entre <span class="cmd-badge">200, 200, 200</span> y <span class="cmd-badge">225, 225, 225</span>. Si usas (255, 255, 255), el cálculo GI generará una retroalimentación infinita que quemará la escena ("bleaching") y eliminará las esquinas.</li>
+    <li><strong>Asfalto, Acero Oscuro o Carbón:</strong> Asigna valores RGB nunca inferiores a <span class="cmd-badge">30, 30, 30</span> a <span class="cmd-badge">45, 45, 45</span>. Con (0, 0, 0), el objeto devorará fotones creando un agujero negro sin textura ni volumen.</li>
+  </ul>
+
+  <h2>B. Roughness (Rugosidad) vs. Glossiness</h2>
+  <p>El mapa de <strong>Roughness</strong> determina la micro-aspereza de la superficie a nivel microscópico:</p>
+  <ul>
+    <li><strong>Valor 0.0 (Negro en Roughness):</strong> Superficie perfectamente pulida tipo espejo o vidrio de alta pureza. Reflejos con borde afilado.</li>
+    <li><strong>Valor 0.15 – 0.35:</strong> Madera lacada satinada, mármol pulido o gres porcelánico. Reflejo definido con ligero difuminado en bordes.</li>
+    <li><strong>Valor 0.50 – 0.70:</strong> Maderas aceitadas al natural, hormigón visto desencofrado, pinturas arquitectónicas mates.</li>
+    <li><strong>Valor 0.85 – 1.00:</strong> Telas de algodón, yeso poroso, tierra o corteza de árbol. Dispersión lumínica total (reflexión difusa pura).</li>
+  </ul>
+
+  <h2>C. Normal Maps vs. Bump vs. Displacement</h2>
+  <p>El relieve añade tridimensionalidad táctil:</p>
+  <ul>
+    <li><strong>Normal Map (DirectX vs. OpenGL):</strong> Simula refracción y curvatura lumínica mediante vectores RGB de color violeta/celeste sin alterar la malla poligonal. Esencial para junturas de ladrillo, madera y telas. En V-Ray y D5 asegúrate de no invertir el canal verde (Y).</li>
+    <li><strong>Displacement (Desplazamiento geométrico):</strong> Deforma físicamente los vértices en tiempo de render. Imprescindible para muros de piedra rústica, gaviones o adoquines exteriores. Consume gran cantidad de memoria VRAM; modera su subdivisión a un máximo de 10 mm.</li>
+  </ul>
+
+  <h2>D. Reflexión Fresnel &amp; Índice de Refracción (IOR)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Material</th>
+        <th style="width: 20%;">IOR Típico</th>
+        <th style="width: 25%;">Metalness</th>
+        <th style="width: 25%;">Propiedad Clave</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Vidrio estándar / Ventanería</td>
+        <td><strong>1.52</strong></td>
+        <td>0.0 (Dieléctrico)</td>
+        <td>Reflexión rasante fuerte, transparencia al centro</td>
+      </tr>
+      <tr>
+        <td>Agua de piscina / Espejo de agua</td>
+        <td><strong>1.33</strong></td>
+        <td>0.0 (Dieléctrico)</td>
+        <td>Cáusticas leves, transparencia alta</td>
+      </tr>
+      <tr>
+        <td>Hormigón visto / Piedras</td>
+        <td><strong>1.50 – 1.60</strong></td>
+        <td>0.0 (Dieléctrico)</td>
+        <td>Reflejo Fresnel visible únicamente a ángulos oblicuos</td>
+      </tr>
+      <tr>
+        <td>Madera barnizada</td>
+        <td><strong>1.54</strong></td>
+        <td>0.0 (Dieléctrico)</td>
+        <td>Capa transparente superior ("Clearcoat")</td>
+      </tr>
+      <tr>
+        <td>Aluminio / Acero inoxidable</td>
+        <td><strong>2.50 – 4.00</strong></td>
+        <td>1.0 (Metálico)</td>
+        <td>El color del reflejo adopta el tono del Albedo</td>
+      </tr>
+      <tr>
+        <td>Cobre / Bronce arquitectónico</td>
+        <td><strong>1.10 – 1.30 (k alto)</strong></td>
+        <td>1.0 (Metálico)</td>
+        <td>Albedo cálido cobrizo, Roughness 0.25–0.40</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECCIÓN 5: PARÁMETROS DE RENDER Y DENOISERS -->
+  <div class="page-break"></div>
+  <h1>5. Parámetros de Render &amp; Desruido (Denoisers)</h1>
+  <p class="section-desc">Configuración de balance entre fidelidad matemática de muestreo y rendimiento de cómputo en GPU.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Selección de Denoiser: Previsualización vs. Arte Final</div>
+    </div>
+    <div class="step-content">
+      <p>El denoiser mediante inteligencia artificial ha reducido los tiempos de render hasta un 70%, pero debe usarse con criterio:</p>
+      <ul>
+        <li><strong>NVIDIA OptiX Denoiser:</strong> Basado en núcleos Tensor de la GPU. Es ultra rápido (menos de 0.2 segundos por fotograma). <em>Uso recomendado:</em> Visualización interactiva en tiempo real (IPR) y borradores de aprobación con el cliente. No se aconseja para el render final impreso porque tiende a borrar micro-texturas y vetas finas de madera.</li>
+        <li><strong>Intel OpenImageDenoise (OIDN) / V-Ray Denoiser:</strong> Motor basado en CPU/GPU de alta precisión fotográfica. Conserva los bordes afilados, relieves y rugosidades sutiles sin crear el temido efecto "mancha de acuarela". <em>Uso recomendado:</em> Renders finales de catálogo y láminas de concurso.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Umbral de Ruido (Noise Threshold) y Muestreo</div>
+    </div>
+    <div class="step-content">
+      <p>No sobrecargues la tarjeta de video con muestras innecesarias. Configura los parámetros según la fase del proyecto:</p>
+      <ul>
+        <li><strong>Fase de Pruebas / Iluminación:</strong> Noise Threshold en <span class="cmd-badge">0.05 – 0.08</span>. Max Subdivs: 8. Tiempos de cálculo: 1 a 2 minutos.</li>
+        <li><strong>Render de Producción Final:</strong> Noise Threshold en <span class="cmd-badge">0.01 – 0.005</span>. Max Subdivs: 24 a 32. Tiempos de cálculo: 10 a 20 minutos por vista en 4K UHD.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="param-grid">
+    <div class="param-card">
+      <span class="label">Resolución para Web / Pantalla</span>
+      <div class="value">2560 &times; 1440 (2K QHD)</div>
+      <div class="note">Formato PNG 16-bit o JPG sRGB con compresión 95%.</div>
+    </div>
+    <div class="param-card">
+      <span class="label">Resolución para Impresión Editorial</span>
+      <div class="value">3840 &times; 2160 a 300 DPI</div>
+      <div class="note">Formato EXR 32-bit o TIFF con capas y canales.</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: POSTPRODUCCIÓN EN PHOTOSHOP -->
+  <h1>6. Postproducción Fotográfica en Photoshop &amp; Camera Raw</h1>
+  <p class="section-desc">El render en crudo es sólo el 70% de la imagen. La postproducción aporta atmósfera, contraste dramático y balance.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Canales de Pase Esenciales (Render Elements)</div>
+    </div>
+    <div class="step-content">
+      <p>Exporta siempre la imagen principal junto a los canales técnicos de soporte:</p>
+      <ul>
+        <li><strong>Ambient Occlusion (AO):</strong> Colócalo como capa superior en modo de fusión <em>Multiplicar (Multiply)</em> con opacidad moderada entre <strong>25% y 35%</strong>. Enfatiza las juntas de zócalos, encuentros de muros y bajo muebles, devolviendo el peso gravitacional.</li>
+        <li><strong>Cryptomatte / Material ID:</strong> Permite aislar y seleccionar con un solo clic con la Varita Mágica cualquier material o elemento botánico para ajustar su tono sin afectar al resto de la escena.</li>
+        <li><strong>Reflection &amp; Refraction:</strong> Fusión en modo <em>Trama (Screen)</em> al 10–15% para acentuar brillos en metales o cristalerías que quedaron opacas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Ajustes Clave en Adobe Camera Raw</div>
+    </div>
+    <div class="step-content">
+      <p>Aplica el filtro Camera Raw (<span class="key-badge">Ctrl</span>+<span class="key-badge">Shift</span>+<span class="key-badge">A</span>) sobre la capa unificada:</p>
+      <ul>
+        <li><strong>Recuperación de Iluminaciones:</strong> Iluminaciones (Highlights) entre -15 y -30 para rescatar información en los bordes de cielo y lámparas.</li>
+        <li><strong>Sombras:</strong> +10 a +18 para revelar detalle en zonas oscuras interiores.</li>
+        <li><strong>Textura y Claridad:</strong> Textura +8, Claridad +5 (nunca exceder +15 para no crear halos artificiales en las aristas de fachada).</li>
+        <li><strong>Curva de Tonos:</strong> Curva en 'S' suave para incrementar el contraste global.</li>
+        <li><strong>Grano Fotográfico:</strong> Cantidad 8 a 12, Tamaño 25, Rugosidad 50. Elimina la apariencia sintética digital ("efecto plástico") emulando emulsión fílmica analógica de 35 mm.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 7: RESOLUCIÓN DE ERRORES -->
+  <div class="page-break"></div>
+  <h1>7. Matriz de Resolución de Errores Frecuentes</h1>
+  <p class="section-desc">Diagnóstico y corrección inmediata de anomalías visuales en motores de renderizado.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Síntoma / Error</th>
+        <th style="width: 28%;">Causa Probable</th>
+        <th style="width: 47%;">Solución Paso a Paso</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Ruido / Manchas negras en esquinas interiores</strong></td>
+        <td>Bajo número de muestras de GI o fugas de luz (Light Leaks) por geometría abierta sin solape.</td>
+        <td>
+          1. Modela los forjados y muros pasantes con al menos 15 cm de traslape hermético.<br>
+          2. Aumenta las muestras secundarias (Light Cache / Irradiance Map a 1500–2000).<br>
+          3. Activa <em>Retrace Threshold</em> en V-Ray para sellar grietas lumínicas.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Vidrios opacos, oscuros o como espejos negros</strong></td>
+        <td>El vidrio es una sola cara sin espesor, las normales están invertidas o no se activó refracción transparente.</td>
+        <td>
+          1. Aplica grosor al vidrio (mínimo 6 mm con <em>Extrude</em> o doble cara).<br>
+          2. Verifica normales apuntando hacia afuera.<br>
+          3. Sube la Refracción al 100% (Blanco puro), activa <em>Affect Shadows</em> y desactiva <em>Double-Sided</em> si tiene volumen.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Quemado extremo de luz solar (Highlight Clipping)</strong></td>
+        <td>El valor de exposición física (EV) no compensa la intensidad solar o falta mapeo de tonos.</td>
+        <td>
+          1. En el Frame Buffer, reduce <em>Highlight Burn</em> a <strong>0.25 – 0.35</strong>.<br>
+          2. Activa compresión de altas luces (Reinhard o Filmic Tone Mapping).<br>
+          3. Incrementa el valor EV de la cámara física a 13.5–14.5 para exteriores soleados.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Colores saturados contaminan muros ("Color Bleeding")</strong></td>
+        <td>El pasto exterior o pisos de madera saturados rebotan excesivo color verde/naranja en cielo raso.</td>
+        <td>
+          1. Reduce la saturación del mapa Albedo del material emisor.<br>
+          2. En V-Ray Material Wrapper, disminuye <em>Generate GI</em> de 1.0 a <strong>0.60</strong>.<br>
+          3. En Enscape, baja la saturación global en <em>Visual Settings</em>.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Falta de nitidez y texturas borrosas con Denoiser</strong></td>
+        <td>El desruidador por IA se ejecutó con un umbral de ruido inicial demasiado alto (Noise Threshold &gt; 0.08).</td>
+        <td>
+          1. No confíes sólo en el denoiser; renderiza hasta alcanzar al menos Noise Threshold 0.015.<br>
+          2. Cambia de OptiX a Intel OIDN para el render de alta resolución.<br>
+          3. Guarda el canal Denoiser por separado para dosificar la mezcla al 70% en Photoshop.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-important">
+    <div class="callout-title">📋 Lista de Chequeo Final Pre-Render</div>
+    <ol style="margin-bottom: 0;">
+      <li>¿Safe Frame activo y relación de aspecto bloqueada (16:9, 4:3 o 1:1)?</li>
+      <li>¿Cámara nivelada en perspectiva de dos puntos (Vertical Tilt activo)?</li>
+      <li>¿Canales AO, Material ID y Lighting agregados a la lista de Render Elements?</li>
+      <li>¿Carpeta de destino con espacio suficiente en disco para archivos TIFF/EXR de 100+ MB?</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">
+    Manual de Renderizado Arquitectónico &bull; Alzado Rojo &bull; Diseñado e impreso bajo norma técnica internacional de visualización &bull; Santiago de Chile, 2026.
+  </div>
+
+</body>
+</html>

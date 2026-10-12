@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual de Fabricación de Maquetas 3D y Topografía GIS | Alzado Rojo</title>
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 18mm 14mm 18mm 14mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #1a202c;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 10pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Portada */
+    .cover-page {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90vh;
+      border-left: 8px solid #D92525;
+      padding: 40px 0 30px 36px;
+    }
+
+    .cover-header {
+      margin-top: 20px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: #FEF2F2;
+      color: #D92525;
+      border: 1px solid #FCA5A5;
+      font-weight: 700;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 24px;
+    }
+
+    .cover-title {
+      font-size: 28pt;
+      font-weight: 900;
+      color: #111827;
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title span {
+      color: #D92525;
+    }
+
+    .cover-subtitle {
+      font-size: 13pt;
+      color: #4b5563;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 92%;
+      margin: 0 0 30px 0;
+    }
+
+    .cover-software-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 30px;
+      max-width: 98%;
+    }
+
+    .software-pill {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 10px 8px;
+      text-align: center;
+    }
+
+    .software-pill .name {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: #1f2937;
+      display: block;
+    }
+
+    .software-pill .role {
+      font-size: 7pt;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    .cover-footer {
+      border-top: 2px solid #f3f4f6;
+      padding-top: 20px;
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      font-size: 8.5pt;
+      color: #6b7280;
+    }
+
+    .cover-footer strong {
+      color: #1f2937;
+    }
+
+    .brand-signature {
+      text-align: right;
+    }
+
+    .brand-signature .logo-text {
+      font-weight: 800;
+      font-size: 11pt;
+      color: #D92525;
+      letter-spacing: 1px;
+    }
+
+    /* Jerarquía Tipográfica */
+    h1 {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #111827;
+      border-bottom: 2.5px solid #D92525;
+      padding-bottom: 6px;
+      margin-top: 26px;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    h2 {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #B91C1C;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    h3 {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #374151;
+      margin-top: 12px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+      color: #374151;
+      text-align: justify;
+    }
+
+    ul, ol {
+      margin: 0 0 12px 0;
+      padding-left: 20px;
+      color: #374151;
+    }
+
+    li {
+      margin-bottom: 4px;
+    }
+
+    .section-desc {
+      font-size: 9.5pt;
+      color: #6b7280;
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    /* Comandos y Atajos */
+    .cmd-badge {
+      background: #1f2937;
+      color: #f9fafb;
+      font-family: 'Consolas', 'Courier New', monospace;
+      font-size: 8.5pt;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .key-badge {
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      border-bottom: 2px solid #9ca3af;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 8pt;
+      padding: 1px 6px;
+      color: #1f2937;
+      font-weight: 700;
+      display: inline-block;
+    }
+
+    /* Tablas Técnicas */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+    }
+
+    th {
+      background: #111827;
+      color: #f9fafb;
+      font-weight: 700;
+      text-align: left;
+      padding: 8px 10px;
+      border: 1px solid #111827;
+      font-size: 8.5pt;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 7px 10px;
+      border: 1px solid #e5e7eb;
+      vertical-align: top;
+      color: #374151;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    tr:hover td {
+      background: #fef2f2;
+    }
+
+    /* Cajas de Alerta (Callouts) */
+    .callout {
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin: 12px 0;
+      font-size: 9pt;
+      page-break-inside: avoid;
+      line-height: 1.45;
+    }
+
+    .callout-tip {
+      background: #f0fdf4;
+      border-left: 4px solid #16a34a;
+      color: #166534;
+    }
+
+    .callout-warning {
+      background: #fffbeb;
+      border-left: 4px solid #d97706;
+      color: #92400e;
+    }
+
+    .callout-important {
+      background: #fef2f2;
+      border-left: 4px solid #D92525;
+      color: #991b1b;
+    }
+
+    .callout-title {
+      font-weight: 800;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Pasos Numerados (Workflow) */
+    .step-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-left: 3.5px solid #D92525;
+      border-radius: 5px;
+      padding: 11px 14px;
+      margin-bottom: 11px;
+      page-break-inside: avoid;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 6px;
+    }
+
+    .step-number {
+      background: #D92525;
+      color: #ffffff;
+      font-weight: 800;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9pt;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .step-content {
+      font-size: 9pt;
+      color: #4b5563;
+      padding-left: 31px;
+    }
+
+    .step-content p {
+      margin: 0 0 6px 0;
+      font-size: 9pt;
+    }
+
+    .step-content ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .step-content li {
+      font-size: 8.5pt;
+      margin-bottom: 2px;
+    }
+
+    /* Grid de Parámetros */
+    .param-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin: 10px 0 14px 0;
+      page-break-inside: avoid;
+    }
+
+    .param-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 5px;
+      padding: 8px 11px;
+    }
+
+    .param-card .label {
+      font-size: 8pt;
+      color: #6b7280;
+      text-transform: uppercase;
+      font-weight: 700;
+      display: block;
+    }
+
+    .param-card .value {
+      font-size: 10pt;
+      color: #111827;
+      font-weight: 800;
+      font-family: 'Consolas', monospace;
+      margin-top: 2px;
+    }
+
+    .param-card .note {
+      font-size: 8pt;
+      color: #4b5563;
+      margin-top: 3px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    .footer-note {
+      font-size: 7.5pt;
+      color: #9ca3af;
+      text-align: center;
+      margin-top: 20px;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA EDITORIAL -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <div class="cover-badge">ALZADO ROJO &bull; FABRICACIÓN DIGITAL &amp; GIS APLICADO</div>
+      <div class="cover-title">Manual de Fabricación de <span>Maquetas 3D</span> y Topografía GIS</div>
+      <div class="cover-subtitle">De datos satelitales a la impresión física: modelado territorial, solidificación estanca, rebanado de alta fidelidad y post-procesado editorial.</div>
+      
+      <div class="cover-software-grid">
+        <div class="software-pill">
+          <span class="name">QGIS</span>
+          <span class="role">Ingesta GIS &amp; DEM</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Rhinoceros 3D</span>
+          <span class="role">Modelado Manifold</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Blender 3D</span>
+          <span class="role">Optimización Mallas</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">PrusaSlicer</span>
+          <span class="role">Rebanado FDM</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Bambu Studio</span>
+          <span class="role">Impresión Alta Velocidad</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-footer">
+      <div>
+        <strong>Autor:</strong> Adolfo Risopatrón &bull; Arquitectura &amp; Fabricación Digital<br>
+        <strong>Estándar:</strong> Alzado Rojo FabLab v2.4 &bull; A4 Vectorial<br>
+        <strong>Equipamiento:</strong> Impresoras FDM Prusa MK4 / Bambu Lab X1-Carbon &bull; Boquilla 0.4 mm
+      </div>
+      <div class="brand-signature">
+        <div class="logo-text">ALZADO ROJO</div>
+        <span>Santiago de Chile &bull; 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 1: CHEATSHEET Y ATAJOS -->
+  <h1>1. Cheatsheet de Atajos &amp; Comandos Técnicos</h1>
+  <p class="section-desc">Comandos de consola y funciones críticas en software GIS, CAD y Slicers.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 22%;">Entorno</th>
+        <th style="width: 26%;">Comando / Atajo</th>
+        <th style="width: 28%;">Función Principal</th>
+        <th style="width: 24%;">Aplicación Práctica</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>QGIS 3.x</strong></td>
+        <td><span class="cmd-badge">Raster &gt; Extraction &gt; Contour</span></td>
+        <td>Generación de curvas de nivel</td>
+        <td>Crear curvas a equidistancia 1m, 2m o 5m</td>
+      </tr>
+      <tr>
+        <td><strong>QGIS 3.x</strong></td>
+        <td><span class="cmd-badge">Reproject layer (WGS 84 / UTM)</span></td>
+        <td>Reproyección métrica</td>
+        <td>Transformar grados decimales a metros reales</td>
+      </tr>
+      <tr>
+        <td><strong>Rhinoceros 8</strong></td>
+        <td><span class="cmd-badge">MeshPatch</span></td>
+        <td>Malla topográfica no regular</td>
+        <td>Generar superficie continua desde curvas polilínea</td>
+      </tr>
+      <tr>
+        <td><strong>Rhinoceros 8</strong></td>
+        <td><span class="cmd-badge">ShowEdges</span> (Naked Edges)</td>
+        <td>Detección de bordes abiertos</td>
+        <td>Localizar fugas que rompen el sólido estanco</td>
+      </tr>
+      <tr>
+        <td><strong>Rhinoceros 8</strong></td>
+        <td><span class="cmd-badge">BooleanDifference</span></td>
+        <td>Sustracción booleana</td>
+        <td>Generar zócalos planos y machihembrados</td>
+      </tr>
+      <tr>
+        <td><strong>Blender 3D</strong></td>
+        <td><span class="key-badge">Alt</span> + <span class="key-badge">M</span> &gt; By Distance</td>
+        <td>Fusión de vértices duplicados</td>
+        <td>Limpieza de mallas importadas de topografía</td>
+      </tr>
+      <tr>
+        <td><strong>Blender 3D</strong></td>
+        <td><span class="key-badge">Shift</span> + <span class="key-badge">Ctrl</span> + <span class="key-badge">Alt</span> + <span class="key-badge">M</span></td>
+        <td>Select Non-Manifold</td>
+        <td>Resaltar aristas sueltas o caras invertidas</td>
+      </tr>
+      <tr>
+        <td><strong>PrusaSlicer / Bambu</strong></td>
+        <td><span class="key-badge">C</span></td>
+        <td>Herramienta de Corte (Cut tool)</td>
+        <td>Segmentación de baldosas con conectores clavija</td>
+      </tr>
+      <tr>
+        <td><strong>PrusaSlicer / Bambu</strong></td>
+        <td><span class="key-badge">Ctrl</span> + <span class="key-badge">R</span></td>
+        <td>Pintar costura de capa (Seam tool)</td>
+        <td>Ocultar costura en esquinas traseras</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">💡 Tip de Verificación en Rhinoceros</div>
+    Usa el comando <span class="cmd-badge">What</span> sobre cualquier geometría final antes de exportar a STL/STEP. El reporte debe indicar inequívocamente: <em>"Valid closed solid polysurface"</em> o <em>"Valid closed mesh"</em>. Si indica "open", el laminador rellenará de forma errónea los vacíos interiores.
+  </div>
+
+  <!-- SECCIÓN 2: INGESTA DE DATOS GIS -->
+  <div class="page-break"></div>
+  <h1>2. Ingesta de Datos GIS &amp; Modelos de Elevación</h1>
+  <p class="section-desc">Estrategias de captura de datos satelitales, reproyección cartográfica y descarga territorial.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Selección y Descarga de Fuentes de Elevación (DEM)</div>
+    </div>
+    <div class="step-content">
+      <p>La resolución del modelo de elevación digital determina la fidelidad de las pendientes:</p>
+      <ul>
+        <li><strong>ALOS PALSAR RTC (12.5 metros/píxel):</strong> Excelente para cordilleras, cuencas hidrográficas y macro-territorios (Escalas 1:2000 a 1:10000). Provisto por la Agencia Espacial Japonesa (JAXA) vía ASF Data Search.</li>
+        <li><strong>SRTM v3 / Copérnico DEM (30 metros/píxel):</strong> Cobertura global accesible, pero suaviza quebradas abruptas y acantilados.</li>
+        <li><strong>LiDAR Aéreo / Dron Fotogramétrico (0.05 a 0.5 metros/píxel):</strong> La fuente de máxima precisión para escalas urbanas (1:200 a 1:1000). Permite discriminar veredas, taludes y soleras de hormigón.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Reproyección Cartográfica Obligatoria a Proyección Métrica (UTM)</div>
+    </div>
+    <div class="step-content">
+      <p>Los datos geoespaciales descargados comúnmente vienen en coordenadas geográficas <em>EPSG:4326 (WGS 84 en grados sexagesimales)</em>. <strong>Nunca exportes a CAD en EPSG:4326</strong>, pues la relación X/Y con la coordenada Z (en metros) quedará distorsionada por un factor de 111.000:</p>
+      <ul>
+        <li>En QGIS, ejecuta <em>Raster &gt; Projections &gt; Warp (Reproject)</em>.</li>
+        <li>Selecciona el CRS de la zona métrica correspondiente. En Chile Central (Santiago/Valparaíso): <span class="cmd-badge">EPSG:32719 (WGS 84 / UTM Zona 19S)</span>. En el sur (Puerto Montt): <span class="cmd-badge">EPSG:32718 (UTM Zona 18S)</span>.</li>
+        <li>Define el método de remuestreo en <em>Bilinear</em> o <em>Cubic</em> para evitar escalones ortogonales en las laderas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">3</div>
+      <div class="step-title">Delimitación del Polígono Urbano &amp; Huellas Edilicias (OSM)</div>
+    </div>
+    <div class="step-content">
+      <p>Para maquetas urbanas mixtas (relieve + arquitectura volumétrica existente):</p>
+      <ul>
+        <li>Utiliza el complemento <strong>QuickOSM</strong> en QGIS y descarga las etiquetas <span class="cmd-badge">building=*</span> y <span class="cmd-badge">highway=*</span> del polígono de interés.</li>
+        <li>Filtra polígonos inválidos o geometrías con auto-intersección con <em>Fix geometries</em>.</li>
+        <li>Exporta el perímetro territorial y curvas a formato <span class="cmd-badge">.DXF</span> o capas <span class="cmd-badge">.SHP</span> para su importación directa en Rhinoceros.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout callout-warning">
+    <div class="callout-title">⚠️ Advertencia de Coordenadas: Traslado a Cero (Origin Point)</div>
+    Las coordenadas UTM sitúan los puntos a millones de metros del origen (ej. X: 345.000 m, Y: 6.300.000 m). Al importar a Rhinoceros o Blender, <strong>mueve inmediatamente el conjunto cerca del origen (0,0,0)</strong> con el comando <span class="cmd-badge">Move</span>. El trabajo a distancias astronómicas provoca errores graves de coma flotante (jittering de malla y fallos booleanos).
+  </div>
+
+  <!-- SECCIÓN 3: MODELADO DE MALLA ESTANCA -->
+  <div class="page-break"></div>
+  <h1>3. Modelado de Malla Estanca (Manifold &amp; Solidez 3D)</h1>
+  <p class="section-desc">Estrategias en Rhinoceros y Blender para obtener sólidos geométricamente herméticos sin fallas de impresión.</p>
+
+  <h2>A. Generación de Superficie Topográfica</h2>
+  <p>En Rhinoceros, a partir de las curvas de nivel o puntos 3D:</p>
+  <ul>
+    <li><strong>Método 1: MeshPatch.</strong> Selecciona todas las polilíneas de curva de nivel y ejecuta <span class="cmd-badge">MeshPatch</span>. Ajusta el número de divisiones superficiales para captar los quiebres de cota.</li>
+    <li><strong>Método 2: Drape (Manta sobre puntos).</strong> Si posees un relieve denso, orienta la vista superior y ejecuta <span class="cmd-badge">Drape</span> con un espaciado de cuadrícula de 2 a 5 mm a escala maqueta.</li>
+  </ul>
+
+  <h2>B. Extrusión de Zócalo Base Hermético</h2>
+  <p>Una topografía pura es una sábana abierta de espesor cero. Para fabricarla físicamente, debe transformarse en un sólido poliédrico cerrado:</p>
+  <ol>
+    <li>Determina la cota Z más baja del terreno dentro de tu límite de corte.</li>
+    <li>Proyecta un zócalo horizontal al menos <strong>5.0 mm por debajo</strong> de dicha cota mínima. Esta base plana absorberá la primera capa de adhesión a la cama caliente y dará estabilidad estructural a la maqueta.</li>
+    <li>Ejecuta una extrusión hacia abajo desde los bordes perimetrales y cierra la base inferior plana con una superficie (<span class="cmd-badge">Cap</span> o <span class="cmd-badge">Join</span>).</li>
+  </ol>
+
+  <h2>C. Eliminación de Aristas No-Manifold</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 28%;">Error de Topología</th>
+        <th style="width: 32%;">Consecuencia en el Slicer</th>
+        <th style="width: 40%;">Comando de Reparación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Bordes Abiertos (Naked Edges)</strong></td>
+        <td>El laminador interpreta el objeto como un plano vacío y no genera relleno interno.</td>
+        <td>Rhino: <span class="cmd-badge">FillMeshHole</span> o <span class="cmd-badge">RebuildMesh</span>.<br>Blender: <span class="cmd-badge">Merge by Distance</span>.</td>
+      </tr>
+      <tr>
+        <td><strong>Normales Invertidas (Flipped Normals)</strong></td>
+        <td>Cálculo de trayectorias al revés; la boquilla imprime en el aire o vacía piezas sólidas.</td>
+        <td>Rhino: <span class="cmd-badge">UnifyMeshNormals</span>.<br>Blender: <span class="key-badge">Shift</span>+<span class="key-badge">N</span> (Recalculate Outside).</td>
+      </tr>
+      <tr>
+        <td><strong>Aristas No-Manifold (Compartidas por 3+ caras)</strong></td>
+        <td>Cierre de polígonos corrupto; rebanadas que se solapan y queman filamento.</td>
+        <td>Blender: <em>Clean Up &gt; Degenerate Dissolve</em>.<br>Rhino: <span class="cmd-badge">ExtractBadSrf</span>.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>D. Regla Sagrada de Espesores Mínimos</h2>
+  <p>En maquetas arquitectónicas físicas producidas por FDM (Fused Deposition Modeling):</p>
+  <ul>
+    <li><strong>Espesor Mínimo de Muro Arquitectónico:</strong> <span class="cmd-badge">1.20 mm</span> (equivalente exacto a 3 perímetros limpios con boquilla de 0.40 mm). Todo tabique inferior a 0.8 mm desaparecerá al rebanar o se romperá al desmoldar.</li>
+    <li><strong>Vuelos y Aleros sin Soporte:</strong> Máximo 45° de inclinación con respecto a la vertical. Para cornisas horizontales mayores a 2 mm, prevé soportes de árbol desmontables (Tree Supports).</li>
+    <li><strong>Cables y Postes Urbanos:</strong> No modelar en 3D; deben agregarse a posteriori con alambres de latón o filamento tensado si la escala lo exige.</li>
+  </ul>
+
+  <!-- SECCIÓN 4: SEGMENTACIÓN MODULAR -->
+  <div class="page-break"></div>
+  <h1>4. Segmentación Modular de Grandes Terrenos</h1>
+  <p class="section-desc">Estrategias de partición en baldosas (tiles), encajes machihembrados y tolerancias mecánicas.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Estrategia de Baldosas (Tiling Grid)</div>
+    </div>
+    <div class="step-content">
+      <p>Los modelos territoriales que superan el área útil de cama (256 &times; 256 mm en Bambu Lab o 250 &times; 210 mm en Prusa MK4) deben modularse en módulos manejables:</p>
+      <ul>
+        <li><strong>Módulos Estándar:</strong> Subdivide la retícula territorial en baldosas de <strong>10 &times; 10 cm</strong>, <strong>15 &times; 15 cm</strong> o <strong>20 &times; 20 cm</strong>.</li>
+        <li><strong>Ventaja Técnica:</strong> Minimiza el riesgo de fallo de impresión catastrófico (perder una pieza de 4 horas en vez de un modelo de 70 horas continuas) y mitiga la deformación por contracción térmica (warping) en esquinas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Sistema de Encajes con Tolerancia Dimensional (&plusmn;0.2 mm)</div>
+    </div>
+    <div class="step-content">
+      <p>La unión entre baldosas adyacentes no debe depender de pegado a ciegas. Implementa conectores mecánicos invisibles:</p>
+      <ul>
+        <li><strong>Pernos de Alineación Cilíndricos (Dowel Pins):</strong> En la herramienta de corte de Bambu Studio o PrusaSlicer, selecciona <em>Conectores &gt; Clavija cilíndrica</em>. Diámetro sugerido: 4.0 mm; Profundidad: 6.0 mm por cara.</li>
+        <li><strong>Tolerancia de Calce:</strong> Configura la holgura en <span class="cmd-badge">0.20 mm</span> (espacio radial). Si se deja en 0.0 mm, el ensanche del filamento fundido (elephant's foot) impedirá que las piezas encajen sin limar agresivamente.</li>
+        <li><strong>Identificación en Base:</strong> Graba un bajorrelieve de 0.8 mm de profundidad en la base inferior de cada baldosa con su código de cuadrícula (ej. <span class="cmd-badge">FILA_B_COL_03</span>).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="param-grid">
+    <div class="param-card">
+      <span class="label">Tolerancia de Conectores</span>
+      <div class="value">&plusmn; 0.20 mm</div>
+      <div class="note">Permite ensamble deslizante en seco antes de aplicar adhesivo.</div>
+    </div>
+    <div class="param-card">
+      <span class="label">Espesor Mínimo de Zócalo Base</span>
+      <div class="value">4.0 – 6.0 mm</div>
+      <div class="note">Garantiza rigidez flexural y alojamiento de conectores.</div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: CONFIGURACIÓN DE REBANADO -->
+  <h1>5. Configuración de Rebanado (Slicer Setup)</h1>
+  <p class="section-desc">Parámetros maestros optimizados para PrusaSlicer y Bambu Studio en maquetas arquitectónicas.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Material de Elección: PLA Mate Arquitectónico</div>
+    </div>
+    <div class="step-content">
+      <p>Nunca utilices PLA estándar brillante; el reflejo especular del plástico brillante resalta las líneas de capa y abarata el aspecto visual. Utiliza <strong>PLA Mate (Matte PLA)</strong> en blanco puro, marfil o gris humo claro:</p>
+      <ul>
+        <li>El acabado mate dispersa la luz suavemente emulando maquetas de yeso o resina de taller.</li>
+        <li>Baja tasa de contracción térmica; excelente estabilidad dimensional sin deformación en esquinas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 30%;">Parámetro Slicer</th>
+        <th style="width: 28%;">Valor Recomendado</th>
+        <th style="width: 42%;">Razón Técnica y Justificación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Altura de Capa (Layer Height)</strong></td>
+        <td><strong>0.16 mm – 0.20 mm</strong></td>
+        <td>0.16 mm ofrece la relación perfecta entre suavidad en pendientes topográficas y tiempo de impresión.</td>
+      </tr>
+      <tr>
+        <td><strong>Perímetros (Wall Loops)</strong></td>
+        <td><strong>3 perímetros (1.2 mm)</strong></td>
+        <td>Evita que el patrón de relleno interior se trasluzca a contraluz en las caras exteriores.</td>
+      </tr>
+      <tr>
+        <td><strong>Capas Superiores / Inferiores</strong></td>
+        <td><strong>5 superiores / 4 inferiores</strong></td>
+        <td>Cierre hermético sin efecto "almohadilla" (pillowing) en mesetas horizontales.</td>
+      </tr>
+      <tr>
+        <td><strong>Patrón de Relleno (Infill)</strong></td>
+        <td><strong>Giroidal (Gyroid) al 12%</strong></td>
+        <td>Resistencia isotrópica en 3 dimensiones sin líneas de cruce sobre la misma capa; no produce vibración acústica.</td>
+      </tr>
+      <tr>
+        <td><strong>Temperatura de Boquilla</strong></td>
+        <td><strong>210°C (primera) / 205°C (resto)</strong></td>
+        <td>Evita el sobrecalentamiento que genera hilos finos (stringing) en zonas escarpadas.</td>
+      </tr>
+      <tr>
+        <td><strong>Temperatura de Cama</strong></td>
+        <td><strong>55°C – 60°C</strong></td>
+        <td>Base calefaccionada texturada PEI; garantiza adherencia sin laca química.</td>
+      </tr>
+      <tr>
+        <td><strong>Velocidad Pared Externa</strong></td>
+        <td><strong>35 – 45 mm/s</strong></td>
+        <td>Velocidad moderada para garantizar definición milimétrica en curvas de nivel suaves.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECCIÓN 6: ACABADO Y ENMARCADO -->
+  <div class="page-break"></div>
+  <h1>6. Acabado Físico, Ensamble &amp; Enmarcado Editorial</h1>
+  <p class="section-desc">Tratamiento superficial y presentación final como objeto de arte arquitectónico de alta gama.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Retiro Limpio de Hilos y Rebabas (De-stringing)</div>
+    </div>
+    <div class="step-content">
+      <p>Tras la impresión, pueden quedar micro-filamentos en zonas escarpadas:</p>
+      <ul>
+        <li><strong>Técnica de Choque Térmico:</strong> Pasa una pistola de calor calibrada a <strong>160°C – 180°C</strong> (o la llama rápida de un encendedor de cocina) a unos 15–20 cm de distancia durante 1 a 2 segundos. Los micro-hilos de PLA se evaporarán instantáneamente sin ablandar la pieza sólida.</li>
+        <li><strong>Bisturí Quirúrgico #11:</strong> Recorta cualquier resto de costura visible en aristas con corte tangencial plano.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Lijado Progresivo al Agua en Junturas de Baldosa</div>
+    </div>
+    <div class="step-content">
+      <p>Para ensambles modulares con unión prácticamente invisible:</p>
+      <ul>
+        <li>Monta las baldosas en seco con los pines conectores sobre una mesa de corte perfectamente plana.</li>
+        <li>Lija los bordes laterales con lija de grano al agua: primero <strong>320</strong>, luego <strong>400</strong> y remata con <strong>600</strong> humedecida. El agua previene la fricción térmica que funde el PLA generando grumos blancuzcos.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">3</div>
+      <div class="step-title">Fijación Estructural &amp; Enmarcado en Madera Negra</div>
+    </div>
+    <div class="step-content">
+      <p>El estándar de presentación de Alzado Rojo exige montaje de galería:</p>
+      <ul>
+        <li><strong>Placa de Soporte:</strong> Tablero de MDF o contrachapado de abedul de 9 mm a 12 mm de espesor, cortado con escuadradora o láser, lacado en negro mate antirreflejo.</li>
+        <li><strong>Adhesivo:</strong> Masilla de poliuretano o cianoacrilato de viscosidad media con activador en aerosol. Aplica puntos en espiral en el centro de cada baldosa, dejando 15 mm libres respecto al perímetro exterior para evitar rebases.</li>
+        <li><strong>Enmarcado Tipo Vitrina (Shadow Box):</strong> Marco perimetral de madera maciza (roble o mañío teñido negro grafito) con perfil de 40 a 60 mm de fondo y vidrio museo antirreflejo distanciador de 10 mm sobre la cota topográfica más alta.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 7: TABLA DE ESCALAS ESTÁNDAR -->
+  <h1>7. Tabla Maestra de Escalas, Cobertura &amp; Detalle (LOD)</h1>
+  <p class="section-desc">Parámetros de conversión métrica, tamaño de maqueta y nivel de detalle admisible según escala técnica.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 12%;">Escala</th>
+        <th style="width: 22%;">Equivalencia Física</th>
+        <th style="width: 22%;">Área Terreno Representada (en 40&times;40 cm)</th>
+        <th style="width: 22%;">Nivel de Detalle (LOD)</th>
+        <th style="width: 22%;">Exageración Z Recomendada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>1:500</strong></td>
+        <td>1 cm = 5.0 metros<br>(1 mm = 0.5 m)</td>
+        <td>200 &times; 200 metros<br>(4 hectáreas urbanas)</td>
+        <td><strong>LOD 300:</strong> Vanos de ventanas marcados, soleras, aleros y escalinatas visibles.</td>
+        <td><strong>1.0&times; (Natural)</strong><br>Las pendientes son plenamente perceptibles.</td>
+      </tr>
+      <tr>
+        <td><strong>1:1000</strong></td>
+        <td>1 cm = 10.0 metros<br>(1 mm = 1.0 m)</td>
+        <td>400 &times; 400 metros<br>(16 hectáreas - Manzana ampliada)</td>
+        <td><strong>LOD 200:</strong> Volúmenes edilicios puros con pendientes de cubiertas; arbolado esquemático.</td>
+        <td><strong>1.0&times; a 1.25&times;</strong><br>Ligero realce en lomas suaves.</td>
+      </tr>
+      <tr>
+        <td><strong>1:2000</strong></td>
+        <td>1 cm = 20.0 metros<br>(1 mm = 2.0 m)</td>
+        <td>800 &times; 800 metros<br>(64 hectáreas - Barrio completo)</td>
+        <td><strong>LOD 100:</strong> Masas volumétricas prismáticas de manzanas; perfil vial grabado en bajo relieve.</td>
+        <td><strong>1.5&times;</strong><br>Necesario para apreciar desniveles menores a 5 m.</td>
+      </tr>
+      <tr>
+        <td><strong>1:5000</strong></td>
+        <td>1 cm = 50.0 metros<br>(1 mm = 5.0 m)</td>
+        <td>2.0 &times; 2.0 kilómetros<br>(400 hectáreas - Valle o Cerro isla)</td>
+        <td><strong>LOD 50:</strong> Relieve territorial puro; ríos y autopistas en canaletas de 0.8 mm.</td>
+        <td><strong>1.75&times; a 2.5&times;</strong><br>Imprescindible en terrenos llanos para evitar una placa plana.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-important">
+    <div class="callout-title">📋 Checklist de Control de Calidad Pre-Entrega</div>
+    <ol style="margin-bottom: 0;">
+      <li>¿Malla verificada como cerrada y sólida estanca sin bordes desnudos (<span class="cmd-badge">ShowEdges</span> limpio)?</li>
+      <li>¿Espesor mínimo de muros verificado en el slicer &ge; 1.20 mm (3 perímetros)?</li>
+      <li>¿Tolerancia de encajes de baldosas calibrada a &plusmn;0.2 mm?</li>
+      <li>¿Superficie libre de hilos de filamento y aristas desbarbadas con bisturí?</li>
+      <li>¿Fijación sobre marco y placa base rígida con pernos o adhesivo sin pandeo estructural?</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">
+    Manual de Fabricación de Maquetas 3D y Topografía GIS &bull; Alzado Rojo FabLab &bull; Diseñado bajo estándares de fabricación digital &bull; Santiago de Chile, 2026.
+  </div>
+
+</body>
+</html>
