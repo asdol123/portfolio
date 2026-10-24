@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/editorial.css?v=20261024c">
+    <link rel="stylesheet" href="css/editorial.css?v=20261024d">
 </head>
 <body>
 
@@ -459,7 +459,13 @@
                         <div class="format-scale">Escala 1:2000 / 1:5000</div>
                         <p class="format-desc">Manzana urbana concentrada, hitos arquitectónicos, monumentos y formato de escritorio de alta compacidad.</p>
                     </div>
-                    <div class="format-price">$9.990 CLP</div>
+                    <div>
+                        <div class="format-price">$9.990 CLP</div>
+                        <button type="button" class="btn-format-buy" data-action="checkout-format" data-format="10 × 10 cm" data-price="9990" aria-label="Comprar formato 10 × 10 cm con Flow.cl">
+                            <span>COMPRAR CON FLOW.CL</span>
+                            <span aria-hidden="true">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Tarjeta 15x15 cm -->
@@ -469,7 +475,13 @@
                         <div class="format-scale">Escala 1:1000 / 1:2000</div>
                         <p class="format-desc">Sector barrial extendido, master plan preliminar y estudios de inserción morfológica de escala media.</p>
                     </div>
-                    <div class="format-price">$18.990 CLP</div>
+                    <div>
+                        <div class="format-price">$18.990 CLP</div>
+                        <button type="button" class="btn-format-buy" data-action="checkout-format" data-format="15 × 15 cm" data-price="18990" aria-label="Comprar formato 15 × 15 cm con Flow.cl">
+                            <span>COMPRAR CON FLOW.CL</span>
+                            <span aria-hidden="true">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Tarjeta 20x20 cm -->
@@ -479,7 +491,13 @@
                         <div class="format-scale">Escala 1:500 / 1:1000</div>
                         <p class="format-desc">Loteos completos, topografía pronunciada de alta cota y conjuntos residenciales con detalle vial profundo.</p>
                     </div>
-                    <div class="format-price">$29.990 CLP</div>
+                    <div>
+                        <div class="format-price">$29.990 CLP</div>
+                        <button type="button" class="btn-format-buy" data-action="checkout-format" data-format="20 × 20 cm" data-price="29990" aria-label="Comprar formato 20 × 20 cm con Flow.cl">
+                            <span>COMPRAR CON FLOW.CL</span>
+                            <span aria-hidden="true">➔</span>
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Tarjeta Medida Especial -->
@@ -489,7 +507,13 @@
                         <div class="format-scale">Escala Variable</div>
                         <p class="format-desc">Ensamble modular de gran escala, salas de venta inmobiliarias, maquetas seccionales y concursos públicos.</p>
                     </div>
-                    <div class="format-price">A convenir</div>
+                    <div>
+                        <div class="format-price">A convenir</div>
+                        <button type="button" class="btn-format-buy btn-format-custom" data-action="checkout-format" data-format="Medida Especial" data-price="49990" aria-label="Cotizar o reservar medida especial con Flow.cl">
+                            <span>COTIZAR / RESERVAR</span>
+                            <span aria-hidden="true">➔</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -547,6 +571,10 @@
                     <div class="scale-info-note">
                         *El modelo se entrega en manufactura aditiva mate sobre base calibrada de presentación.
                     </div>
+                    <button type="button" class="btn-scale-buy" id="btn-scale-buy-now" aria-label="Comprar este formato ahora con Flow.cl">
+                        <span id="scale-buy-btn-label">COMPRAR FORMATO 10 × 10 CM CON FLOW.CL ($9.990 CLP)</span>
+                        <span aria-hidden="true">➔</span>
+                    </button>
                 </div>
             </div>
         </section>
@@ -797,8 +825,8 @@
                 </div>
 
                 <div class="ed-actions-row">
-                    <button type="button" id="btn-open-custom-checkout" class="btn-ed-primary" style="background: var(--ed-red); border-color: var(--ed-red);">
-                        <span>ABRIR CHECKOUT / DESCARGAR COTIZACIÓN PDF</span>
+                    <button type="button" id="btn-open-custom-checkout" class="btn-ed-primary" style="background: var(--ed-red); border-color: var(--ed-red);" aria-label="Abrir checkout y pagar con Flow.cl">
+                        <span>ABRIR CHECKOUT / PAGAR CON FLOW.CL</span>
                         <span aria-hidden="true">➔</span>
                     </button>
 
@@ -1009,18 +1037,75 @@
                     if (infoTime) infoTime.textContent = data.time;
                 }
 
+                const scaleBuyBtnLabel = document.getElementById('scale-buy-btn-label');
+                if (scaleBuyBtnLabel) {
+                    scaleBuyBtnLabel.textContent = currentFormat === 'Medida Especial'
+                        ? 'COTIZAR / RESERVAR MEDIDA ESPECIAL CON FLOW.CL ($49.990 CLP)'
+                        : `COMPRAR FORMATO ${currentFormat.toUpperCase()} CON FLOW.CL (${currentPrice})`;
+                }
+
                 updateSummaryAndLinks();
             }
 
+            function openCheckoutForFormat(format, priceInput) {
+                const formatName = format || currentFormat;
+                let numericPrice = 9990;
+                if (formatName === '10 × 10 cm') numericPrice = 9990;
+                else if (formatName === '15 × 15 cm') numericPrice = 18990;
+                else if (formatName === '20 × 20 cm') numericPrice = 29990;
+                else if (formatName === 'Medida Especial') numericPrice = 49990;
+
+                if (window.AR_CHECKOUT) {
+                    window.AR_CHECKOUT.openCheckout({
+                        sku: 'SKU-CUST-08',
+                        productName: `${currentType} Personalizada (${formatName})`,
+                        size: formatName,
+                        finish: 'PLA Mate Blanco Arquitectónico · Base Calibrada',
+                        unitPrice: numericPrice,
+                        thumbImg: 'catalog/santiago-costanera-marco.jpg',
+                        quantity: 1,
+                        paymentMethod: 'flow',
+                        notes: formatName === 'Medida Especial'
+                            ? `Reserva de producción inicial para ${currentType} en Medida Especial personalizada (abono base de manufactura $49.990 CLP).`
+                            : `Pedido directo para ${currentType} en formato ${formatName}.`
+                    });
+                }
+            }
+
             formatCards.forEach(card => {
-                card.addEventListener('click', () => selectFormat(card));
+                card.addEventListener('click', (e) => {
+                    // Si se hizo clic directamente en el botón de compra interno, no redundar
+                    if (e.target.closest('.btn-format-buy')) return;
+                    selectFormat(card);
+                });
                 card.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
+                        if (e.target.closest('.btn-format-buy')) return;
                         e.preventDefault();
                         selectFormat(card);
                     }
                 });
             });
+
+            // Conexión de botones de compra directa dentro de cada tarjeta de formato
+            document.querySelectorAll('.btn-format-buy').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const card = btn.closest('.format-card');
+                    if (card) selectFormat(card);
+                    const fmt = btn.getAttribute('data-format') || currentFormat;
+                    const prc = btn.getAttribute('data-price') || currentPrice;
+                    openCheckoutForFormat(fmt, prc);
+                });
+            });
+
+            // Conexión del botón de compra del comparador de escala
+            const btnScaleBuyNow = document.getElementById('btn-scale-buy-now');
+            if (btnScaleBuyNow) {
+                btnScaleBuyNow.addEventListener('click', () => {
+                    openCheckoutForFormat(currentFormat, currentPrice);
+                });
+            }
 
             // Filtrado de Pestañas de Portafolio
             galleryTabs.forEach(tab => {
@@ -1239,22 +1324,11 @@
                 });
             }
 
-            // Conexión del botón ABRIR CHECKOUT / DESCARGAR COTIZACIÓN PDF (Paso 3)
+            // Conexión del botón ABRIR CHECKOUT / PAGAR CON FLOW.CL (Paso 3)
             const openCustomCheckoutBtn = document.getElementById('btn-open-custom-checkout');
             if (openCustomCheckoutBtn) {
                 openCustomCheckoutBtn.addEventListener('click', () => {
-                    if (window.AR_CHECKOUT) {
-                        window.AR_CHECKOUT.openCheckout({
-                            sku: 'SKU-CUST-08',
-                            productName: currentType,
-                            size: currentFormat,
-                            finish: 'PLA Mate Arquitectónico Blanco',
-                            unitPrice: currentPrice,
-                            thumbImg: 'catalog/santiago-costanera-marco.jpg',
-                            quantity: 1,
-                            notes: `Solicitud de cotización personalizada para ${currentType} en formato ${currentFormat}.`
-                        });
-                    }
+                    openCheckoutForFormat(currentFormat, currentPrice);
                 });
             }
         });
@@ -1537,14 +1611,14 @@
     </div>
 
     <!-- MOTOR E-COMMERCE Y GESTIÓN DE CHECKOUT FORMAL -->
-    <script src="js/ecommerce.js?v=20261024b"></script>
-    <script src="js/checkout.js?v=20261024b"></script>
+    <script src="js/ecommerce.js?v=20261024d"></script>
+    <script src="js/checkout.js?v=20261024d"></script>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
-    <script src="js/liquid-motion.js?v=20261024b" defer></script>
+    <script src="js/liquid-motion.js?v=20261024d" defer></script>
 
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
-    <script src="js/cookies.js?v=20261024b" defer></script>
+    <script src="js/cookies.js?v=20261024d" defer></script>
 
     <!-- VERCEL WEB ANALYTICS -->
     <script defer src="/_vercel/insights/script.js"></script>

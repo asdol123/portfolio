@@ -156,10 +156,30 @@
     state.size = productData.size || '10 × 10 cm';
     state.finish = productData.finish || 'Con Marco';
     state.thumbImg = productData.thumbImg || 'catalog/santiago-costanera-marco.jpg';
-    state.unitPrice = ECOM ? ECOM.parseCLP(productData.unitPrice || 9990) : 9990;
+
+    // Detección de Medida Especial / Cotización a convenir
+    const isCustomSpecial = String(state.size || '').toLowerCase().includes('especial') ||
+                            String(state.productName || '').toLowerCase().includes('especial') ||
+                            String(productData.unitPrice || '').toLowerCase().includes('convenir');
+
+    let parsedPrice = ECOM ? ECOM.parseCLP(productData.unitPrice || 0) : 0;
+    state.paymentMethod = productData.paymentMethod || 'flow';
+    state.isCustomSpecial = isCustomSpecial;
+
+    // Si es Medida Especial o precio 0: si el método es Flow o Transferencia se asigna abono base de $29.990 CLP
+    if (parsedPrice <= 0 && isCustomSpecial) {
+      if (state.paymentMethod === 'cotizacion') {
+        parsedPrice = 0;
+      } else {
+        parsedPrice = 29990; // Abono inicial de manufactura
+      }
+    } else if (parsedPrice <= 0 && !isCustomSpecial) {
+      parsedPrice = 9990;
+    }
+
+    state.unitPrice = parsedPrice;
     state.quantity = Math.max(1, parseInt(productData.quantity, 10) || 1);
     state.shippingId = productData.shippingId || 'pickup';
-    state.paymentMethod = productData.paymentMethod || 'flow';
 
     // Rellenar cabecera y producto
     if (dom.folioDisplay) dom.folioDisplay.textContent = `FOLIO #${state.folio}`;
@@ -547,6 +567,16 @@
             dom.paymentOptions.forEach(o => o.classList.remove('is-selected'));
             opt.classList.add('is-selected');
 
+            // Si el producto es Medida Especial / A convenir, ajustar valor según medio de pago
+            if (state.isCustomSpecial) {
+              if (state.paymentMethod === 'cotizacion') {
+                state.unitPrice = 0;
+              } else if (state.unitPrice <= 0) {
+                state.unitPrice = 29990; // Abono base para Flow o transferencia
+              }
+              refreshFinancials();
+            }
+
             // Mostrar u ocultar caja de transferencia
             if (dom.bankBox) {
               dom.bankBox.classList.toggle('is-visible', state.paymentMethod === 'transferencia');
@@ -613,8 +643,64 @@
       dom.form.addEventListener('submit', handleSubmit);
     }
 
-    // Vinculación automática con las tarjetas del catálogo e-commerce
+    // Vinculación automática con las tarjetas del catálogo e-commerce y formatos
     bindCatalogCards();
+    bindFormatCards();
+  }
+
+  /**
+   * Vincula los botones de formato genérico y comparador de escala para abrir el checkout modal
+   */
+  function bindFormatCards() {
+    // Botones dentro de tarjetas de formato .format-card
+    document.querySelectorAll('.btn-format-buy, [data-action="checkout-format"]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const card = btn.closest('.format-card');
+        const typeActive = document.querySelector('.type-card.selected');
+        const currentType = typeActive ? (typeActive.getAttribute('data-type') || 'Maqueta Urbana') : 'Maqueta Urbana';
+
+        const format = btn.getAttribute('data-format') || (card ? card.getAttribute('data-format') : '10 × 10 cm');
+        let priceVal = btn.getAttribute('data-price') || (card ? card.getAttribute('data-price') : '$9.990 CLP');
+
+        openCheckout({
+          sku: 'SKU-CUST-08',
+          productName: `${currentType} Personalizada (${format})`,
+          size: format,
+          finish: 'PLA Mate Blanco Arquitectónico · Base Calibrada',
+          unitPrice: priceVal,
+          thumbImg: 'catalog/santiago-costanera-marco.jpg',
+          quantity: 1,
+          paymentMethod: 'flow',
+          notes: format.toLowerCase().includes('especial')
+            ? `Reserva de producción inicial para ${currentType} en Medida Especial personalizada.`
+            : `Pedido directo para ${currentType} en formato ${format}.`
+        });
+      });
+    });
+
+    // Botón del comparador de escala
+    const scaleBuyBtn = document.getElementById('btn-scale-buy-now');
+    if (scaleBuyBtn) {
+      scaleBuyBtn.addEventListener('click', () => {
+        const typeActive = document.querySelector('.type-card.selected');
+        const currentType = typeActive ? (typeActive.getAttribute('data-type') || 'Maqueta Urbana') : 'Maqueta Urbana';
+        const activeFmtCard = document.querySelector('.format-card.selected');
+        const format = activeFmtCard ? (activeFmtCard.getAttribute('data-format') || '10 × 10 cm') : '10 × 10 cm';
+        const priceVal = activeFmtCard ? (activeFmtCard.getAttribute('data-price') || '$9.990 CLP') : '$9.990 CLP';
+
+        openCheckout({
+          sku: 'SKU-CUST-08',
+          productName: `${currentType} Personalizada (${format})`,
+          size: format,
+          finish: 'PLA Mate Blanco Arquitectónico · Base Calibrada',
+          unitPrice: priceVal,
+          thumbImg: 'catalog/santiago-costanera-marco.jpg',
+          quantity: 1,
+          paymentMethod: 'flow'
+        });
+      });
+    }
   }
 
   /**

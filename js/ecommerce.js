@@ -1226,10 +1226,18 @@
     let flowResult = null;
     if (normalizedOrder.paymentMethod === 'flow' || normalizedOrder.paymentMethod === 'khipu') {
       try {
+        // Blindaje anti-error para Flow: Si el monto es <= 0 (ej. Medida Especial), asignar abono base de $29.990 CLP
+        if (!normalizedOrder.total || normalizedOrder.total <= 0) {
+          normalizedOrder.unitPrice = 29990;
+          normalizedOrder.subtotal = 29990;
+          normalizedOrder.total = 29990;
+          normalizedOrder.notes = (normalizedOrder.notes ? normalizedOrder.notes + ' · ' : '') + 'Abono base inicial de manufactura ($29.990 CLP) para procesamiento en Flow.cl';
+        }
+
         const flowPayload = {
           orderId: normalizedOrder.folio,
           subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`.slice(0, 250),
-          amount: normalizedOrder.total,
+          amount: Math.round(Number(normalizedOrder.total)),
           currency: 'CLP',
           payer_email: normalizedOrder.customer.email,
           payer_name: normalizedOrder.customer.name,

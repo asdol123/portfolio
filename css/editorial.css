@@ -160,16 +160,17 @@ body::after {
   will-change: transform;
 }
 
-/* Capa de Reflejo Especular Líquido para Tarjetas Interactivas */
+/* Capa de Reflejo Especular Líquido para Tarjetas Interactivas (Anti-Slop & Alto Contraste) */
 .liquid-glare-layer {
   position: absolute;
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  background: radial-gradient(550px circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.85) 0%, rgba(217, 37, 37, 0.05) 30%, transparent 65%);
+  background: radial-gradient(420px circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.22) 0%, rgba(217, 37, 37, 0.04) 35%, transparent 70%);
   opacity: 0;
+  mix-blend-mode: soft-light;
   transition: opacity 0.35s ease;
-  z-index: 4;
+  z-index: 1;
 }
 
 .ecom-card:hover .liquid-glare-layer,
@@ -180,7 +181,7 @@ body::after {
 .spec-3d-box:hover .liquid-glare-layer,
 .calc-clean-card:hover .liquid-glare-layer,
 .trust-capsule:hover .liquid-glare-layer {
-  opacity: 1;
+  opacity: 0.65;
 }
 
 /* Scroll-Driven Reveals con Física Elástica */
@@ -1478,6 +1479,29 @@ button, input, textarea, select {
   border: 2px solid var(--ed-red);
   background: rgba(255, 245, 245, 0.88);
   box-shadow: 0 12px 28px -4px rgba(217, 37, 37, 0.16);
+  position: relative;
+}
+
+.type-card.selected::after {
+  content: 'SELECCIONADO';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  font-size: 0.60rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  padding: 4px 11px;
+  border-radius: 999px;
+  box-shadow: 0 2px 8px rgba(217, 37, 37, 0.35);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.type-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .type-badge {
@@ -1515,7 +1539,7 @@ button, input, textarea, select {
 .format-card {
   border: var(--glass-border);
   outline: var(--glass-outline);
-  padding: 28px 24px;
+  padding: 28px 24px 22px;
   cursor: pointer;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
@@ -1530,6 +1554,11 @@ button, input, textarea, select {
   overflow: hidden;
 }
 
+.format-card > * {
+  position: relative;
+  z-index: 2;
+}
+
 .format-card:hover {
   transform: translateY(-4px);
   border-color: rgba(217, 37, 37, 0.35);
@@ -1538,23 +1567,25 @@ button, input, textarea, select {
 
 .format-card.selected {
   border: 2px solid var(--ed-red);
-  background: rgba(255, 248, 248, 0.9);
+  background: rgba(255, 248, 248, 0.94);
   box-shadow: 0 14px 32px -4px rgba(217, 37, 37, 0.18);
 }
 
 .format-card.selected::before {
   content: 'SELECCIONADO';
   position: absolute;
-  top: -11px;
-  right: 20px;
+  top: 14px;
+  right: 14px;
   background: var(--ed-red);
   color: #FFFFFF;
-  font-size: 0.62rem;
+  font-size: 0.60rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
+  padding: 4px 11px;
+  border-radius: 999px;
   box-shadow: 0 2px 8px rgba(217, 37, 37, 0.35);
+  z-index: 5;
+  pointer-events: none;
 }
 
 .format-size {
@@ -1590,6 +1621,87 @@ button, input, textarea, select {
   border-top: 1px solid var(--ed-border);
   padding-top: 14px;
   font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+
+/* Botón cápsula directo a Flow.cl para tarjetas de formato */
+.btn-format-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  border: 1px solid var(--ed-red);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.25);
+  position: relative;
+  z-index: 3;
+}
+
+.btn-format-buy:hover {
+  background: #B81D1D;
+  border-color: #B81D1D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(217, 37, 37, 0.35);
+}
+
+.btn-format-buy:active {
+  transform: scale(0.97);
+}
+
+.btn-format-buy.btn-format-custom {
+  background: #111111;
+  border-color: #111111;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.btn-format-buy.btn-format-custom:hover {
+  background: var(--ed-red);
+  border-color: var(--ed-red);
+  box-shadow: 0 6px 18px rgba(217, 37, 37, 0.35);
+}
+
+/* Botón de compra para panel de comparador de escala */
+.btn-scale-buy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 13px 20px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  border: 1px solid var(--ed-red);
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.2s ease;
+  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.25);
+}
+
+.btn-scale-buy:hover {
+  background: #B81D1D;
+  border-color: #B81D1D;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(217, 37, 37, 0.35);
+}
+
+.btn-scale-buy:active {
+  transform: scale(0.97);
 }
 
 /* Formulario ultra-simplificado de cotización */
