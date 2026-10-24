@@ -130,7 +130,7 @@ module.exports = async function handler(req, res) {
 
     // Deteccion robusta de la URL base
     const proto = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers['x-forwarded-host'] || req.headers.host || 'alzado-rojo.cl';
+    const host = req.headers['x-forwarded-host'] || req.headers.host || 'ar-arq.cl';
     const baseUrl = `${proto}://${host}`;
 
     const cleanOrderId = String(orderId || `AR-${Date.now()}`).slice(0, 45);
