@@ -4863,8 +4863,9 @@ dialog#project-modal::backdrop {
   line-height: 1.55;
 }
 
-/* Bloque Khipu Dinámico */
-.ar-khipu-action-box {
+/* Bloque Pasarela Dinámica (Flow.cl y Khipu) */
+.ar-khipu-action-box,
+.ar-flow-action-box {
   background: #FFF9F9;
   border: 1px solid var(--ed-red);
   padding: 20px;
@@ -4873,7 +4874,8 @@ dialog#project-modal::backdrop {
   text-align: center;
 }
 
-.ar-khipu-action-title {
+.ar-khipu-action-title,
+.ar-flow-action-title {
   font-size: 0.92rem;
   font-weight: 700;
   color: var(--ed-red);
@@ -4882,14 +4884,16 @@ dialog#project-modal::backdrop {
   letter-spacing: 0.08em;
 }
 
-.ar-khipu-action-text {
+.ar-khipu-action-text,
+.ar-flow-action-text {
   font-size: 0.82rem;
   color: var(--ed-text-secondary);
   margin-bottom: 14px;
   line-height: 1.5;
 }
 
-.btn-ar-khipu-pay {
+.btn-ar-khipu-pay,
+.btn-ar-flow-pay {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4907,7 +4911,8 @@ dialog#project-modal::backdrop {
   min-height: 44px;
 }
 
-.btn-ar-khipu-pay:hover {
+.btn-ar-khipu-pay:hover,
+.btn-ar-flow-pay:hover {
   background: var(--ed-red-hover);
 }
 

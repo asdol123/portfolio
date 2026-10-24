@@ -463,15 +463,15 @@
                             <span class="ar-checkout-section-title">// MODALIDAD DE PAGO O COTIZACIÓN</span>
                             <div class="ar-payment-list" role="radiogroup" aria-label="Métodos de Pago">
                                 
-                                <!-- Opción 1: Khipu -->
-                                <label class="ar-payment-option is-selected" id="payment-opt-khipu">
-                                    <input type="radio" name="ar_payment" value="khipu" checked>
+                                <!-- Opción 1: Flow.cl -->
+                                <label class="ar-payment-option is-selected" id="payment-opt-flow">
+                                    <input type="radio" name="ar_payment" value="flow" checked>
                                     <div class="ar-payment-body">
                                         <div class="ar-payment-header">
-                                            <span class="ar-payment-name">Khipu · Pago Bancario Simplificado</span>
-                                            <span class="ar-payment-badge">RECOMENDADO · BANCOS CHILE</span>
+                                            <span class="ar-payment-name">Flow.cl · Webpay, Débito y Crédito</span>
+                                            <span class="ar-payment-badge">PASARELA OFICIAL · PAGO EN LÍNEA</span>
                                         </div>
-                                        <p class="ar-payment-desc">Paga desde cualquier banco chileno con validación inmediata y comprobante oficial emitido a tu correo.</p>
+                                        <p class="ar-payment-desc">Paga de forma segura con Webpay Plus, Redcompra, tarjetas bancarias, Mach o transferencia vía Flow.cl.</p>
                                     </div>
                                 </label>
 
@@ -559,8 +559,8 @@
                             </div>
 
                             <!-- Botón Principal Dinámico -->
-                            <button type="submit" class="btn-ar-submit-order" id="btn-ar-submit-order">
-                                <span id="btn-ar-submit-label">PAGAR CON KHIPU Y RECIBIR COMPROBANTE</span>
+                            <button type="submit" class="btn-ar-submit-order" id="ar-btn-submit-order">
+                                <span id="btn-ar-submit-label">PAGAR CON FLOW.CL Y RECIBIR COMPROBANTE</span>
                                 <span aria-hidden="true">➔</span>
                             </button>
                         </form>
@@ -577,14 +577,14 @@
                         </p>
                     </div>
 
-                    <!-- Bloque Khipu Dinámico -->
-                    <div id="ar-success-khipu-box" class="ar-khipu-action-box" style="display: none;">
-                        <div class="ar-khipu-action-title">KHIPU · PASARELA DE PAGO PREPARADA</div>
-                        <p class="ar-khipu-action-text" id="ar-khipu-action-desc">
-                            Tu folio ha sido registrado en el sistema. Puedes proceder al pago seguro simplificado en Khipu desde cualquier banco chileno.
+                    <!-- Bloque Flow.cl Dinámico -->
+                    <div id="ar-khipu-status-box" class="ar-khipu-action-box ar-flow-action-box" style="display: none;">
+                        <div class="ar-khipu-action-title ar-flow-action-title" id="ar-flow-action-title">FLOW.CL · PASARELA DE PAGO PREPARADA</div>
+                        <p class="ar-khipu-action-text ar-flow-action-text" id="ar-khipu-action-desc">
+                            Tu folio ha sido registrado en el sistema. Puedes proceder al pago seguro con Webpay Plus, tarjetas bancarias o transferencia vía Flow.cl.
                         </p>
-                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ar-khipu-pay" id="btn-ar-khipu-link">
-                            <span>CONTINUAR AL PAGO EN KHIPU ➔</span>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ar-khipu-pay btn-ar-flow-pay" id="btn-ar-khipu-link">
+                            <span>IR A PAGAR EN FLOW.CL (WEBPAY) ➔</span>
                         </a>
                     </div>
 

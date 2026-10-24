@@ -30,7 +30,8 @@
     cityCountry: 'Santiago, Chile',
     quoteValidityDays: 15,
     formSubmitEndpoint: 'https://formsubmit.co/ajax/adolchilemods@gmail.com',
-    khipuEndpoint: '/api/khipu-create',
+    flowEndpoint: '/api/flow-create',
+    khipuEndpoint: '/api/flow-create',
     storageKeyHistory: 'ar_orders_history',
     storageKeyLast: 'ar_last_order'
   };
@@ -225,12 +226,12 @@
 
   // --- METODOS DE PAGO DISPONIBLES ---
   const PAYMENT_METHODS = {
-    khipu: {
-      id: 'khipu',
-      label: 'Khipu · Transferencia Bancaria Simplificada',
-      badge: 'RECOMENDADO · BANCOS CHILE',
+    flow: {
+      id: 'flow',
+      label: 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago',
+      badge: 'PASARELA OFICIAL · WEBPAY PLUS',
       fee: 0,
-      description: 'Paga desde cualquier banco chileno con validacion automatica de orden.'
+      description: 'Pago en línea seguro mediante Flow.cl con tarjetas bancarias chilenas, Webpay, Redcompra, Mach y transferencia.'
     },
     transferencia: {
       id: 'transferencia',
@@ -247,6 +248,9 @@
       description: 'Recibe la cotizacion formal desglosada en tu correo para aprobacion o pago con Orden de Compra.'
     }
   };
+
+  // Alias retrocompatible para solicitudes con identificador 'khipu'
+  PAYMENT_METHODS.khipu = PAYMENT_METHODS.flow;
 
   // --- FUNCIONES DE CONVERSION MONETARIA CLP ---
 
@@ -507,10 +511,10 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Transferencia Electronica Directa'
+      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
     };
 
-    let statusText = 'PAGO KHIPU INICIADO';
+    let statusText = 'PAGO ONLINE FLOW.CL (WEBPAY / TARJETAS) INICIADO';
     if (order.paymentMethod === 'transferencia') {
       statusText = 'ORDEN EMITIDA · TRANSFERENCIA DIRECTA PENDIENTE';
     } else if (order.paymentMethod === 'cotizacion') {
@@ -548,6 +552,7 @@
       `Direccion / Comuna: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller'}`,
       '',
       'INSTRUCCIONES DE CONTINUIDAD:',
+      '- Si su orden es con Pago en Linea Flow.cl (Webpay / Tarjetas), su transaccion es procesada y validada de forma automatica e integrada.',
       '- Si su orden es con Transferencia Directa, transfiera a Cuenta Corriente AR ARQ SpA (Banco Santander, N 89-23410-0, RUT 77.892.341-K) e indique su Folio en la referencia.',
       '- Si solicito Cotizacion Formal, este respaldo certifica la reserva de tarifas por 15 dias corridos para la gestion de su Orden de Compra.',
       '- Nuestro equipo tecnico revisara el modelo y coordinara el avance de manufactura aditiva.',
@@ -601,7 +606,7 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Transferencia Electronica Directa'
+      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
     };
 
     const lines = [
@@ -658,7 +663,7 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Transferencia Electronica Directa'
+      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
     };
 
     const isQuote = order.paymentMethod === 'cotizacion';
@@ -1122,7 +1127,7 @@
   /**
    * Procesa, valida, persiste y despacha una orden formal
    * @param {object} orderData
-   * @returns {Promise<{ ok: boolean, order: object, khipuResult?: object, whatsappUrl: string, errors?: object }>}
+   * @returns {Promise<{ ok: boolean, order: object, flowResult?: object, khipuResult?: object, whatsappUrl: string, errors?: object }>}
    */
   async function submitOrder(orderData) {
     orderData = orderData || {};
@@ -1162,6 +1167,12 @@
     const now = new Date();
     const folio = orderData.folio || generateOrderFolio();
 
+    // Normalizacion de metodo de pago con alias retrocompatible
+    let selectedMethod = orderData.paymentMethod || 'flow';
+    if (selectedMethod === 'khipu') {
+      selectedMethod = 'flow';
+    }
+
     const normalizedOrder = {
       folio,
       sku,
@@ -1175,8 +1186,8 @@
       shippingCost: totals.shippingCost,
       shippingLabel: SHIPPING_OPTIONS[totals.shippingId]?.label || 'Retiro en Taller',
       total: totals.total,
-      paymentMethod: orderData.paymentMethod || 'transferencia',
-      paymentLabel: PAYMENT_METHODS[orderData.paymentMethod]?.label || 'Transferencia Electronica Directa',
+      paymentMethod: selectedMethod,
+      paymentLabel: PAYMENT_METHODS[selectedMethod]?.label || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago',
       customer: {
         name: (orderData.customer?.name || '').trim(),
         rut: (orderData.customer?.rut || '').trim(),
@@ -1211,45 +1222,48 @@
       console.warn('[ALZADO ROJO Backend] Error al emitir correo via FormSubmit:', errEmail);
     }
 
-    // 6. Gestion Khipu si corresponde
-    let khipuResult = null;
-    if (normalizedOrder.paymentMethod === 'khipu') {
+    // 6. Gestion Flow.cl si corresponde (incluye retrocompatibilidad para alias 'khipu')
+    let flowResult = null;
+    if (normalizedOrder.paymentMethod === 'flow' || normalizedOrder.paymentMethod === 'khipu') {
       try {
-        const khipuPayload = {
+        const flowPayload = {
           orderId: normalizedOrder.folio,
-          subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`,
+          subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`.slice(0, 250),
           amount: normalizedOrder.total,
           currency: 'CLP',
           payer_email: normalizedOrder.customer.email,
           payer_name: normalizedOrder.customer.name,
-          body: `${normalizedOrder.productName} · Formato: ${normalizedOrder.size} · Entrega: ${normalizedOrder.shippingLabel}`,
-          return_url: typeof window !== 'undefined' ? `${window.location.origin}/maquetas-urbanas.html?status=khipu_success&folio=${normalizedOrder.folio}` : undefined,
-          cancel_url: typeof window !== 'undefined' ? `${window.location.origin}/maquetas-urbanas.html?status=khipu_cancel&folio=${normalizedOrder.folio}` : undefined
+          body: `${normalizedOrder.productName} · Formato: ${normalizedOrder.size} · Entrega: ${normalizedOrder.shippingLabel}`
         };
 
-        const khipuRes = await fetch(CONFIG.khipuEndpoint, {
+        const flowEndpoint = CONFIG.flowEndpoint || '/api/flow-create';
+        const flowRes = await fetch(flowEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(khipuPayload)
+          body: JSON.stringify(flowPayload)
         });
 
-        if (khipuRes.ok) {
-          khipuResult = await khipuRes.json();
+        if (flowRes.ok) {
+          flowResult = await flowRes.json();
         } else {
-          khipuResult = {
+          flowResult = {
             ok: true,
-            mode: 'assisted_khipu',
-            message: 'Cobro registrado. Enlace asistido de pago preparado.'
+            gateway: 'flow',
+            mode: 'assisted_flow',
+            message: 'Orden registrada para pago Flow.cl',
+            orderId: normalizedOrder.folio
           };
         }
-      } catch (errKhipu) {
-        console.warn('[ALZADO ROJO Backend] Canal Khipu derivo a modo asistido transparente:', errKhipu);
-        khipuResult = {
+      } catch (errFlow) {
+        console.warn('[ALZADO ROJO Backend] Canal Flow.cl derivo a modo asistido transparente:', errFlow);
+        flowResult = {
           ok: true,
-          mode: 'assisted_khipu',
-          message: 'Cobro registrado. Enlace asistido de pago preparado.'
+          gateway: 'flow',
+          mode: 'assisted_flow',
+          message: 'Orden registrada para pago Flow.cl',
+          orderId: normalizedOrder.folio
         };
       }
     }
@@ -1260,7 +1274,8 @@
     return {
       ok: true,
       order: normalizedOrder,
-      khipuResult,
+      flowResult,
+      khipuResult: flowResult, // Alias retrocompatible para checkout
       whatsappUrl,
       emailSent: formSubmitSuccess
     };

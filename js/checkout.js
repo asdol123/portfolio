@@ -30,7 +30,7 @@
     unitPrice: 9990,
     quantity: 1,
     shippingId: 'pickup',
-    paymentMethod: 'khipu',
+    paymentMethod: 'flow',
     lastProcessedOrder: null
   };
 
@@ -80,7 +80,7 @@
       inputRut: document.getElementById('ar-input-rut'),
       inputAddress: document.getElementById('ar-input-address'),
       inputNotes: document.getElementById('ar-input-notes'),
-      btnSubmit: document.getElementById('btn-ar-submit-order'),
+      btnSubmit: document.getElementById('ar-btn-submit-order') || document.getElementById('btn-ar-submit-order'),
       btnSubmitLabel: document.getElementById('btn-ar-submit-label'),
 
       // Errores
@@ -93,8 +93,10 @@
       successFolio: document.getElementById('ar-success-folio'),
       successTitle: document.getElementById('ar-success-title'),
       successLead: document.getElementById('ar-success-lead'),
-      successKhipuBox: document.getElementById('ar-success-khipu-box'),
-      btnKhipuLink: document.getElementById('btn-ar-khipu-link'),
+      successKhipuBox: document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
+      btnKhipuLink: document.getElementById('btn-ar-khipu-link') || document.getElementById('btn-ar-flow-link'),
+      khipuTitle: document.getElementById('ar-flow-action-title') || document.getElementById('ar-khipu-action-title'),
+      khipuDesc: document.getElementById('ar-flow-action-desc') || document.getElementById('ar-khipu-action-desc'),
       btnDownloadPdf: document.getElementById('btn-ar-download-pdf'),
       btnCoordWsp: document.getElementById('btn-ar-coord-wsp'),
       btnTogglePreview: document.getElementById('btn-ar-toggle-preview'),
@@ -129,8 +131,8 @@
   function updateSubmitButtonState() {
     if (!dom.btnSubmitLabel) return;
 
-    if (state.paymentMethod === 'khipu') {
-      dom.btnSubmitLabel.textContent = 'PAGAR CON KHIPU Y RECIBIR COMPROBANTE';
+    if (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu') {
+      dom.btnSubmitLabel.textContent = 'PAGAR CON FLOW.CL Y RECIBIR COMPROBANTE';
     } else if (state.paymentMethod === 'transferencia') {
       dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO Y ENVIAR ORDEN AL CORREO';
     } else if (state.paymentMethod === 'cotizacion') {
@@ -157,7 +159,7 @@
     state.unitPrice = ECOM ? ECOM.parseCLP(productData.unitPrice || 9990) : 9990;
     state.quantity = Math.max(1, parseInt(productData.quantity, 10) || 1);
     state.shippingId = productData.shippingId || 'pickup';
-    state.paymentMethod = productData.paymentMethod || 'khipu';
+    state.paymentMethod = productData.paymentMethod || 'flow';
 
     // Rellenar cabecera y producto
     if (dom.folioDisplay) dom.folioDisplay.textContent = `FOLIO #${state.folio}`;
@@ -391,19 +393,39 @@
         }
       }
 
-      // Khipu live o asistido
-      if (state.paymentMethod === 'khipu' && dom.successKhipuBox) {
+      // Flow.cl en vivo o asistido (con soporte retrocompatible para khipu)
+      const isOnlineGateway = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
+      if (isOnlineGateway && dom.successKhipuBox) {
         dom.successKhipuBox.style.display = 'block';
-        if (result.khipuResult && result.khipuResult.payment_url) {
-          if (dom.btnKhipuLink) {
-            dom.btnKhipuLink.href = result.khipuResult.payment_url;
-            dom.btnKhipuLink.textContent = 'PAGAR AHORA EN KHIPU ➔';
+        const flowData = result.flowResult || result.khipuResult;
+        if (flowData && flowData.payment_url) {
+          if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · PASARELA DE PAGO PREPARADA';
+          if (dom.khipuDesc) {
+            dom.khipuDesc.textContent = 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente en unos segundos, haz clic en el siguiente enlace:';
           }
+          if (dom.btnKhipuLink) {
+            dom.btnKhipuLink.style.display = 'inline-flex';
+            dom.btnKhipuLink.href = flowData.payment_url;
+            dom.btnKhipuLink.textContent = 'IR A PAGAR EN FLOW.CL (WEBPAY) ➔';
+          }
+          // Redirección automática sin fricción tras 1.2 segundos
+          setTimeout(() => {
+            try {
+              window.location.href = flowData.payment_url;
+            } catch (errRedirect) {
+              console.warn('[ALZADO ROJO Checkout] Redirección automática a Flow prevenida por el navegador:', errRedirect);
+            }
+          }, 1200);
         } else {
           // Modo asistido
+          if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · GESTIÓN ASISTIDA REGISTRADA';
+          if (dom.khipuDesc) {
+            dom.khipuDesc.textContent = 'Tu orden ha sido registrada. Puedes continuar la confirmación y emisión del link de pago Flow.cl mediante WhatsApp de inmediato.';
+          }
           if (dom.btnKhipuLink) {
+            dom.btnKhipuLink.style.display = 'inline-flex';
             dom.btnKhipuLink.href = result.whatsappUrl;
-            dom.btnKhipuLink.textContent = 'ACTIVAR LINK KHIPU POR WHATSAPP ➔';
+            dom.btnKhipuLink.textContent = 'ACTIVAR LINK FLOW.CL POR WHATSAPP ➔';
           }
         }
       } else if (dom.successKhipuBox) {
@@ -630,22 +652,143 @@
     });
   }
 
+  /**
+   * Detección de Retorno Exitoso desde Flow.cl (?flow_status=completed&order=...)
+   * Al cargar la página, verifica los parámetros de la URL y si está completado,
+   * abre automáticamente el modal en la pantalla de éxito con la orden confirmada.
+   */
+  function checkFlowReturnStatus() {
+    if (typeof window === 'undefined') return;
+    try {
+      const search = window.location.search || '';
+      if (!search.includes('flow_status=completed')) return;
+
+      const urlParams = new URLSearchParams(search);
+      const statusParam = urlParams.get('flow_status');
+      if (statusParam !== 'completed') return;
+
+      const orderFolioFromUrl = urlParams.get('order') || urlParams.get('orderId') || '';
+
+      if (!dom.modal) initDomReferences();
+      if (!dom.modal) return;
+
+      const ECOM = window.AR_ECOMMERCE;
+      let order = (ECOM && typeof ECOM.getLastOrder === 'function') ? ECOM.getLastOrder() : null;
+
+      // Si no existe orden previa o el folio de la URL es distinto, construir orden base con el folio recibido
+      if (!order) {
+        order = {
+          folio: orderFolioFromUrl || `AR-${new Date().getFullYear()}-FLOW`,
+          sku: 'SKU-FLOW-01',
+          productName: 'Maqueta Arquitectónica',
+          size: 'Formato Estándar',
+          finish: 'PLA Mate Arquitectónico',
+          quantity: 1,
+          unitPrice: 0,
+          subtotal: 0,
+          shippingId: 'pickup',
+          shippingLabel: 'Retiro en Taller / Despacho a Coordinar',
+          shippingCost: 0,
+          total: 0,
+          paymentMethod: 'flow',
+          paymentLabel: 'Flow.cl · Webpay, Débito y Crédito',
+          customer: {
+            name: 'Cliente Flow.cl',
+            email: 'adolchilemods@gmail.com',
+            phone: '+56 9 7541 2203',
+            rut: 'No informado',
+            address: ''
+          },
+          notes: 'Pago procesado exitosamente vía pasarela Flow.cl',
+          dateIso: new Date().toISOString(),
+          dateFormatted: new Date().toLocaleDateString('es-CL'),
+          status: 'PAGADA_FLOW'
+        };
+      } else if (orderFolioFromUrl && order.folio !== orderFolioFromUrl) {
+        order.folio = orderFolioFromUrl;
+      }
+
+      order.status = 'PAGADA_FLOW';
+      state.lastProcessedOrder = order;
+      state.folio = order.folio;
+
+      // Cambiar a la vista de éxito del modal
+      if (dom.viewMain) dom.viewMain.style.display = 'none';
+      if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
+
+      if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
+      if (dom.successTitle) dom.successTitle.textContent = 'PAGO PROCESADO EN FLOW.CL · ORDEN CONFIRMADA';
+      if (dom.successLead) {
+        const custEmail = (order.customer && order.customer.email) ? order.customer.email : 'su correo electrónico';
+        dom.successLead.innerHTML = `Su pago ha sido validado y procesado exitosamente mediante Flow.cl. Hemos emitido el comprobante oficial de su orden <strong>#${order.folio}</strong> a <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
+      }
+
+      // Bloque informativo de estado Flow.cl
+      if (dom.successKhipuBox) {
+        dom.successKhipuBox.style.display = 'block';
+        if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · TRANSACCIÓN VALIDADA EXITOSAMENTE';
+        if (dom.khipuDesc) {
+          dom.khipuDesc.textContent = 'Los fondos han sido acreditados. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.';
+        }
+        if (dom.btnKhipuLink) {
+          dom.btnKhipuLink.style.display = 'none';
+        }
+      }
+
+      // Configuración de botones de comprobante PDF y WhatsApp
+      if (dom.btnDownloadPdf) {
+        dom.btnDownloadPdf.onclick = () => {
+          if (ECOM && typeof ECOM.openQuotePrintWindow === 'function') {
+            ECOM.openQuotePrintWindow(order);
+          }
+        };
+      }
+
+      if (dom.btnCoordWsp) {
+        if (ECOM && typeof ECOM.buildWhatsAppOrderUrl === 'function') {
+          dom.btnCoordWsp.href = ECOM.buildWhatsAppOrderUrl(order);
+        } else {
+          dom.btnCoordWsp.href = `https://wa.me/56975412203?text=${encodeURIComponent(`Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Flow.cl.`)}`;
+        }
+      }
+
+      // Renderizar vista previa técnica del correo
+      renderEmailPreview(order);
+
+      // Desplegar modal interactivo
+      dom.modal.classList.add('is-open');
+      dom.modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      state.isOpen = true;
+
+      // Posicionar scroll en la parte superior
+      const scroller = dom.modal.querySelector('.ar-modal-scroll');
+      if (scroller) scroller.scrollTop = 0;
+
+    } catch (errCheck) {
+      console.warn('[ALZADO ROJO Checkout] Error al verificar retorno de Flow.cl:', errCheck);
+    }
+  }
+
   // Inicialización cuando el DOM esté listo
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
         initDomReferences();
         bindEvents();
+        checkFlowReturnStatus();
       });
     } else {
       initDomReferences();
       bindEvents();
+      checkFlowReturnStatus();
     }
   }
 
   return {
     openCheckout,
     closeCheckout,
+    checkFlowReturnStatus,
     getState: () => ({ ...state })
   };
 });
