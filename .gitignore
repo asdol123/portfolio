@@ -3,6 +3,7 @@ Thumbs.db
 .DS_Store
 *.mp4
 .temp_chrome_print_profile/
+.temp_qa_profile_*/
 recovery-codes.txt
 .taste-skill/
 _backup_images_raw/

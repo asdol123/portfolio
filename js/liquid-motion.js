@@ -98,8 +98,7 @@
       '.manual-card',
       '.spec-3d-box',
       '.ecom-perk-item',
-      '.calc-clean-card',
-      '.trust-capsule'
+      '.calc-clean-card'
     ].join(', ');
 
     const cards = document.querySelectorAll(tiltSelector);
@@ -299,6 +298,7 @@
 
     const interactiveSelectors = [
       '.bionova-cta-pill-btn',
+      '.bionova-card-text-cta',
       '.bionova-round-arrow-btn',
       '.btn-ed-primary',
       '.btn-ed-secondary',
