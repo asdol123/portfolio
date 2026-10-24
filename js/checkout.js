@@ -132,11 +132,11 @@
     if (!dom.btnSubmitLabel) return;
 
     if (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu') {
-      dom.btnSubmitLabel.textContent = 'PAGAR CON FLOW.CL Y RECIBIR COMPROBANTE';
+      dom.btnSubmitLabel.textContent = 'PAGAR AHORA';
     } else if (state.paymentMethod === 'transferencia') {
-      dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO Y ENVIAR ORDEN AL CORREO';
+      dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO';
     } else if (state.paymentMethod === 'cotizacion') {
-      dom.btnSubmitLabel.textContent = 'EMITIR COTIZACIÓN FORMAL A MI CORREO';
+      dom.btnSubmitLabel.textContent = 'DESCARGAR COTIZACIÓN';
     }
   }
 
@@ -362,7 +362,7 @@
     // Estado cargando
     if (dom.btnSubmit) {
       dom.btnSubmit.disabled = true;
-      if (dom.btnSubmitLabel) dom.btnSubmitLabel.textContent = 'PROCESANDO ORDEN Y GENERANDO FOLIO...';
+      if (dom.btnSubmitLabel) dom.btnSubmitLabel.textContent = 'PROCESANDO...';
     }
 
     const orderPayload = {

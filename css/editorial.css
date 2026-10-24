@@ -5874,12 +5874,12 @@ dialog#project-modal::backdrop {
 
 /* Cabecera del Modal Liquid Glass */
 .ar-modal-header {
-  padding: 22px 30px;
+  padding: 16px 24px;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.85);
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 16px;
   flex-shrink: 0;
 }
@@ -5890,49 +5890,32 @@ dialog#project-modal::backdrop {
 }
 
 .ar-modal-eyebrow {
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  color: var(--ed-red);
-  text-transform: uppercase;
-  margin-bottom: 4px;
-  display: block;
+  display: none !important;
 }
 
 .ar-modal-title {
-  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
-  font-weight: 600;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--ed-text);
-  margin-bottom: 8px;
-  line-height: 1.25;
+  margin-bottom: 0;
+  line-height: 1.2;
 }
 
 .ar-modal-folio-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--ed-red);
-  background: rgba(217, 37, 37, 0.06);
-  border: 1px solid rgba(217, 37, 37, 0.2);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-variant-numeric: tabular-nums;
+  display: none !important;
 }
 
 .ar-modal-close-btn {
-  width: 40px;
-  height: 40px;
-  min-width: 40px;
-  min-height: 40px;
-  background: rgba(255, 255, 255, 0.85);
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 50%;
   color: var(--ed-text);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   font-weight: 400;
   cursor: pointer;
   display: inline-flex;
@@ -5947,7 +5930,7 @@ dialog#project-modal::backdrop {
   background: #111111;
   color: #FFFFFF;
   border-color: #111111;
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .ar-modal-close-btn:focus-visible {
@@ -5959,45 +5942,45 @@ dialog#project-modal::backdrop {
 .ar-modal-scroll {
   flex: 1;
   overflow-y: auto;
-  padding: 28px 30px;
+  padding: 20px 24px;
   overscroll-behavior: contain;
 }
 
 /* Grilla de 2 columnas para el checkout */
 .ar-checkout-grid {
   display: grid;
-  grid-template-columns: 1fr 1.25fr;
-  gap: 32px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 24px;
 }
 
 /* Columna 1: Resumen del Producto */
 .ar-checkout-summary-col {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
 .ar-checkout-product-box {
   border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 20px;
-  padding: 20px;
+  border-radius: 16px;
+  padding: 14px;
   background: rgba(255, 255, 255, 0.85);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
 }
 
 .ar-checkout-product-row {
   display: flex;
-  gap: 16px;
-  align-items: flex-start;
-  margin-bottom: 16px;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
 }
 
 .ar-checkout-thumb {
-  width: 90px;
-  height: 90px;
+  width: 72px;
+  height: 72px;
   object-fit: cover;
   border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 14px;
+  border-radius: 10px;
   flex-shrink: 0;
   background: #F4F4F4;
 }
@@ -6008,31 +5991,19 @@ dialog#project-modal::backdrop {
 }
 
 .ar-checkout-prod-tag {
-  display: block;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--ed-red);
-  text-transform: uppercase;
-  margin-bottom: 4px;
+  display: none !important;
 }
 
 .ar-checkout-prod-name {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--ed-text);
-  line-height: 1.3;
-  margin-bottom: 6px;
+  line-height: 1.25;
+  margin-bottom: 3px;
 }
 
 .ar-checkout-prod-sku {
-  display: inline-block;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: var(--ed-text-muted);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 4px;
+  display: none !important;
 }
 
 .ar-checkout-prod-spec {
@@ -6041,19 +6012,23 @@ dialog#project-modal::backdrop {
   line-height: 1.4;
 }
 
+#ar-summary-finish {
+  display: none !important;
+}
+
 /* Selector de Cantidad */
 .ar-checkout-qty-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-top: 1px solid rgba(17, 17, 17, 0.06);
-  padding-top: 14px;
+  padding-top: 10px;
 }
 
 .ar-checkout-qty-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ed-text-muted);
 }
@@ -6068,13 +6043,13 @@ dialog#project-modal::backdrop {
 }
 
 .ar-checkout-qty-btn {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
   background: transparent;
   border: none;
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--ed-text);
   cursor: pointer;
@@ -6096,9 +6071,9 @@ dialog#project-modal::backdrop {
 }
 
 .ar-checkout-qty-val {
-  width: 40px;
+  width: 34px;
   text-align: center;
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
   color: var(--ed-text);
@@ -6107,27 +6082,27 @@ dialog#project-modal::backdrop {
 /* Selector de Modalidad de Entrega */
 .ar-checkout-section-title {
   display: block;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--ed-text-muted);
-  margin-bottom: 10px;
+  color: var(--ed-red);
+  margin-bottom: 8px;
 }
 
 .ar-shipping-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .ar-shipping-option {
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 16px;
+  gap: 10px;
+  align-items: center;
+  padding: 9px 13px;
   border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 14px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.85);
   cursor: pointer;
   transition: all 0.2s var(--spring-ease);
@@ -6142,19 +6117,13 @@ dialog#project-modal::backdrop {
 .ar-shipping-option.is-selected {
   border: 2px solid var(--ed-red);
   background: rgba(255, 245, 245, 0.85);
-  padding: 11px 15px;
-}
-
-.ar-shipping-option.is-selected {
-  border: 2px solid var(--ed-red);
-  background: #FFF9F9;
-  padding: 11px 13px;
+  padding: 8px 12px;
 }
 
 .ar-shipping-option input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
   accent-color: var(--ed-red);
   cursor: pointer;
 }
@@ -6167,9 +6136,9 @@ dialog#project-modal::backdrop {
 .ar-shipping-title-row {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .ar-shipping-name {
@@ -6187,27 +6156,26 @@ dialog#project-modal::backdrop {
 }
 
 .ar-shipping-eta {
-  font-size: 0.72rem;
-  color: var(--ed-text-muted);
-  line-height: 1.35;
+  display: none !important;
 }
 
 /* Tabla de Desglose Financiero */
 .ar-financial-breakdown {
-  border: 1px solid var(--ed-border);
-  padding: 16px;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 14px;
+  padding: 12px 14px;
   background: #FAFAFA;
 }
 
 .ar-breakdown-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   font-variant-numeric: tabular-nums;
 }
 
 .ar-breakdown-table td {
-  padding: 7px 0;
+  padding: 5px 0;
   border-bottom: 1px solid var(--ed-border);
   color: var(--ed-text-secondary);
 }
@@ -6221,41 +6189,41 @@ dialog#project-modal::backdrop {
 .ar-breakdown-table tr.total-row td {
   border-bottom: none;
   border-top: 2px solid var(--ed-text);
-  padding-top: 12px;
-  font-size: 1.05rem;
+  padding-top: 8px;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--ed-red);
 }
 
 .ar-breakdown-table tr.total-row td.val {
   color: var(--ed-red);
-  font-size: 1.25rem;
+  font-size: 1.2rem;
 }
 
 /* Columna 2: Pasarela y Formulario */
 .ar-checkout-form-col {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 }
 
-/* Métodos de Pago (Khipu, Transferencia, Cotización) */
+/* Métodos de Pago */
 .ar-payment-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 6px;
 }
 
 .ar-payment-option {
   border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 16px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.85);
-  padding: 14px 18px;
+  padding: 10px 14px;
   cursor: pointer;
   transition: all 0.2s var(--spring-ease);
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  gap: 10px;
+  align-items: center;
 }
 
 .ar-payment-option:hover {
@@ -6266,14 +6234,14 @@ dialog#project-modal::backdrop {
 .ar-payment-option.is-selected {
   border: 2px solid var(--ed-red);
   background: rgba(255, 245, 245, 0.9);
-  padding: 13px 17px;
+  padding: 9px 13px;
   box-shadow: 0 4px 14px rgba(217, 37, 37, 0.08);
 }
 
 .ar-payment-option input[type="radio"] {
-  width: 18px;
-  height: 18px;
-  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
   accent-color: var(--ed-red);
   cursor: pointer;
 }
@@ -6288,36 +6256,21 @@ dialog#project-modal::backdrop {
   justify-content: space-between;
   align-items: center;
   gap: 8px;
-  margin-bottom: 4px;
-  flex-wrap: wrap;
+  margin-bottom: 0;
 }
 
 .ar-payment-name {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   font-weight: 700;
   color: var(--ed-text);
 }
 
 .ar-payment-badge {
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 3px 10px;
-  background: rgba(0, 0, 0, 0.06);
-  border-radius: var(--radius-pill);
-  color: var(--ed-text);
-  text-transform: uppercase;
-}
-
-.ar-payment-option.is-selected .ar-payment-badge {
-  background: var(--ed-red);
-  color: #FFFFFF;
+  display: none !important;
 }
 
 .ar-payment-desc {
-  font-size: 0.78rem;
-  color: var(--ed-text-secondary);
-  line-height: 1.45;
+  display: none !important;
 }
 
 /* Recuadro de Transferencia Directa */
@@ -6326,8 +6279,8 @@ dialog#project-modal::backdrop {
   background: rgba(250, 250, 250, 0.9);
   border: 1px solid rgba(17, 17, 17, 0.08);
   border-left: 3px solid var(--ed-red);
-  border-radius: 16px;
-  padding: 16px 18px;
+  border-radius: 12px;
+  padding: 12px 14px;
 }
 
 .ar-bank-box.is-visible {
@@ -6335,21 +6288,21 @@ dialog#project-modal::backdrop {
 }
 
 .ar-bank-title {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ed-text);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .ar-bank-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 6px 14px;
-  font-size: 0.78rem;
-  margin-bottom: 12px;
-  line-height: 1.4;
+  gap: 4px 12px;
+  font-size: 0.74rem;
+  margin-bottom: 10px;
+  line-height: 1.35;
 }
 
 .ar-bank-grid strong {
@@ -6358,20 +6311,20 @@ dialog#project-modal::backdrop {
 }
 
 .btn-ar-copy-bank {
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: #111111;
   color: #FFFFFF;
   border: 1px solid #111111;
   border-radius: var(--radius-pill);
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 38px;
+  min-height: 34px;
   transition: all 0.2s var(--spring-ease);
   font-family: inherit;
 }
@@ -6396,7 +6349,7 @@ dialog#project-modal::backdrop {
 .ar-form-fields-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: 10px;
 }
 
 .ar-form-col-full {
@@ -6409,12 +6362,12 @@ dialog#project-modal::backdrop {
 }
 
 .ar-field-label {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--ed-text);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .ar-field-label span.req {
@@ -6425,9 +6378,9 @@ dialog#project-modal::backdrop {
 .ar-form-textarea {
   width: 100%;
   border: 1px solid rgba(17, 17, 17, 0.12);
-  border-radius: 14px;
-  padding: 12px 14px;
-  font-size: 0.88rem;
+  border-radius: 10px;
+  padding: 9px 12px;
+  font-size: 0.82rem;
   font-family: inherit;
   color: var(--ed-text);
   background: rgba(255, 255, 255, 0.9);
@@ -6439,19 +6392,19 @@ dialog#project-modal::backdrop {
 .ar-form-textarea:focus {
   outline: none;
   border-color: var(--ed-red);
-  box-shadow: 0 0 0 4px rgba(217, 37, 37, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.01);
+  box-shadow: 0 0 0 3px rgba(217, 37, 37, 0.12), inset 0 1px 2px rgba(0, 0, 0, 0.01);
   background: #FFFFFF;
 }
 
 .ar-form-textarea {
   resize: vertical;
-  min-height: 72px;
+  min-height: 60px;
 }
 
 .ar-field-error {
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   color: var(--ed-red);
-  margin-top: 4px;
+  margin-top: 3px;
   display: none;
 }
 
@@ -6462,8 +6415,8 @@ dialog#project-modal::backdrop {
 /* Botón de Enviar Pedido Líquido */
 .btn-ar-submit-order {
   width: 100%;
-  min-height: 50px;
-  padding: 14px 22px;
+  min-height: 44px;
+  padding: 12px 20px;
   background: var(--ed-red-gradient);
   color: #FFFFFF;
   border: 1px solid rgba(255, 255, 255, 0.3);
@@ -6471,7 +6424,7 @@ dialog#project-modal::backdrop {
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45), var(--ed-red-glow);
   font-size: 0.82rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;
   display: flex;
@@ -6480,7 +6433,7 @@ dialog#project-modal::backdrop {
   gap: 8px;
   transition: transform 0.25s var(--spring-ease), box-shadow 0.25s var(--spring-ease), background 0.25s ease;
   font-family: inherit;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .btn-ar-submit-order:hover:not(:disabled) {
