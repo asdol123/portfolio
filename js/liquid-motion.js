@@ -292,13 +292,54 @@
   }
 
   /* ==========================================================================
-     5. INICIALIZACIÓN GLOBAL
+     5. MICRO-INTERACCIONES TÁCTILES Y PULSO ELÁSTICO (EMIL KOWALSKI CRAFT)
+     ========================================================================== */
+  function initTactileInteractions() {
+    if (prefersReducedMotion) return;
+
+    const interactiveSelectors = [
+      '.bionova-cta-pill-btn',
+      '.bionova-round-arrow-btn',
+      '.btn-ed-primary',
+      '.btn-ed-secondary',
+      '.bionova-inline-btn',
+      '.bionova-nav-pill-btn',
+      '.ecom-btn-buy',
+      '.ecom-btn-wsp',
+      '.ed-logo-link'
+    ].join(', ');
+
+    const buttons = document.querySelectorAll(interactiveSelectors);
+
+    buttons.forEach(btn => {
+      if (btn.__hasTactile) return;
+      btn.__hasTactile = true;
+
+      btn.addEventListener('pointerdown', () => {
+        btn.style.transform = 'scale(0.96)';
+        btn.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+      }, { passive: true });
+
+      const releaseBtn = () => {
+        btn.style.transform = '';
+        btn.style.transition = '';
+      };
+
+      btn.addEventListener('pointerup', releaseBtn, { passive: true });
+      btn.addEventListener('pointercancel', releaseBtn, { passive: true });
+      btn.addEventListener('mouseleave', releaseBtn, { passive: true });
+    });
+  }
+
+  /* ==========================================================================
+     6. INICIALIZACIÓN GLOBAL
      ========================================================================== */
   function init() {
     initAmbientHalo();
     initLiquidTilt();
     initScrollReveals();
     initFloatingHeader();
+    initTactileInteractions();
   }
 
   if (document.readyState === 'loading') {
@@ -310,6 +351,7 @@
   // Exponer a window para reactivación tras cambios dinámicos
   window.AlzadoLiquidMotion = {
     reinitTilt: initLiquidTilt,
-    reinitReveals: initScrollReveals
+    reinitReveals: initScrollReveals,
+    reinitTactile: initTactileInteractions
   };
 })();
