@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/editorial.css?v=1">
+    <link rel="stylesheet" href="css/editorial.css?v=4">
 </head>
 <body>
 
@@ -130,10 +130,17 @@
                     <div class="calc-total-amount" id="calc-total-val">$12.500 CLP</div>
                 </div>
 
-                <a id="btn-calc-wsp" href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="btn-ed-primary">
-                    <span>COTIZAR POR WHATSAPP</span>
-                    <span aria-hidden="true">➔</span>
-                </a>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button type="button" id="btn-calc-checkout" class="btn-ed-primary" style="background: var(--ed-red); border-color: var(--ed-red);" aria-label="Comprar o solicitar orden formal de impresión 3D">
+                        <span>COMPRAR / SOLICITAR ORDEN FORMAL</span>
+                        <span aria-hidden="true">➔</span>
+                    </button>
+
+                    <a id="btn-calc-wsp" href="https://wa.me/56975412203" target="_blank" rel="noopener noreferrer" class="btn-ed-secondary" aria-label="Consultar por cotización 3D en WhatsApp">
+                        <span>CONSULTAR EN WHATSAPP</span>
+                        <span aria-hidden="true">➔</span>
+                    </a>
+                </div>
             </div>
 
             <div style="font-size: 0.76rem; color: var(--ed-text-muted); border-top: 1px solid var(--ed-border); padding-top: 14px;">
@@ -313,8 +320,315 @@
             }
 
             updateCalculator();
+
+            // Conexión del botón COMPRAR / SOLICITAR ORDEN FORMAL
+            const calcCheckoutBtn = document.getElementById('btn-calc-checkout');
+            if (calcCheckoutBtn) {
+                calcCheckoutBtn.addEventListener('click', () => {
+                    if (window.AR_CHECKOUT) {
+                        const grams = Math.max(1, parseFloat(gramsInput ? gramsInput.value : 100) || 100);
+                        const hoursRaw = hoursInput ? hoursInput.value.trim() : '';
+                        const hours = (hoursRaw !== '' && !isNaN(parseFloat(hoursRaw)))
+                            ? parseFloat(hoursRaw)
+                            : Math.max(1, Math.ceil(grams / 30));
+                        const total = (grams * 85) + (hours * 1000);
+
+                        window.AR_CHECKOUT.openCheckout({
+                            sku: 'SKU-3D-09',
+                            productName: 'Servicio de Impresión 3D y Prototipado Arquitectónico',
+                            size: `${grams}g PLA · ${hours}h máquina`,
+                            finish: 'PLA Mate Arquitectónico (±0.1 mm)',
+                            unitPrice: total,
+                            thumbImg: 'catalog/topografia-valle-detalle.jpg',
+                            quantity: 1,
+                            notes: `Cotización Calculadora 3D: ${grams} gramos de material PLA, ${hours} horas de tiempo de máquina estimadas.`
+                        });
+                    }
+                });
+            }
         });
     </script>
+
+    <!-- MODAL / DRAWER DE CHECKOUT FORMAL E-COMMERCE Y PASARELA DE PAGO -->
+    <div id="ar-checkout-modal" class="ar-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ar-checkout-modal-title">
+        <div class="ar-modal-dialog">
+            <!-- Cabecera del Checkout -->
+            <header class="ar-modal-header">
+                <div class="ar-modal-header-meta">
+                    <span class="ar-modal-eyebrow">// CHECKOUT OFICIAL · AR ARQ SpA</span>
+                    <h2 id="ar-checkout-modal-title" class="ar-modal-title">FINALIZAR PEDIDO O COTIZACIÓN</h2>
+                    <div class="ar-modal-folio-pill" id="ar-checkout-folio-display">FOLIO #AR-2026-XXXX</div>
+                </div>
+                <button type="button" class="ar-modal-close-btn" id="ar-checkout-close-btn" aria-label="Cerrar ventana de checkout">✕</button>
+            </header>
+
+            <!-- Área de contenido con scroll -->
+            <div class="ar-modal-scroll">
+                <!-- VISTA 1: RESUMEN TÉCNICO Y FORMULARIO -->
+                <div id="ar-checkout-view-main" class="ar-checkout-grid">
+                    
+                    <!-- COLUMNA 1: RESUMEN TÉCNICO DEL PRODUCTO -->
+                    <div class="ar-checkout-summary-col">
+                        <div class="ar-checkout-product-box">
+                            <span class="ar-checkout-section-title">// ESPECIFICACIÓN DEL SERVICIO</span>
+                            <div class="ar-checkout-product-row">
+                                <img id="ar-summary-img" src="catalog/topografia-valle-detalle.jpg" alt="Servicio 3D seleccionado" class="ar-checkout-thumb">
+                                <div class="ar-checkout-product-info">
+                                    <span id="ar-summary-sku" class="ar-checkout-prod-sku">SKU-3D-09</span>
+                                    <h3 id="ar-summary-name" class="ar-checkout-prod-name">Servicio de Impresión 3D y Prototipado Arquitectónico</h3>
+                                    <div id="ar-summary-size" class="ar-checkout-prod-spec">Formato: 100g PLA · 4h máquina</div>
+                                    <div id="ar-summary-finish" class="ar-checkout-prod-spec">Acabado: PLA Mate Arquitectónico (±0.1 mm)</div>
+                                </div>
+                            </div>
+
+                            <!-- Selector de Cantidad -->
+                            <div class="ar-checkout-qty-row">
+                                <span class="ar-checkout-qty-label">CANTIDAD DE PIEZAS:</span>
+                                <div class="ar-checkout-qty-group">
+                                    <button type="button" class="ar-checkout-qty-btn" id="ar-qty-minus" aria-label="Disminuir cantidad">−</button>
+                                    <span class="ar-checkout-qty-val" id="ar-qty-val">1</span>
+                                    <button type="button" class="ar-checkout-qty-btn" id="ar-qty-plus" aria-label="Aumentar cantidad">+</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selector de Modalidad de Entrega -->
+                        <div>
+                            <span class="ar-checkout-section-title">// MODALIDAD DE ENTREGA</span>
+                            <div class="ar-shipping-list" role="radiogroup" aria-label="Modalidad de Entrega">
+                                <label class="ar-shipping-option is-selected" id="shipping-opt-pickup">
+                                    <input type="radio" name="ar_shipping" value="pickup" checked>
+                                    <div class="ar-shipping-option-body">
+                                        <div class="ar-shipping-title-row">
+                                            <span class="ar-shipping-name">Retiro en Taller (Santiago)</span>
+                                            <span class="ar-shipping-cost">Sin Costo ($0 CLP)</span>
+                                        </div>
+                                        <span class="ar-shipping-eta">Coordinación directa al finalizar manufactura</span>
+                                    </div>
+                                </label>
+                                <label class="ar-shipping-option" id="shipping-opt-santiago">
+                                    <input type="radio" name="ar_shipping" value="santiago">
+                                    <div class="ar-shipping-option-body">
+                                        <div class="ar-shipping-title-row">
+                                            <span class="ar-shipping-name">Despacho Urbano Región Metropolitana</span>
+                                            <span class="ar-shipping-cost">$4.990 CLP</span>
+                                        </div>
+                                        <span class="ar-shipping-eta">24 a 48 hrs hábiles post-manufactura</span>
+                                    </div>
+                                </label>
+                                <label class="ar-shipping-option" id="shipping-opt-regiones">
+                                    <input type="radio" name="ar_shipping" value="regiones">
+                                    <div class="ar-shipping-option-body">
+                                        <div class="ar-shipping-title-row">
+                                            <span class="ar-shipping-name">Envío Protegido a Regiones (Starken / Chilexpress)</span>
+                                            <span class="ar-shipping-cost">$7.990 CLP</span>
+                                        </div>
+                                        <span class="ar-shipping-eta">2 a 4 días hábiles post-manufactura</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Tabla de Desglose Financiero -->
+                        <div class="ar-financial-breakdown">
+                            <span class="ar-checkout-section-title">// DESGLOSE FINANCIERO</span>
+                            <table class="ar-breakdown-table">
+                                <tbody>
+                                    <tr>
+                                        <td>Valor Unitario:</td>
+                                        <td class="val" id="ar-breakdown-unit">$12.500 CLP</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Subtotal (<span id="ar-breakdown-qty-label">1</span> unid.):</td>
+                                        <td class="val" id="ar-breakdown-subtotal">$12.500 CLP</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Logística / Despacho:</td>
+                                        <td class="val" id="ar-breakdown-shipping">Sin Costo ($0 CLP)</td>
+                                    </tr>
+                                    <tr class="total-row">
+                                        <td>TOTAL A PAGAR:</td>
+                                        <td class="val" id="ar-breakdown-total">$12.500 CLP</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- COLUMNA 2: PASARELA Y DATOS DEL CLIENTE -->
+                    <div class="ar-checkout-form-col">
+                        
+                        <!-- Selector de Pasarela de Pago -->
+                        <div>
+                            <span class="ar-checkout-section-title">// MODALIDAD DE PAGO O COTIZACIÓN</span>
+                            <div class="ar-payment-list" role="radiogroup" aria-label="Métodos de Pago">
+                                
+                                <!-- Opción 1: Khipu -->
+                                <label class="ar-payment-option is-selected" id="payment-opt-khipu">
+                                    <input type="radio" name="ar_payment" value="khipu" checked>
+                                    <div class="ar-payment-body">
+                                        <div class="ar-payment-header">
+                                            <span class="ar-payment-name">Khipu · Pago Bancario Simplificado</span>
+                                            <span class="ar-payment-badge">RECOMENDADO · BANCOS CHILE</span>
+                                        </div>
+                                        <p class="ar-payment-desc">Paga desde cualquier banco chileno con validación inmediata y comprobante oficial emitido a tu correo.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Opción 2: Transferencia -->
+                                <label class="ar-payment-option" id="payment-opt-transferencia">
+                                    <input type="radio" name="ar_payment" value="transferencia">
+                                    <div class="ar-payment-body">
+                                        <div class="ar-payment-header">
+                                            <span class="ar-payment-name">Transferencia Bancaria Directa</span>
+                                            <span class="ar-payment-badge">0% COMISIÓN · APROBACIÓN INMEDIATA</span>
+                                        </div>
+                                        <p class="ar-payment-desc">Transfiere directamente a nuestra Cuenta Corriente Santander y confirma tu orden con el Folio asignado.</p>
+                                    </div>
+                                </label>
+
+                                <!-- Opción 3: Cotización Formal -->
+                                <label class="ar-payment-option" id="payment-opt-cotizacion">
+                                    <input type="radio" name="ar_payment" value="cotizacion">
+                                    <div class="ar-payment-body">
+                                        <div class="ar-payment-header">
+                                            <span class="ar-payment-name">Solo Cotización Formal por Correo + PDF</span>
+                                            <span class="ar-payment-badge">EMPRESAS / OFICINAS</span>
+                                        </div>
+                                        <p class="ar-payment-desc">Emite el presupuesto formal respaldado por 15 días con validez para facturación u Orden de Compra sin pago inmediato.</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Recuadro de Transferencia Directa -->
+                        <div class="ar-bank-box" id="ar-bank-box-details">
+                            <div class="ar-bank-title">// DATOS BANCARIOS OFICIALES · CUENTA CORRIENTE</div>
+                            <div class="ar-bank-grid">
+                                <div><strong>Razón Social:</strong> AR ARQ SpA</div>
+                                <div><strong>RUT:</strong> 77.892.341-K</div>
+                                <div><strong>Banco:</strong> Banco Santander Chile</div>
+                                <div><strong>Tipo de Cuenta:</strong> Cuenta Corriente</div>
+                                <div><strong>Número de Cuenta:</strong> 89-23410-0</div>
+                                <div><strong>Correo:</strong> adolchilemods@gmail.com</div>
+                            </div>
+                            <button type="button" class="btn-ar-copy-bank" id="btn-copy-bank-data">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                <span id="btn-copy-bank-label">COPIAR DATOS BANCARIOS</span>
+                            </button>
+                        </div>
+
+                        <!-- Formulario del Cliente -->
+                        <form id="ar-customer-form" novalidate>
+                            <span class="ar-checkout-section-title">// DATOS DEL COMPRADOR O SOLICITANTE</span>
+                            <div class="ar-form-fields-grid">
+                                
+                                <div class="ar-field-group ar-form-col-full">
+                                    <label for="ar-input-name" class="ar-field-label">Nombre Completo o Razón Social <span class="req">*</span></label>
+                                    <input type="text" id="ar-input-name" name="name" class="ar-form-input" placeholder="Ej: Adolfo Risopatrón / Oficina de Arquitectura" autocomplete="name" required>
+                                    <span class="ar-field-error" id="err-name">Ingrese un nombre o razón social válido (mínimo 3 caracteres).</span>
+                                </div>
+
+                                <div class="ar-field-group">
+                                    <label for="ar-input-email" class="ar-field-label">Correo Electrónico <span class="req">*</span></label>
+                                    <input type="email" id="ar-input-email" name="email" class="ar-form-input" placeholder="correo@ejemplo.cl" autocomplete="email" required>
+                                    <span class="ar-field-error" id="err-email">Ingrese un correo electrónico válido para recibir su orden.</span>
+                                </div>
+
+                                <div class="ar-field-group">
+                                    <label for="ar-input-phone" class="ar-field-label">Teléfono / WhatsApp <span class="req">*</span></label>
+                                    <input type="tel" id="ar-input-phone" name="phone" class="ar-form-input" placeholder="+56 9 1234 5678" autocomplete="tel" required>
+                                    <span class="ar-field-error" id="err-phone">Ingrese un número telefónico de contacto válido.</span>
+                                </div>
+
+                                <div class="ar-field-group ar-form-col-full">
+                                    <label for="ar-input-rut" class="ar-field-label">RUT Cliente o Empresa (Opcional - Boleta / Factura)</label>
+                                    <input type="text" id="ar-input-rut" name="rut" class="ar-form-input" placeholder="Ej: 12.345.678-9 o 77.892.341-K">
+                                </div>
+
+                                <div class="ar-field-group ar-form-col-full" id="ar-shipping-address-wrap">
+                                    <label for="ar-input-address" class="ar-field-label">Dirección y Comuna de Entrega <span class="req">*</span></label>
+                                    <input type="text" id="ar-input-address" name="address" class="ar-form-input" placeholder="Calle, Número, Depto/Oficina, Comuna y Ciudad" autocomplete="street-address">
+                                    <span class="ar-field-error" id="err-address">Indique la dirección y comuna de destino para el despacho.</span>
+                                </div>
+
+                                <div class="ar-field-group ar-form-col-full">
+                                    <label for="ar-input-notes" class="ar-field-label">Notas o Especificaciones Técnicas (Opcional)</label>
+                                    <textarea id="ar-input-notes" name="notes" class="ar-form-textarea" placeholder="Indicaciones sobre archivos STL/OBJ, boquilla preferida o detalles de entrega..."></textarea>
+                                </div>
+                            </div>
+
+                            <!-- Botón Principal Dinámico -->
+                            <button type="submit" class="btn-ar-submit-order" id="btn-ar-submit-order">
+                                <span id="btn-ar-submit-label">PAGAR CON KHIPU Y RECIBIR COMPROBANTE</span>
+                                <span aria-hidden="true">➔</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- VISTA 2: ORDEN CONFIRMADA / ÉXITO -->
+                <div id="ar-checkout-view-success" class="ar-checkout-success-view">
+                    <div class="ar-success-hero">
+                        <div class="ar-success-folio-badge" id="ar-success-folio">FOLIO #AR-2026-XXXX</div>
+                        <h3 class="ar-success-title" id="ar-success-title">¡ORDEN REGISTRADA CON ÉXITO!</h3>
+                        <p class="ar-success-lead" id="ar-success-lead">
+                            Hemos emitido la cotización u orden formal con desglose completo a tu correo electrónico y a nuestro taller corporativo (<span style="color: var(--ed-red); font-weight: 600;">adolchilemods@gmail.com</span>).
+                        </p>
+                    </div>
+
+                    <!-- Bloque Khipu Dinámico -->
+                    <div id="ar-success-khipu-box" class="ar-khipu-action-box" style="display: none;">
+                        <div class="ar-khipu-action-title">KHIPU · PASARELA DE PAGO PREPARADA</div>
+                        <p class="ar-khipu-action-text" id="ar-khipu-action-desc">
+                            Tu folio ha sido registrado en el sistema. Puedes proceder al pago seguro simplificado en Khipu desde cualquier banco chileno.
+                        </p>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ar-khipu-pay" id="btn-ar-khipu-link">
+                            <span>CONTINUAR AL PAGO EN KHIPU ➔</span>
+                        </a>
+                    </div>
+
+                    <!-- 3 Botones de Acción Post-Orden -->
+                    <div class="ar-success-actions-stack">
+                        <button type="button" class="btn-ar-action-pdf" id="btn-ar-download-pdf">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V2h12v7"></path><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                            <span>DESCARGAR / IMPRIMIR COTIZACIÓN PDF OFICIAL ➔</span>
+                        </button>
+
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ar-action-wsp" id="btn-ar-coord-wsp">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            <span>ENVIAR ORDEN Y COORDINAR EN WHATSAPP ➔</span>
+                        </a>
+
+                        <button type="button" class="btn-ar-action-preview" id="btn-ar-toggle-preview">
+                            <span>VISTA PREVIA DEL CORREO FORMAL</span>
+                            <span aria-hidden="true">↓</span>
+                        </button>
+                    </div>
+
+                    <!-- Vista Previa Plegable del Correo Formal -->
+                    <div class="ar-email-preview-wrap" id="ar-email-preview-wrap">
+                        <div style="font-weight: 700; color: var(--ed-red); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;">// DETALLE DE LA PLANTILLA OFICIAL ENVIADA AL CORREO</div>
+                        <table class="ar-email-preview-table" id="ar-email-preview-table">
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 24px;">
+                        <button type="button" class="btn-ed-secondary" id="btn-ar-close-success" style="padding: 10px 20px; font-size: 0.74rem;">
+                            <span>CERRAR Y SEGUIR EXPLORANDO</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MOTOR E-COMMERCE Y GESTIÓN DE CHECKOUT FORMAL -->
+    <script src="js/ecommerce.js"></script>
+    <script src="js/checkout.js"></script>
+
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
     <script src="js/cookies.js" defer></script>
 

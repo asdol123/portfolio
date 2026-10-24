@@ -556,6 +556,7 @@ button, input, textarea, select {
   color: var(--ed-text);
   border-top: 1px solid var(--ed-border);
   padding-top: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 /* Formulario ultra-simplificado de cotización */
@@ -1000,6 +1001,11 @@ button, input, textarea, select {
 .calc-breakdown-row strong {
   color: var(--ed-text);
   font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.metric-val {
+  font-variant-numeric: tabular-nums;
 }
 
 .calc-total-box {
@@ -1024,6 +1030,7 @@ button, input, textarea, select {
   font-weight: 300;
   letter-spacing: -0.01em;
   color: var(--ed-text);
+  font-variant-numeric: tabular-nums;
 }
 
 /* Micro especificaciones 3D */
@@ -3431,16 +3438,26 @@ dialog#project-modal::backdrop {
   font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  padding: 4px 10px;
+  padding: 6px 12px;
+  min-height: 38px;
   cursor: pointer;
   transition: all 0.18s ease;
   text-transform: uppercase;
   color: var(--ed-text-secondary);
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ecom-view-btn:hover {
   border-color: #111111;
   color: #111111;
+}
+
+.ecom-view-btn:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
 }
 
 .ecom-view-btn.active {
@@ -3514,15 +3531,26 @@ dialog#project-modal::backdrop {
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 6px 10px;
+  padding: 8px 12px;
+  min-height: 38px;
   cursor: pointer;
   transition: all 0.18s ease;
   color: var(--ed-text);
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ecom-size-btn:hover {
   border-color: #111111;
   background: #FAFAFA;
+}
+
+.ecom-size-btn:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
 }
 
 .ecom-size-btn.active {
@@ -3556,15 +3584,108 @@ dialog#project-modal::backdrop {
   font-weight: 700;
   color: var(--ed-text);
   letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Botón de Compra Directa vía WhatsApp */
+/* Acciones de Tarjeta E-Commerce: Compra Directa + WhatsApp */
+.ecom-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-ecom-checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 16px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--ed-red);
+  cursor: pointer;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  font-family: inherit;
+}
+
+.btn-ecom-checkout:hover {
+  background: var(--ed-red-hover);
+  border-color: var(--ed-red-hover);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(217, 37, 37, 0.28);
+}
+
+.btn-ecom-checkout:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.btn-ecom-checkout .btn-arrow {
+  transition: transform 0.18s ease;
+  font-weight: 700;
+}
+
+.btn-ecom-checkout:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+.btn-ecom-wsp-alt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  background: transparent;
+  color: var(--ed-text);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border: 1px solid var(--ed-border-dark);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+  font-family: inherit;
+}
+
+.btn-ecom-wsp-alt:hover {
+  background: var(--ed-text);
+  color: #FFFFFF;
+}
+
+.btn-ecom-wsp-alt:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.ecom-trust-micro {
+  text-align: center;
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--ed-text-muted);
+  padding-top: 6px;
+  line-height: 1.4;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  margin-top: 2px;
+}
+
+/* Compatibilidad heredada para btn-ecom-buy */
 .btn-ecom-buy {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
+  min-height: 44px;
   padding: 13px 16px;
   background: #111111;
   color: #FFFFFF;
@@ -3664,6 +3785,11 @@ dialog#project-modal::backdrop {
     width: 100%;
     text-align: center;
     justify-content: center;
+  }
+  .ecom-size-btn,
+  .ecom-view-btn {
+    min-height: 44px;
+    padding: 10px 14px;
   }
 }
 
@@ -4039,6 +4165,919 @@ dialog#project-modal::backdrop {
     font-size: 0.67rem;
   }
 }
+
+/* ==========================================================================
+   SISTEMA DE CHECKOUT FORMAL E-COMMERCE · AR ARQ SpA (#ar-checkout-modal)
+   Estética Editorial Suiza / Brutalismo Minimalista / Tabular Nums
+   ========================================================================== */
+
+.ar-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.72);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.22s;
+}
+
+.ar-modal-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.ar-modal-dialog {
+  background: #FFFFFF;
+  border: 1px solid var(--ed-border-dark);
+  width: 100%;
+  max-width: 980px;
+  max-height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  transform: translateY(18px);
+  transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.ar-modal-backdrop.is-open .ar-modal-dialog {
+  transform: translateY(0);
+}
+
+/* Cabecera del Modal */
+.ar-modal-header {
+  padding: 20px 28px;
+  border-bottom: 1px solid var(--ed-border);
+  background: #FAFAFA;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.ar-modal-header-meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.ar-modal-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--ed-red);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.ar-modal-title {
+  font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ed-text);
+  margin-bottom: 6px;
+  line-height: 1.25;
+}
+
+.ar-modal-folio-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ed-red);
+  background: #FFFFFF;
+  border: 1px solid var(--ed-red);
+  padding: 3px 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ar-modal-close-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  background: transparent;
+  border: 1px solid var(--ed-border);
+  color: var(--ed-text);
+  font-size: 1.25rem;
+  font-weight: 400;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.16s ease;
+  line-height: 1;
+}
+
+.ar-modal-close-btn:hover {
+  background: #111111;
+  color: #FFFFFF;
+  border-color: #111111;
+}
+
+.ar-modal-close-btn:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+/* Área con scroll del modal */
+.ar-modal-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px;
+  overscroll-behavior: contain;
+}
+
+/* Grilla de 2 columnas para el checkout */
+.ar-checkout-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.25fr;
+  gap: 32px;
+}
+
+/* Columna 1: Resumen del Producto */
+.ar-checkout-summary-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ar-checkout-product-box {
+  border: 1px solid var(--ed-border);
+  padding: 18px;
+  background: #FFFFFF;
+}
+
+.ar-checkout-product-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.ar-checkout-thumb {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border: 1px solid var(--ed-border);
+  flex-shrink: 0;
+  background: #F4F4F4;
+}
+
+.ar-checkout-product-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ar-checkout-prod-tag {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--ed-red);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.ar-checkout-prod-name {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--ed-text);
+  line-height: 1.3;
+  margin-bottom: 6px;
+}
+
+.ar-checkout-prod-sku {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ed-text-muted);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 4px;
+}
+
+.ar-checkout-prod-spec {
+  font-size: 0.78rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.4;
+}
+
+/* Selector de Cantidad */
+.ar-checkout-qty-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--ed-border);
+  padding-top: 14px;
+}
+
+.ar-checkout-qty-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-text-muted);
+}
+
+.ar-checkout-qty-group {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ed-border-dark);
+}
+
+.ar-checkout-qty-btn {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
+  background: transparent;
+  border: none;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ed-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+  font-family: inherit;
+}
+
+.ar-checkout-qty-btn:hover {
+  background: #EEEEEE;
+}
+
+.ar-checkout-qty-btn:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: -2px;
+}
+
+.ar-checkout-qty-val {
+  width: 44px;
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ed-text);
+}
+
+/* Selector de Modalidad de Entrega */
+.ar-checkout-section-title {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ed-text-muted);
+  margin-bottom: 10px;
+}
+
+.ar-shipping-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ar-shipping-option {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 14px;
+  border: 1px solid var(--ed-border);
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+  position: relative;
+}
+
+.ar-shipping-option:hover {
+  border-color: #111111;
+}
+
+.ar-shipping-option.is-selected {
+  border: 2px solid var(--ed-red);
+  background: #FFF9F9;
+  padding: 11px 13px;
+}
+
+.ar-shipping-option input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--ed-red);
+  cursor: pointer;
+}
+
+.ar-shipping-option-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ar-shipping-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.ar-shipping-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ed-text);
+}
+
+.ar-shipping-cost {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ed-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.ar-shipping-eta {
+  font-size: 0.72rem;
+  color: var(--ed-text-muted);
+  line-height: 1.35;
+}
+
+/* Tabla de Desglose Financiero */
+.ar-financial-breakdown {
+  border: 1px solid var(--ed-border);
+  padding: 16px;
+  background: #FAFAFA;
+}
+
+.ar-breakdown-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ar-breakdown-table td {
+  padding: 7px 0;
+  border-bottom: 1px solid var(--ed-border);
+  color: var(--ed-text-secondary);
+}
+
+.ar-breakdown-table td.val {
+  text-align: right;
+  font-weight: 600;
+  color: var(--ed-text);
+}
+
+.ar-breakdown-table tr.total-row td {
+  border-bottom: none;
+  border-top: 2px solid var(--ed-text);
+  padding-top: 12px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ed-red);
+}
+
+.ar-breakdown-table tr.total-row td.val {
+  color: var(--ed-red);
+  font-size: 1.25rem;
+}
+
+/* Columna 2: Pasarela y Formulario */
+.ar-checkout-form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Métodos de Pago (Khipu, Transferencia, Cotización) */
+.ar-payment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ar-payment-option {
+  border: 1px solid var(--ed-border);
+  background: #FFFFFF;
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.ar-payment-option:hover {
+  border-color: #111111;
+}
+
+.ar-payment-option.is-selected {
+  border: 2px solid var(--ed-red);
+  background: #FFF9F9;
+  padding: 13px 15px;
+}
+
+.ar-payment-option input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--ed-red);
+  cursor: pointer;
+}
+
+.ar-payment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.ar-payment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.ar-payment-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ed-text);
+}
+
+.ar-payment-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 2px 7px;
+  background: #EEEEEE;
+  color: var(--ed-text);
+  text-transform: uppercase;
+}
+
+.ar-payment-option.is-selected .ar-payment-badge {
+  background: var(--ed-red);
+  color: #FFFFFF;
+}
+
+.ar-payment-desc {
+  font-size: 0.75rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.45;
+}
+
+/* Recuadro de Transferencia Directa */
+.ar-bank-box {
+  display: none;
+  background: #F8F8F8;
+  border: 1px solid var(--ed-border);
+  border-left: 3px solid #111111;
+  padding: 14px 16px;
+}
+
+.ar-bank-box.is-visible {
+  display: block;
+}
+
+.ar-bank-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-text);
+  margin-bottom: 10px;
+}
+
+.ar-bank-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 14px;
+  font-size: 0.78rem;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.ar-bank-grid strong {
+  color: var(--ed-text);
+  font-weight: 600;
+}
+
+.btn-ar-copy-bank {
+  padding: 8px 14px;
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid #111111;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-ar-copy-bank:hover {
+  background: var(--ed-red);
+  border-color: var(--ed-red);
+}
+
+.btn-ar-copy-bank:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.btn-ar-copy-bank.is-copied {
+  background: #2E7D32;
+  border-color: #2E7D32;
+}
+
+/* Formulario del Cliente */
+.ar-form-fields-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.ar-form-col-full {
+  grid-column: 1 / -1;
+}
+
+.ar-field-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.ar-field-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ed-text);
+  margin-bottom: 5px;
+}
+
+.ar-field-label span.req {
+  color: var(--ed-red);
+}
+
+.ar-form-input,
+.ar-form-textarea {
+  width: 100%;
+  border: 1px solid var(--ed-border);
+  padding: 10px 12px;
+  font-size: 0.84rem;
+  font-family: inherit;
+  color: var(--ed-text);
+  background: #FFFFFF;
+  border-radius: 0px;
+  transition: border-color 0.18s ease;
+}
+
+.ar-form-input:focus,
+.ar-form-textarea:focus {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 1px;
+  border-color: var(--ed-red);
+}
+
+.ar-form-textarea {
+  resize: vertical;
+  min-height: 64px;
+}
+
+.ar-field-error {
+  font-size: 0.7rem;
+  color: var(--ed-red);
+  margin-top: 4px;
+  display: none;
+}
+
+.ar-field-error.is-active {
+  display: block;
+}
+
+/* Botón de Enviar Pedido */
+.btn-ar-submit-order {
+  width: 100%;
+  min-height: 48px;
+  padding: 14px 20px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  border: 1px solid var(--ed-red);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  font-family: inherit;
+  margin-top: 6px;
+}
+
+.btn-ar-submit-order:hover:not(:disabled) {
+  background: var(--ed-red-hover);
+  border-color: var(--ed-red-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(217, 37, 37, 0.3);
+}
+
+.btn-ar-submit-order:focus-visible {
+  outline: 2px solid #111111;
+  outline-offset: 2px;
+}
+
+.btn-ar-submit-order:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Vista de Éxito / Orden Confirmada */
+.ar-checkout-success-view {
+  display: none;
+  padding: 24px 16px;
+  animation: arFadeIn 0.25s ease;
+}
+
+.ar-checkout-success-view.is-visible {
+  display: block;
+}
+
+@keyframes arFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ar-success-hero {
+  text-align: center;
+  border-bottom: 1px solid var(--ed-border);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.ar-success-folio-badge {
+  display: inline-block;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ed-red);
+  border: 2px solid var(--ed-red);
+  padding: 6px 18px;
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+  background: #FFFFFF;
+}
+
+.ar-success-title {
+  font-size: clamp(1.3rem, 2.5vw, 1.65rem);
+  font-weight: 700;
+  color: var(--ed-text);
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+
+.ar-success-lead {
+  font-size: 0.9rem;
+  color: var(--ed-text-secondary);
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+
+/* Bloque Khipu Dinámico */
+.ar-khipu-action-box {
+  background: #FFF9F9;
+  border: 1px solid var(--ed-red);
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: center;
+}
+
+.ar-khipu-action-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ed-red);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ar-khipu-action-text {
+  font-size: 0.82rem;
+  color: var(--ed-text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.btn-ar-khipu-pay {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--ed-red);
+  transition: background 0.15s ease;
+  min-height: 44px;
+}
+
+.btn-ar-khipu-pay:hover {
+  background: var(--ed-red-hover);
+}
+
+/* 3 Botones de Acción Post-Orden */
+.ar-success-actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 600px;
+  margin: 24px auto;
+}
+
+.btn-ar-action-pdf {
+  min-height: 46px;
+  padding: 12px 20px;
+  background: #111111;
+  color: #FFFFFF;
+  border: 1px solid #111111;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-ar-action-pdf:hover {
+  background: var(--ed-red);
+  border-color: var(--ed-red);
+  transform: translateY(-1px);
+}
+
+.btn-ar-action-pdf:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.btn-ar-action-wsp {
+  min-height: 46px;
+  padding: 12px 20px;
+  background: transparent;
+  color: var(--ed-text);
+  border: 1px solid var(--ed-border-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-ar-action-wsp:hover {
+  background: var(--ed-text);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+}
+
+.btn-ar-action-wsp:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.btn-ar-action-preview {
+  min-height: 42px;
+  padding: 10px 18px;
+  background: #FAFAFA;
+  color: var(--ed-text-secondary);
+  border: 1px solid var(--ed-border);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.btn-ar-action-preview:hover {
+  border-color: #111111;
+  color: #111111;
+}
+
+/* Vista previa del correo formal */
+.ar-email-preview-wrap {
+  display: none;
+  margin-top: 18px;
+  border: 1px solid var(--ed-border);
+  background: #FFFFFF;
+  padding: 18px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.ar-email-preview-wrap.is-visible {
+  display: block;
+}
+
+.ar-email-preview-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ar-email-preview-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--ed-border);
+  font-size: 0.78rem;
+}
+
+.ar-email-preview-table td.prop {
+  font-weight: 600;
+  color: var(--ed-text-secondary);
+  width: 38%;
+}
+
+.ar-email-preview-table td.val {
+  color: var(--ed-text);
+  font-weight: 500;
+}
+
+/* Adaptación responsive para Checkout Modal */
+@media (max-width: 860px) {
+  .ar-modal-backdrop {
+    padding: 8px;
+    align-items: flex-end;
+  }
+
+  .ar-modal-dialog {
+    max-height: 94vh;
+  }
+
+  .ar-modal-header {
+    padding: 16px 20px;
+  }
+
+  .ar-modal-scroll {
+    padding: 20px 16px;
+  }
+
+  .ar-checkout-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .ar-form-fields-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ar-bank-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 

@@ -403,14 +403,14 @@
   <!-- PORTADA EDITORIAL -->
   <div class="cover-page">
     <div class="cover-header">
-      <div class="cover-badge">ALZADO ROJO &bull; FABRICACIÓN DIGITAL &amp; GIS APLICADO</div>
+      <div class="cover-badge">ALZADO ROJO &bull; FABRICACIÓN DIGITAL Y GIS APLICADO</div>
       <div class="cover-title">Manual de Fabricación de <span>Maquetas 3D</span> y Topografía GIS</div>
       <div class="cover-subtitle">De datos satelitales a la impresión física: modelado territorial, solidificación estanca, rebanado de alta fidelidad y post-procesado editorial.</div>
       
       <div class="cover-software-grid">
         <div class="software-pill">
           <span class="name">QGIS</span>
-          <span class="role">Ingesta GIS &amp; DEM</span>
+          <span class="role">Ingesta GIS y DEM</span>
         </div>
         <div class="software-pill">
           <span class="name">Rhinoceros 3D</span>
@@ -433,7 +433,7 @@
 
     <div class="cover-footer">
       <div>
-        <strong>Autor:</strong> Adolfo Risopatrón &bull; Arquitectura &amp; Fabricación Digital<br>
+        <strong>Autor:</strong> Adolfo Risopatrón &bull; Arquitectura y Fabricación Digital<br>
         <strong>Estándar:</strong> Alzado Rojo FabLab v2.4 &bull; A4 Vectorial<br>
         <strong>Equipamiento:</strong> Impresoras FDM Prusa MK4 / Bambu Lab X1-Carbon &bull; Boquilla 0.4 mm
       </div>
@@ -445,7 +445,7 @@
   </div>
 
   <!-- SECCIÓN 1: CHEATSHEET Y ATAJOS -->
-  <h1>1. Cheatsheet de Atajos &amp; Comandos Técnicos</h1>
+  <h1>1. Cheatsheet de Atajos y Comandos Técnicos</h1>
   <p class="section-desc">Comandos de consola y funciones críticas en software GIS, CAD y Slicers.</p>
 
   <table>
@@ -516,13 +516,13 @@
   </table>
 
   <div class="callout callout-tip">
-    <div class="callout-title">💡 Tip de Verificación en Rhinoceros</div>
+    <div class="callout-title">[TIP] Verificación en Rhinoceros</div>
     Usa el comando <span class="cmd-badge">What</span> sobre cualquier geometría final antes de exportar a STL/STEP. El reporte debe indicar inequívocamente: <em>"Valid closed solid polysurface"</em> o <em>"Valid closed mesh"</em>. Si indica "open", el laminador rellenará de forma errónea los vacíos interiores.
   </div>
 
   <!-- SECCIÓN 2: INGESTA DE DATOS GIS -->
   <div class="page-break"></div>
-  <h1>2. Ingesta de Datos GIS &amp; Modelos de Elevación</h1>
+  <h1>2. Ingesta de Datos GIS y Modelos de Elevación</h1>
   <p class="section-desc">Estrategias de captura de datos satelitales, reproyección cartográfica y descarga territorial.</p>
 
   <div class="step-card">
@@ -558,7 +558,7 @@
   <div class="step-card">
     <div class="step-header">
       <div class="step-number">3</div>
-      <div class="step-title">Delimitación del Polígono Urbano &amp; Huellas Edilicias (OSM)</div>
+      <div class="step-title">Delimitación del Polígono Urbano y Huellas Edilicias (OSM)</div>
     </div>
     <div class="step-content">
       <p>Para maquetas urbanas mixtas (relieve + arquitectura volumétrica existente):</p>
@@ -571,13 +571,13 @@
   </div>
 
   <div class="callout callout-warning">
-    <div class="callout-title">⚠️ Advertencia de Coordenadas: Traslado a Cero (Origin Point)</div>
+    <div class="callout-title">[IMPORTANTE] Advertencia de Coordenadas: Traslado a Cero (Origin Point)</div>
     Las coordenadas UTM sitúan los puntos a millones de metros del origen (ej. X: 345.000 m, Y: 6.300.000 m). Al importar a Rhinoceros o Blender, <strong>mueve inmediatamente el conjunto cerca del origen (0,0,0)</strong> con el comando <span class="cmd-badge">Move</span>. El trabajo a distancias astronómicas provoca errores graves de coma flotante (jittering de malla y fallos booleanos).
   </div>
 
   <!-- SECCIÓN 3: MODELADO DE MALLA ESTANCA -->
   <div class="page-break"></div>
-  <h1>3. Modelado de Malla Estanca (Manifold &amp; Solidez 3D)</h1>
+  <h1>3. Modelado de Malla Estanca (Manifold y Solidez 3D)</h1>
   <p class="section-desc">Estrategias en Rhinoceros y Blender para obtener sólidos geométricamente herméticos sin fallas de impresión.</p>
 
   <h2>A. Generación de Superficie Topográfica</h2>
@@ -743,9 +743,9 @@
     </tbody>
   </table>
 
-  <!-- SECCIÓN 6: ACABADO Y ENMARCADO -->
+  <!-- SECCIÓN 6: ACABADO Y ENSAMBLE -->
   <div class="page-break"></div>
-  <h1>6. Acabado Físico, Ensamble &amp; Enmarcado Editorial</h1>
+  <h1>6. Acabado Físico, Ensamble y Enmarcado Editorial</h1>
   <p class="section-desc">Tratamiento superficial y presentación final como objeto de arte arquitectónico de alta gama.</p>
 
   <div class="step-card">
@@ -779,7 +779,7 @@
   <div class="step-card">
     <div class="step-header">
       <div class="step-number">3</div>
-      <div class="step-title">Fijación Estructural &amp; Enmarcado en Madera Negra</div>
+      <div class="step-title">Fijación Estructural y Enmarcado en Madera Negra</div>
     </div>
     <div class="step-content">
       <p>El estándar de presentación de Alzado Rojo exige montaje de galería:</p>
@@ -792,7 +792,7 @@
   </div>
 
   <!-- SECCIÓN 7: TABLA DE ESCALAS ESTÁNDAR -->
-  <h1>7. Tabla Maestra de Escalas, Cobertura &amp; Detalle (LOD)</h1>
+  <h1>7. Tabla Maestra de Escalas, Cobertura y Detalle (LOD)</h1>
   <p class="section-desc">Parámetros de conversión métrica, tamaño de maqueta y nivel de detalle admisible según escala técnica.</p>
 
   <table>
@@ -838,7 +838,7 @@
   </table>
 
   <div class="callout callout-important">
-    <div class="callout-title">📋 Checklist de Control de Calidad Pre-Entrega</div>
+    <div class="callout-title">[LISTA] Checklist de Control de Calidad Pre-Entrega</div>
     <ol style="margin-bottom: 0;">
       <li>¿Malla verificada como cerrada y sólida estanca sin bordes desnudos (<span class="cmd-badge">ShowEdges</span> limpio)?</li>
       <li>¿Espesor mínimo de muros verificado en el slicer &ge; 1.20 mm (3 perímetros)?</li>
