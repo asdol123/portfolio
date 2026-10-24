@@ -252,7 +252,29 @@ button, input, textarea, select {
   border-radius: var(--radius-pill);
   box-shadow: var(--glass-shadow);
   z-index: 1000;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
   transition: background 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease), transform 0.35s var(--spring-ease);
+}
+
+/* ==========================================================================
+   COMPOSICIÓN GPU DE LIQUID GLASS (AISLAMIENTO DE CAPAS DE PINTADO A 60 FPS)
+   ========================================================================== */
+.bionova-card,
+.bionova-dir-card,
+.ecom-card,
+.directory-item,
+.type-card,
+.format-card,
+.manual-card,
+.spec-3d-box,
+.ecom-perk-item,
+.calc-clean-card,
+.trust-capsule,
+.scale-comparator-section,
+.ar-modal-dialog {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 .ed-header.is-scrolled {
@@ -1070,6 +1092,8 @@ button, input, textarea, select {
   width: 100%;
   margin: 0 auto 28px;
   padding: 0;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 .bionova-collections-header {
@@ -1864,6 +1888,8 @@ button, input, textarea, select {
    ========================================================================== */
 .portfolio-gallery-section {
   margin: 56px 0 44px;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 .portfolio-gallery-header {
@@ -2374,6 +2400,8 @@ button, input, textarea, select {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 24px;
   margin-top: 40px;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 .spec-3d-box {
@@ -4700,7 +4728,7 @@ dialog#project-modal::backdrop {
   border: 1px solid var(--ed-border-dark, #222);
   padding: 20px 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-  z-index: 99999;
+  z-index: 9000;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -4862,6 +4890,8 @@ dialog#project-modal::backdrop {
   padding: 40px 0 60px;
   border-bottom: 1px solid var(--ed-border);
   margin-bottom: 60px;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 .ecom-section-header {
@@ -5498,6 +5528,8 @@ dialog#project-modal::backdrop {
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 32px;
   margin-bottom: 60px;
+  content-visibility: auto;
+  contain-intrinsic-size: 800px;
 }
 
 /* Tarjeta Editorial de Manual Liquid Glass */
@@ -5827,13 +5859,18 @@ dialog#project-modal::backdrop {
    Apple Liquid Glass Edition · Tabular Nums · Máxima Confianza
    ========================================================================== */
 
+#ar-checkout-modal {
+  z-index: 100000;
+}
+
+#ar-checkout-modal,
 .ar-modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.45);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  z-index: 10000;
+  z-index: 100000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5844,10 +5881,11 @@ dialog#project-modal::backdrop {
   transition: opacity 0.3s var(--spring-ease), visibility 0.3s;
 }
 
+#ar-checkout-modal.is-open,
 .ar-modal-backdrop.is-open {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
 }
 
 .ar-modal-dialog {
@@ -5868,8 +5906,9 @@ dialog#project-modal::backdrop {
   overflow: hidden;
 }
 
+#ar-checkout-modal.is-open .ar-modal-dialog,
 .ar-modal-backdrop.is-open .ar-modal-dialog {
-  transform: translateY(0) scale(1);
+  transform: translateY(0) scale(1) !important;
 }
 
 /* Cabecera del Modal Liquid Glass */
@@ -6749,6 +6788,16 @@ dialog#project-modal::backdrop {
 }
 
 @media (max-width: 768px) {
+  /* Optimización GPU móvil: reducción de blur a 16px para fluidez a 60-120Hz */
+  :root {
+    --glass-blur: blur(16px) saturate(160%);
+  }
+
+  .ar-modal-dialog {
+    backdrop-filter: blur(16px) saturate(160%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%) !important;
+  }
+
   /* Contenedores a ancho casi completo */
   .index-container,
   .ed-main,

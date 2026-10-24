@@ -31,19 +31,38 @@
     let mouseY = window.innerHeight / 2;
     let currentX = mouseX;
     let currentY = mouseY;
-    let isMoving = false;
     let isVisible = false;
+    let isLoopRunning = false;
 
-    // Interpolación suave (lerp)
+    // Interpolación suave (lerp) condicional: se detiene si no hay desplazamiento
     function animateHalo() {
+      if (!isLoopRunning) return;
+
       if (isVisible) {
         currentX += (mouseX - currentX) * 0.08;
         currentY += (mouseY - currentY) * 0.08;
         halo.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+
+        // Detener bucle cuando el halo alcanza el cursor para 0% consumo en reposo
+        if (Math.abs(currentX - mouseX) < 0.1 && Math.abs(currentY - mouseY) < 0.1) {
+          currentX = mouseX;
+          currentY = mouseY;
+          isLoopRunning = false;
+          return;
+        }
+      } else {
+        isLoopRunning = false;
+        return;
       }
       requestAnimationFrame(animateHalo);
     }
-    requestAnimationFrame(animateHalo);
+
+    function startHaloLoop() {
+      if (!isLoopRunning) {
+        isLoopRunning = true;
+        requestAnimationFrame(animateHalo);
+      }
+    }
 
     window.addEventListener('mousemove', function (e) {
       mouseX = e.clientX;
@@ -52,11 +71,13 @@
         isVisible = true;
         halo.style.opacity = '1';
       }
+      startHaloLoop();
     }, { passive: true });
 
     document.documentElement.addEventListener('mouseleave', function () {
       isVisible = false;
       halo.style.opacity = '0';
+      isLoopRunning = false;
     });
   }
 
@@ -84,6 +105,9 @@
     const cards = document.querySelectorAll(tiltSelector);
 
     cards.forEach(card => {
+      if (card.__hasLiquidTilt) return;
+      card.__hasLiquidTilt = true;
+
       // Inyectar overlay de brillo especular si no existe
       if (!card.querySelector('.liquid-glare-layer')) {
         const glare = document.createElement('div');
@@ -94,6 +118,9 @@
 
       let bounds = null;
       let isHovering = false;
+      let tiltRafId = null;
+      let lastClientX = 0;
+      let lastClientY = 0;
 
       function updateBounds() {
         bounds = card.getBoundingClientRect();
@@ -102,37 +129,57 @@
       card.addEventListener('mouseenter', () => {
         isHovering = true;
         updateBounds();
+        // Asignar will-change exclusivamente en interacción activa para liberar memoria GPU en reposo
+        card.style.willChange = 'transform';
         card.style.transition = 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease';
       });
 
       card.addEventListener('mousemove', (e) => {
-        if (!bounds) updateBounds();
+        lastClientX = e.clientX;
+        lastClientY = e.clientY;
 
-        const x = e.clientX - bounds.left;
-        const y = e.clientY - bounds.top;
-        const width = bounds.width;
-        const height = bounds.height;
+        // Desacoplar cálculo con requestAnimationFrame para 60 FPS estables sin jank
+        if (!tiltRafId) {
+          tiltRafId = requestAnimationFrame(() => {
+            tiltRafId = null;
+            if (!isHovering) return;
+            if (!bounds) updateBounds();
 
-        // Rango normalizado de -1 a 1
-        const normX = (x / width) * 2 - 1;
-        const normY = (y / height) * 2 - 1;
+            const x = lastClientX - bounds.left;
+            const y = lastClientY - bounds.top;
+            const width = bounds.width;
+            const height = bounds.height;
 
-        // Coordenadas en porcentaje para el reflejo
-        const pctX = Math.round((x / width) * 100);
-        const pctY = Math.round((y / height) * 100);
+            if (width === 0 || height === 0) return;
 
-        // Ángulo de inclinación (muy sutil y elegante)
-        const maxTilt = 4.5;
-        const tiltX = -normY * maxTilt;
-        const tiltY = normX * maxTilt;
+            // Rango normalizado de -1 a 1
+            const normX = (x / width) * 2 - 1;
+            const normY = (y / height) * 2 - 1;
 
-        card.style.setProperty('--glare-x', `${pctX}%`);
-        card.style.setProperty('--glare-y', `${pctY}%`);
-        card.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-5px)`;
+            // Coordenadas en porcentaje para el reflejo
+            const pctX = Math.round((x / width) * 100);
+            const pctY = Math.round((y / height) * 100);
+
+            // Ángulo de inclinación (muy sutil y refinado)
+            const maxTilt = 4.5;
+            const tiltX = -normY * maxTilt;
+            const tiltY = normX * maxTilt;
+
+            card.style.setProperty('--glare-x', `${pctX}%`);
+            card.style.setProperty('--glare-y', `${pctY}%`);
+            card.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-5px)`;
+          });
+        }
       }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
         isHovering = false;
+        if (tiltRafId) {
+          cancelAnimationFrame(tiltRafId);
+          tiltRafId = null;
+        }
+        // Quitar will-change inmediatamente al salir para liberar memoria de texturas GPU
+        card.style.willChange = 'auto';
         card.style.transition = 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.65s ease, border-color 0.35s ease';
         card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px)';
         card.style.setProperty('--glare-x', '50%');
@@ -173,7 +220,7 @@
       return;
     }
 
-    // Agrupar elementos hermanos para aplicar stagger
+    // Observer ligero: desconecta cada elemento una vez revelado para 0 overhead
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -189,10 +236,15 @@
             }
           }
 
-          setTimeout(() => {
+          if (delay > 0) {
+            setTimeout(() => {
+              target.classList.add('is-revealed');
+            }, delay);
+          } else {
             target.classList.add('is-revealed');
-          }, delay);
+          }
 
+          // Desconexión inmediata
           obs.unobserve(target);
         }
       });
