@@ -347,6 +347,86 @@ button, input, textarea, select {
   gap: 14px;
 }
 
+/* ==========================================================================
+   NAVBAR SUPERIOR ESTILO BIONOVA (CLEAN & AIREADA)
+   ========================================================================== */
+.bionova-nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.bionova-nav-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ed-text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  letter-spacing: -0.01em;
+  padding: 6px 2px;
+  position: relative;
+}
+
+.bionova-nav-link:hover,
+.bionova-nav-link.active {
+  color: #111111;
+  font-weight: 600;
+}
+
+.bionova-nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 2px;
+  right: 2px;
+  height: 2px;
+  background: var(--ed-red);
+  border-radius: 2px;
+}
+
+.bionova-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.bionova-nav-text-btn {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--ed-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 6px 4px;
+}
+
+.bionova-nav-text-btn:hover {
+  color: var(--ed-red);
+}
+
+.bionova-nav-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 22px;
+  background: #111111;
+  color: #FFFFFF;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s var(--spring-ease);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  white-space: nowrap;
+}
+
+.bionova-nav-pill-btn:hover {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.35);
+  text-decoration: none;
+}
+
 .ed-back-link {
   font-size: 0.76rem;
   letter-spacing: 0.12em;
@@ -453,14 +533,403 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   1. PORTADA DISRUPTIVA (INDEX.HTML) · APPLE LIQUID GLASS EDITION
+   1. PORTADA ESTILO BIONOVA (INDEX.HTML) · LIQUID GLASS EDITION
    ========================================================================== */
 .index-container {
   max-width: var(--ed-max-w);
   margin: 0 auto;
-  padding: 60px 24px 100px;
+  padding: 30px 24px 90px;
 }
 
+/* ==========================================================================
+   BIONOVA HERO SPLIT-SCREEN (ARQUITECTURA ASIMÉTRICA CON BENTO GRID)
+   ========================================================================== */
+.bionova-hero-section {
+  width: 100%;
+  margin: 0 auto 56px;
+  padding: 10px 0 0;
+}
+
+.bionova-hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 1fr;
+  gap: 46px;
+  align-items: stretch;
+}
+
+.bionova-hero-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100%;
+}
+
+.bionova-hero-top-content {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Titular Gigante de 4 líneas */
+.bionova-hero-headline {
+  font-size: clamp(2.5rem, 4.4vw, 4.15rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #111111;
+  margin-bottom: 24px;
+}
+
+/* Píldora redondeada inline con textura 3D */
+.bionova-inline-pill {
+  display: inline-block;
+  width: 110px;
+  height: 52px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  vertical-align: middle;
+  margin-right: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  position: relative;
+  background: #EFEFEF;
+}
+
+.bionova-inline-pill.sm {
+  width: 90px;
+  height: 44px;
+}
+
+.bionova-pill-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.06);
+  filter: contrast(1.05) brightness(1.02);
+}
+
+/* Botón píldora inline con borde negro fino en la 3ra línea */
+.bionova-inline-btn {
+  border: 1.5px solid #111111;
+  border-radius: var(--radius-pill);
+  padding: 8px 22px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  vertical-align: middle;
+  margin: 0 8px;
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s var(--spring-ease);
+}
+
+.bionova-inline-btn span {
+  font-size: 0.75rem;
+  line-height: 1;
+}
+
+.bionova-inline-btn:hover {
+  background: #111111;
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+/* Fila de Botones debajo del titular */
+.bionova-cta-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.bionova-cta-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #111111;
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: var(--radius-pill);
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transition: all 0.25s var(--spring-ease);
+}
+
+.bionova-cta-pill-btn:hover {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(217, 37, 37, 0.35);
+  text-decoration: none;
+}
+
+.bionova-cta-text-link {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #111111;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  transition: color 0.2s ease;
+}
+
+.bionova-cta-text-link:hover {
+  color: var(--ed-red);
+}
+
+/* Parte inferior de la columna izquierda */
+.bionova-hero-bottom-info {
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.bionova-hero-lead-text {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: var(--ed-text-secondary);
+  max-width: 440px;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+
+/* Fila de marcas en tipografía bold limpia */
+.bionova-brands-band {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.bionova-brand-name {
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #111111;
+  opacity: 0.92;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  user-select: none;
+}
+
+.bionova-brand-name:hover {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   BENTO GRID VISUAL DE 3 TARJETAS BIONOVA
+   ========================================================================== */
+.bionova-hero-right {
+  display: flex;
+  flex-direction: column;
+}
+
+.bionova-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  height: 100%;
+}
+
+.bionova-card {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12);
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease);
+  display: flex;
+  flex-direction: column;
+}
+
+.bionova-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 28px 60px -12px rgba(15, 23, 42, 0.18);
+}
+
+.bionova-card-featured {
+  grid-column: 1 / -1;
+  min-height: 330px;
+  border-radius: 36px;
+}
+
+.bionova-card-half {
+  min-height: 280px;
+  border-radius: 32px;
+}
+
+.bionova-card-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: transform 0.75s var(--spring-ease);
+}
+
+.bionova-card:hover .bionova-card-bg-img {
+  transform: scale(1.04);
+}
+
+/* Scrims Líquidos para Contraste */
+.bionova-card-scrim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bionova-scrim-midnight {
+  background: linear-gradient(135deg, rgba(22, 24, 38, 0.76) 0%, rgba(35, 20, 36, 0.84) 100%);
+}
+
+.bionova-scrim-ocean {
+  background: linear-gradient(180deg, rgba(26, 44, 62, 0.65) 0%, rgba(18, 30, 48, 0.88) 100%);
+}
+
+.bionova-scrim-lime {
+  background: linear-gradient(135deg, rgba(46, 56, 26, 0.78) 0%, rgba(28, 40, 16, 0.90) 100%);
+}
+
+/* Contenido de las tarjetas Bionova */
+.bionova-card-content {
+  position: relative;
+  z-index: 3;
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  color: #FFFFFF;
+}
+
+.bionova-card-half .bionova-card-content {
+  padding: 26px;
+}
+
+.bionova-card-lead-title {
+  font-size: clamp(1.6rem, 2.3vw, 2.05rem);
+  font-weight: 400;
+  line-height: 1.22;
+  color: #FFFFFF;
+  max-width: 440px;
+  letter-spacing: -0.02em;
+}
+
+.bionova-card-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.bionova-card-subtext {
+  font-size: 0.92rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.5;
+  max-width: 320px;
+  font-weight: 300;
+}
+
+/* Botón Circular Blanco Puro con Flecha Diagonal */
+.bionova-round-arrow-btn {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: transform 0.25s var(--spring-ease), background 0.25s ease, color 0.25s ease;
+  flex-shrink: 0;
+}
+
+.bionova-round-arrow-btn:hover {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  transform: scale(1.08) translate(2px, -2px);
+  text-decoration: none;
+}
+
+.bionova-round-arrow-btn.bionova-round-sm {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  font-size: 1.15rem;
+}
+
+/* Píldora flotante superior en tarjetas inferiores */
+.bionova-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bionova-floating-pill {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #111111;
+  padding: 7px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.bionova-card-foot {
+  display: flex;
+  flex-direction: column;
+}
+
+.bionova-card-foot-title {
+  font-size: 1.55rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  letter-spacing: -0.015em;
+}
+
+.bionova-card-foot-desc {
+  font-size: 0.85rem;
+  line-height: 1.48;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 300;
+}
+
+.bionova-big-stat {
+  font-size: 3.6rem;
+  font-weight: 400;
+  line-height: 1;
+  color: #FFFFFF;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.04em;
+}
+
+/* Compatibilidad con manifiesto previo si aplica */
 .index-manifesto {
   margin-bottom: 50px;
   max-width: 980px;
@@ -592,8 +1061,229 @@ button, input, textarea, select {
 }
 
 /* ==========================================================================
-   DIRECTORIO BENTO LIQUID GLASS (TARJETAS INMERSIVAS DE CRISTAL LÍQUIDO)
+   SECCIÓN DE LAS 7 COLECCIONES Y MÓDULOS (BIONOVA DESIGN)
    ========================================================================== */
+.bionova-collections-section {
+  width: 100%;
+  margin: 0 auto 80px;
+  padding: 0;
+}
+
+.bionova-collections-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--ed-border);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.bionova-collections-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bionova-section-pill-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ed-red);
+  background: rgba(217, 37, 37, 0.06);
+  border: 1px solid rgba(217, 37, 37, 0.14);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-bottom: 6px;
+}
+
+.bionova-collections-heading {
+  font-size: clamp(1.7rem, 2.5vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  color: #111111;
+  line-height: 1.2;
+}
+
+.bionova-collections-subheading {
+  font-size: 0.95rem;
+  color: var(--ed-text-secondary);
+  max-width: 620px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.bionova-collections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 24px;
+}
+
+/* Tarjeta Bionova de Módulos & Directorio */
+.bionova-dir-card,
+.directory-item {
+  position: relative;
+  border-radius: 32px;
+  overflow: hidden;
+  min-height: 290px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--glass-border);
+  outline: var(--glass-outline);
+  box-shadow: var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease), border-color 0.35s ease;
+}
+
+.bionova-dir-card:hover,
+.directory-item:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--glass-shadow-hover);
+  border-color: rgba(217, 37, 37, 0.32);
+}
+
+.bionova-dir-card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.12;
+  filter: grayscale(100%);
+  transition: opacity 0.4s ease, transform 0.6s var(--spring-ease);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bionova-dir-card:hover .bionova-dir-card-bg,
+.directory-item:hover .bionova-dir-card-bg {
+  opacity: 0.22;
+  transform: scale(1.05);
+}
+
+.bionova-dir-head {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bionova-dir-pill {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  color: var(--ed-text);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.bionova-dir-arrow {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.25s var(--spring-ease), background 0.25s ease, color 0.25s ease;
+}
+
+.bionova-dir-card:hover .bionova-dir-arrow,
+.directory-item:hover .bionova-dir-arrow {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  border-color: var(--ed-red);
+  transform: scale(1.08) translate(2px, -2px);
+}
+
+.bionova-dir-body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 32px;
+}
+
+.bionova-dir-title {
+  font-size: 1.45rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: #111111;
+  letter-spacing: -0.015em;
+  transition: color 0.2s ease;
+}
+
+.bionova-dir-card:hover .bionova-dir-title,
+.directory-item:hover .bionova-dir-title {
+  color: var(--ed-red);
+}
+
+.bionova-dir-desc {
+  font-size: 0.88rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   CABECERA EDITORIAL ESTILO BIONOVA PARA SUBPÁGINAS
+   ========================================================================== */
+.bionova-page-hero {
+  margin-bottom: 44px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--ed-border);
+}
+
+.bionova-page-hero-title {
+  font-size: clamp(2.3rem, 3.8vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: #111111;
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.bionova-page-hero-sub {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--ed-text-secondary);
+  max-width: 760px;
+  line-height: 1.65;
+  margin-bottom: 24px;
+}
+
+.bionova-cta-row.page-hero-cta {
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+
+/* Compatibilidad con clases anteriores de directorio */
 .directory-section {
   margin-bottom: 70px;
 }
@@ -626,28 +1316,6 @@ button, input, textarea, select {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-}
-
-.directory-item {
-  position: relative;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: var(--glass-border);
-  outline: var(--glass-outline);
-  border-radius: var(--ed-radius);
-  box-shadow: var(--glass-shadow);
-  padding: 24px 26px;
-  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease), border-color 0.35s ease;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.directory-item:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--glass-shadow-hover);
-  border-color: rgba(217, 37, 37, 0.38);
 }
 
 .directory-link {
@@ -1316,7 +1984,7 @@ button, input, textarea, select {
   -webkit-backdrop-filter: var(--glass-blur);
   border: var(--glass-border);
   outline: var(--glass-outline);
-  border-radius: 28px;
+  border-radius: 32px;
   box-shadow: var(--glass-shadow);
   padding: 42px 38px;
   max-width: 860px;
@@ -4156,14 +4824,14 @@ dialog#project-modal::backdrop {
   margin-bottom: 48px;
 }
 
-/* Tarjeta de producto Apple Liquid Glass */
+/* Tarjeta de producto Apple Liquid Glass (Estilo Bionova) */
 .ecom-card {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: var(--glass-border);
   outline: var(--glass-outline);
-  border-radius: 26px;
+  border-radius: 32px;
   box-shadow: var(--glass-shadow);
   display: flex;
   flex-direction: column;
@@ -4185,7 +4853,7 @@ dialog#project-modal::backdrop {
   margin: 12px 12px 0 12px;
   aspect-ratio: 4 / 3;
   background: #F4F4F4;
-  border-radius: 18px;
+  border-radius: 24px;
   overflow: hidden;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
@@ -4205,19 +4873,20 @@ dialog#project-modal::backdrop {
 
 .ecom-badge {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  background: rgba(17, 17, 17, 0.88);
+  top: 14px;
+  left: 14px;
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: #FFFFFF;
+  color: #111111;
   font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   z-index: 2;
   pointer-events: none;
 }
@@ -5986,6 +6655,70 @@ dialog#project-modal::backdrop {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   BIONOVA RESPONSIVE DESIGN (TABLET & MOBILE BREAKPOINTS)
+   ========================================================================== */
+@media (max-width: 1040px) {
+  .bionova-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .bionova-hero-headline {
+    font-size: clamp(2.2rem, 5.2vw, 3.4rem);
+  }
+}
+
+@media (max-width: 920px) {
+  .bionova-nav-menu,
+  .bionova-nav-text-btn {
+    display: none;
+  }
+  .ed-header-inner {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .bionova-hero-section {
+    margin-bottom: 40px;
+    padding-top: 10px;
+  }
+  .bionova-bento-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bionova-card-featured {
+    min-height: 290px;
+    border-radius: 28px;
+  }
+  .bionova-card-half {
+    min-height: 250px;
+    border-radius: 26px;
+  }
+  .bionova-inline-pill {
+    width: 78px;
+    height: 38px;
+  }
+  .bionova-hero-headline {
+    font-size: clamp(1.9rem, 6.8vw, 2.7rem);
+    line-height: 1.14;
+  }
+  .bionova-inline-btn {
+    padding: 6px 16px;
+    font-size: 0.85rem;
+  }
+  .bionova-brands-band {
+    gap: 18px;
+  }
+  .bionova-brand-name {
+    font-size: 1.1rem;
+  }
+  .bionova-collections-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 
 

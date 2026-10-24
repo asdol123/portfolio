@@ -10,11 +10,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/editorial.css?v=20261024">
+    <link rel="stylesheet" href="css/editorial.css?v=20261024b">
 </head>
 <body>
 
-    <!-- CABECERA EDITORIAL MINIMALISTA -->
+    <!-- CABECERA EDITORIAL TIPO BIONOVA -->
     <header class="ed-header">
         <div class="ed-header-inner">
             <div class="ed-logo-block">
@@ -24,34 +24,130 @@
                 <span class="ed-sublogo">AR ARQ SpA · ARQUITECTURA Y FABRICACIÓN DIGITAL</span>
             </div>
 
-            <div class="ed-header-center">
-                <div class="live-status-badge" role="status" aria-label="Estado: Disponible para proyectos en Santiago de Chile">
-                    <span class="live-status-dot" aria-hidden="true"></span>
-                    <span class="live-status-text">Santiago, CL • Disponible<span class="live-status-detail"> para proyectos</span></span>
-                </div>
-            </div>
-
-            <nav class="ed-header-nav" aria-label="Contacto rápido">
-                <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20hacer%20una%20consulta%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="ed-contact-link" title="Contactar por WhatsApp">
-                    <span>WHATSAPP<span class="contact-detail"> DIRECTO</span></span>
-                    <span aria-hidden="true">➔</span>
-                </a>
+            <nav class="bionova-nav-menu" aria-label="Navegación principal">
+                <a href="maquetas-urbanas.html" class="bionova-nav-link">Maquetas Urbanas</a>
+                <a href="maquetas-3d.html" class="bionova-nav-link">Fabricación 3D</a>
+                <a href="proyectos.html" class="bionova-nav-link">Proyectos</a>
+                <a href="manuales.html" class="bionova-nav-link">Manuales</a>
             </nav>
+
+            <div class="bionova-nav-actions">
+                <a href="sobre-mi.html" class="bionova-nav-text-btn">Sobre Mí</a>
+                <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20hacer%20una%20consulta%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="bionova-nav-pill-btn" title="Contactar por WhatsApp">
+                    <span>Cotizar ahora</span>
+                </a>
+            </div>
         </div>
     </header>
 
     <!-- CUERPO PRINCIPAL EDITORIAL -->
     <main class="index-container" id="main-content">
 
-        <!-- MANIFIESTO DISRUPTIVO (3 LÍNEAS DE PESO) -->
-        <section class="index-manifesto ed-animate-fade" aria-label="Manifiesto Arquitectónico">
-            <span class="manifesto-tag">DISEÑO, ARQUITECTURA Y MAQUETAS 3D</span>
-            <h1 class="manifesto-statement">
-                Damos vida a tus ideas, ciudades y espacios favoritos con diseño a medida y maquetas 3D listas para decorar o presentar.
-            </h1>
-            <p class="manifesto-location">
-                Santiago de Chile — Soluciones directas para oficinas de arquitectura, inmobiliarias y clientes particulares.
-            </p>
+        <!-- HERO PRINCIPAL SPLIT-SCREEN TIPO BIONOVA -->
+        <section class="bionova-hero-section ed-animate-fade" aria-label="Presentación Alzado Rojo">
+            <div class="bionova-hero-grid">
+
+                <!-- COLUMNA IZQUIERDA: TITULAR GIGANTE + PÍLDORAS INLINE + CTA + MARCAS -->
+                <div class="bionova-hero-left">
+                    <div class="bionova-hero-top-content">
+                        <h1 class="bionova-hero-headline">
+                            <span class="bionova-inline-pill" aria-hidden="true">
+                                <img src="catalog/topografia-valle-detalle.jpg" alt="" class="bionova-pill-img">
+                            </span>Maquetas y<br>
+                            arquitectura 3D que<br>
+                            elevan <a href="#colecciones" class="bionova-inline-btn" aria-label="Conoce cómo trabajamos"><span>▷</span> Cómo trabajamos</a><br>
+                            tus proyectos
+                        </h1>
+
+                        <!-- Fila de Botones debajo del titular -->
+                        <div class="bionova-cta-row">
+                            <a href="maquetas-urbanas.html" class="bionova-cta-pill-btn">
+                                <span>Ver catálogo</span>
+                                <span aria-hidden="true">↗</span>
+                            </a>
+                            <a href="maquetas-3d.html" class="bionova-cta-text-link">
+                                Impresión 3D a medida
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Parte inferior de la columna izquierda (alineada al fondo) -->
+                    <div class="bionova-hero-bottom-info">
+                        <p class="bionova-hero-lead-text">
+                            Colaboramos con estudios de arquitectura, inmobiliarias y amantes del diseño en todo Chile con manufactura de alta precisión.
+                        </p>
+                        <div class="bionova-brands-band" aria-label="Plataformas y alianzas">
+                            <span class="bionova-brand-name">Flow.cl</span>
+                            <span class="bionova-brand-name">Webpay</span>
+                            <span class="bionova-brand-name">Todeschini</span>
+                            <span class="bionova-brand-name">Starken</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA DERECHA: BENTO GRID DE 3 TARJETAS VISUALES BIONOVA -->
+                <div class="bionova-hero-right">
+                    <div class="bionova-bento-grid">
+
+                        <!-- TARJETA SUPERIOR ANCHA -->
+                        <article class="bionova-card bionova-card-featured" tabindex="0" role="region" aria-label="Acceso a ciudades y proyectos en 3D">
+                            <img src="catalog/santiago-costanera-marco.jpg" alt="Santiago Costanera Center y Sanhattan 3D" class="bionova-card-bg-img" loading="eager">
+                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
+                            <div class="bionova-card-content bionova-card-top-layout">
+                                <h2 class="bionova-card-lead-title">
+                                    ¿Listo para dar vida a tu ciudad o proyecto en 3D?
+                                </h2>
+                                <div class="bionova-card-bottom-row">
+                                    <p class="bionova-card-subtext">
+                                        Elige un modelo listo para enviar o encarga el tuyo a medida.
+                                    </p>
+                                    <a href="maquetas-urbanas.html" class="bionova-round-arrow-btn" aria-label="Ver maquetas urbanas">
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- TARJETA INFERIOR IZQUIERDA -->
+                        <article class="bionova-card bionova-card-half" tabindex="0" role="region" aria-label="Colección de ciudades">
+                            <img src="catalog/new-york-cuadro.jpg" alt="Maqueta 3D relieve urbano Nueva York" class="bionova-card-bg-img" loading="lazy">
+                            <div class="bionova-card-scrim bionova-scrim-ocean" aria-hidden="true"></div>
+                            <div class="bionova-card-content bionova-card-split-layout">
+                                <div class="bionova-card-head">
+                                    <span class="bionova-floating-pill">Maquetas Urbanas</span>
+                                    <a href="maquetas-urbanas.html" class="bionova-round-arrow-btn bionova-round-sm" aria-label="Ver colección de maquetas urbanas">
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                                <div class="bionova-card-foot">
+                                    <h3 class="bionova-card-foot-title">Colección de ciudades</h3>
+                                    <p class="bionova-card-foot-desc">Santiago, Chicago, Nueva York y relieves territoriales de alta fidelidad.</p>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- TARJETA INFERIOR DERECHA -->
+                        <article class="bionova-card bionova-card-half" tabindex="0" role="region" aria-label="Estadísticas de fabricación 3D">
+                            <img src="catalog/piramides-guiza.jpg" alt="Relieve 3D Pirámides de Guiza" class="bionova-card-bg-img" loading="lazy">
+                            <div class="bionova-card-scrim bionova-scrim-lime" aria-hidden="true"></div>
+                            <div class="bionova-card-content bionova-card-split-layout">
+                                <div class="bionova-card-head">
+                                    <span class="bionova-floating-pill">Fabricación 3D</span>
+                                    <a href="maquetas-3d.html" class="bionova-round-arrow-btn bionova-round-sm" aria-label="Cotizar fabricación 3D">
+                                        <span aria-hidden="true">↗</span>
+                                    </a>
+                                </div>
+                                <div class="bionova-card-foot">
+                                    <div class="bionova-big-stat">+23</div>
+                                    <p class="bionova-card-foot-desc">Modelos exclusivos, relieves topográficos y prototipos listos para ti.</p>
+                                </div>
+                            </div>
+                        </article>
+
+                    </div>
+                </div>
+
+            </div>
         </section>
 
         <!-- BARRA DE CONFIANZA LIQUID GLASS -->
@@ -72,9 +168,10 @@
             <div class="trust-capsule">
                 <div class="trust-capsule-icon" aria-hidden="true">
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                        <rect x="1" y="3" width="15" height="13"></rect>
+                        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                        <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                        <circle cx="18.5" cy="18.5" r="2.5"></circle>
                     </svg>
                 </div>
                 <div class="trust-capsule-text">
@@ -96,133 +193,112 @@
             </div>
         </section>
 
-        <!-- DIRECTORIO BENTO LIQUID GLASS -->
-        <section class="directory-section ed-animate-fade ed-delay-1" aria-label="Directorio de Servicios y Obras">
-            <div class="directory-header-row">
-                <span class="directory-header-title">DIRECTORIO DE SERVICIOS</span>
-                <span class="directory-header-note">Haz clic para ingresar a cada módulo</span>
+        <!-- SECCIÓN DE COLECCIONES Y SERVICIOS (7 MÓDULOS TIPO BIONOVA) -->
+        <section class="bionova-collections-section ed-animate-fade ed-delay-1" id="colecciones" aria-label="Colecciones y Servicios de Alzado Rojo">
+            <div class="bionova-collections-header">
+                <div class="bionova-collections-title-wrap">
+                    <span class="bionova-section-pill-tag">DIRECTORIO OFICIAL</span>
+                    <h2 class="bionova-collections-heading">COLECCIONES Y SERVICIOS</h2>
+                    <p class="bionova-collections-subheading">
+                        Explora nuestros siete módulos de arquitectura, manufactura digital 3D y análisis espacial avanzado.
+                    </p>
+                </div>
             </div>
 
-            <ul class="directory-list">
-                <li class="directory-item">
-                    <a href="maquetas-urbanas.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">01</span>
-                            <span class="directory-tag">TIENDA ONLINE</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Maquetas Urbanas</span>
-                            <span class="directory-sublabel">Ciudades icónicas y relieves tridimensionales en compra directa online.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Ver modelos</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+            <div class="bionova-collections-grid">
 
-                <li class="directory-item">
-                    <a href="maquetas-3d.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">02</span>
-                            <span class="directory-tag">COTIZADOR 3D</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Fabricación Digital 3D</span>
-                            <span class="directory-sublabel">Calcula el valor de tu impresión en tiempo real y pide en línea con total seguridad.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Calcular presupuesto</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+                <!-- 01. Maquetas Urbanas -->
+                <a href="maquetas-urbanas.html" class="bionova-dir-card directory-item" aria-label="Módulo 01: Maquetas Urbanas">
+                    <img src="catalog/santiago-costanera-marco.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">01 · TIENDA ONLINE</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Maquetas Urbanas</h3>
+                        <p class="bionova-dir-desc">Ciudades icónicas y relieves tridimensionales en compra directa online con envío a todo Chile.</p>
+                    </div>
+                </a>
 
-                <li class="directory-item">
-                    <a href="eficiencia-energetica.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">03</span>
-                            <span class="directory-tag">ENERGÍA BIOCLIMÁTICA</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Simulación Energética</span>
-                            <span class="directory-sublabel">Análisis de confort térmico, radiación solar y modelación bioclimática avanzada.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Conocer metodología</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+                <!-- 02. Fabricación Digital 3D -->
+                <a href="maquetas-3d.html" class="bionova-dir-card directory-item" aria-label="Módulo 02: Fabricación Digital 3D">
+                    <img src="images/diseno-01.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">02 · COTIZADOR 3D</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Fabricación Digital 3D</h3>
+                        <p class="bionova-dir-desc">Calcula el valor de tu impresión en tiempo real y pide en línea con total seguridad.</p>
+                    </div>
+                </a>
 
-                <li class="directory-item">
-                    <a href="diseno-interiores.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">04</span>
-                            <span class="directory-tag">INTERIORISMO</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Arquitectura Interior</span>
-                            <span class="directory-sublabel">Visualización fotorrealista y diseño de espacios residenciales y comerciales de alto estándar.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Explorar renders</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+                <!-- 03. Simulación Energética -->
+                <a href="eficiencia-energetica.html" class="bionova-dir-card directory-item" aria-label="Módulo 03: Simulación Energética">
+                    <img src="images/arquitectura-03.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">03 · ENERGÍA SOLAR</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Simulación Energética</h3>
+                        <p class="bionova-dir-desc">Análisis de confort térmico, radiación solar y modelación bioclimática avanzada MASE.</p>
+                    </div>
+                </a>
 
-                <li class="directory-item">
-                    <a href="proyectos.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">05</span>
-                            <span class="directory-tag">DOSSIER PDF</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Catálogo de Proyectos</span>
-                            <span class="directory-sublabel">Registro cronológico de obras arquitectónicas, concursos y propuestas proyectuales.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Revisar catálogo</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+                <!-- 04. Arquitectura Interior -->
+                <a href="diseno-interiores.html" class="bionova-dir-card directory-item" aria-label="Módulo 04: Arquitectura Interior">
+                    <img src="images/arquitectura-01.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">04 · INTERIORISMO</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Arquitectura Interior</h3>
+                        <p class="bionova-dir-desc">Visualización fotorrealista y diseño de espacios residenciales y comerciales de alto estándar.</p>
+                    </div>
+                </a>
 
-                <li class="directory-item">
-                    <a href="sobre-mi.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">06</span>
-                            <span class="directory-tag">BIOGRAFÍA</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Perfil Profesional</span>
-                            <span class="directory-sublabel">Trayectoria, credenciales y enfoque multidisciplinario de Adolfo Risopatrón.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Ver perfil</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
+                <!-- 05. Catálogo de Proyectos -->
+                <a href="proyectos.html" class="bionova-dir-card directory-item" aria-label="Módulo 05: Catálogo de Proyectos">
+                    <img src="images/arquitectura-02.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">05 · DOSSIER PDF</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Catálogo de Proyectos</h3>
+                        <p class="bionova-dir-desc">Registro cronológico de obras arquitectónicas, concursos y propuestas proyectuales.</p>
+                    </div>
+                </a>
 
-                <li class="directory-item">
-                    <a href="manuales.html" class="directory-link">
-                        <div class="directory-top-row">
-                            <span class="directory-num">07</span>
-                            <span class="directory-tag">GUÍAS PDF</span>
-                        </div>
-                        <div class="directory-content-wrap">
-                            <span class="directory-label">Manuales Técnicos</span>
-                            <span class="directory-sublabel">Guías prácticas descargables sobre modelado paramétrico, BIM y manufactura 3D.</span>
-                        </div>
-                        <div class="directory-bottom-row">
-                            <span class="directory-action-text">Descargar manuales</span>
-                            <span class="directory-arrow" aria-hidden="true">➔</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
+                <!-- 06. Perfil Profesional -->
+                <a href="sobre-mi.html" class="bionova-dir-card directory-item" aria-label="Módulo 06: Perfil Profesional">
+                    <img src="images/arquitectura-04.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">06 · BIOGRAFÍA</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Perfil Profesional</h3>
+                        <p class="bionova-dir-desc">Trayectoria, credenciales y enfoque multidisciplinario de Adolfo Risopatrón Inzunza.</p>
+                    </div>
+                </a>
+
+                <!-- 07. Manuales Técnicos -->
+                <a href="manuales.html" class="bionova-dir-card directory-item" aria-label="Módulo 07: Manuales Técnicos">
+                    <img src="catalog/relieve-modular-4paneles.jpg" alt="" class="bionova-dir-card-bg" loading="lazy">
+                    <div class="bionova-dir-head">
+                        <span class="bionova-dir-pill">07 · GUÍAS PDF</span>
+                        <span class="bionova-dir-arrow" aria-hidden="true">↗</span>
+                    </div>
+                    <div class="bionova-dir-body">
+                        <h3 class="bionova-dir-title">Manuales Técnicos</h3>
+                        <p class="bionova-dir-desc">Guías prácticas descargables sobre modelado paramétrico, BIM y manufactura 3D.</p>
+                    </div>
+                </a>
+
+            </div>
         </section>
 
     </main>
@@ -265,10 +341,10 @@
     </footer>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
-    <script src="js/liquid-motion.js?v=20261024" defer></script>
+    <script src="js/liquid-motion.js?v=20261024b" defer></script>
 
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
-    <script src="js/cookies.js?v=20261024" defer></script>
+    <script src="js/cookies.js?v=20261024b" defer></script>
 
     <!-- VERCEL WEB ANALYTICS -->
     <script defer src="/_vercel/insights/script.js"></script>

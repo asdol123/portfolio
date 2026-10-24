@@ -68,6 +68,8 @@
     if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
 
     const tiltSelector = [
+      '.bionova-card',
+      '.bionova-dir-card',
       '.ecom-card',
       '.directory-item',
       '.type-card',
@@ -144,6 +146,9 @@
      ========================================================================== */
   function initScrollReveals() {
     const revealSelector = [
+      '.bionova-hero-section',
+      '.bionova-card',
+      '.bionova-collections-section',
       '.index-manifesto',
       '.trust-capsule-row',
       '.directory-section',
