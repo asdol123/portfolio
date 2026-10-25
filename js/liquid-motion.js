@@ -1,8 +1,9 @@
 /**
  * ALZADO ROJO · AR ARQ SpA
  * liquid-motion.js — Motor de Animaciones Inmersivas y Micro-Interacciones
- * Inspirado en Apple Liquid Glass & Motion Graphics
- * Cero dependencias externas · Alto rendimiento · Respeto a prefers-reduced-motion
+ * 100% Borderless Depth · Animaciones Magnéticas · Interpolación Sedosa (60/120 FPS)
+ * Inspirado en Apple Liquid Glass & Awwwards Motion Standards
+ * Cero dependencias externas · Cero consumo CPU en reposo · Respeto a prefers-reduced-motion
  */
 
 (function () {
@@ -10,13 +11,13 @@
 
   // Detección de preferencia de movimiento reducido
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ==========================================================================
      1. HALO AMBIENTAL DE LUZ INTERACTIVA (CURSOR AMBIENT FOLLOWER)
      ========================================================================== */
   function initAmbientHalo() {
-    if (prefersReducedMotion) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (prefersReducedMotion || !isFinePointer) return;
 
     let halo = document.getElementById('liquid-ambient-halo');
     if (!halo) {
@@ -34,14 +35,14 @@
     let isVisible = false;
     let isLoopRunning = false;
 
-    // Interpolación suave (lerp) condicional: se detiene si no hay desplazamiento
+    // Interpolación suave (lerp) condicional: se detiene al alcanzar el cursor
     function animateHalo() {
       if (!isLoopRunning) return;
 
       if (isVisible) {
-        currentX += (mouseX - currentX) * 0.08;
-        currentY += (mouseY - currentY) * 0.08;
-        halo.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+        currentX += (mouseX - currentX) * 0.085;
+        currentY += (mouseY - currentY) * 0.085;
+        halo.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) translate(-50%, -50%)`;
 
         // Detener bucle cuando el halo alcanza el cursor para 0% consumo en reposo
         if (Math.abs(currentX - mouseX) < 0.1 && Math.abs(currentY - mouseY) < 0.1) {
@@ -82,11 +83,10 @@
   }
 
   /* ==========================================================================
-     2. EFECTO SPECULAR LIQUID GLARE & 3D MICRO-TILT EN TARJETAS
+     2. TILT 3D LÍQUIDO + PARALLAX INTERNO DE IMÁGENES CON INTERPOLACIÓN LERP
      ========================================================================== */
   function initLiquidTilt() {
-    if (prefersReducedMotion) return;
-    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (prefersReducedMotion || !isFinePointer) return;
 
     const tiltSelector = [
       '.bionova-card',
@@ -115,80 +115,223 @@
         card.appendChild(glare);
       }
 
+      const innerImg = card.querySelector('.bionova-card-bg-img, .bionova-dir-card-bg, .ecom-img');
+
       let bounds = null;
       let isHovering = false;
-      let tiltRafId = null;
-      let lastClientX = 0;
-      let lastClientY = 0;
+      let isLoopRunning = false;
+
+      let targetTiltX = 0;
+      let targetTiltY = 0;
+      let currentTiltX = 0;
+      let currentTiltY = 0;
+
+      let targetImgX = 0;
+      let targetImgY = 0;
+      let currentImgX = 0;
+      let currentImgY = 0;
+
+      let targetGlareX = 50;
+      let targetGlareY = 50;
+      let currentGlareX = 50;
+      let currentGlareY = 50;
 
       function updateBounds() {
         bounds = card.getBoundingClientRect();
       }
 
+      function updateTiltFrame() {
+        if (!isLoopRunning) return;
+
+        // Interpolación sedosa estilo Awwwards (lerp factor 0.1)
+        currentTiltX += (targetTiltX - currentTiltX) * 0.1;
+        currentTiltY += (targetTiltY - currentTiltY) * 0.1;
+        currentImgX += (targetImgX - currentImgX) * 0.08;
+        currentImgY += (targetImgY - currentImgY) * 0.08;
+        currentGlareX += (targetGlareX - currentGlareX) * 0.12;
+        currentGlareY += (targetGlareY - currentGlareY) * 0.12;
+
+        card.style.transform = `perspective(1200px) rotateX(${currentTiltX.toFixed(2)}deg) rotateY(${currentTiltY.toFixed(2)}deg) translateY(-5px)`;
+        card.style.setProperty('--glare-x', `${currentGlareX.toFixed(1)}%`);
+        card.style.setProperty('--glare-y', `${currentGlareY.toFixed(1)}%`);
+
+        if (innerImg) {
+          innerImg.style.transform = `scale(1.06) translate3d(${currentImgX.toFixed(2)}px, ${currentImgY.toFixed(2)}px, 0)`;
+        }
+
+        // Si ya no hay hover y la inercia volvió al reposo absoluto: apagar loop
+        if (!isHovering) {
+          const atRest =
+            Math.abs(currentTiltX) < 0.02 &&
+            Math.abs(currentTiltY) < 0.02 &&
+            Math.abs(currentImgX) < 0.05 &&
+            Math.abs(currentImgY) < 0.05;
+
+          if (atRest) {
+            card.style.transform = '';
+            card.style.willChange = 'auto';
+            card.classList.remove('is-tilting');
+            if (innerImg) {
+              innerImg.style.transform = '';
+            }
+            isLoopRunning = false;
+            return;
+          }
+        }
+
+        requestAnimationFrame(updateTiltFrame);
+      }
+
+      function startTiltLoop() {
+        if (!isLoopRunning) {
+          isLoopRunning = true;
+          requestAnimationFrame(updateTiltFrame);
+        }
+      }
+
       card.addEventListener('mouseenter', () => {
         isHovering = true;
         updateBounds();
-        // Asignar will-change exclusivamente en interacción activa para liberar memoria GPU en reposo
         card.style.willChange = 'transform';
-        card.style.transition = 'transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease';
+        card.classList.add('is-tilting');
+        startTiltLoop();
       });
 
       card.addEventListener('mousemove', (e) => {
-        lastClientX = e.clientX;
-        lastClientY = e.clientY;
+        if (!bounds) updateBounds();
+        const width = bounds.width;
+        const height = bounds.height;
+        if (width === 0 || height === 0) return;
 
-        // Desacoplar cálculo con requestAnimationFrame para 60 FPS estables sin jank
-        if (!tiltRafId) {
-          tiltRafId = requestAnimationFrame(() => {
-            tiltRafId = null;
-            if (!isHovering) return;
-            if (!bounds) updateBounds();
+        const x = e.clientX - bounds.left;
+        const y = e.clientY - bounds.top;
 
-            const x = lastClientX - bounds.left;
-            const y = lastClientY - bounds.top;
-            const width = bounds.width;
-            const height = bounds.height;
+        const normX = (x / width) * 2 - 1;
+        const normY = (y / height) * 2 - 1;
 
-            if (width === 0 || height === 0) return;
+        // Ángulo de inclinación sutil, fino y controlado
+        const maxTilt = 4.8;
+        targetTiltX = -normY * maxTilt;
+        targetTiltY = normX * maxTilt;
 
-            // Rango normalizado de -1 a 1
-            const normX = (x / width) * 2 - 1;
-            const normY = (y / height) * 2 - 1;
+        // Parallax interno de imagen
+        targetImgX = -normX * 8;
+        targetImgY = -normY * 8;
 
-            // Coordenadas en porcentaje para el reflejo
-            const pctX = Math.round((x / width) * 100);
-            const pctY = Math.round((y / height) * 100);
+        targetGlareX = Math.round((x / width) * 100);
+        targetGlareY = Math.round((y / height) * 100);
 
-            // Ángulo de inclinación (muy sutil y refinado)
-            const maxTilt = 4.5;
-            const tiltX = -normY * maxTilt;
-            const tiltY = normX * maxTilt;
-
-            card.style.setProperty('--glare-x', `${pctX}%`);
-            card.style.setProperty('--glare-y', `${pctY}%`);
-            card.style.transform = `perspective(1200px) rotateX(${tiltX.toFixed(2)}deg) rotateY(${tiltY.toFixed(2)}deg) translateY(-5px)`;
-          });
-        }
+        startTiltLoop();
       }, { passive: true });
 
       card.addEventListener('mouseleave', () => {
         isHovering = false;
-        if (tiltRafId) {
-          cancelAnimationFrame(tiltRafId);
-          tiltRafId = null;
-        }
-        // Quitar will-change inmediatamente al salir para liberar memoria de texturas GPU
-        card.style.willChange = 'auto';
-        card.style.transition = 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.65s ease, border-color 0.35s ease';
-        card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-        card.style.setProperty('--glare-x', '50%');
-        card.style.setProperty('--glare-y', '50%');
+        targetTiltX = 0;
+        targetTiltY = 0;
+        targetImgX = 0;
+        targetImgY = 0;
+        targetGlareX = 50;
+        targetGlareY = 50;
+        startTiltLoop();
       });
     });
   }
 
   /* ==========================================================================
-     3. SCROLL-DRIVEN STAGGERED REVEALS (APARICIÓN CINEMÁTICA CON FÍSICA)
+     3. BOTONES Y ELEMENTOS MAGNÉTICOS ULTRA FLUIDOS (MAGNETIC INTERACTION)
+     ========================================================================== */
+  function initMagneticElements() {
+    if (prefersReducedMotion || !isFinePointer) return;
+
+    const magneticSelectors = [
+      '.bionova-cta-pill-btn',
+      '.bionova-nav-pill-btn',
+      '.btn-ecom-checkout',
+      '.btn-format-buy',
+      '.btn-ed-primary',
+      '.ed-logo-link'
+    ].join(', ');
+
+    const elements = document.querySelectorAll(magneticSelectors);
+
+    elements.forEach(el => {
+      if (el.__hasMagnetic) return;
+      el.__hasMagnetic = true;
+
+      let bounds = null;
+      let isHovered = false;
+      let isLoopRunning = false;
+      let targetX = 0;
+      let targetY = 0;
+      let currentX = 0;
+      let currentY = 0;
+
+      function updateBounds() {
+        bounds = el.getBoundingClientRect();
+      }
+
+      function updateMagneticFrame() {
+        if (!isLoopRunning) return;
+
+        currentX += (targetX - currentX) * 0.18;
+        currentY += (targetY - currentY) * 0.18;
+
+        if (isHovered) {
+          el.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(1.03)`;
+        } else {
+          el.style.transform = `translate3d(${currentX.toFixed(2)}px, ${currentY.toFixed(2)}px, 0) scale(1)`;
+
+          // Detener bucle y limpiar inline style al llegar al reposo elástico
+          if (Math.abs(currentX) < 0.04 && Math.abs(currentY) < 0.04) {
+            el.style.transform = '';
+            el.style.willChange = 'auto';
+            isLoopRunning = false;
+            return;
+          }
+        }
+
+        requestAnimationFrame(updateMagneticFrame);
+      }
+
+      function startMagneticLoop() {
+        if (!isLoopRunning) {
+          isLoopRunning = true;
+          requestAnimationFrame(updateMagneticFrame);
+        }
+      }
+
+      el.addEventListener('mouseenter', () => {
+        isHovered = true;
+        updateBounds();
+        el.style.willChange = 'transform';
+        startMagneticLoop();
+      });
+
+      el.addEventListener('mousemove', (e) => {
+        if (!bounds) updateBounds();
+        const centerX = bounds.left + bounds.width / 2;
+        const centerY = bounds.top + bounds.height / 2;
+        const dx = e.clientX - centerX;
+        const dy = e.clientY - centerY;
+
+        // Desplazamiento magnético sedoso
+        targetX = dx * 0.22;
+        targetY = dy * 0.22;
+
+        startMagneticLoop();
+      }, { passive: true });
+
+      el.addEventListener('mouseleave', () => {
+        isHovered = false;
+        targetX = 0;
+        targetY = 0;
+        startMagneticLoop();
+      });
+    });
+  }
+
+  /* ==========================================================================
+     4. SCROLL-DRIVEN STAGGERED REVEALS (APARICIÓN CINEMÁTICA CON FÍSICA)
      ========================================================================== */
   function initScrollReveals() {
     const revealSelector = [
@@ -219,19 +362,19 @@
       return;
     }
 
-    // Observer ligero: desconecta cada elemento una vez revelado para 0 overhead
+    // Observer ultra-ligero que desconecta cada elemento una vez revelado
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const target = entry.target;
-          
-          // Calcular índice entre hermanos visibles para escalonamiento
+
+          // Escalonamiento orgánico entre elementos hermanos
           let delay = 0;
           if (target.parentElement) {
             const siblings = Array.from(target.parentElement.children);
             const index = siblings.indexOf(target);
             if (index >= 0) {
-              delay = Math.min(index * 60, 360);
+              delay = Math.min(index * 55, 330);
             }
           }
 
@@ -243,14 +386,13 @@
             target.classList.add('is-revealed');
           }
 
-          // Desconexión inmediata
           obs.unobserve(target);
         }
       });
     }, {
       root: null,
       threshold: 0.08,
-      rootMargin: '0px 0px -40px 0px'
+      rootMargin: '0px 0px -30px 0px'
     });
 
     elements.forEach(el => {
@@ -260,13 +402,12 @@
   }
 
   /* ==========================================================================
-     4. HEADER FLOTANTE DINÁMICO CON COMPACTACIÓN AL SCROLL
+     5. HEADER FLOTANTE DINÁMICO (CERO BORDES + PURE GLASS DEPTH)
      ========================================================================== */
   function initFloatingHeader() {
     const header = document.querySelector('.ed-header');
     if (!header) return;
 
-    let lastScroll = 0;
     let ticking = false;
 
     function onScroll() {
@@ -276,7 +417,6 @@
       } else {
         header.classList.remove('is-scrolled');
       }
-      lastScroll = top;
       ticking = false;
     }
 
@@ -291,7 +431,7 @@
   }
 
   /* ==========================================================================
-     5. MICRO-INTERACCIONES TÁCTILES Y PULSO ELÁSTICO (EMIL KOWALSKI CRAFT)
+     6. MICRO-INTERACCIONES TÁCTILES Y PULSO ELÁSTICO (EMIL KOWALSKI CRAFT)
      ========================================================================== */
   function initTactileInteractions() {
     if (prefersReducedMotion) return;
@@ -306,6 +446,8 @@
       '.bionova-nav-pill-btn',
       '.ecom-btn-buy',
       '.ecom-btn-wsp',
+      '.btn-ecom-checkout',
+      '.btn-format-buy',
       '.ed-logo-link'
     ].join(', ');
 
@@ -316,7 +458,7 @@
       btn.__hasTactile = true;
 
       btn.addEventListener('pointerdown', () => {
-        btn.style.transform = 'scale(0.96)';
+        btn.style.transform = 'scale(0.965)';
         btn.style.transition = 'transform 0.1s cubic-bezier(0.2, 0.8, 0.2, 1)';
       }, { passive: true });
 
@@ -332,11 +474,12 @@
   }
 
   /* ==========================================================================
-     6. INICIALIZACIÓN GLOBAL
+     7. INICIALIZACIÓN GLOBAL
      ========================================================================== */
   function init() {
     initAmbientHalo();
     initLiquidTilt();
+    initMagneticElements();
     initScrollReveals();
     initFloatingHeader();
     initTactileInteractions();
@@ -351,6 +494,7 @@
   // Exponer a window para reactivación tras cambios dinámicos
   window.AlzadoLiquidMotion = {
     reinitTilt: initLiquidTilt,
+    reinitMagnetic: initMagneticElements,
     reinitReveals: initScrollReveals,
     reinitTactile: initTactileInteractions
   };
