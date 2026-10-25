@@ -1118,42 +1118,10 @@ button, input, textarea, select {
   );
 }
 
-/* Indicador de Acción Circular de Cristal Líquido (Hero Cards) */
+/* Supresión absoluta de botones e indicadores circulares flotantes en esquinas */
+.card-action-indicator,
 .hero-card-action-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFFFFF;
-  z-index: 4;
-  pointer-events: none;
-  border: none !important;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.hero-card-action-btn svg {
-  width: 15px;
-  height: 15px;
-  stroke: currentColor;
-  stroke-width: 2.4;
-  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.bionova-card:hover .hero-card-action-btn,
-.bionova-dir-card:hover .hero-card-action-btn {
-  background: var(--ed-red);
-  color: #FFFFFF;
-  transform: rotate(45deg) scale(1.08);
-  box-shadow: 0 8px 24px rgba(230, 25, 25, 0.45);
+  display: none !important;
 }
 
 /* Índice numérico técnico para etiquetas */
@@ -1286,52 +1254,7 @@ button, input, textarea, select {
   background: #FFFFFF;
 }
 
-/* Micro-indicador de acción interactivo (flecha diagonal ↗ con física spring) */
-.card-action-indicator {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ed-text);
-  z-index: 4;
-  pointer-events: none;
-  box-shadow: 0 4px 12px rgba(10, 10, 11, 0.08);
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
-}
 
-.bionova-card:hover .card-action-indicator,
-.bionova-dir-card:hover .card-action-indicator,
-.directory-item:hover .card-action-indicator,
-.ecom-card:hover .card-action-indicator,
-.format-card:hover .card-action-indicator,
-.manual-card:hover .card-action-indicator {
-  transform: translate(2px, -2px) scale(1.08);
-  background: var(--ed-red);
-  color: #FFFFFF;
-  box-shadow: 0 6px 20px rgba(230, 25, 25, 0.4);
-}
-
-.card-action-indicator svg {
-  width: 14px;
-  height: 14px;
-  stroke: currentColor;
-  stroke-width: 2.2;
-  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.bionova-card:hover .card-action-indicator svg,
-.bionova-dir-card:hover .card-action-indicator svg,
-.ecom-card:hover .card-action-indicator svg {
-  transform: translate(1px, -1px);
-}
 
 /* Revelado óptico cinematográfico suave en imágenes al entrar en viewport */
 .bionova-card-bg-img,
@@ -1748,6 +1671,18 @@ button, input, textarea, select {
   min-height: 270px;
 }
 
+/* Degradado editorial blanco luminoso ultra-limpio para legibilidad impecable */
+.bionova-dir-card::after,
+.directory-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.35) 38%, rgba(255, 255, 255, 0.92) 78%, #FFFFFF 100%);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.35s ease;
+}
+
 /* Imágenes de Fondo con Mayor Nitidez y Revelado Cinematográfico */
 .bionova-dir-card-bg {
   position: absolute;
@@ -1756,18 +1691,18 @@ button, input, textarea, select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.32;
-  filter: grayscale(35%) contrast(1.05);
+  opacity: 0.42;
+  filter: grayscale(20%) contrast(1.05);
   transition: opacity 0.45s ease, transform 0.65s var(--spring-ease), filter 0.45s ease;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 }
 
 .bionova-dir-card:hover .bionova-dir-card-bg,
 .directory-item:hover .bionova-dir-card-bg {
-  opacity: 0.55;
+  opacity: 0.58;
   filter: grayscale(0%) contrast(1.08);
-  transform: scale(1.06);
+  transform: scale(1.05);
 }
 
 .bionova-dir-head {

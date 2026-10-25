@@ -430,28 +430,6 @@
     onScroll();
   }
 
-  /* ==========================================================================
-     6. MICRO-INDICADORES DE ACCIÓN INTERACTIVA (FLECHA DIAGONAL ↗ CON FÍSICA SPRING)
-     ========================================================================== */
-  function initActionIndicators() {
-    const cardSelectors = [
-      '.bionova-card',
-      '.bionova-dir-card',
-      '.directory-item',
-      '.ecom-card',
-      '.manual-card'
-    ];
-
-    const cards = document.querySelectorAll(cardSelectors.join(', '));
-    cards.forEach(card => {
-      if (card.querySelector('.card-action-indicator')) return;
-      const indicator = document.createElement('span');
-      indicator.className = 'card-action-indicator';
-      indicator.setAttribute('aria-hidden', 'true');
-      indicator.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>';
-      card.appendChild(indicator);
-    });
-  }
 
   /* ==========================================================================
      7. MICRO-INTERACCIONES TÁCTILES Y PULSO ELÁSTICO (EMIL KOWALSKI CRAFT)
@@ -505,7 +483,6 @@
     initMagneticElements();
     initScrollReveals();
     initFloatingHeader();
-    initActionIndicators();
     initTactileInteractions();
   }
 
