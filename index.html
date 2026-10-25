@@ -9,9 +9,9 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
-    <link rel="stylesheet" href="css/editorial.css?v=20261025b">
+    <link rel="stylesheet" href="css/editorial.css?v=20261025c">
 </head>
 <body>
 
@@ -51,11 +51,17 @@
         <section class="bionova-hero-section ed-animate-fade" aria-label="Presentación Alzado Rojo">
             <div class="bionova-hero-grid">
 
-                <!-- COLUMNA IZQUIERDA: TITULAR LIMPIO + CTA + ESPECIALIDADES -->
+                <!-- COLUMNA IZQUIERDA: EYEBROW TÉCNICO + TITULAR ESCULTURAL + CTA + MÉTRICAS -->
                 <div class="bionova-hero-left">
                     <div class="bionova-hero-top-content">
+                        <!-- Eyebrow técnico minimalista sin bordes -->
+                        <div class="hero-tech-eyebrow" aria-label="Estudio de Arquitectura · Santiago de Chile">
+                            <span class="hero-pulse-dot" aria-hidden="true"></span>
+                            <span class="hero-tech-label">ESTUDIO DE ARQUITECTURA · SANTIAGO DE CHILE</span>
+                        </div>
+
                         <h1 class="bionova-hero-headline">
-                            Arquitectura y Maquetas 3D
+                            Arquitectura y <span class="brand-red">Maquetas 3D.</span>
                         </h1>
 
                         <!-- Fila de Botones debajo del titular -->
@@ -67,6 +73,24 @@
                             <a href="maquetas-3d.html" class="bionova-cta-text-link">
                                 Impresión 3D a medida
                             </a>
+                        </div>
+
+                        <!-- Fila de 3 Métricas Arquitectónicas Limpias sin bordes -->
+                        <div class="hero-metrics-strip" aria-label="Métricas de estudio">
+                            <div class="hero-metric-cell">
+                                <span class="hero-metric-num">23+</span>
+                                <span class="hero-metric-text">Modelos 3D</span>
+                            </div>
+                            <div class="hero-metric-divider" aria-hidden="true"></div>
+                            <div class="hero-metric-cell">
+                                <span class="hero-metric-num">0.1mm</span>
+                                <span class="hero-metric-text">Precisión Digital</span>
+                            </div>
+                            <div class="hero-metric-divider" aria-hidden="true"></div>
+                            <div class="hero-metric-cell">
+                                <span class="hero-metric-num">100%</span>
+                                <span class="hero-metric-text">Envío a Todo Chile</span>
+                            </div>
                         </div>
                     </div>
 
@@ -87,7 +111,7 @@
                     </div>
                 </div>
 
-                <!-- COLUMNA DERECHA: BENTO GRID DE 3 TARJETAS VISUALES BIONOVA -->
+                <!-- COLUMNA DERECHA: BENTO GRID DE 3 TARJETAS VISUALES BIONOVA (100% BRANDING AR) -->
                 <div class="bionova-hero-right">
                     <div class="bionova-bento-grid">
 
@@ -95,7 +119,13 @@
                         <a href="maquetas-urbanas.html" class="bionova-card bionova-card-featured" aria-label="¿Listo para dar vida a tu ciudad o proyecto en 3D? Explorar catálogo">
                             <img src="catalog/santiago-costanera-marco.jpg" alt="Santiago Costanera Center y Sanhattan 3D" class="bionova-card-bg-img" loading="eager" fetchpriority="high" decoding="async">
                             <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
+                            <div class="hero-card-action-btn" aria-hidden="true">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
                             <div class="bionova-card-content bionova-card-top-layout">
+                                <div class="bionova-card-head">
+                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">01</span> · SANTIAGO 3D</span>
+                                </div>
                                 <h2 class="bionova-card-lead-title">
                                     ¿Listo para dar vida a tu ciudad o proyecto en 3D?
                                 </h2>
@@ -111,10 +141,13 @@
                         <!-- TARJETA INFERIOR IZQUIERDA -->
                         <a href="maquetas-urbanas.html" class="bionova-card bionova-card-half" aria-label="Colección de ciudades: Santiago, Chicago, Nueva York">
                             <img src="catalog/new-york-cuadro.jpg" alt="Maqueta 3D relieve urbano Nueva York" class="bionova-card-bg-img" loading="lazy" decoding="async">
-                            <div class="bionova-card-scrim bionova-scrim-ocean" aria-hidden="true"></div>
+                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
+                            <div class="hero-card-action-btn" aria-hidden="true">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
                             <div class="bionova-card-content bionova-card-split-layout">
                                 <div class="bionova-card-head">
-                                    <span class="bionova-tag-minimal">Maquetas Urbanas</span>
+                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">02</span> · CIUDADES</span>
                                 </div>
                                 <div class="bionova-card-foot">
                                     <h3 class="bionova-card-foot-title">Colección de ciudades</h3>
@@ -126,10 +159,13 @@
                         <!-- TARJETA INFERIOR DERECHA -->
                         <a href="maquetas-3d.html" class="bionova-card bionova-card-half" aria-label="Fabricación 3D: Cotizador en línea y modelos a medida">
                             <img src="catalog/piramides-guiza.jpg" alt="Relieve 3D Pirámides de Guiza" class="bionova-card-bg-img" loading="lazy" decoding="async">
-                            <div class="bionova-card-scrim bionova-scrim-lime" aria-hidden="true"></div>
+                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
+                            <div class="hero-card-action-btn" aria-hidden="true">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                            </div>
                             <div class="bionova-card-content bionova-card-split-layout">
                                 <div class="bionova-card-head">
-                                    <span class="bionova-tag-minimal">Fabricación 3D</span>
+                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">03</span> · A MEDIDA</span>
                                 </div>
                                 <div class="bionova-card-foot">
                                     <div class="bionova-big-stat">+23</div>
@@ -201,35 +237,46 @@
 
             <div class="bionova-collections-grid">
 
-                <!-- 01. Maquetas Urbanas -->
-                <a href="maquetas-urbanas.html" class="bionova-dir-card directory-item" aria-label="Módulo 01: Maquetas Urbanas">
-                    <img src="catalog/santiago-costanera-marco.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 01. Maquetas Urbanas (Span 7 - Módulo Heroico Destacado) -->
+                <a href="maquetas-urbanas.html" class="bionova-dir-card bionova-dir-span-7 directory-item" aria-label="Módulo 01: Maquetas Urbanas">
+                    <img src="catalog/santiago-costanera-marco.jpg" alt="Maqueta 3D Santiago Costanera Center" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">01 · TIENDA ONLINE</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Maquetas Urbanas</h3>
-                        <p class="bionova-dir-desc">Ciudades icónicas y relieves tridimensionales en compra directa online con envío a todo Chile.</p>
+                        <p class="bionova-dir-desc">Ciudades icónicas y relieves tridimensionales en compra directa online con empaque protegido y envío a todo Chile.</p>
+                        <span class="bionova-dir-action-pill">Explorar tienda <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                     </div>
                 </a>
 
-                <!-- 02. Fabricación Digital 3D -->
-                <a href="maquetas-3d.html" class="bionova-dir-card directory-item" aria-label="Módulo 02: Fabricación Digital 3D">
-                    <img src="images/diseno-01.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 02. Fabricación Digital 3D (Span 5 - Cotizador en Vivo) -->
+                <a href="maquetas-3d.html" class="bionova-dir-card bionova-dir-span-5 directory-item" aria-label="Módulo 02: Fabricación Digital 3D">
+                    <img src="images/diseno-01.jpg" alt="Fabricación aditiva 3D y prototipado" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">02 · COTIZADOR 3D</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Fabricación Digital 3D</h3>
-                        <p class="bionova-dir-desc">Calcula el valor de tu impresión en tiempo real y pide en línea con total seguridad.</p>
+                        <p class="bionova-dir-desc">Calcula el valor de tu impresión en tiempo real y solicita tu modelo a medida con máxima precisión.</p>
+                        <span class="bionova-dir-action-pill">Cotizar en línea <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                     </div>
                 </a>
 
-                <!-- 03. Simulación Energética -->
-                <a href="eficiencia-energetica.html" class="bionova-dir-card directory-item" aria-label="Módulo 03: Simulación Energética">
-                    <img src="images/arquitectura-03.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 03. Simulación Energética (Span 4) -->
+                <a href="eficiencia-energetica.html" class="bionova-dir-card bionova-dir-span-4 directory-item" aria-label="Módulo 03: Simulación Energética">
+                    <img src="images/arquitectura-03.jpg" alt="Simulación bioclimática y confort térmico" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">03 · ENERGÍA SOLAR</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Simulación Energética</h3>
@@ -237,11 +284,14 @@
                     </div>
                 </a>
 
-                <!-- 04. Arquitectura Interior -->
-                <a href="diseno-interiores.html" class="bionova-dir-card directory-item" aria-label="Módulo 04: Arquitectura Interior">
-                    <img src="images/arquitectura-01.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 04. Arquitectura Interior (Span 4) -->
+                <a href="diseno-interiores.html" class="bionova-dir-card bionova-dir-span-4 directory-item" aria-label="Módulo 04: Arquitectura Interior">
+                    <img src="images/arquitectura-01.jpg" alt="Diseño de interiores y mobiliario" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">04 · INTERIORISMO</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Arquitectura Interior</h3>
@@ -249,11 +299,14 @@
                     </div>
                 </a>
 
-                <!-- 05. Catálogo de Proyectos -->
-                <a href="proyectos.html" class="bionova-dir-card directory-item" aria-label="Módulo 05: Catálogo de Proyectos">
-                    <img src="images/arquitectura-02.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 05. Catálogo de Proyectos (Span 4) -->
+                <a href="proyectos.html" class="bionova-dir-card bionova-dir-span-4 directory-item" aria-label="Módulo 05: Catálogo de Proyectos">
+                    <img src="images/arquitectura-02.jpg" alt="Proyectos y obras arquitectónicas" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">05 · DOSSIER PDF</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Catálogo de Proyectos</h3>
@@ -261,11 +314,14 @@
                     </div>
                 </a>
 
-                <!-- 06. Perfil Profesional -->
-                <a href="sobre-mi.html" class="bionova-dir-card directory-item" aria-label="Módulo 06: Perfil Profesional">
-                    <img src="images/arquitectura-04.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 06. Perfil Profesional (Span 6) -->
+                <a href="sobre-mi.html" class="bionova-dir-card bionova-dir-span-6 directory-item" aria-label="Módulo 06: Perfil Profesional">
+                    <img src="images/arquitectura-04.jpg" alt="Adolfo Risopatrón Inzunza - Arquitecto" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">06 · BIOGRAFÍA</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Perfil Profesional</h3>
@@ -273,11 +329,14 @@
                     </div>
                 </a>
 
-                <!-- 07. Manuales Técnicos -->
-                <a href="manuales.html" class="bionova-dir-card directory-item" aria-label="Módulo 07: Manuales Técnicos">
-                    <img src="catalog/relieve-modular-4paneles.jpg" alt="" class="bionova-dir-card-bg" loading="lazy" decoding="async">
+                <!-- 07. Manuales Técnicos (Span 6) -->
+                <a href="manuales.html" class="bionova-dir-card bionova-dir-span-6 directory-item" aria-label="Módulo 07: Manuales Técnicos">
+                    <img src="catalog/relieve-modular-4paneles.jpg" alt="Manuales técnicos y guías BIM 3D" class="bionova-dir-card-bg" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">07 · GUÍAS PDF</span>
+                        <div class="hero-card-action-btn" aria-hidden="true">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                        </div>
                     </div>
                     <div class="bionova-dir-body">
                         <h3 class="bionova-dir-title">Manuales Técnicos</h3>
@@ -329,10 +388,10 @@
     </footer>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
-    <script src="js/liquid-motion.js?v=20261025b" defer></script>
+    <script src="js/liquid-motion.js?v=20261025c" defer></script>
 
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
-    <script src="js/cookies.js?v=20261025b" defer></script>
+    <script src="js/cookies.js?v=20261025c" defer></script>
 
     <!-- VERCEL WEB ANALYTICS -->
     <script defer src="/_vercel/insights/script.js"></script>

@@ -623,10 +623,11 @@ button, input, textarea, select {
 }
 
 .ed-page-title {
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  font-weight: 300;
-  letter-spacing: 0.04em;
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
   text-transform: uppercase;
   color: var(--ed-text);
   margin-bottom: 14px;
@@ -678,16 +679,60 @@ button, input, textarea, select {
   flex-direction: column;
 }
 
-/* Titular Hero Puro, Limpio y Contundente */
+/* Eyebrow Técnico Minimalista sin bordes */
+.hero-tech-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  user-select: none;
+}
+
+.hero-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--ed-red);
+  box-shadow: 0 0 10px rgba(230, 25, 25, 0.75);
+  animation: heroDotPulse 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  flex-shrink: 0;
+}
+
+@keyframes heroDotPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(230, 25, 25, 0.6);
+  }
+  70% {
+    transform: scale(1.15);
+    box-shadow: 0 0 0 8px rgba(230, 25, 25, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(230, 25, 25, 0);
+  }
+}
+
+.hero-tech-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ed-text-secondary);
+}
+
+/* Titular Hero Escultural y Disruptivo en Syne */
 .bionova-hero-headline {
-  font-size: clamp(2.4rem, 4.3vw, 4rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.035em;
-  color: #111111;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #0A0A0B;
   margin-bottom: 22px;
   text-wrap: balance;
-  max-width: 640px;
+  max-width: 660px;
 }
 
 /* Píldora redondeada inline con textura 3D (para subpáginas) */
@@ -844,6 +889,55 @@ button, input, textarea, select {
   transform: scale(0.97);
 }
 
+/* Fila de Métricas Arquitectónicas Limpias y Borderless */
+.hero-metrics-strip {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 18px 0 24px;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-sm);
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 10px 25px -10px rgba(10, 10, 11, 0.05);
+  max-width: 520px;
+}
+
+.hero-metric-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hero-metric-num {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #0A0A0B;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-metric-text {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  color: var(--ed-text-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.hero-metric-divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(10, 10, 11, 0.08);
+  flex-shrink: 0;
+}
+
 /* Parte inferior de la columna izquierda */
 .bionova-hero-bottom-info {
   margin-top: auto;
@@ -998,31 +1092,76 @@ button, input, textarea, select {
   transition: opacity 0.4s ease;
 }
 
-.bionova-scrim-midnight {
+.bionova-scrim-midnight,
+.bionova-scrim-ocean,
+.bionova-scrim-lime,
+.bionova-scrim-obsidian {
   background: linear-gradient(
     180deg,
-    rgba(15, 18, 28, 0.22) 0%,
-    rgba(15, 18, 28, 0.42) 50%,
-    rgba(15, 18, 28, 0.78) 100%
+    rgba(10, 10, 11, 0.16) 0%,
+    rgba(10, 10, 11, 0.44) 48%,
+    rgba(10, 10, 11, 0.88) 100%
+  );
+  transition: background 0.45s var(--spring-ease);
+}
+
+.bionova-card:hover .bionova-scrim-midnight,
+.bionova-card:hover .bionova-scrim-ocean,
+.bionova-card:hover .bionova-scrim-lime,
+.bionova-card:hover .bionova-scrim-obsidian {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 11, 0.12) 0%,
+    rgba(24, 12, 14, 0.46) 45%,
+    rgba(230, 25, 25, 0.24) 86%,
+    rgba(10, 10, 11, 0.92) 100%
   );
 }
 
-.bionova-scrim-ocean {
-  background: linear-gradient(
-    180deg,
-    rgba(16, 28, 42, 0.18) 0%,
-    rgba(16, 28, 42, 0.42) 50%,
-    rgba(16, 28, 42, 0.75) 100%
-  );
+/* Indicador de Acción Circular de Cristal Líquido (Hero Cards) */
+.hero-card-action-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  z-index: 4;
+  pointer-events: none;
+  border: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.bionova-scrim-lime {
-  background: linear-gradient(
-    180deg,
-    rgba(24, 32, 14, 0.18) 0%,
-    rgba(24, 32, 14, 0.42) 50%,
-    rgba(24, 32, 14, 0.75) 100%
-  );
+.hero-card-action-btn svg {
+  width: 15px;
+  height: 15px;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.bionova-card:hover .hero-card-action-btn,
+.bionova-dir-card:hover .hero-card-action-btn {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  transform: rotate(45deg) scale(1.08);
+  box-shadow: 0 8px 24px rgba(230, 25, 25, 0.45);
+}
+
+/* Índice numérico técnico para etiquetas */
+.hero-card-idx {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--ed-red);
+  letter-spacing: -0.02em;
 }
 
 /* Contenido de las tarjetas Bionova */
@@ -1042,13 +1181,14 @@ button, input, textarea, select {
 }
 
 .bionova-card-lead-title {
+  font-family: var(--font-display);
   font-size: clamp(1.6rem, 2.3vw, 2.05rem);
-  font-weight: 500;
-  line-height: 1.22;
+  font-weight: 700;
+  line-height: 1.2;
   color: #FFFFFF;
   max-width: 460px;
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
+  letter-spacing: -0.03em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
 }
 
 .bionova-card-bottom-row {
@@ -1207,12 +1347,13 @@ button, input, textarea, select {
 }
 
 .bionova-card-foot-title {
+  font-family: var(--font-display);
   font-size: 1.55rem;
-  font-weight: 500;
-  line-height: 1.25;
+  font-weight: 700;
+  line-height: 1.22;
   color: #FFFFFF;
   margin-bottom: 8px;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.025em;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
 }
 
@@ -1225,8 +1366,9 @@ button, input, textarea, select {
 }
 
 .bionova-big-stat {
+  font-family: var(--font-mono);
   font-size: 3.6rem;
-  font-weight: 400;
+  font-weight: 600;
   line-height: 1;
   color: #FFFFFF;
   margin-bottom: 8px;
@@ -1516,11 +1658,12 @@ button, input, textarea, select {
 }
 
 .bionova-collections-heading {
-  font-size: clamp(1.7rem, 2.5vw, 2.25rem);
-  font-weight: 400;
-  letter-spacing: -0.025em;
-  color: #111111;
-  line-height: 1.2;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 2.8vw, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  color: #0A0A0B;
+  line-height: 1.18;
 }
 
 .bionova-collections-subheading {
@@ -1531,38 +1674,38 @@ button, input, textarea, select {
   font-weight: 400;
 }
 
+/* Grilla Bento Asimétrica Disruptiva de 12 Columnas */
 .bionova-collections-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
 }
 
 /* Tarjeta Bionova de Módulos & Directorio */
 .bionova-dir-card,
 .directory-item {
   position: relative;
-  border-radius: 22px;
+  border-radius: 24px;
   overflow: hidden;
-  min-height: 205px;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: none !important;
   outline: none !important;
-  box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
+  box-shadow: 0 18px 45px -15px rgba(10, 10, 11, 0.05), 0 4px 14px -4px rgba(10, 10, 11, 0.02);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 22px 24px;
+  padding: 26px 28px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.3s var(--spring-ease), box-shadow 0.3s var(--spring-ease);
+  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease);
 }
 
 .bionova-dir-card:hover,
 .directory-item:hover {
   transform: translateY(-4px);
-  box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
+  box-shadow: 0 28px 65px -12px rgba(230, 25, 25, 0.14), 0 12px 28px -6px rgba(10, 10, 11, 0.06);
   border: none !important;
   text-decoration: none;
 }
@@ -1572,6 +1715,40 @@ button, input, textarea, select {
   outline-offset: 3px;
 }
 
+/* Módulo 01: Maquetas Urbanas (7 Columnas - Destacado Heroico) */
+.bionova-dir-card:nth-child(1),
+.bionova-dir-span-7 {
+  grid-column: span 7;
+  min-height: 330px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 65%, rgba(244, 243, 239, 0.94) 100%);
+}
+
+/* Módulo 02: Fabricación Digital 3D (5 Columnas) */
+.bionova-dir-card:nth-child(2),
+.bionova-dir-span-5 {
+  grid-column: span 5;
+  min-height: 330px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 65%, rgba(244, 243, 239, 0.94) 100%);
+}
+
+/* Módulos 03, 04, 05: Fila de 3 Tarjetas Panorámicas (4 Columnas cada una) */
+.bionova-dir-card:nth-child(3),
+.bionova-dir-card:nth-child(4),
+.bionova-dir-card:nth-child(5),
+.bionova-dir-span-4 {
+  grid-column: span 4;
+  min-height: 250px;
+}
+
+/* Módulos 06 y 07: Fila Inferior de 2 Tarjetas Anchas (6 Columnas cada una) */
+.bionova-dir-card:nth-child(6),
+.bionova-dir-card:nth-child(7),
+.bionova-dir-span-6 {
+  grid-column: span 6;
+  min-height: 270px;
+}
+
+/* Imágenes de Fondo con Mayor Nitidez y Revelado Cinematográfico */
 .bionova-dir-card-bg {
   position: absolute;
   top: 0;
@@ -1579,18 +1756,18 @@ button, input, textarea, select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.14;
-  filter: grayscale(85%);
-  transition: opacity 0.4s ease, transform 0.6s var(--spring-ease), filter 0.4s ease;
+  opacity: 0.32;
+  filter: grayscale(35%) contrast(1.05);
+  transition: opacity 0.45s ease, transform 0.65s var(--spring-ease), filter 0.45s ease;
   z-index: 1;
   pointer-events: none;
 }
 
 .bionova-dir-card:hover .bionova-dir-card-bg,
 .directory-item:hover .bionova-dir-card-bg {
-  opacity: 0.3;
-  filter: grayscale(20%);
-  transform: scale(1.05);
+  opacity: 0.55;
+  filter: grayscale(0%) contrast(1.08);
+  transform: scale(1.06);
 }
 
 .bionova-dir-head {
@@ -1598,25 +1775,27 @@ button, input, textarea, select {
   z-index: 2;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   width: 100%;
 }
 
 .bionova-dir-tag {
+  font-family: var(--font-mono);
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--ed-red);
   background: transparent;
   padding: 0;
-  border: none;
+  border: none !important;
   display: inline-block;
+  font-variant-numeric: tabular-nums;
 }
 
 .bionova-dir-pill {
   background: transparent;
-  border: none;
+  border: none !important;
   color: var(--ed-red);
   padding: 0;
   border-radius: 0;
@@ -1636,16 +1815,17 @@ button, input, textarea, select {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-top: 18px;
+  gap: 8px;
+  margin-top: 20px;
 }
 
 .bionova-dir-title {
-  font-size: 1.45rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: #111111;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display);
+  font-size: 1.48rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #0A0A0B;
+  letter-spacing: -0.025em;
   transition: color 0.2s ease;
 }
 
@@ -1659,6 +1839,29 @@ button, input, textarea, select {
   color: var(--ed-text-secondary);
   line-height: 1.55;
   font-weight: 400;
+  max-width: 520px;
+}
+
+/* Píldora de Acción Visible en Módulos Destacados */
+.bionova-dir-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  align-self: flex-start;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0A0A0B;
+  background: rgba(10, 10, 11, 0.06);
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  transition: all 0.25s var(--spring-ease);
+}
+
+.bionova-dir-card:hover .bionova-dir-action-pill {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  transform: translateX(4px);
 }
 
 /* ==========================================================================
@@ -1998,21 +2201,25 @@ button, input, textarea, select {
   pointer-events: none;
 }
 
-.format-size {
+.format-size,
+.format-name {
+  font-family: var(--font-display);
   font-size: 1.7rem;
-  font-weight: 300;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: var(--ed-text);
   margin-bottom: 6px;
 }
 
 .format-scale {
+  font-family: var(--font-mono);
   font-size: 0.78rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--ed-red);
   font-weight: 600;
   margin-bottom: 14px;
+  font-variant-numeric: tabular-nums;
 }
 
 .format-desc {
@@ -2024,9 +2231,10 @@ button, input, textarea, select {
 }
 
 .format-price {
+  font-family: var(--font-mono);
   font-size: 1.3rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.02em;
   color: var(--ed-text);
   border-top: none !important;
   padding-top: 14px;
@@ -5440,9 +5648,10 @@ dialog#project-modal::backdrop {
 }
 
 .ecom-section-title {
+  font-family: var(--font-display);
   font-size: clamp(2rem, 3.8vw, 2.75rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-weight: 700;
+  letter-spacing: -0.035em;
   line-height: 1.15;
   color: var(--ed-text);
   margin-bottom: 14px;
@@ -5671,11 +5880,12 @@ dialog#project-modal::backdrop {
 }
 
 .ecom-title {
+  font-family: var(--font-display);
   font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.3;
+  font-weight: 700;
+  line-height: 1.25;
   color: var(--ed-text);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.025em;
   margin-bottom: 10px;
 }
 
@@ -7502,8 +7712,9 @@ dialog#project-modal::backdrop {
 
   .bionova-dir-card,
   .directory-item {
-    min-height: 155px !important;
-    padding: 16px !important;
+    grid-column: 1 / -1 !important;
+    min-height: 165px !important;
+    padding: 18px 20px !important;
     border-radius: 20px !important;
   }
 
@@ -7597,7 +7808,10 @@ dialog#project-modal::backdrop {
 .bionova-tag-minimal,
 .live-status-badge,
 .ed-back-link,
-.bionova-inline-btn {
+.bionova-inline-btn,
+.hero-metrics-strip,
+.hero-card-action-btn,
+.bionova-dir-action-pill {
   border: none !important;
   outline: none !important;
 }
