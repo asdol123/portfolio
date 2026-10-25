@@ -113,108 +113,42 @@ body {
 }
 
 /* ==========================================================================
-   ATMÓSFERA INMERSIVA ARQUITECTÓNICA (RADIAL AMBIENT GLOW ULTRA-LIMPIO)
-   Diseñado sobre lienzo #F4F3EF sin ensuciar la pureza visual
+   OPTIMIZACIÓN ZERO-LAG: HALOS PESADOS SUPRIMIDOS PARA FLUIDEZ A 120 FPS
+   Se eliminan efectos con filter: blur(100px) en position: fixed para evitar
+   saturación del fill-rate de la GPU durante el desplazamiento.
    ========================================================================== */
 body::before,
 body::after {
-  content: "";
-  position: fixed;
-  pointer-events: none;
-  z-index: -1;
-  border-radius: 50%;
-  filter: blur(100px);
-  will-change: transform, opacity;
-  animation: ambientFloat 26s cubic-bezier(0.22, 1, 0.36, 1) infinite alternate;
+  display: none !important;
+  filter: none !important;
+  animation: none !important;
 }
 
-/* Halo Superior Carmesí Arquitectónico Difuso */
-body::before {
-  top: -120px;
-  right: -80px;
-  width: 580px;
-  height: 580px;
-  background: radial-gradient(circle, rgba(230, 25, 25, 0.055) 0%, rgba(255, 255, 255, 0) 72%);
-}
-
-/* Halo Inferior Cálido y Esbelto */
-body::after {
-  bottom: 6%;
-  left: -140px;
-  width: 640px;
-  height: 640px;
-  background: radial-gradient(circle, rgba(230, 25, 25, 0.035) 0%, rgba(244, 243, 239, 0) 70%);
-  animation-delay: -11s;
-}
-
-@keyframes ambientFloat {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translate(-25px, 35px) scale(1.05);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(20px, -25px) scale(0.96);
-    opacity: 0.8;
-  }
-}
-
-/* Halo Interactivo que acompaña al Cursor */
+/* Halo de cursor desactivado para cero consumo de CPU/GPU */
 .liquid-ambient-halo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 480px;
-  height: 480px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(75px);
-  background: radial-gradient(circle, rgba(217, 37, 37, 0.055) 0%, rgba(255, 140, 120, 0.02) 40%, transparent 70%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
-  will-change: transform;
+  display: none !important;
+  filter: none !important;
+  animation: none !important;
 }
 
-/* Capa de Reflejo Especular Líquido para Tarjetas Interactivas (Anti-Slop & Alto Contraste) */
+/* Capa de reflejo especular desactivada para evitar re-rasterización continua en mousemove */
 .liquid-glare-layer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: inherit;
-  background: radial-gradient(420px circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.22) 0%, rgba(217, 37, 37, 0.04) 35%, transparent 70%);
-  opacity: 0;
-  mix-blend-mode: soft-light;
-  transition: opacity 0.35s ease;
-  z-index: 1;
+  display: none !important;
 }
 
-.ecom-card:hover .liquid-glare-layer,
-.directory-item:hover .liquid-glare-layer,
-.type-card:hover .liquid-glare-layer,
-.format-card:hover .liquid-glare-layer,
-.manual-card:hover .liquid-glare-layer,
-.spec-3d-box:hover .liquid-glare-layer,
-.calc-clean-card:hover .liquid-glare-layer,
-.trust-capsule:hover .liquid-glare-layer {
-  opacity: 0.65;
-}
-
-/* Scroll-Driven Reveals con Física Elástica */
+/* Scroll-Driven Reveals Acelerados por Hardware (Zero Lag Compositor Thread) */
 .liquid-reveal-init {
   opacity: 0;
-  transform: translateY(28px) scale(0.98);
-  filter: blur(4px);
-  transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), filter 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 16px, 0);
+  filter: none !important;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .liquid-reveal-init.is-revealed {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  filter: blur(0);
+  transform: translate3d(0, 0, 0);
+  filter: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -999,34 +933,11 @@ button, input, textarea, select {
   height: 100%;
 }
 
-/* Levitación orgánica ambiental con fases desfasadas */
-@keyframes floatSubtle {
-  0%, 100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-.bionova-bento-grid .bionova-card:nth-child(1) {
-  animation: floatSubtle 7s ease-in-out infinite;
-  animation-delay: 0s;
-}
-
-.bionova-bento-grid .bionova-card:nth-child(2) {
-  animation: floatSubtle 7s ease-in-out infinite;
-  animation-delay: -2s;
-}
-
+/* Desactivadas animaciones continuas infinitas en Hero para 0% consumo en reposo */
+.bionova-bento-grid .bionova-card:nth-child(1),
+.bionova-bento-grid .bionova-card:nth-child(2),
 .bionova-bento-grid .bionova-card:nth-child(3) {
-  animation: floatSubtle 7s ease-in-out infinite;
-  animation-delay: -4s;
-}
-
-.bionova-bento-grid .bionova-card:hover,
-.bionova-bento-grid .bionova-card.is-tilting {
-  animation-play-state: paused;
+  animation: none !important;
 }
 
 .bionova-card {
@@ -1605,14 +1516,13 @@ button, input, textarea, select {
 }
 
 /* Tarjeta Bionova de Módulos & Directorio */
+/* Tarjeta Bionova de Módulos & Directorio */
 .bionova-dir-card,
 .directory-item {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: #FFFFFF;
   border: none !important;
   outline: none !important;
   box-shadow: 0 18px 45px -15px rgba(10, 10, 11, 0.05), 0 4px 14px -4px rgba(10, 10, 11, 0.02);
@@ -1622,12 +1532,14 @@ button, input, textarea, select {
   padding: 26px 28px;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .bionova-dir-card:hover,
 .directory-item:hover {
-  transform: translateY(-4px);
+  transform: translate3d(0, -5px, 0);
   box-shadow: 0 28px 65px -12px rgba(230, 25, 25, 0.14), 0 12px 28px -6px rgba(10, 10, 11, 0.06);
   border: none !important;
   text-decoration: none;
@@ -1643,7 +1555,7 @@ button, input, textarea, select {
 .bionova-dir-span-7 {
   grid-column: span 7;
   min-height: 330px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 65%, rgba(244, 243, 239, 0.94) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.92) 65%, rgba(244, 243, 239, 0.96) 100%);
 }
 
 /* Módulo 02: Fabricación Digital 3D (5 Columnas) */
@@ -1651,7 +1563,7 @@ button, input, textarea, select {
 .bionova-dir-span-5 {
   grid-column: span 5;
   min-height: 330px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.88) 65%, rgba(244, 243, 239, 0.94) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.92) 65%, rgba(244, 243, 239, 0.96) 100%);
 }
 
 /* Módulos 03, 04, 05: Fila de 3 Tarjetas Panorámicas (4 Columnas cada una) */
@@ -1671,19 +1583,19 @@ button, input, textarea, select {
   min-height: 270px;
 }
 
-/* Degradado editorial blanco luminoso ultra-limpio para legibilidad impecable */
+/* Degradado editorial blanco luminoso para proteger el texto sin opacar la imagen relacional */
 .bionova-dir-card::after,
 .directory-item::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.35) 38%, rgba(255, 255, 255, 0.92) 78%, #FFFFFF 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.28) 40%, rgba(255, 255, 255, 0.92) 78%, #FFFFFF 100%);
   pointer-events: none;
   z-index: 1;
   transition: opacity 0.35s ease;
 }
 
-/* Imágenes de Fondo con Mayor Nitidez y Revelado Cinematográfico */
+/* Imágenes de Fondo Relacionales Nítidas, Claras y con Colores Reales */
 .bionova-dir-card-bg {
   position: absolute;
   top: 0;
@@ -1691,18 +1603,21 @@ button, input, textarea, select {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.42;
-  filter: grayscale(20%) contrast(1.05);
-  transition: opacity 0.45s ease, transform 0.65s var(--spring-ease), filter 0.45s ease;
+  object-position: center;
+  opacity: 0.72;
+  filter: none;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 0;
   pointer-events: none;
+  transform: scale3d(1, 1, 1);
+  backface-visibility: hidden;
 }
 
 .bionova-dir-card:hover .bionova-dir-card-bg,
 .directory-item:hover .bionova-dir-card-bg {
-  opacity: 0.58;
-  filter: grayscale(0%) contrast(1.08);
-  transform: scale(1.05);
+  opacity: 0.9;
+  filter: none;
+  transform: scale3d(1.04, 1.04, 1);
 }
 
 .bionova-dir-head {
@@ -1996,14 +1911,14 @@ button, input, textarea, select {
 .type-card {
   border: none !important;
   outline: none !important;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: #FFFFFF;
   border-radius: 20px;
   box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
   padding: 24px 22px;
   cursor: pointer;
-  transition: transform 0.3s var(--spring-ease), box-shadow 0.3s var(--spring-ease);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -2011,7 +1926,7 @@ button, input, textarea, select {
 }
 
 .type-card:hover {
-  transform: translateY(-4px);
+  transform: translate3d(0, -5px, 0);
   border: none !important;
   box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
 }
@@ -2088,12 +2003,12 @@ button, input, textarea, select {
   outline: none !important;
   padding: 28px 24px 22px;
   cursor: pointer;
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: #FFFFFF;
   border-radius: 22px;
   box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
-  transition: transform 0.3s var(--spring-ease), box-shadow 0.3s var(--spring-ease);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -2107,7 +2022,7 @@ button, input, textarea, select {
 }
 
 .format-card:hover {
-  transform: translateY(-4px);
+  transform: translate3d(0, -5px, 0);
   border: none !important;
   box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
 }
@@ -5642,9 +5557,7 @@ dialog#project-modal::backdrop {
 
 /* Tarjeta de producto Apple Liquid Glass (Estilo Bionova) */
 .ecom-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: #FFFFFF;
   border: none !important;
   outline: none !important;
   border-radius: 26px;
@@ -5653,11 +5566,13 @@ dialog#project-modal::backdrop {
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .ecom-card:hover {
-  transform: translateY(-6px);
+  transform: translate3d(0, -5px, 0);
   border: none !important;
   box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
 }
@@ -5680,11 +5595,14 @@ dialog#project-modal::backdrop {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.7s var(--spring-ease), opacity 0.25s ease;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  transform: scale3d(1, 1, 1);
+  backface-visibility: hidden;
 }
 
-.ecom-thumb-box:hover .ecom-img {
-  transform: scale(1.05);
+.ecom-thumb-box:hover .ecom-img,
+.ecom-card:hover .ecom-img {
+  transform: scale3d(1.04, 1.04, 1);
 }
 
 .ecom-badge {
@@ -6225,9 +6143,7 @@ dialog#project-modal::backdrop {
 
 /* Tarjeta Editorial de Manual Liquid Glass */
 .manual-card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
+  background: #FFFFFF;
   border: none !important;
   outline: none !important;
   border-radius: 26px;
@@ -6238,11 +6154,13 @@ dialog#project-modal::backdrop {
   padding: 34px 30px;
   position: relative;
   overflow: hidden;
-  transition: transform 0.35s var(--spring-ease), box-shadow 0.35s var(--spring-ease);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .manual-card:hover {
-  transform: translateY(-5px);
+  transform: translate3d(0, -5px, 0);
   border: none !important;
   box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
 }
