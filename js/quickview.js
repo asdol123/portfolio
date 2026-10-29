@@ -192,6 +192,7 @@
           videoTitle.textContent = currentProduct.name + ' · Fabricacion 3D';
         }
         if (videoModal) {
+          closeQuickView();
           videoModal.classList.add('is-open');
           videoModal.setAttribute('aria-hidden', 'false');
           if (videoPlayer) {
@@ -214,7 +215,7 @@
     const y = Math.max(0, Math.min(100, ((touch.clientY - rect.top) / rect.height) * 100));
 
     mainImg.style.transformOrigin = `${x.toFixed(2)}% ${y.toFixed(2)}%`;
-    mainImg.style.transform = 'scale(2.2)';
+    mainImg.style.transform = 'scale(2.5)';
   }
 
   /**

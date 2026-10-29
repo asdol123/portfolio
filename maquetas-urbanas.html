@@ -142,25 +142,29 @@
     <!-- CONTENIDO PRINCIPAL -->
     <main class="ed-main" id="main-content">
 
-        <!-- ENCABEZADO EDITORIAL ESTILO BIONOVA -->
-        <div class="bionova-page-hero ed-animate-fade">
-            <span class="bionova-section-pill-tag">COLECCIÓN EXCLUSIVA · HECHO EN CHILE</span>
-            <h1 class="bionova-page-hero-title">
-                <span class="bionova-inline-pill sm" aria-hidden="true">
-                    <img src="catalog/santiago-costanera-marco.jpg" alt="" class="bionova-pill-img" fetchpriority="high" decoding="async">
-                </span>Maquetas Urbanas
-            </h1>
-            <p class="bionova-page-hero-sub">
-                Transforma tu espacio o presenta tu proyecto con maquetas tridimensionales de ciudades y relieves naturales. Elige tu modelo favorito, selecciona el tamaño ideal y recíbelo listo para instalar.
-            </p>
-            <div class="bionova-cta-row page-hero-cta">
-                <a href="#catalogo-predisenadas" class="bionova-cta-pill-btn">
-                    <span>Explorar catálogo</span>
-                    <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                </a>
-                <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20cotizar%20una%20maqueta%20a%20medida." target="_blank" rel="noopener noreferrer" class="bionova-cta-text-link">
-                    Cotizar modelo personalizado
-                </a>
+        <!-- ENCABEZADO EDITORIAL ESTILO BIONOVA // AMBIENTE CINEMÁTICO INMERSIVO -->
+        <div class="bionova-page-hero bionova-page-hero-cinematic ed-animate-fade">
+            <img src="assets/img/banners/banner-hero-space.webp" alt="Taller arquitectónico de maquetas urbanas 3D en Santiago de Chile" class="page-hero-bg-banner" fetchpriority="high" decoding="async">
+            <div class="page-hero-scrim-cinematic" aria-hidden="true"></div>
+            <div class="page-hero-inner-content">
+                <span class="bionova-section-pill-tag page-hero-tag">COLECCIÓN EXCLUSIVA · HECHO EN CHILE</span>
+                <h1 class="bionova-page-hero-title">
+                    <span class="bionova-inline-pill sm" aria-hidden="true">
+                        <img src="catalog/santiago-costanera-marco.jpg" alt="" class="bionova-pill-img" fetchpriority="high" decoding="async">
+                    </span>Maquetas Urbanas
+                </h1>
+                <p class="bionova-page-hero-sub">
+                    Transforma tu espacio o presenta tu proyecto con maquetas tridimensionales de ciudades y relieves naturales. Elige tu modelo favorito, selecciona el tamaño ideal y recíbelo listo para instalar.
+                </p>
+                <div class="bionova-cta-row page-hero-cta">
+                    <a href="#catalogo-predisenadas" class="bionova-cta-pill-btn">
+                        <span>Explorar catálogo</span>
+                        <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                    </a>
+                    <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20cotizar%20una%20maqueta%20a%20medida." target="_blank" rel="noopener noreferrer" class="bionova-cta-text-link">
+                        Cotizar modelo personalizado
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -969,6 +973,19 @@
             </div>
         </div>
 
+        <!-- DIVISOR ARQUITECTÓNICO: MACRO TOPOGRAFÍA Y RESOLUCIÓN 0.1 MM -->
+        <div class="macro-separator-band ed-animate-fade">
+            <img src="assets/img/banners/banner-macro-topography.webp" alt="Detalle macro de relieve y topografía arquitectónica" class="macro-separator-img" loading="lazy" decoding="async">
+            <div class="macro-separator-scrim" aria-hidden="true"></div>
+            <div class="macro-separator-content">
+                <span class="macro-separator-badge">PRECISIÓN TOPOGRÁFICA 0.1 MM</span>
+                <h3 class="macro-separator-heading">Manufactura Digital de Alta Resolución</h3>
+                <p class="macro-separator-desc">
+                    Cada modelo captura la topografía natural y la trama urbana con fidelidad milimétrica mediante manufactura aditiva y calibración óptica.
+                </p>
+            </div>
+        </div>
+
         <!-- COTIZACIÓN A MEDIDA -->
         <section class="order-dossier-wrap" aria-label="Formulario de solicitud formal">
             <div class="step-label">3. COTIZACIÓN A MEDIDA</div>
@@ -1665,25 +1682,49 @@
                 }
             }
 
-            // --- REPRODUCTOR MODAL DE VIDEO (REEL VOLCANES 3D) ---
+            // --- VIDEOTECA / CINEMA SHOWCASE INMERSIVO (CLIPS ARQUITECTÓNICOS) ---
             const videoModal = document.getElementById('ar-video-modal');
             const videoCloseBtn = document.getElementById('ar-video-close-btn');
             const videoPlayer = document.getElementById('ar-video-player');
             const videoTitleElem = document.getElementById('ar-video-modal-title');
             const videoBtns = document.querySelectorAll('.btn-ecom-video');
+            const clipPills = document.querySelectorAll('.cinema-clip-pill');
 
-            function openVideoModal(videoSrc, title) {
-                if (!videoModal || !videoPlayer) return;
-                if (videoSrc) {
-                    videoPlayer.src = videoSrc;
+            function switchCinemaClip(src, title, targetPill) {
+                if (!videoPlayer) return;
+                if (src) {
+                    videoPlayer.src = src;
+                    videoPlayer.load();
+                    videoPlayer.play().catch(() => {});
                 }
                 if (title && videoTitleElem) {
                     videoTitleElem.textContent = title;
                 }
+                clipPills.forEach(p => {
+                    const isActive = (p === targetPill) || (src && p.getAttribute('data-clip') === src);
+                    p.classList.toggle('is-active', isActive);
+                    p.setAttribute('aria-selected', isActive ? 'true' : 'false');
+                });
+            }
+
+            clipPills.forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const src = pill.getAttribute('data-clip');
+                    const title = pill.getAttribute('data-title');
+                    switchCinemaClip(src, title, pill);
+                });
+            });
+
+            function openVideoModal(videoSrc, title) {
+                if (!videoModal || !videoPlayer) return;
                 videoModal.classList.add('is-open');
                 videoModal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
-                videoPlayer.play().catch(() => {});
+
+                const targetSrc = videoSrc || 'videos/showcase-relief.mp4';
+                const targetTitle = title || 'Luz Rasante sobre Relieve';
+                const matchedPill = Array.from(clipPills).find(p => p.getAttribute('data-clip') === targetSrc);
+                switchCinemaClip(targetSrc, targetTitle, matchedPill);
             }
 
             function closeVideoModal() {
@@ -1700,7 +1741,7 @@
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     const src = btn.getAttribute('data-video') || 'videos/reel-volcanes.mp4';
-                    const title = btn.getAttribute('data-title') || 'Manufactura 3D · Colección Volcanes de Chile';
+                    const title = btn.getAttribute('data-title') || 'Colección Volcanes de Chile';
                     openVideoModal(src, title);
                 });
             });
@@ -1721,21 +1762,49 @@
         });
     </script>
 
-    <!-- MODAL DE REPRODUCCIÓN DE VIDEO LIMPIO // COLECCIÓN VOLCANES -->
+    <!-- MODAL DE REPRODUCCIÓN DE VIDEO // CINEMA SHOWCASE INMERSIVO -->
     <div id="ar-video-modal" class="ar-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ar-video-modal-title">
-        <div class="ar-video-modal-container">
+        <div class="ar-video-modal-container cinema-showcase-container">
             <header class="ar-video-modal-header">
-                <h3 id="ar-video-modal-title" class="ar-video-modal-title">Manufactura 3D · Colección Volcanes de Chile</h3>
-                <button type="button" class="ar-modal-close-btn" id="ar-video-close-btn" aria-label="Cerrar video">
+                <div class="cinema-header-meta">
+                    <span class="cinema-header-badge">CINEMA SHOWCASE · 60 FPS</span>
+                    <h3 id="ar-video-modal-title" class="ar-video-modal-title">Luz Rasante sobre Relieve</h3>
+                </div>
+                <button type="button" class="ar-modal-close-btn" id="ar-video-close-btn" aria-label="Cerrar reproductor">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
                         <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                 </button>
             </header>
+
+            <!-- TIRA DE CLIPS / PÍLDORAS TÁCTILES INTERACTIVAS -->
+            <div class="cinema-clips-nav" role="tablist" aria-label="Selección de clips arquitectónicos">
+                <button type="button" class="cinema-clip-pill is-active" data-clip="videos/showcase-relief.mp4" data-title="Luz Rasante sobre Relieve" aria-selected="true" role="tab">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    <span>Luz Rasante</span>
+                </button>
+                <button type="button" class="cinema-clip-pill" data-clip="videos/reel-volcanes.mp4" data-title="Colección Volcanes de Chile" aria-selected="false" role="tab">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    <span>Volcanes de Chile</span>
+                </button>
+                <button type="button" class="cinema-clip-pill" data-clip="videos/showcase-frame.mp4" data-title="Manufactura en Taller" aria-selected="false" role="tab">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    <span>Manufactura en Taller</span>
+                </button>
+                <button type="button" class="cinema-clip-pill" data-clip="videos/lifestyle-hanging.mp4" data-title="Instalación en Muro" aria-selected="false" role="tab">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    <span>Instalación en Muro</span>
+                </button>
+                <button type="button" class="cinema-clip-pill" data-clip="videos/workshop-collection-loop.mp4" data-title="Mesa de Modelado 3D" aria-selected="false" role="tab">
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    <span>Mesa de Modelado 3D</span>
+                </button>
+            </div>
+
             <div class="ar-video-player-wrap">
-                <video id="ar-video-player" controls preload="metadata" playsinline class="ar-video-element">
-                    <source src="videos/reel-volcanes.mp4" type="video/mp4">
+                <video id="ar-video-player" controls preload="auto" playsinline class="ar-video-element">
+                    <source src="videos/showcase-relief.mp4" type="video/mp4">
                     Tu navegador no soporta la reproducción de video HTML5.
                 </video>
             </div>

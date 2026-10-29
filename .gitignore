@@ -3,9 +3,14 @@ Thumbs.db
 .DS_Store
 *.mp4
 !videos/*.mp4
+videos/*_1080p.mp4
+videos/_thumbs/
+videos/_video_inspection_report.json
+images/Architect_desk_with_city_model_*.jpg
 .temp_chrome_print_profile/
 .temp_qa_profile_*/
 recovery-codes.txt
 .taste-skill/
 _backup_images_raw/
 test-results/
+

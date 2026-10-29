@@ -210,14 +210,25 @@
                 <div class="bionova-hero-right">
                     <div class="bionova-bento-grid">
 
-                        <!-- TARJETA SUPERIOR ANCHA -->
-                        <a href="maquetas-urbanas.html" class="bionova-card bionova-card-featured" aria-label="¿Listo para dar vida a tu ciudad o proyecto en 3D? Explorar catálogo">
-                            <img src="catalog/santiago-costanera-marco.jpg" alt="Santiago Costanera Center y Sanhattan 3D" class="bionova-card-bg-img" loading="eager" fetchpriority="high" decoding="async">
-                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
+                        <!-- TARJETA SUPERIOR ANCHA CON VIDEO LOOP CINEMÁTICO -->
+                        <div class="bionova-card bionova-card-featured" id="hero-featured-card">
+                            <video id="hero-architectural-video" class="bionova-card-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/img/banners/banner-hero-space.webp" aria-label="Relieve arquitectónico 3D con barrido de luz rasante">
+                                <source src="videos/hero-architectural-loop.webm" type="video/webm">
+                                <source src="videos/hero-architectural-loop.mp4" type="video/mp4">
+                                <img src="assets/img/banners/banner-hero-space.webp" alt="Santiago Costanera Center y Sanhattan 3D" class="bionova-card-bg-img" loading="eager" fetchpriority="high" decoding="async">
+                            </video>
+                            <div class="bionova-card-scrim-cinematic" aria-hidden="true"></div>
+                            <a href="maquetas-urbanas.html" class="bionova-card-overlay-link" aria-label="Explorar catálogo de maquetas urbanas y volcanes de Chile"></a>
                             <div class="bionova-card-content bionova-card-top-layout">
                                 <div class="bionova-card-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <span class="bionova-tag-minimal"><span class="hero-card-idx">01</span> · SANTIAGO 3D</span>
-                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 4px 10px; border-radius: 9999px; letter-spacing: 0.06em;">NUEVO: VOLCANES DE CHILE</span>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 4px 10px; border-radius: 9999px; letter-spacing: 0.06em;">NUEVO: VOLCANES DE CHILE</span>
+                                        <button type="button" class="bionova-video-toggle-btn" id="hero-video-toggle-btn" aria-label="Pausar video de relieve" title="Pausar o reproducir video">
+                                            <svg class="toggle-icon-pause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
+                                            <svg class="toggle-icon-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="display: none;"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                                        </button>
+                                    </div>
                                 </div>
                                 <h2 class="bionova-card-lead-title">
                                     ¿Listo para dar vida a tu ciudad o proyecto en 3D?
@@ -229,7 +240,7 @@
                                     <span class="bionova-card-text-cta">Ver catálogo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                                 </div>
                             </div>
-                        </a>
+                        </div>
 
                         <!-- TARJETA INFERIOR IZQUIERDA -->
                         <a href="maquetas-urbanas.html" class="bionova-card bionova-card-half" aria-label="Colección de ciudades: Santiago, Chicago, Nueva York">
@@ -326,7 +337,7 @@
 
                 <!-- 01. Maquetas Urbanas (Span 7 - Módulo Heroico Destacado) -->
                 <a href="maquetas-urbanas.html" class="bionova-dir-card bionova-dir-span-7 directory-item" aria-label="Módulo 01: Maquetas Urbanas y Colección Volcanes de Chile">
-                    <img src="catalog/volcan-villarrica-marco.jpg" alt="Maqueta 3D Volcán Villarrica y relieve urbano" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <img src="assets/img/banners/banner-collections-desk.webp" alt="Mesa de taller con plano de arquitecto y maquetas urbanas 3D" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
                     <div class="bionova-dir-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <span class="bionova-dir-tag">01 · TIENDA ONLINE</span>
                         <span style="font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 3px 8px; border-radius: 9999px;">NUEVA COLECCIÓN</span>
@@ -343,7 +354,7 @@
 
                 <!-- 02. Fabricación Digital 3D (Span 5 - Cotizador en Vivo) -->
                 <a href="maquetas-3d.html" class="bionova-dir-card bionova-dir-span-5 directory-item" aria-label="Módulo 02: Fabricación Digital 3D">
-                    <img src="images/urbana-07.jpg" alt="Impresión 3D de alta precisión en cama de manufactura aditiva" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <img src="assets/img/banners/banner-workshop-craft.webp" alt="Taller en Santiago y manufactura aditiva artesanal de alta precisión" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">02 · COTIZADOR 3D</span>
                     </div>
@@ -368,7 +379,7 @@
 
                 <!-- 04. Arquitectura Interior (Span 4) -->
                 <a href="diseno-interiores.html" class="bionova-dir-card bionova-dir-span-4 directory-item" aria-label="Módulo 04: Arquitectura Interior">
-                    <img src="images/card-interiorismo.jpg" alt="Render fotorrealista de arquitectura interior y mobiliario" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <img src="assets/img/banners/banner-lifestyle-living.webp" alt="Living interior contemporáneo con maqueta y mobiliario de alto estándar" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">04 · INTERIORISMO</span>
                     </div>
@@ -529,6 +540,48 @@
 
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
     <script src="js/cookies.js?v=20261028d" defer></script>
+
+    <!-- CONTROL ACCESIBLE DE REPRODUCCIÓN DEL VIDEO HERO -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroVid = document.getElementById('hero-architectural-video');
+            const toggleBtn = document.getElementById('hero-video-toggle-btn');
+            if (!heroVid || !toggleBtn) return;
+
+            const iconPause = toggleBtn.querySelector('.toggle-icon-pause');
+            const iconPlay = toggleBtn.querySelector('.toggle-icon-play');
+
+            // Respeto a preferencia de accesibilidad para movimiento reducido
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                heroVid.pause();
+                if (iconPause && iconPlay) {
+                    iconPause.style.display = 'none';
+                    iconPlay.style.display = 'block';
+                }
+                toggleBtn.setAttribute('aria-label', 'Reproducir video de relieve');
+            }
+
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (heroVid.paused) {
+                    heroVid.play().catch(() => {});
+                    if (iconPause && iconPlay) {
+                        iconPause.style.display = 'block';
+                        iconPlay.style.display = 'none';
+                    }
+                    toggleBtn.setAttribute('aria-label', 'Pausar video de relieve');
+                } else {
+                    heroVid.pause();
+                    if (iconPause && iconPlay) {
+                        iconPause.style.display = 'none';
+                        iconPlay.style.display = 'block';
+                    }
+                    toggleBtn.setAttribute('aria-label', 'Reproducir video de relieve');
+                }
+            });
+        });
+    </script>
 
     <!-- VERCEL WEB ANALYTICS -->
     <script defer src="/_vercel/insights/script.js"></script>
