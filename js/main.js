@@ -310,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="card-hover-action" aria-hidden="true">
                         <span>VER PROYECTO</span>
-                        <span>➔</span>
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </div>
                 </div>
                 <div class="card-editorial-body">
@@ -322,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="card-excerpt">${proyecto.descripcion || ''}</p>
                     <div class="card-footer-cta">
                         <span>EXPLORAR DOCUMENTACIÓN</span>
-                        <span class="action-arrow" aria-hidden="true">➔</span>
+                        <span class="action-arrow" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                     </div>
                 </div>
             `;

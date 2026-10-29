@@ -1,30 +1,47 @@
 # Robots.txt para ar-arq.cl - Portafolio de Arquitectura y Maquetas 3D
-# Permitir indexación total para buscadores tradicionales y modelos de IA generativa (AEO/GEO)
+# Permitir indexación para buscadores tradicionales y modelos de IA generativa (AEO/GEO),
+# protegiendo rutas privadas y APIs de gestión interna.
 
 User-agent: *
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 # Buscadores Principales
 User-agent: Googlebot
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 User-agent: Bingbot
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 # Rastreadores y Motores de IA Generativa
 User-agent: ChatGPT-User
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 User-agent: GPTBot
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 User-agent: PerplexityBot
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 User-agent: ClaudeBot
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 User-agent: anthropic-ai
+Disallow: /pedidos.html
+Disallow: /api/orders
 Allow: /
 
 # Ubicación del Sitemap XML

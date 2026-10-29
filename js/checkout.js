@@ -426,7 +426,7 @@
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
             dom.btnKhipuLink.href = flowData.payment_url;
-            dom.btnKhipuLink.textContent = 'IR A PAGAR EN FLOW.CL (WEBPAY) ➔';
+            dom.btnKhipuLink.textContent = 'IR A PAGAR EN FLOW.CL (WEBPAY)';
           }
           // Redirección automática sin fricción tras 1.2 segundos
           setTimeout(() => {
@@ -445,7 +445,7 @@
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
             dom.btnKhipuLink.href = result.whatsappUrl;
-            dom.btnKhipuLink.textContent = 'ACTIVAR LINK FLOW.CL POR WHATSAPP ➔';
+            dom.btnKhipuLink.textContent = 'ACTIVAR LINK FLOW.CL POR WHATSAPP';
           }
         }
       } else if (dom.successKhipuBox) {
@@ -615,7 +615,7 @@
           }
 
           dom.btnCopyBank.classList.add('is-copied');
-          if (dom.btnCopyBankLabel) dom.btnCopyBankLabel.textContent = 'DATOS COPIADOS ✓';
+          if (dom.btnCopyBankLabel) dom.btnCopyBankLabel.textContent = 'DATOS COPIADOS (LISTO)';
 
           setTimeout(() => {
             dom.btnCopyBank.classList.remove('is-copied');
@@ -633,8 +633,8 @@
         const isVisible = dom.previewWrap.classList.contains('is-visible');
         dom.previewWrap.classList.toggle('is-visible', !isVisible);
         dom.btnTogglePreview.innerHTML = isVisible
-          ? `<span>VISTA PREVIA DEL CORREO FORMAL</span> <span aria-hidden="true">↓</span>`
-          : `<span>OCULTAR VISTA PREVIA</span> <span aria-hidden="true">↑</span>`;
+          ? `<span>VISTA PREVIA DEL CORREO FORMAL</span> <span aria-hidden="true" style="display:inline-flex;vertical-align:middle;margin-left:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg></span>`
+          : `<span>OCULTAR VISTA PREVIA</span> <span aria-hidden="true" style="display:inline-flex;vertical-align:middle;margin-left:6px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg></span>`;
       });
     }
 

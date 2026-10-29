@@ -3,6 +3,7 @@ recovery-codes.txt
 Thumbs.db
 .DS_Store
 *.mp4
+!videos/*.mp4
 
 # Scripts de mantenimiento local de Windows
 *.bat

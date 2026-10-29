@@ -14,7 +14,9 @@
   if (typeof module === 'object' && module.exports) {
     module.exports = factory();
   } else {
-    root.AR_ECOMMERCE = factory();
+    const api = factory();
+    root.AR_ECOMMERCE = api;
+    root.AR_CATALOG = api.CATALOG_PRODUCTS;
   }
 })(typeof window !== 'undefined' ? window : this, function () {
   'use strict';
@@ -51,7 +53,53 @@
   // --- CATÁLOGO OFICIAL DE PRODUCTOS Y SKUs ---
   const CATALOG_PRODUCTS = [
     {
+      sku: 'SKU-VOL-01',
+      id: 'volcan-villarrica',
+      name: 'Volcán Villarrica · Relieve Topográfico 3D',
+      shortName: 'Volcán Villarrica',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'CRÁTER ACTIVO · GLACIAR 3D',
+      image: 'catalog/volcan-villarrica-marco.jpg',
+      defaultImage: 'catalog/volcan-villarrica-marco.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.',
+      images: {
+        marco: 'catalog/volcan-villarrica-marco.jpg',
+        detalle: 'catalog/volcan-villarrica-detalle.jpg'
+      },
+      formats: [
+        { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 49990, label: '20 × 20 cm' },
+        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm' }
+      ]
+    },
+    {
+      sku: 'SKU-VOL-02',
+      id: 'volcan-osorno',
+      name: 'Volcán Osorno y Lago Llanquihue · Cota Real 3D',
+      shortName: 'Volcán Osorno',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'CONO PERFECTO · BLANCO TIZA',
+      image: 'catalog/volcan-osorno-shadowbox.jpg',
+      defaultImage: 'catalog/volcan-osorno-shadowbox.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Geometría cónica perfecta y relieve topográfico del lago en acabado blanco tiza de alta pureza arquitectónica.',
+      images: {
+        shadowbox: 'catalog/volcan-osorno-shadowbox.jpg'
+      },
+      formats: [
+        { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 49990, label: '20 × 20 cm' },
+        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles' }
+      ]
+    },
+    {
       sku: 'SKU-SCL-01',
+      id: 'santiago-costanera',
       name: 'Santiago · Costanera Center',
       shortName: 'Santiago Costanera',
       category: 'EDICION URBANA CHILE // CAPITAL',
@@ -1294,6 +1342,7 @@
     CONFIG,
     BANK_DETAILS,
     CATALOG_PRODUCTS,
+    AR_CATALOG: CATALOG_PRODUCTS,
     SHIPPING_OPTIONS,
     PAYMENT_METHODS,
     parseCLP,

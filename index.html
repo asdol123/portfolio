@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
-    <link rel="stylesheet" href="css/editorial.css?v=20261028a">
+    <link rel="stylesheet" href="css/editorial.css?v=20261028d">
 
     <!-- Estructura de Datos JSON-LD de Autoridad (Schema.org / GEO y AI Search) -->
     <script type="application/ld+json">
@@ -127,6 +127,7 @@
                 <a href="maquetas-3d.html" class="bionova-nav-link">Fabricación 3D</a>
                 <a href="proyectos.html" class="bionova-nav-link">Proyectos</a>
                 <a href="manuales.html" class="bionova-nav-link">Manuales</a>
+                <a href="pedidos.html" class="bionova-nav-link">Gestión de Pedidos</a>
             </nav>
 
             <div class="bionova-nav-actions">
@@ -214,17 +215,18 @@
                             <img src="catalog/santiago-costanera-marco.jpg" alt="Santiago Costanera Center y Sanhattan 3D" class="bionova-card-bg-img" loading="eager" fetchpriority="high" decoding="async">
                             <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
                             <div class="bionova-card-content bionova-card-top-layout">
-                                <div class="bionova-card-head">
+                                <div class="bionova-card-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                                     <span class="bionova-tag-minimal"><span class="hero-card-idx">01</span> · SANTIAGO 3D</span>
+                                    <span style="font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 4px 10px; border-radius: 9999px; letter-spacing: 0.06em;">NUEVO: VOLCANES DE CHILE</span>
                                 </div>
                                 <h2 class="bionova-card-lead-title">
                                     ¿Listo para dar vida a tu ciudad o proyecto en 3D?
                                 </h2>
                                 <div class="bionova-card-bottom-row">
                                     <p class="bionova-card-subtext">
-                                        Elige un modelo listo para enviar o encarga el tuyo a medida.
+                                        Modelos de ciudades y relieves volcánicos listos para entrega inmediata.
                                     </p>
-                                    <span class="bionova-card-text-cta">Ver modelos <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                                    <span class="bionova-card-text-cta">Ver catálogo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                                 </div>
                             </div>
                         </a>
@@ -323,15 +325,19 @@
             <div class="bionova-collections-grid">
 
                 <!-- 01. Maquetas Urbanas (Span 7 - Módulo Heroico Destacado) -->
-                <a href="maquetas-urbanas.html" class="bionova-dir-card bionova-dir-span-7 directory-item" aria-label="Módulo 01: Maquetas Urbanas">
-                    <img src="catalog/santiago-costanera-marco.jpg" alt="Maqueta 3D Santiago Costanera Center" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
-                    <div class="bionova-dir-head">
+                <a href="maquetas-urbanas.html" class="bionova-dir-card bionova-dir-span-7 directory-item" aria-label="Módulo 01: Maquetas Urbanas y Colección Volcanes de Chile">
+                    <img src="catalog/volcan-villarrica-marco.jpg" alt="Maqueta 3D Volcán Villarrica y relieve urbano" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="bionova-dir-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <span class="bionova-dir-tag">01 · TIENDA ONLINE</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 3px 8px; border-radius: 9999px;">NUEVA COLECCIÓN</span>
                     </div>
                     <div class="bionova-dir-body">
-                        <h3 class="bionova-dir-title">Maquetas Urbanas</h3>
-                        <p class="bionova-dir-desc">Ciudades icónicas y relieves tridimensionales en compra directa online con empaque protegido y envío a todo Chile.</p>
-                        <span class="bionova-dir-action-pill">Explorar tienda <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                        <h3 class="bionova-dir-title">Maquetas Urbanas y Volcanes de Chile</h3>
+                        <p class="bionova-dir-desc">Ciudades icónicas y nueva colección territorial de volcanes chilenos en compra directa online con empaque protegido y envío asegurado a todo Chile.</p>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span class="bionova-dir-action-pill">Explorar tienda <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                            <span class="bionova-dir-action-pill" style="background: rgba(255,255,255,0.2);">Ver volcanes 3D <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                        </div>
                     </div>
                 </a>
 
@@ -504,6 +510,8 @@
                 </div>
             </div>
             <div class="ed-footer-legal-row">
+                <a href="pedidos.html" class="ed-footer-legal-link">GESTIÓN DE PEDIDOS</a>
+                <span class="ed-footer-legal-sep">·</span>
                 <a href="politica-privacidad.html" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
                 <span class="ed-footer-legal-sep">·</span>
                 <a href="terminos-condiciones.html" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
@@ -517,10 +525,10 @@
     </footer>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
-    <script src="js/liquid-motion.js?v=20261028a" defer></script>
+    <script src="js/liquid-motion.js?v=20261028d" defer></script>
 
     <!-- SCRIPT DE COOKIES Y GESTIÓN DE CONSENTIMIENTO -->
-    <script src="js/cookies.js?v=20261028a" defer></script>
+    <script src="js/cookies.js?v=20261028d" defer></script>
 
     <!-- VERCEL WEB ANALYTICS -->
     <script defer src="/_vercel/insights/script.js"></script>
