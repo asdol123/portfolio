@@ -1526,23 +1526,44 @@
                     });
                 });
 
-                // Clic en la foto abre el visor en alta resolución
-                if (thumbBox) {
-                    const openCardImage = () => {
+                // Clic en la foto, lupa o título abre el visor inmersivo de producto con zoom 2.5x
+                const openCardQuickView = (e) => {
+                    if (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                    const sku = card.getAttribute('data-sku');
+                    if (window.AR_QUICKVIEW && typeof window.AR_QUICKVIEW.openQuickView === 'function') {
+                        window.AR_QUICKVIEW.openQuickView(sku);
+                    } else {
                         const currentImg = card.querySelector('.ecom-img');
-                        const caption = thumbBox.getAttribute('data-caption') || currentImg?.alt || prodName;
-                        if (currentImg) {
-                            openLightbox(currentImg.src, currentImg.alt, caption);
-                        }
-                    };
+                        const caption = thumbBox ? thumbBox.getAttribute('data-caption') : prodName;
+                        if (currentImg) openLightbox(currentImg.src, currentImg.alt, caption);
+                    }
+                };
 
-                    thumbBox.addEventListener('click', openCardImage);
+                if (thumbBox) {
+                    thumbBox.style.cursor = 'pointer';
+                    thumbBox.addEventListener('click', openCardQuickView);
                     thumbBox.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
                             e.preventDefault();
-                            openCardImage();
+                            openCardQuickView(e);
                         }
                     });
+                }
+
+                const zoomHint = card.querySelector('.ecom-zoom-hint');
+                if (zoomHint) {
+                    zoomHint.style.cursor = 'pointer';
+                    zoomHint.addEventListener('click', openCardQuickView);
+                }
+
+                const cardTitle = card.querySelector('.ecom-title');
+                if (cardTitle) {
+                    cardTitle.style.cursor = 'pointer';
+                    cardTitle.title = 'Clic para ver detalles y hacer zoom';
+                    cardTitle.addEventListener('click', openCardQuickView);
                 }
             });
 
@@ -1717,6 +1738,149 @@
                     <source src="videos/reel-volcanes.mp4" type="video/mp4">
                     Tu navegador no soporta la reproducción de video HTML5.
                 </video>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE PRODUCTO INMERSIVO // QUICK VIEW E-COMMERCE CON ZOOM 2.5X -->
+    <div id="ar-quickview-modal" class="ar-modal-backdrop ar-quickview-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="ar-quickview-title">
+        <div class="ar-quickview-dialog" id="ar-quickview-dialog" role="document">
+            
+            <!-- Botón de Cerrar Flotante Minimalista -->
+            <button type="button" class="ar-quickview-close-btn" id="ar-quickview-close-btn" aria-label="Cerrar vista de producto">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <!-- Contenedor Principal en Dos Columnas -->
+            <div class="ar-quickview-grid">
+                
+                <!-- COLUMNA 1: VISOR FOTOGRÁFICO CON ZOOM LUPA 2.5X Y TIRA DE ÁNGULOS -->
+                <div class="ar-quickview-visual-col">
+                    <div class="ar-quickview-viewer" id="ar-quickview-viewer" tabindex="0" role="region" aria-label="Visor con zoom interactivo de producto">
+                        <img id="ar-quickview-main-img" src="catalog/volcan-villarrica-marco.jpg" alt="Vista detallada de producto" class="ar-quickview-img" draggable="false">
+                        
+                        <!-- Badge flotante de indicación de zoom -->
+                        <div class="ar-quickview-zoom-tag" aria-hidden="true">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                            <span>ZOOM 2.5X · DETALLE DE CAPA 0.20 MM</span>
+                        </div>
+
+                        <!-- Indicador móvil de toque -->
+                        <div class="ar-quickview-touch-hint" aria-hidden="true">
+                            <span>Desliza para explorar</span>
+                        </div>
+                    </div>
+
+                    <!-- Tira de Miniaturas de Ángulos / Galería -->
+                    <div class="ar-quickview-gallery-wrap">
+                        <span class="ar-quickview-strip-label">ÁNGULOS Y DETALLES DISPONIBLES:</span>
+                        <div class="ar-quickview-gallery-strip" id="ar-quickview-gallery-strip" role="tablist" aria-label="Perspectivas del producto">
+                            <!-- Se llena dinámicamente con las imágenes de product.gallery -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COLUMNA 2: PANEL DE COMPRA, ESPECIFICACIONES Y ACCIONES -->
+                <div class="ar-quickview-info-col">
+                    <div class="ar-quickview-info-scroll">
+                        
+                        <!-- Metadatos y Badge de Colección -->
+                        <div class="ar-quickview-meta-row">
+                            <span class="ar-quickview-badge" id="ar-quickview-badge">NUEVA COLECCIÓN · CRÁTER 3D</span>
+                            <span class="ar-quickview-sku" id="ar-quickview-sku">SKU-VOL-01</span>
+                        </div>
+
+                        <!-- Título Arquitectónico del Producto -->
+                        <h2 class="ar-quickview-title" id="ar-quickview-title">Volcán Villarrica · Relieve Topográfico 3D</h2>
+
+                        <!-- Precio Dinámico Prominente -->
+                        <div class="ar-quickview-price-box">
+                            <div class="ar-quickview-price-val" id="ar-quickview-price">$19.990 CLP</div>
+                            <div class="ar-quickview-price-sub">IVA incluido · Fabricación directa en taller propio</div>
+                        </div>
+
+                        <!-- Descripción Curada -->
+                        <p class="ar-quickview-desc" id="ar-quickview-desc">
+                            Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.
+                        </p>
+
+                        <!-- Selector Interactivo de Formatos / Tamaños -->
+                        <div class="ar-quickview-formats-section">
+                            <div class="ar-quickview-section-label">SELECCIONA FORMATO / TAMAÑO:</div>
+                            <div class="ar-quickview-formats-list" id="ar-quickview-formats-list" role="radiogroup" aria-label="Tamaño del producto">
+                                <!-- Se puebla dinámicamente -->
+                            </div>
+                        </div>
+
+                        <!-- Indicador de Estado de Taller con Punto Pulsante -->
+                        <div class="ar-quickview-workshop-status">
+                            <span class="ar-workshop-pulse-dot" aria-hidden="true"></span>
+                            <span class="ar-workshop-status-text" id="ar-quickview-leadtime">Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile</span>
+                        </div>
+
+                        <!-- Cuadrícula de Especificaciones Técnicas (Specs Grid) -->
+                        <div class="ar-quickview-specs-box">
+                            <div class="ar-quickview-specs-title">ESPECIFICACIONES TÉCNICAS</div>
+                            <div class="ar-quickview-specs-grid" id="ar-quickview-specs-grid">
+                                <!-- Se puebla dinámicamente con escala, tolerancia, material, marco, origen satelital, etc. -->
+                            </div>
+                        </div>
+
+                        <!-- Bloque de Botones de Acción Inmersiva -->
+                        <div class="ar-quickview-actions">
+                            <!-- Botón Principal: Compra Directa Webpay -->
+                            <button type="button" class="btn-ar-qv-buy" id="ar-quickview-btn-buy">
+                                <span>COMPRAR AHORA · WEBPAY PLUS</span>
+                                <span class="btn-arrow" aria-hidden="true">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                                        <polyline points="12 5 19 12 12 19"></polyline>
+                                    </svg>
+                                </span>
+                            </button>
+
+                            <div class="ar-quickview-secondary-row">
+                                <!-- Botón Secundario: WhatsApp Asistido -->
+                                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-ar-qv-wsp" id="ar-quickview-btn-wsp" aria-label="Consultar por WhatsApp">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                                    </svg>
+                                    <span>CONSULTAR POR WHATSAPP</span>
+                                </a>
+
+                                <!-- Botón Terciario: Video Reel Taller (Condicional) -->
+                                <button type="button" class="btn-ar-qv-video" id="ar-quickview-btn-video" aria-label="Ver video de fabricación">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                    </svg>
+                                    <span>VER REEL DE FABRICACIÓN</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Micro Garantías de Compra -->
+                        <div class="ar-quickview-micro-guarantees">
+                            <div class="ar-qv-guarantee-item">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                <span>Pago Seguro Flow.cl / Webpay</span>
+                            </div>
+                            <div class="ar-qv-guarantee-item">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <span>Empaque Acolchado de Alta Protección</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -1990,6 +2154,7 @@
     <!-- MOTOR E-COMMERCE Y GESTIÓN DE CHECKOUT FORMAL -->
     <script src="js/ecommerce.js?v=20261028d"></script>
     <script src="js/checkout.js?v=20261028d"></script>
+    <script src="js/quickview.js?v=20261028d"></script>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
     <script src="js/liquid-motion.js?v=20261028d" defer></script>

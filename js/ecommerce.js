@@ -60,14 +60,30 @@
       category: 'volcanes',
       collection: 'Volcanes de Chile',
       tag: 'CRÁTER ACTIVO · GLACIAR 3D',
+      badge: 'NUEVA COLECCIÓN · CRÁTER 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/volcan-villarrica-marco.jpg',
       image: 'catalog/volcan-villarrica-marco.jpg',
       defaultImage: 'catalog/volcan-villarrica-marco.jpg',
       video: 'videos/reel-volcanes.mp4',
       description: 'Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.',
+      specs: {
+        escala: '1:1000 / 1:2000',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Mate',
+        marco: 'Shadowbox Negro Mate o Madera Natural',
+        origen: 'DEM Satelital Alos Palsar 12.5 m',
+        acabado: 'Blanco Tiza Mate Antirreflejo'
+      },
       images: {
         marco: 'catalog/volcan-villarrica-marco.jpg',
         detalle: 'catalog/volcan-villarrica-detalle.jpg'
       },
+      gallery: [
+        { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Marco Shadowbox Negro' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle Cráter y Curvas de Nivel' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
+      ],
       formats: [
         { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
         { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
@@ -83,13 +99,29 @@
       category: 'volcanes',
       collection: 'Volcanes de Chile',
       tag: 'CONO PERFECTO · BLANCO TIZA',
+      badge: 'NUEVA COLECCIÓN · CONO PERFECTO',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/volcan-osorno-shadowbox.jpg',
       image: 'catalog/volcan-osorno-shadowbox.jpg',
       defaultImage: 'catalog/volcan-osorno-shadowbox.jpg',
       video: 'videos/reel-volcanes.mp4',
       description: 'Geometría cónica perfecta y relieve topográfico del lago en acabado blanco tiza de alta pureza arquitectónica.',
+      specs: {
+        escala: '1:1000 / 1:2000',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Cota Real DEM Satelital SRTM',
+        acabado: 'Microestratificación 0.20 mm'
+      },
       images: {
         shadowbox: 'catalog/volcan-osorno-shadowbox.jpg'
       },
+      gallery: [
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Marco Shadowbox' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Textura Cónica y Cota Real' },
+        { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Perspectiva de Exhibición' }
+      ],
       formats: [
         { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
         { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
@@ -104,12 +136,29 @@
       shortName: 'Santiago Costanera',
       category: 'EDICION URBANA CHILE // CAPITAL',
       tag: 'TOP VENTAS · STOCK INMEDIATO',
-      description: 'Malla morfologica tridimensional de alta precision del centro financiero de Santiago y Gran Torre Costanera. Manufactura en PLA arquitectonico mate con marco perimetral de exhibicion.',
+      badge: 'MÁS VENDIDO · STOCK DISPONIBLE',
+      leadTime: 'Despacho prioritario en 24 a 48 horas en Santiago',
+      description: 'Malla morfológica tridimensional de alta precisión del centro financiero de Santiago y Gran Torre Costanera. Manufactura en PLA arquitectónico mate con marco perimetral de exhibición.',
+      main: 'catalog/santiago-costanera-marco.jpg',
+      image: 'catalog/santiago-costanera-marco.jpg',
       defaultImage: 'catalog/santiago-costanera-marco.jpg',
+      specs: {
+        escala: '1:2000',
+        tolerancia: '±0.10 mm',
+        material: 'PLA Arquitectónico Mate',
+        marco: 'Aluminio Negro Anodizado o Madera',
+        origen: 'Catastro Morfológico Urbano Santiago 3D',
+        acabado: 'Mate Antirreflejo'
+      },
       images: {
         marco: 'catalog/santiago-costanera-marco.jpg',
         sinMarco: 'catalog/santiago-costanera-sin-marco.jpg'
       },
+      gallery: [
+        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Enmarcado Shadowbox' },
+        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Relieve Puro Sin Marco' },
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle Microarquitectónico' }
+      ],
       formats: [
         { size: '10 × 10 cm', price: 9990, label: '10 × 10 cm' },
         { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
@@ -119,15 +168,33 @@
     },
     {
       sku: 'SKU-CHI-02',
+      id: 'chicago-cuadro',
       name: 'Chicago · Damero y Lago Michigan',
       shortName: 'Chicago',
       category: 'CIUDADES DEL MUNDO // USA',
       tag: 'CUADRO ENMARCADO · TEXTO 3D',
-      description: 'Trama de rascacielos del Loop de Chicago con el rio Chicago y ribera del Lago Michigan. Cuadro rigido con tipografia volumetrica integrada en relieve arquitectonico 3D.',
+      badge: 'EDICIÓN INTERNACIONAL · LOOP 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      description: 'Trama de rascacielos del Loop de Chicago con el río Chicago y ribera del Lago Michigan. Cuadro rígido con tipografía volumétrica integrada en relieve arquitectónico 3D.',
+      main: 'catalog/chicago-cuadro.jpg',
+      image: 'catalog/chicago-cuadro.jpg',
       defaultImage: 'catalog/chicago-cuadro.jpg',
+      specs: {
+        escala: '1:3500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Gris Niebla y Blanco Mate',
+        marco: 'Madera Esmaltada Negra con Montaje Integrado',
+        origen: 'Levantamiento LIDAR Cuadrícula Urbana Loop Chicago',
+        acabado: 'Volumetría con Tipografía 3D en Bajo Relieve'
+      },
       images: {
         principal: 'catalog/chicago-cuadro.jpg'
       },
+      gallery: [
+        { url: 'catalog/chicago-cuadro.jpg', label: 'Cuadro Topográfico con Tipografía 3D' },
+        { url: 'catalog/new-york-cuadro.jpg', label: 'Perspectiva Serie Ciudades' },
+        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
+      ],
       formats: [
         { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
         { size: '20 × 20 cm', price: 39990, label: '20 × 20 cm' },
@@ -136,15 +203,33 @@
     },
     {
       sku: 'SKU-NYC-03',
-      name: 'New York · Manhattan y Rio Hudson',
+      id: 'new-york-cuadro',
+      name: 'New York · Manhattan y Río Hudson',
       shortName: 'New York',
       category: 'CIUDADES DEL MUNDO // USA',
       tag: 'CUADRO ENMARCADO · TEXTO 3D',
-      description: 'Topografia urbana densa de Manhattan entre el Rio Hudson y East River. Rascacielos historicos y modernos en manufactura aditiva monocromatica de maxima fidelidad.',
+      badge: 'EDICIÓN INTERNACIONAL · MANHATTAN 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      description: 'Topografía urbana densa de Manhattan entre el Río Hudson y East River. Rascacielos históricos y modernos en manufactura aditiva monocromática de máxima fidelidad.',
+      main: 'catalog/new-york-cuadro.jpg',
+      image: 'catalog/new-york-cuadro.jpg',
       defaultImage: 'catalog/new-york-cuadro.jpg',
+      specs: {
+        escala: '1:4000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza y Base Grafito',
+        marco: 'Enmarcado Negro Shadowbox con Cristal de Protección',
+        origen: 'Catastro Morfológico Isla de Manhattan y Central Park',
+        acabado: 'Tipografía Volumétrica 3D Integrada'
+      },
       images: {
         principal: 'catalog/new-york-cuadro.jpg'
       },
+      gallery: [
+        { url: 'catalog/new-york-cuadro.jpg', label: 'Manhattan en Relieve Blanco Tiza' },
+        { url: 'catalog/chicago-cuadro.jpg', label: 'Perspectiva Serie Ciudades' },
+        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
+      ],
       formats: [
         { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
         { size: '20 × 20 cm', price: 39990, label: '20 × 20 cm' },
@@ -153,15 +238,33 @@
     },
     {
       sku: 'SKU-GUI-04',
-      name: 'Guiza · Piramides de Egipto',
-      shortName: 'Piramides de Guiza',
+      id: 'piramides-guiza',
+      name: 'Guiza · Pirámides de Egipto',
+      shortName: 'Pirámides de Guiza',
       category: 'PATRIMONIO DE LA HUMANIDAD // EGIPTO',
       tag: 'TOPOGRAFIA ARQUEOLOGICA',
-      description: 'Topografia geoespacial de la meseta de Guiza con las piramides de Keops, Kefren y Micerino. Detalle de pendientes y textura desertica en microcapas FDM de alta resolucion.',
+      badge: 'PATRIMONIO DE LA HUMANIDAD · GIS 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      description: 'Topografía geoespacial de la meseta de Guiza con las pirámides de Keops, Kefrén y Micerino. Detalle de pendientes y textura desértica en microcapas FDM de alta resolución.',
+      main: 'catalog/piramides-guiza.jpg',
+      image: 'catalog/piramides-guiza.jpg',
       defaultImage: 'catalog/piramides-guiza.jpg',
+      specs: {
+        escala: '1:2500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Tono Arena Tiza',
+        marco: 'Shadowbox Negro Mate de Alto Impacto',
+        origen: 'Fotogrametría Satelital Meseta Arqueológica',
+        acabado: 'Curvas de Nivel FDM Microcapas 0.15 mm'
+      },
       images: {
         principal: 'catalog/piramides-guiza.jpg'
       },
+      gallery: [
+        { url: 'catalog/piramides-guiza.jpg', label: 'Meseta Arqueológica de Guiza' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Estratos y Curvas' },
+        { url: 'catalog/topografia-valle-marco.jpg', label: 'Vista de Enmarcado' }
+      ],
       formats: [
         { size: '15 × 15 cm', price: 22990, label: '15 × 15 cm' },
         { size: '20 × 20 cm', price: 36990, label: '20 × 20 cm' },
@@ -170,15 +273,33 @@
     },
     {
       sku: 'SKU-MUR-05',
+      id: 'relieve-modular-4paneles',
       name: 'Mural Cordillerano Modular (4 Paneles)',
       shortName: 'Mural Cordillerano Modular',
       category: 'ARTE TERRITORIAL // GRAN FORMATO',
       tag: 'MURAL 4 BALDOSAS · GRAN FORMATO',
-      description: 'Instalacion mural de gran formato compuesta por cuatro baldosas topograficas interconectadas. Ideal para salas de reuniones, recepciones corporativas y vestibulos de despachos.',
+      badge: 'ARTE TERRITORIAL · GRAN FORMATO',
+      leadTime: 'Fabricación y calibración en taller · Despacho en 5 a 7 días hábiles',
+      description: 'Instalación mural de gran formato compuesta por cuatro baldosas topográficas interconectadas. Ideal para salas de reuniones, recepciones corporativas y vestíbulos de despachos.',
+      main: 'catalog/relieve-modular-4paneles.jpg',
+      image: 'catalog/relieve-modular-4paneles.jpg',
       defaultImage: 'catalog/relieve-modular-4paneles.jpg',
+      specs: {
+        escala: '1:5000 Territorial',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Ultra Blanco',
+        marco: 'Sistema Modular Ensamble Oculto o Flotante',
+        origen: 'Malla Batimétrica y Altimétrica SRTM 30 m',
+        acabado: 'Continuidad Tridimensional entre Baldosas'
+      },
       images: {
         principal: 'catalog/relieve-modular-4paneles.jpg'
       },
+      gallery: [
+        { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Mural 4 Baldosas Modulares' },
+        { url: 'catalog/topografia-valle-marco.jpg', label: 'Encuadre de Transición Territorial' },
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Acople y Textura' }
+      ],
       formats: [
         { size: '30 × 30 cm (Modular)', price: 79990, label: '30 × 30 cm (Modular)' },
         { size: '40 × 40 cm (Modular)', price: 119990, label: '40 × 40 cm (Modular)' }
@@ -186,16 +307,34 @@
     },
     {
       sku: 'SKU-TOP-06',
-      name: 'Topografia Territorial · Valle y Cordillera',
-      shortName: 'Topografia Territorial',
+      id: 'topografia-valle-marco',
+      name: 'Topografía Territorial · Valle y Cordillera',
+      shortName: 'Topografía Territorial',
       category: 'MODELADO TERRITORIAL // CHILE',
       tag: 'MODELO TERRITORIAL GIS',
-      description: 'Curvas de nivel GIS satelitales en relieve blanco mate puro. Captura la transicion entre el valle central y los cordones montanosos con precision micrometrica.',
+      badge: 'MODELO TERRITORIAL GIS · COTA REAL',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      description: 'Curvas de nivel GIS satelitales en relieve blanco mate puro. Captura la transición entre el valle central y los cordones montañosos con precisión micrométrica.',
+      main: 'catalog/topografia-valle-marco.jpg',
+      image: 'catalog/topografia-valle-marco.jpg',
       defaultImage: 'catalog/topografia-valle-marco.jpg',
+      specs: {
+        escala: '1:2500 / 1:5000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Mate Blanco Tiza',
+        marco: 'Shadowbox Negro Mate con Cristal Protector',
+        origen: 'Levantamiento Altimétrico Digital de Elevación',
+        acabado: 'Curvas Extruidas Capa a Capa'
+      },
       images: {
         general: 'catalog/topografia-valle-marco.jpg',
         detalle: 'catalog/topografia-valle-detalle.jpg'
       },
+      gallery: [
+        { url: 'catalog/topografia-valle-marco.jpg', label: 'Cuadro Topográfico Valle Central' },
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Curvas y Pendientes' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista Lateral Shadowbox' }
+      ],
       formats: [
         { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
         { size: '20 × 20 cm', price: 34990, label: '20 × 20 cm' },
@@ -204,15 +343,33 @@
     },
     {
       sku: 'SKU-INS-07',
-      name: 'Insercion Arquitectonica de Alto Contraste',
-      shortName: 'Insercion Arquitectonica',
+      id: 'insercion-arquitectura-contraste',
+      name: 'Inserción Arquitectónica de Alto Contraste',
+      shortName: 'Inserción Arquitectónica',
       category: 'DISENO CONCEPTUAL // BICOLOR',
       tag: 'ALTO CONTRASTE · NEGRO / BLANCO',
-      description: 'Enfoque volumetrico diferencial: topografia en sustrato negro azabache y propuesta arquitectonica en blanco puro para evidenciar la huella e insercion en el relieve.',
+      badge: 'CONCEPTO BICOLOR · VOLUMETRÍA PURA',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      description: 'Enfoque volumétrico diferencial: topografía en sustrato negro azabache y propuesta arquitectónica en blanco puro para evidenciar la huella e inserción en el relieve.',
+      main: 'catalog/insercion-arquitectura-contraste.jpg',
+      image: 'catalog/insercion-arquitectura-contraste.jpg',
       defaultImage: 'catalog/insercion-arquitectura-contraste.jpg',
+      specs: {
+        escala: '1:500 / 1:1000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Dual: Base Negro Carbón y Volumetría Blanco Puro',
+        marco: 'Montaje al Ras o Shadowbox Minimalista',
+        origen: 'Diseño Paramétrico BIM y Geometría Topográfica',
+        acabado: 'Contraste Óptico Mate de Alta Definición'
+      },
       images: {
         principal: 'catalog/insercion-arquitectura-contraste.jpg'
       },
+      gallery: [
+        { url: 'catalog/insercion-arquitectura-contraste.jpg', label: 'Alto Contraste Arquitectónico' },
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Encuentro y Relieve' },
+        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Base de Sustrato Topográfico' }
+      ],
       formats: [
         { size: '15 × 15 cm', price: 22990, label: '15 × 15 cm' },
         { size: '20 × 20 cm', price: 38990, label: '20 × 20 cm' }
@@ -220,32 +377,68 @@
     },
     {
       sku: 'SKU-CUST-08',
+      id: 'maqueta-a-medida',
       name: 'Maqueta a Medida · Proyecto Especial',
       shortName: 'Maqueta a Medida',
       category: 'PROYECTOS ARQUITECTONICOS A MEDIDA',
       tag: 'A MEDIDA · LEVANTAMIENTO GIS',
-      description: 'Manufactura a medida segun levantamiento topografico, plano CAD, modelo BIM o coordenadas satelitales especificas de su proyecto.',
+      badge: 'PROYECTO ESPECIAL · COTIZACIÓN A MEDIDA',
+      leadTime: 'Tiempo estimado según escala y complejidad del modelo (5 a 12 días)',
+      description: 'Manufactura a medida según levantamiento topográfico, plano CAD, modelo BIM o coordenadas satelitales específicas de su proyecto.',
+      main: 'catalog/santiago-costanera-marco.jpg',
+      image: 'catalog/santiago-costanera-marco.jpg',
       defaultImage: 'catalog/santiago-costanera-marco.jpg',
+      specs: {
+        escala: 'A definir según encargo (1:100 a 1:10000)',
+        tolerancia: '±0.10 mm',
+        material: 'PLA Arquitectónico, PETG o Resina Técnica',
+        marco: 'Shadowbox, Base Flotante o Ensamble Modular',
+        origen: 'Modelos CAD, BIM (Revit/Archicad), OBJ, STL o Coordenadas GIS',
+        acabado: 'Monocromático Blanco Tiza, Gris o Bicolor'
+      },
       images: {
         principal: 'catalog/santiago-costanera-marco.jpg'
       },
+      gallery: [
+        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Ejemplo Modelo Urbano Enmarcado' },
+        { url: 'catalog/topografia-valle-marco.jpg', label: 'Ejemplo Modelo Topográfico de Valle' },
+        { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Ejemplo Mural Modular a Medida' }
+      ],
       formats: [
-        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto segun escala' }
+        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto según escala' }
       ]
     },
     {
       sku: 'SKU-3D-09',
-      name: 'Servicio de Impresion 3D y Prototipado Arquitectonico',
-      shortName: 'Impresion 3D Tecnica',
+      id: 'servicio-impresion-3d',
+      name: 'Servicio de Impresión 3D y Prototipado Arquitectónico',
+      shortName: 'Impresión 3D Técnica',
       category: 'FABRICACION ADITIVA TECNICA',
       tag: 'PROTOTIPADO RAPIDO ±0.1 MM',
-      description: 'Servicio de fabricacion aditiva de precision para oficinas de arquitectura, constructoras y estudiantes. PLA mate, filamentos tecnicos y optimizacion de mallas.',
+      badge: 'FABRICACIÓN ADITIVA · ALTA PRECISIÓN',
+      leadTime: 'Cotización inmediata y despacho en 24 a 72 horas según volumen',
+      description: 'Servicio de fabricación aditiva de precisión para oficinas de arquitectura, constructoras y estudiantes. PLA mate, filamentos técnicos y optimización de mallas.',
+      main: 'catalog/topografia-valle-detalle.jpg',
+      image: 'catalog/topografia-valle-detalle.jpg',
       defaultImage: 'catalog/topografia-valle-detalle.jpg',
+      specs: {
+        escala: 'Escala libre según dimensiones de cama de impresión',
+        tolerancia: '±0.10 mm',
+        material: 'PLA Mate, Tough PLA, PETG Arquitectónico',
+        marco: 'Sin marco (Prototipo directo de manufactura)',
+        origen: 'Archivos STL, STEP, 3MF o OBJ',
+        acabado: 'Calidad de presentación sin rebabas ni hilos'
+      },
       images: {
         principal: 'catalog/topografia-valle-detalle.jpg'
       },
+      gallery: [
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Acabado de Microcapa' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Definición de Curvas Complejas' },
+        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Precisión Geométrica en Aristas' }
+      ],
       formats: [
-        { size: 'Servicio por Hora / Gramo', price: 0, label: 'Cotizacion segun archivo 3D' }
+        { size: 'Servicio por Hora / Gramo', price: 0, label: 'Cotización según archivo 3D' }
       ]
     }
   ];
@@ -360,7 +553,18 @@
   function getProductBySku(sku) {
     if (!sku) return null;
     const target = String(sku).trim().toUpperCase();
-    return CATALOG_PRODUCTS.find(p => p.sku.toUpperCase() === target) || null;
+    return CATALOG_PRODUCTS.find(p => p.sku && p.sku.toUpperCase() === target) || null;
+  }
+
+  /**
+   * Obtiene un producto por su ID único
+   * @param {string} id
+   * @returns {object|null}
+   */
+  function getProductById(id) {
+    if (!id) return null;
+    const target = String(id).trim().toLowerCase();
+    return CATALOG_PRODUCTS.find(p => p.id && p.id.toLowerCase() === target) || null;
   }
 
   /**
@@ -372,9 +576,77 @@
     if (!name) return null;
     const clean = String(name).trim().toLowerCase();
     return CATALOG_PRODUCTS.find(p =>
-      p.name.toLowerCase().includes(clean) ||
-      p.shortName.toLowerCase().includes(clean)
+      (p.name && p.name.toLowerCase().includes(clean)) ||
+      (p.shortName && p.shortName.toLowerCase().includes(clean))
     ) || null;
+  }
+
+  /**
+   * Obtiene los detalles completos de un producto por SKU, ID o coincidencia de nombre.
+   * Devuelve el producto enriquecido con galeria normalizada, formatos con precios formateados,
+   * especificaciones y tiempos de entrega para alimentar la vista ampliada de producto con zoom.
+   * @param {string} skuOrId
+   * @returns {object|null}
+   */
+  function getProductDetails(skuOrId) {
+    if (!skuOrId) return null;
+    const raw = String(skuOrId).trim();
+    const target = raw.toLowerCase();
+    const targetUpper = raw.toUpperCase();
+
+    // 1. Busqueda prioritaria por ID exacto
+    let product = CATALOG_PRODUCTS.find(p => p.id && p.id.toLowerCase() === target);
+
+    // 2. Busqueda por SKU exacto
+    if (!product) {
+      product = CATALOG_PRODUCTS.find(p => p.sku && p.sku.toUpperCase() === targetUpper);
+    }
+
+    // 3. Busqueda secundaria por coincidencia parcial en ID, SKU o nombre
+    if (!product) {
+      product = CATALOG_PRODUCTS.find(p =>
+        (p.id && p.id.toLowerCase().includes(target)) ||
+        (p.sku && p.sku.toUpperCase().includes(targetUpper)) ||
+        (p.name && p.name.toLowerCase().includes(target)) ||
+        (p.shortName && p.shortName.toLowerCase().includes(target))
+      );
+    }
+
+    if (!product) return null;
+
+    // Normalizar imagen principal
+    const mainImg = product.main || product.image || product.defaultImage || 'catalog/santiago-costanera-marco.jpg';
+
+    // Normalizar galeria asegurando al menos una imagen
+    let gallery = Array.isArray(product.gallery) && product.gallery.length > 0
+      ? product.gallery.slice()
+      : [{ url: mainImg, label: product.shortName || product.name }];
+
+    // Si gallery no incluye la imagen principal al inicio, asegurarla
+    if (!gallery.some(item => item.url === mainImg)) {
+      gallery.unshift({ url: mainImg, label: product.shortName || 'Vista Principal' });
+    }
+
+    // Formatear opciones de precios
+    const formats = (product.formats || []).map(f => ({
+      ...f,
+      formattedPrice: f.price > 0 ? formatCLP(f.price) : 'A convenir / Cotización'
+    }));
+
+    const basePrice = formats.length > 0 ? formats[0].price : 0;
+    const formattedBasePrice = basePrice > 0 ? formatCLP(basePrice) : 'A cotizar';
+
+    return {
+      ...product,
+      main: mainImg,
+      gallery,
+      formats,
+      basePrice,
+      formattedBasePrice,
+      specs: product.specs || {},
+      badge: product.badge || product.tag || 'ALZADO ROJO',
+      leadTime: product.leadTime || 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile'
+    };
   }
 
   /**
@@ -1349,7 +1621,9 @@
     formatCLP,
     generateOrderFolio,
     getProductBySku,
+    getProductById,
     getProductByName,
+    getProductDetails,
     getAllProducts,
     calculateTotals,
     validateCustomerData,
