@@ -45,6 +45,7 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    const cleanOrder = String(orderId || '').trim();
     const targetUrl = `/maquetas-urbanas.html?flow_status=completed&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
 
     console.info('[ALZADO ROJO Flow] Retorno de pagador procesado. Orden:', cleanOrder, 'Token:', token || 'N/A');
