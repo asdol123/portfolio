@@ -30,7 +30,7 @@
     unitPrice: 9990,
     quantity: 1,
     shippingId: 'pickup',
-    paymentMethod: 'flow',
+    paymentMethod: 'transferencia',
     lastProcessedOrder: null
   };
 
@@ -71,6 +71,8 @@
       bankBox: document.getElementById('ar-bank-box-details'),
       btnCopyBank: document.getElementById('btn-copy-bank-data'),
       btnCopyBankLabel: document.getElementById('btn-copy-bank-label'),
+      paymentNotice: document.getElementById('checkout-payment-notice'),
+      btnNoticeSwitchTransfer: document.getElementById('btn-notice-switch-transfer'),
 
       // Formulario cliente
       form: document.getElementById('ar-customer-form'),
@@ -132,12 +134,42 @@
     if (!dom.btnSubmitLabel) return;
 
     if (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu') {
-      dom.btnSubmitLabel.textContent = 'PAGAR AHORA';
-    } else if (state.paymentMethod === 'transferencia') {
-      dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO';
+      dom.btnSubmitLabel.textContent = 'INTENTAR PAGO CON TARJETA';
+    } else if (state.paymentMethod === 'transferencia' || state.paymentMethod === 'transfer') {
+      dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO POR TRANSFERENCIA';
     } else if (state.paymentMethod === 'cotizacion') {
       dom.btnSubmitLabel.textContent = 'DESCARGAR COTIZACIÓN';
     }
+  }
+
+  /**
+   * Actualiza el estado visual del aviso técnico según el medio de pago seleccionado
+   */
+  function updatePaymentNoticeState() {
+    if (!dom.paymentNotice) return;
+    const isFlow = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
+    dom.paymentNotice.classList.toggle('is-flow-active', isFlow);
+  }
+
+  /**
+   * Selecciona programáticamente un método de pago y sincroniza la UI
+   */
+  function selectPaymentMethod(method) {
+    const targetMethod = (method === 'transfer' ? 'transferencia' : method);
+    state.paymentMethod = targetMethod;
+    if (dom.paymentOptions) {
+      dom.paymentOptions.forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        const match = radio && radio.value === targetMethod;
+        if (radio) radio.checked = match;
+        opt.classList.toggle('is-selected', match);
+      });
+    }
+    if (dom.bankBox) {
+      dom.bankBox.classList.toggle('is-visible', targetMethod === 'transferencia' || targetMethod === 'transfer');
+    }
+    updatePaymentNoticeState();
+    updateSubmitButtonState();
   }
 
   /**
@@ -163,7 +195,14 @@
                             String(productData.unitPrice || '').toLowerCase().includes('convenir');
 
     let parsedPrice = ECOM ? ECOM.parseCLP(productData.unitPrice || 0) : 0;
-    state.paymentMethod = productData.paymentMethod || 'flow';
+    
+    // Priorizar Transferencia Bancaria Directa ante la contingencia técnica con tarjetas
+    const requestedMethod = productData.paymentMethod;
+    if (requestedMethod === 'cotizacion') {
+      state.paymentMethod = 'cotizacion';
+    } else {
+      state.paymentMethod = 'transferencia';
+    }
     state.isCustomSpecial = isCustomSpecial;
 
     // Si es Medida Especial o precio 0: si el método es Flow o Transferencia se asigna abono base de $29.990 CLP
@@ -208,11 +247,11 @@
       dom.shippingAddressWrap.style.display = state.shippingId === 'pickup' ? 'none' : 'block';
     }
 
-    // Ajustar radio de pago inicial
+    // Ajustar radio de pago inicial (Priorizando Transferencia)
     if (dom.paymentOptions) {
       dom.paymentOptions.forEach(opt => {
         const radio = opt.querySelector('input[type="radio"]');
-        const match = radio && radio.value === state.paymentMethod;
+        const match = radio && (radio.value === state.paymentMethod || (radio.value === 'transferencia' && state.paymentMethod === 'transfer'));
         if (radio) radio.checked = match;
         opt.classList.toggle('is-selected', match);
       });
@@ -220,8 +259,11 @@
 
     // Mostrar/ocultar datos bancarios
     if (dom.bankBox) {
-      dom.bankBox.classList.toggle('is-visible', state.paymentMethod === 'transferencia');
+      dom.bankBox.classList.toggle('is-visible', state.paymentMethod === 'transferencia' || state.paymentMethod === 'transfer');
     }
+
+    // Actualizar estado del banner informativo de mantenimiento técnico
+    updatePaymentNoticeState();
 
     // Prellenar notas si vienen
     if (dom.inputNotes && productData.notes) {
@@ -583,12 +625,23 @@
 
             // Mostrar u ocultar caja de transferencia
             if (dom.bankBox) {
-              dom.bankBox.classList.toggle('is-visible', state.paymentMethod === 'transferencia');
+              dom.bankBox.classList.toggle('is-visible', state.paymentMethod === 'transferencia' || state.paymentMethod === 'transfer');
             }
 
+            // Sincronizar aviso técnico y texto de botón dinámico
+            updatePaymentNoticeState();
             updateSubmitButtonState();
           }
         });
+      });
+    }
+
+    // Botón de cambio rápido en el banner hacia Transferencia Bancaria Directa
+    if (dom.btnNoticeSwitchTransfer) {
+      dom.btnNoticeSwitchTransfer.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        selectPaymentMethod('transferencia');
       });
     }
 
@@ -678,7 +731,7 @@
           unitPrice: priceVal,
           thumbImg: 'catalog/santiago-costanera-marco.jpg',
           quantity: 1,
-          paymentMethod: 'flow',
+          paymentMethod: 'transferencia',
           notes: format.toLowerCase().includes('especial')
             ? `Reserva de producción inicial para ${currentType} en Medida Especial personalizada.`
             : `Pedido directo para ${currentType} en formato ${format}.`
@@ -704,7 +757,7 @@
           unitPrice: priceVal,
           thumbImg: 'catalog/santiago-costanera-marco.jpg',
           quantity: 1,
-          paymentMethod: 'flow'
+          paymentMethod: 'transferencia'
         });
       });
     }

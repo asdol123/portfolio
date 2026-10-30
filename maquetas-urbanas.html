@@ -2059,24 +2059,52 @@
                         <!-- Selector de Pasarela de Pago -->
                         <div>
                             <span class="ar-checkout-section-title">MEDIO DE PAGO</span>
+
+                            <!-- Banner de Aviso Técnico Pasarela Webpay -->
+                            <div class="checkout-payment-notice" id="checkout-payment-notice" role="status" aria-live="polite">
+                                <div class="checkout-payment-notice-icon" aria-hidden="true">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <div class="checkout-payment-notice-body">
+                                    <strong class="checkout-payment-notice-title">Mantenimiento técnico en pasarela con tarjeta</strong>
+                                    <p class="checkout-payment-notice-text">
+                                        Aviso: La pasarela de pago con tarjeta Webpay se encuentra temporalmente en mantenimiento técnico por actualización bancaria. Le recomendamos seleccionar Transferencia Bancaria Directa para procesar su pedido de inmediato.
+                                    </p>
+                                    <div class="checkout-payment-notice-actions" id="notice-actions-flow">
+                                        <button type="button" class="btn-notice-switch-transfer" id="btn-notice-switch-transfer">
+                                            <span>Transferencia Bancaria Directa (Recomendado)</span>
+                                        </button>
+                                        <a href="https://wa.me/56976695270?text=Hola%2C%20quisiera%20coordinar%20mi%20pedido%20directo%20con%20Alzado%20Rojo" target="_blank" rel="noopener noreferrer" class="btn-notice-wsp-direct" id="btn-notice-wsp-direct">
+                                            <span>Coordinar por WhatsApp</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="ar-payment-list" role="radiogroup" aria-label="Métodos de Pago">
                                 
-                                <!-- Opción 1: Flow.cl -->
-                                <label class="ar-payment-option is-selected" id="payment-opt-flow">
-                                    <input type="radio" name="ar_payment" value="flow" checked>
+                                <!-- Opción 1: Transferencia Bancaria Directa (Preseleccionada) -->
+                                <label class="ar-payment-option is-selected" id="payment-opt-transferencia">
+                                    <input type="radio" name="ar_payment" value="transferencia" checked>
                                     <div class="ar-payment-body">
                                         <div class="ar-payment-header">
-                                            <span class="ar-payment-name">Pago Online (Webpay / Tarjetas)</span>
+                                            <span class="ar-payment-name">Transferencia Bancaria Directa</span>
+                                            <span class="ar-payment-badge-rec">RECOMENDADO</span>
                                         </div>
                                     </div>
                                 </label>
 
-                                <!-- Opción 2: Transferencia -->
-                                <label class="ar-payment-option" id="payment-opt-transferencia">
-                                    <input type="radio" name="ar_payment" value="transferencia">
+                                <!-- Opción 2: Flow.cl (Tarjetas) -->
+                                <label class="ar-payment-option" id="payment-opt-flow">
+                                    <input type="radio" name="ar_payment" value="flow">
                                     <div class="ar-payment-body">
                                         <div class="ar-payment-header">
-                                            <span class="ar-payment-name">Transferencia Bancaria</span>
+                                            <span class="ar-payment-name">Pago Online (Webpay / Tarjetas)</span>
+                                            <span class="ar-payment-badge-maint">MANTENIMIENTO</span>
                                         </div>
                                     </div>
                                 </label>
@@ -2094,7 +2122,7 @@
                         </div>
 
                         <!-- Recuadro de Transferencia Directa -->
-                        <div class="ar-bank-box" id="ar-bank-box-details">
+                        <div class="ar-bank-box is-visible" id="ar-bank-box-details">
                             <div class="ar-bank-title">DATOS DE TRANSFERENCIA</div>
                             <div class="ar-bank-grid">
                                 <div><strong>Razón Social:</strong> Ar Arq Spa</div>
@@ -2152,7 +2180,7 @@
 
                             <!-- Botón Principal Dinámico -->
                             <button type="submit" class="btn-ar-submit-order" id="ar-btn-submit-order">
-                                <span id="btn-ar-submit-label">PAGAR AHORA</span>
+                                <span id="btn-ar-submit-label">CONFIRMAR PEDIDO POR TRANSFERENCIA</span>
                                 <span aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
                             </button>
                         </form>

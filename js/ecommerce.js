@@ -490,8 +490,9 @@
     }
   };
 
-  // Alias retrocompatible para solicitudes con identificador 'khipu'
+  // Alias retrocompatible para solicitudes con identificador 'khipu' o 'transfer'
   PAYMENT_METHODS.khipu = PAYMENT_METHODS.flow;
+  PAYMENT_METHODS.transfer = PAYMENT_METHODS.transferencia;
 
   // --- FUNCIONES DE CONVERSION MONETARIA CLP ---
 
@@ -835,7 +836,7 @@
     };
 
     let statusText = 'PAGO ONLINE FLOW.CL (WEBPAY / TARJETAS) INICIADO';
-    if (order.paymentMethod === 'transferencia') {
+    if (order.paymentMethod === 'transferencia' || order.paymentMethod === 'transfer') {
       statusText = 'ORDEN EMITIDA · TRANSFERENCIA DIRECTA PENDIENTE';
     } else if (order.paymentMethod === 'cotizacion') {
       statusText = 'COTIZACION FORMAL SOLICITADA';
@@ -1488,9 +1489,11 @@
     const folio = orderData.folio || generateOrderFolio();
 
     // Normalizacion de metodo de pago con alias retrocompatible
-    let selectedMethod = orderData.paymentMethod || 'flow';
+    let selectedMethod = orderData.paymentMethod || 'transferencia';
     if (selectedMethod === 'khipu') {
       selectedMethod = 'flow';
+    } else if (selectedMethod === 'transfer') {
+      selectedMethod = 'transferencia';
     }
 
     const normalizedOrder = {
@@ -1507,7 +1510,7 @@
       shippingLabel: SHIPPING_OPTIONS[totals.shippingId]?.label || 'Retiro en Taller',
       total: totals.total,
       paymentMethod: selectedMethod,
-      paymentLabel: PAYMENT_METHODS[selectedMethod]?.label || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago',
+      paymentLabel: PAYMENT_METHODS[selectedMethod]?.label || 'Transferencia Electronica Directa',
       customer: {
         name: (orderData.customer?.name || '').trim(),
         rut: (orderData.customer?.rut || '').trim(),
