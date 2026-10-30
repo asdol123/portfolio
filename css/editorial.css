@@ -8519,6 +8519,350 @@ dialog#project-modal::backdrop {
   padding: calc(var(--ed-header-h) + 36px) 24px 80px 24px;
 }
 
+/* ==========================================================================
+   PANTALLA DE ACCESO PRIVADO DE TALLER // AUTH GATE (pedidos.html)
+   Estilo Apple Card / Linear · 100% Borderless · Emil Kowalski Motion
+   ========================================================================== */
+
+.btn-lock-taller {
+  background: rgba(229, 57, 53, 0.08);
+  color: var(--brand-red, #E53935);
+  box-shadow: none;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  gap: 8px;
+  cursor: pointer;
+  border: none !important;
+  outline: none !important;
+  border-radius: var(--radius-pill, 9999px);
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.btn-lock-taller:hover {
+  background: var(--brand-red, #E53935);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(229, 57, 53, 0.28);
+  transform: translateY(-1px);
+}
+
+.btn-lock-taller:active {
+  transform: scale(0.965);
+}
+
+.orders-auth-gate.is-hidden,
+.orders-private-dashboard.is-hidden,
+.is-hidden {
+  display: none !important;
+}
+
+.orders-auth-gate {
+  min-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.orders-auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px 36px;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.12), 0 18px 36px -18px rgba(0, 0, 0, 0.08);
+  border: none !important;
+  text-align: center;
+  position: relative;
+  transition: transform 0.25s var(--spring-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+/* Badge de Acceso Confidencial */
+.orders-auth-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 57, 53, 0.08);
+  color: var(--brand-red, #E53935);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill, 9999px);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  border: none !important;
+}
+
+.auth-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-red, #E53935);
+  box-shadow: 0 0 8px rgba(229, 57, 53, 0.6);
+  flex-shrink: 0;
+}
+
+.auth-badge-text {
+  line-height: 1;
+}
+
+/* Ícono Círculo Minimalista */
+.orders-auth-icon-wrap {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px auto;
+  border-radius: 50%;
+  background: rgba(229, 57, 53, 0.08);
+  color: var(--brand-red, #E53935);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+  transition: transform 0.25s var(--spring-ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+.orders-auth-card:hover .orders-auth-icon-wrap {
+  transform: scale(1.05);
+}
+
+.orders-auth-title {
+  font-family: var(--font-display, 'Syne', sans-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  color: var(--ed-text, #0A0A0B);
+  margin: 16px 0 8px 0;
+  text-wrap: balance;
+}
+
+.orders-auth-desc {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.9rem;
+  color: #666666;
+  line-height: 1.5;
+  margin: 0 auto 24px auto;
+  max-width: 410px;
+}
+
+/* Formulario de Acceso */
+.orders-auth-form {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.orders-auth-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.orders-auth-label {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ed-text, #0A0A0B);
+  letter-spacing: 0.01em;
+}
+
+.orders-auth-field-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.orders-auth-input {
+  background: #F4F4F5;
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px;
+  padding: 14px 44px 14px 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.95rem;
+  width: 100%;
+  color: var(--ed-text, #0A0A0B);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  font-variant-numeric: tabular-nums;
+}
+
+.orders-auth-input::placeholder {
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.85rem;
+  color: #999999;
+}
+
+.orders-auth-input:focus {
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2px var(--brand-red, #E53935);
+}
+
+.orders-auth-eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none !important;
+  outline: none !important;
+  color: #888888;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0;
+  transition: color 0.15s ease, background 0.15s ease, transform 0.15s ease;
+}
+
+.orders-auth-eye-btn:hover {
+  color: var(--ed-text, #0A0A0B);
+  background: rgba(10, 10, 11, 0.05);
+}
+
+.orders-auth-eye-btn:active {
+  transform: translateY(-50%) scale(0.92);
+}
+
+.orders-auth-options {
+  margin: 2px 0 4px 0;
+}
+
+.orders-auth-checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.82rem;
+  color: #666666;
+  cursor: pointer;
+  user-select: none;
+}
+
+.orders-auth-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brand-red, #E53935);
+  cursor: pointer;
+  border-radius: 4px;
+  border: none !important;
+}
+
+.orders-auth-error {
+  background: rgba(229, 57, 53, 0.08);
+  color: var(--brand-red, #E53935);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: none !important;
+  text-align: center;
+  animation: authShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.orders-auth-submit-btn {
+  background: var(--brand-red, #E53935);
+  color: #FFFFFF;
+  border: none !important;
+  outline: none !important;
+  border-radius: 12px;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-weight: 700;
+  font-size: 0.84rem;
+  letter-spacing: 0.05em;
+  padding: 14px;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px -4px rgba(229, 57, 53, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.orders-auth-submit-btn:hover {
+  background: #C4122B;
+  box-shadow: 0 10px 28px -4px rgba(229, 57, 53, 0.45);
+  transform: translateY(-1px);
+}
+
+.orders-auth-submit-btn:active {
+  transform: scale(0.97);
+}
+
+.orders-auth-footer-note {
+  margin: 8px 0 0 0;
+  font-family: var(--font-sans, 'Plus Jakarta Sans', sans-serif);
+  font-size: 0.74rem;
+  line-height: 1.45;
+  color: #888888;
+  text-align: center;
+}
+
+/* Dashboard Privado Transición */
+.orders-private-dashboard {
+  animation: arFadeIn 0.35s ease-out forwards;
+}
+
+@keyframes arFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes authShake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+@media (max-width: 520px) {
+  .orders-auth-card {
+    padding: 32px 20px 24px 20px;
+    border-radius: 16px;
+  }
+  .orders-auth-title {
+    font-size: 1.35rem;
+  }
+  .orders-auth-desc {
+    font-size: 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orders-auth-gate,
+  .orders-private-dashboard,
+  .orders-auth-error {
+    animation: none !important;
+  }
+  .orders-auth-submit-btn,
+  .btn-lock-taller {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
 .orders-hero-header {
   margin-bottom: 40px;
   text-align: left;

@@ -20,6 +20,7 @@
 
   const API_ENDPOINT = '/api/orders';
   const CACHE_KEY = 'alzado_rojo_orders_cache';
+  const LOCAL_CACHE_KEY = CACHE_KEY;
   const LAST_SYNC_KEY = 'alzado_rojo_orders_last_sync';
 
   // Estados autorizados
@@ -83,6 +84,19 @@
   const OrdersClient = {
     ESTADOS,
     ESTADOS_PAGO,
+
+    /**
+     * Limpia la cache local offline
+     */
+    clearCache() {
+      if (typeof localStorage === 'undefined') return;
+      try {
+        localStorage.removeItem(LOCAL_CACHE_KEY);
+        localStorage.removeItem(LAST_SYNC_KEY);
+      } catch (e) {
+        console.warn('[OrdersClient] Error limpiando cache:', e);
+      }
+    },
 
     /**
      * Valida los datos de un pedido antes de enviarlo

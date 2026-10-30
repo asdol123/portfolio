@@ -543,8 +543,9 @@
     URL.revokeObjectURL(url);
   }
 
-  // Carga inicial y listeners globales
-  async function init() {
+  // Carga pedidos del cliente y actualiza KPIs y tabla
+  async function loadAndRenderOrders() {
+    if (typeof window === 'undefined' || !window.OrdersClient) return;
     try {
       const res = await window.OrdersClient.getOrders();
       state.orders = res.orders || [];
@@ -552,6 +553,64 @@
       renderOrdersList();
     } catch (err) {
       console.warn('[OrdersApp] Error cargando ordenes:', err);
+    }
+  }
+
+  // Limpia el estado privado en memoria y la vista al bloquear sesion
+  function clearPrivateOrders() {
+    state.orders = [];
+    state.editingOrderId = null;
+    updateKPIs([]);
+    const container = document.getElementById('orders-table-body');
+    if (container) {
+      container.innerHTML = '';
+    }
+
+    // Higiene de estado: cerrar modales y resetear formularios
+    closeOrderModal();
+    const form = document.getElementById('form-order-upsert');
+    if (form) form.reset();
+    const modalTaller = document.getElementById('modal-taller-sheet');
+    if (modalTaller) {
+      modalTaller.classList.remove('active');
+      modalTaller.classList.remove('is-open');
+      modalTaller.setAttribute('aria-hidden', 'true');
+    }
+    document.body.style.overflow = '';
+
+    // Purgado de cache local offline
+    try {
+      localStorage.removeItem('alzado_rojo_orders_cache');
+    } catch (e) {}
+    if (window.OrdersClient && typeof window.OrdersClient.clearCache === 'function') {
+      try {
+        window.OrdersClient.clearCache();
+      } catch (e) {}
+    }
+  }
+
+  // Carga inicial y listeners globales
+  async function init() {
+    // Escuchar eventos de autenticacion emitidos por OrdersAuth
+    if (typeof window !== 'undefined' && !window.__arOrdersAuthEventsAttached) {
+      window.__arOrdersAuthEventsAttached = true;
+      window.addEventListener('auth:success', () => {
+        loadAndRenderOrders();
+      });
+      window.addEventListener('auth:locked', () => {
+        clearPrivateOrders();
+      });
+    }
+
+    // Condicion estricta de privacidad (Fail-Closed):
+    // Solo carga pedidos si OrdersAuth confirma sesion valida.
+    // Si no esta autenticado o OrdersAuth no esta presente, jamas se cargan datos por defecto.
+    const hasAccess = typeof window !== 'undefined' && Boolean(window.OrdersAuth && window.OrdersAuth.isAuthenticated());
+
+    if (hasAccess) {
+      await loadAndRenderOrders();
+    } else {
+      clearPrivateOrders();
     }
 
     // Buscador reactivo

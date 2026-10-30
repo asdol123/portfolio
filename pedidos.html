@@ -32,7 +32,7 @@
 </head>
 <body>
 
-    <!-- CABECERA EDITORIAL FLOTANTE ESTÁNDAR ALZADO ROJO -->
+    <!-- CABECERA DE TALLER PRIVADO ALZADO ROJO -->
     <header class="ed-header">
         <div class="ed-header-inner">
             <div class="ed-logo-block">
@@ -40,24 +40,21 @@
                     <img src="images/logo.png" alt="ALZADO ROJO" class="ed-logo-img" width="36" height="47">
                     <div class="ed-logo-text-wrap">
                         <span class="ed-logo-text">ALZADO <span class="brand-red">ROJO</span></span>
-                        <span class="ed-sublogo">ARQUITECTURA Y FABRICACIÓN DIGITAL</span>
+                        <span class="ed-sublogo">TALLER // ACCESO PRIVADO</span>
                     </div>
                 </a>
             </div>
 
-            <nav class="bionova-nav-menu" aria-label="Navegación principal">
-                <a href="maquetas-urbanas.html" class="bionova-nav-link">Maquetas Urbanas</a>
-                <a href="maquetas-3d.html" class="bionova-nav-link">Fabricación 3D</a>
-                <a href="proyectos.html" class="bionova-nav-link">Proyectos</a>
-                <a href="manuales.html" class="bionova-nav-link">Manuales</a>
-                <a href="pedidos.html" class="bionova-nav-link active" aria-current="page">Gestión de Pedidos</a>
+            <nav class="bionova-nav-menu" aria-label="Navegación del taller">
+                <a href="index.html" class="bionova-nav-link">Ir a la web pública</a>
+                <a href="maquetas-urbanas.html" class="bionova-nav-link">Catálogo Maquetas</a>
             </nav>
 
             <div class="bionova-nav-actions">
-                <a href="sobre-mi.html" class="bionova-nav-text-btn">Sobre Mí</a>
-                <a href="https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20hacer%20una%20consulta%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="bionova-nav-pill-btn" title="Contactar por WhatsApp">
-                    <span>Cotizar ahora</span>
-                </a>
+                <button type="button" id="btn-lock-orders" class="bionova-nav-pill-btn btn-lock-taller" title="Bloquear sesión de taller" style="display: none;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <span>Bloquear Taller</span>
+                </button>
             </div>
         </div>
     </header>
@@ -65,126 +62,165 @@
     <!-- CUERPO PRINCIPAL DE GESTIÓN Y AGENDAMIENTO -->
     <main class="orders-page-shell" id="main-content">
 
-        <!-- ENCABEZADO EDITORIAL -->
-        <section class="orders-hero-header ed-animate-fade" aria-label="Cabecera de Gestión">
-            <div class="orders-eyebrow">
-                <span class="orders-eyebrow-dot" aria-hidden="true"></span>
-                <span>TALLER DE MANUFACTURA ADITIVA · SISTEMA DE GESTIÓN</span>
+        <!-- PANTALLA DE ACCESO PRIVADO DE TALLER -->
+        <div id="orders-auth-gate" class="orders-auth-gate">
+          <div class="orders-auth-card">
+            <div class="orders-auth-badge">
+              <span class="auth-badge-dot"></span>
+              <span class="auth-badge-text">ALZADO ROJO · TALLER DE MANUFACTURA // ACCESO PRIVADO</span>
             </div>
-            <h1 class="orders-hero-title">AGENDA Y GESTIÓN DE PEDIDOS</h1>
-            <p class="orders-hero-subtitle">
-                Base de datos y control de manufactura aditiva para maquetas de arquitectura y colecciones territoriales.
-            </p>
-        </section>
-
-        <!-- BARRA DE MÉTRICAS Y KPIS EN VIVO -->
-        <section class="orders-kpi-grid ed-animate-fade ed-delay-1" aria-label="Métricas de Producción">
-            <!-- KPI 1: Total Pedidos -->
-            <div class="orders-kpi-card">
-                <div class="orders-kpi-head">
-                    <span class="orders-kpi-label">Total Pedidos</span>
-                    <div class="orders-kpi-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    </div>
+            <div class="orders-auth-icon-wrap" aria-hidden="true">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </div>
+            <h1 class="orders-auth-title">Acceso Privado de Taller</h1>
+            <p class="orders-auth-desc">Módulo confidencial de gestión de pedidos, clientes y manufactura aditiva. Ingrese su clave de acceso para continuar.</p>
+            <form id="orders-auth-form" class="orders-auth-form" autocomplete="off">
+              <div class="orders-auth-input-group">
+                <label for="orders-auth-pin" class="orders-auth-label">Clave de Seguridad o PIN</label>
+                <div class="orders-auth-field-wrap">
+                  <input type="password" id="orders-auth-pin" class="orders-auth-input" placeholder="Ingrese PIN o clave de acceso..." required autofocus autocomplete="current-password" />
+                  <button type="button" id="btn-toggle-pin-visibility" class="orders-auth-eye-btn" title="Mostrar u ocultar clave" aria-label="Mostrar u ocultar clave">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
                 </div>
-                <div class="orders-kpi-value" id="kpi-total-pedidos">0</div>
-                <div class="orders-kpi-foot">Órdenes registradas en sistema</div>
-            </div>
+              </div>
+              <div class="orders-auth-options">
+                <label class="orders-auth-checkbox-label">
+                  <input type="checkbox" id="orders-auth-remember" class="orders-auth-checkbox" />
+                  <span>Recordar sesión en este equipo (7 días)</span>
+                </label>
+              </div>
+              <div id="orders-auth-error" class="orders-auth-error" style="display: none;" role="alert"></div>
+              <button type="submit" id="btn-auth-submit" class="orders-auth-submit-btn">
+                <span>DESBLOQUEAR TALLER</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+              <p class="orders-auth-footer-note">Acceso restringido exclusivamente a administración y manufactura ALZADO ROJO.</p>
+            </form>
+          </div>
+        </div>
 
-            <!-- KPI 2: En Impresión / Modelado -->
-            <div class="orders-kpi-card">
-                <div class="orders-kpi-head">
-                    <span class="orders-kpi-label">En Impresión y Modelado</span>
-                    <div class="orders-kpi-icon kpi-red" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-                    </div>
+        <!-- CONTENEDOR PRIVADO DEL DASHBOARD -->
+        <div id="orders-private-dashboard" class="orders-private-dashboard" style="display: none;">
+
+            <!-- ENCABEZADO EDITORIAL -->
+            <section class="orders-hero-header ed-animate-fade" aria-label="Cabecera de Gestión">
+                <div class="orders-eyebrow">
+                    <span class="orders-eyebrow-dot" aria-hidden="true"></span>
+                    <span>TALLER DE MANUFACTURA ADITIVA · SISTEMA DE GESTIÓN</span>
                 </div>
-                <div class="orders-kpi-value" id="kpi-en-produccion">0</div>
-                <div class="orders-kpi-foot">En manufactura activa de taller</div>
-            </div>
+                <h1 class="orders-hero-title">AGENDA Y GESTIÓN DE PEDIDOS</h1>
+                <p class="orders-hero-subtitle">
+                    Base de datos y control de manufactura aditiva para maquetas de arquitectura y colecciones territoriales.
+                </p>
+            </section>
 
-            <!-- KPI 3: Entregas de la Semana -->
-            <div class="orders-kpi-card">
-                <div class="orders-kpi-head">
-                    <span class="orders-kpi-label">Entregas de la Semana</span>
-                    <div class="orders-kpi-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            <!-- BARRA DE MÉTRICAS Y KPIS EN VIVO -->
+            <section class="orders-kpi-grid ed-animate-fade ed-delay-1" aria-label="Métricas de Producción">
+                <!-- KPI 1: Total Pedidos -->
+                <div class="orders-kpi-card">
+                    <div class="orders-kpi-head">
+                        <span class="orders-kpi-label">Total Pedidos</span>
+                        <div class="orders-kpi-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        </div>
                     </div>
+                    <div class="orders-kpi-value" id="kpi-total-pedidos">0</div>
+                    <div class="orders-kpi-foot">Órdenes registradas en sistema</div>
                 </div>
-                <div class="orders-kpi-value" id="kpi-entregas-semana">0</div>
-                <div class="orders-kpi-foot">Despachos programados próximos</div>
-            </div>
 
-            <!-- KPI 4: Total Facturación ($CLP) -->
-            <div class="orders-kpi-card">
-                <div class="orders-kpi-head">
-                    <span class="orders-kpi-label">Total Facturación</span>
-                    <div class="orders-kpi-icon" aria-hidden="true">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                <!-- KPI 2: En Impresión / Modelado -->
+                <div class="orders-kpi-card">
+                    <div class="orders-kpi-head">
+                        <span class="orders-kpi-label">En Impresión y Modelado</span>
+                        <div class="orders-kpi-icon kpi-red" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                        </div>
                     </div>
+                    <div class="orders-kpi-value" id="kpi-en-produccion">0</div>
+                    <div class="orders-kpi-foot">En manufactura activa de taller</div>
                 </div>
-                <div class="orders-kpi-value" id="kpi-total-monto">$0 CLP</div>
-                <div class="orders-kpi-foot">Volumen monetario comprometido</div>
-            </div>
-        </section>
 
-        <!-- BARRA DE ACCIONES Y BÚSQUEDA REACTIVA -->
-        <section class="orders-toolbar ed-animate-fade ed-delay-2" aria-label="Herramientas de Agenda">
-            <div class="orders-toolbar-search">
-                <svg class="orders-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                <input type="text" id="order-search-input" class="orders-search-input" placeholder="Buscar por cliente, ID o tipo de maqueta..." aria-label="Buscar pedidos">
-            </div>
+                <!-- KPI 3: Entregas de la Semana -->
+                <div class="orders-kpi-card">
+                    <div class="orders-kpi-head">
+                        <span class="orders-kpi-label">Entregas de la Semana</span>
+                        <div class="orders-kpi-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        </div>
+                    </div>
+                    <div class="orders-kpi-value" id="kpi-entregas-semana">0</div>
+                    <div class="orders-kpi-foot">Despachos programados próximos</div>
+                </div>
 
-            <div class="orders-toolbar-actions">
-                <button type="button" class="btn-primary-order" id="btn-open-create-order" aria-label="Agendar nuevo pedido">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                    <span>+ AGENDAR NUEVO PEDIDO</span>
+                <!-- KPI 4: Total Facturación ($CLP) -->
+                <div class="orders-kpi-card">
+                    <div class="orders-kpi-head">
+                        <span class="orders-kpi-label">Total Facturación</span>
+                        <div class="orders-kpi-icon" aria-hidden="true">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                    </div>
+                    <div class="orders-kpi-value" id="kpi-total-monto">$0 CLP</div>
+                    <div class="orders-kpi-foot">Volumen monetario comprometido</div>
+                </div>
+            </section>
+
+            <!-- BARRA DE ACCIONES Y BÚSQUEDA REACTIVA -->
+            <section class="orders-toolbar ed-animate-fade ed-delay-2" aria-label="Herramientas de Agenda">
+                <div class="orders-toolbar-search">
+                    <svg class="orders-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="order-search-input" class="orders-search-input" placeholder="Buscar por cliente, ID o tipo de maqueta..." aria-label="Buscar pedidos">
+                </div>
+
+                <div class="orders-toolbar-actions">
+                    <button type="button" class="btn-primary-order" id="btn-open-create-order" aria-label="Agendar nuevo pedido">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                        <span>+ AGENDAR NUEVO PEDIDO</span>
+                    </button>
+                    <button type="button" class="btn-secondary-order" id="btn-export-csv" title="Descargar planilla para Excel">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        <span>EXPORTAR CSV</span>
+                    </button>
+                    <button type="button" class="btn-secondary-order" id="btn-export-json" title="Descargar respaldo técnico de la base de datos">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                        <span>RESPALDO JSON</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- PESTAÑAS DE FILTRO DE ESTADO DE FABRICACIÓN -->
+            <section class="orders-status-tabs ed-animate-fade ed-delay-2" role="tablist" aria-label="Filtrar por estado de fabricación">
+                <button type="button" class="orders-tab-btn active" data-status="TODOS" role="tab" aria-selected="true">
+                    <span>TODOS</span>
+                    <span class="orders-tab-count">0</span>
                 </button>
-                <button type="button" class="btn-secondary-order" id="btn-export-csv" title="Descargar planilla para Excel">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                    <span>EXPORTAR CSV</span>
+                <button type="button" class="orders-tab-btn" data-status="EN MODELADO" role="tab" aria-selected="false">
+                    <span>EN MODELADO</span>
+                    <span class="orders-tab-count">0</span>
                 </button>
-                <button type="button" class="btn-secondary-order" id="btn-export-json" title="Descargar respaldo técnico de la base de datos">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
-                    <span>RESPALDO JSON</span>
+                <button type="button" class="orders-tab-btn" data-status="EN IMPRESIÓN" role="tab" aria-selected="false">
+                    <span>EN IMPRESIÓN</span>
+                    <span class="orders-tab-count">0</span>
                 </button>
-            </div>
-        </section>
+                <button type="button" class="orders-tab-btn" data-status="EN ENMARCADO" role="tab" aria-selected="false">
+                    <span>EN ENMARCADO</span>
+                    <span class="orders-tab-count">0</span>
+                </button>
+                <button type="button" class="orders-tab-btn" data-status="LISTO PARA DESPACHO" role="tab" aria-selected="false">
+                    <span>LISTO PARA DESPACHO</span>
+                    <span class="orders-tab-count">0</span>
+                </button>
+                <button type="button" class="orders-tab-btn" data-status="ENTREGADO" role="tab" aria-selected="false">
+                    <span>ENTREGADO</span>
+                    <span class="orders-tab-count">0</span>
+                </button>
+            </section>
 
-        <!-- PESTAÑAS DE FILTRO DE ESTADO DE FABRICACIÓN -->
-        <section class="orders-status-tabs ed-animate-fade ed-delay-2" role="tablist" aria-label="Filtrar por estado de fabricación">
-            <button type="button" class="orders-tab-btn active" data-status="TODOS" role="tab" aria-selected="true">
-                <span>TODOS</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-            <button type="button" class="orders-tab-btn" data-status="EN MODELADO" role="tab" aria-selected="false">
-                <span>EN MODELADO</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-            <button type="button" class="orders-tab-btn" data-status="EN IMPRESIÓN" role="tab" aria-selected="false">
-                <span>EN IMPRESIÓN</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-            <button type="button" class="orders-tab-btn" data-status="EN ENMARCADO" role="tab" aria-selected="false">
-                <span>EN ENMARCADO</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-            <button type="button" class="orders-tab-btn" data-status="LISTO PARA DESPACHO" role="tab" aria-selected="false">
-                <span>LISTO PARA DESPACHO</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-            <button type="button" class="orders-tab-btn" data-status="ENTREGADO" role="tab" aria-selected="false">
-                <span>ENTREGADO</span>
-                <span class="orders-tab-count">0</span>
-            </button>
-        </section>
-
-        <!-- GRILLA / LISTADO DINÁMICO DE PEDIDOS -->
-        <section class="orders-grid-container ed-animate-fade ed-delay-3" id="orders-list-container" aria-label="Listado de Pedidos de Manufactura">
-            <!-- Rellenado dinámico por js/orders.js -->
-        </section>
-
-    </main>
+            <!-- GRILLA / LISTADO DINÁMICO DE PEDIDOS -->
+            <section class="orders-grid-container ed-animate-fade ed-delay-3" id="orders-list-container" aria-label="Listado de Pedidos de Manufactura">
+                <!-- Rellenado dinámico por js/orders.js -->
+            </section>
 
     <!-- MODAL DE AGENDAMIENTO / EDICIÓN DE PEDIDO (#modal-order-form) -->
     <div id="modal-order-form" class="ar-modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modal-order-title">
@@ -423,6 +459,11 @@
         </div>
     </div>
 
+        </div>
+        <!-- /#orders-private-dashboard -->
+
+    </main>
+
     <!-- PIE DE PÁGINA EDITORIAL OFICIAL ALZADO ROJO -->
     <footer class="ed-footer">
         <div class="ed-footer-inner">
@@ -449,8 +490,6 @@
                 </div>
             </div>
             <div class="ed-footer-legal-row">
-                <a href="pedidos.html" class="ed-footer-legal-link">GESTIÓN DE PEDIDOS</a>
-                <span class="ed-footer-legal-sep">·</span>
                 <a href="politica-privacidad.html" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
                 <span class="ed-footer-legal-sep">·</span>
                 <a href="terminos-condiciones.html" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
@@ -464,6 +503,7 @@
     </footer>
 
     <!-- SDK CLIENTE DE PEDIDOS Y CONTROLADOR DE AGENDA -->
+    <script src="js/orders-auth.js?v=20261028d"></script>
     <script src="js/orders-client.js?v=20261028d"></script>
     <script src="js/orders.js?v=20261028d"></script>
 
