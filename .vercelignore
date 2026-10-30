@@ -14,5 +14,7 @@ scripts/compile-pdf.ps1
 scripts/compile-pdf.js
 generate_pdf.js
 
-# Perfiles temporales
+# Perfiles temporales y carpetas privadas de taller
 .temp_chrome_print_profile/
+_taller-privado/
+scratch/

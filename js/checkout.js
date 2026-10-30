@@ -413,7 +413,7 @@
         }
       }
 
-      // Flow.cl en vivo o asistido (con soporte retrocompatible para khipu)
+      // Flow.cl en vivo o soporte asistido
       const isOnlineGateway = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
       if (isOnlineGateway && dom.successKhipuBox) {
         dom.successKhipuBox.style.display = 'block';
@@ -421,31 +421,35 @@
         if (flowData && flowData.payment_url) {
           if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · PASARELA DE PAGO PREPARADA';
           if (dom.khipuDesc) {
-            dom.khipuDesc.textContent = 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente en unos segundos, haz clic en el siguiente enlace:';
+            dom.khipuDesc.textContent = 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente, haz clic en el siguiente botón:';
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
             dom.btnKhipuLink.href = flowData.payment_url;
             dom.btnKhipuLink.textContent = 'IR A PAGAR EN FLOW.CL (WEBPAY)';
           }
-          // Redirección automática sin fricción tras 1.2 segundos
-          setTimeout(() => {
-            try {
-              window.location.href = flowData.payment_url;
-            } catch (errRedirect) {
-              console.warn('[ALZADO ROJO Checkout] Redirección automática a Flow prevenida por el navegador:', errRedirect);
-            }
-          }, 1200);
+          // Redirección inmediata a Flow.cl
+          try {
+            window.location.href = flowData.payment_url;
+          } catch (errRedirect) {
+            console.warn('[ALZADO ROJO Checkout] Redirección automática a Flow prevenida por el navegador:', errRedirect);
+          }
         } else {
-          // Modo asistido
-          if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · GESTIÓN ASISTIDA REGISTRADA';
+          // Si Flow reporta error, mostrar aviso explicativo elegante con opción de transferir o WhatsApp
+          const flowError = (flowData && flowData.error) ? flowData.error : 'No fue posible conectar con la pasarela en este instante.';
+          const wspUrl = (flowData && flowData.whatsappFallback) ? flowData.whatsappFallback : result.whatsappUrl;
+
+          if (dom.khipuTitle) dom.khipuTitle.textContent = 'PAGO EN LÍNEA · GESTIÓN DIRECTA DISPONIBLE';
           if (dom.khipuDesc) {
-            dom.khipuDesc.textContent = 'Tu orden ha sido registrada. Puedes continuar la confirmación y emisión del link de pago Flow.cl mediante WhatsApp de inmediato.';
+            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada exitosamente en nuestro sistema.<br><br><strong>Detalle de pasarela:</strong> ${flowError}<br><br>Puede completar el pago de inmediato mediante Transferencia Electrónica Directa (datos bancarios abajo) o coordinar el link de pago por WhatsApp.`;
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
-            dom.btnKhipuLink.href = result.whatsappUrl;
-            dom.btnKhipuLink.textContent = 'ACTIVAR LINK FLOW.CL POR WHATSAPP';
+            dom.btnKhipuLink.href = wspUrl;
+            dom.btnKhipuLink.textContent = 'COORDINAR PAGO VÍA WHATSAPP';
+          }
+          if (dom.bankBox) {
+            dom.bankBox.classList.add('is-visible');
           }
         }
       } else if (dom.successKhipuBox) {

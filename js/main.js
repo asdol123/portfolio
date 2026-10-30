@@ -428,39 +428,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
         skillFills.forEach(fill => skillObserver.observe(fill));
     }
-
-    // ==========================================
-    // 7. ATAJO PRIVADO DE ACCESO AL TALLER
-    // ==========================================
-    window.addEventListener('keydown', (e) => {
-        const isOrders = window.location.pathname.endsWith('pedidos.html') || window.location.pathname.endsWith('/pedidos');
-        if (isOrders) return;
-
-        const isAltP = e.altKey && !e.ctrlKey && !e.metaKey && (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
-        const isCtrlShiftP = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
-
-        if (isAltP || isCtrlShiftP) {
-            e.preventDefault();
-            window.location.href = 'pedidos.html';
-        }
-    });
-
-    const footerTargets = document.querySelectorAll('.ed-footer-brand-wrap, .ed-footer-copy');
-    let footClicks = 0;
-    let footTimer = null;
-    footerTargets.forEach(el => {
-        el.addEventListener('click', (e) => {
-            const isOrders = window.location.pathname.endsWith('pedidos.html') || window.location.pathname.endsWith('/pedidos');
-            if (isOrders) return;
-            if (e.target.closest('a')) return;
-            footClicks++;
-            if (footTimer) clearTimeout(footTimer);
-            if (footClicks >= 3) {
-                footClicks = 0;
-                window.location.href = 'pedidos.html';
-            } else {
-                footTimer = setTimeout(() => { footClicks = 0; }, 650);
-            }
-        });
-    });
 });

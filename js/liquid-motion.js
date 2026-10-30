@@ -162,59 +162,13 @@
      - Teclado: Alt + P o Ctrl + Shift + P
      - Tactil / Clic: Triple clic en el logo o pie del footer
      ========================================================================== */
-  function initWorkshopAccessShortcut() {
-    if (typeof window === 'undefined') return;
-
-    // 1. Deteccion por teclado (Alt + P o Ctrl + Shift + P)
-    window.addEventListener('keydown', (e) => {
-      const isOrdersPage = window.location.pathname.endsWith('pedidos.html') || window.location.pathname.endsWith('/pedidos');
-      if (isOrdersPage) return;
-
-      const isAltP = e.altKey && !e.ctrlKey && !e.metaKey && (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
-      const isCtrlShiftP = (e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'p' || e.key === 'P' || e.code === 'KeyP');
-
-      if (isAltP || isCtrlShiftP) {
-        e.preventDefault();
-        window.location.href = 'pedidos.html';
-      }
-    });
-
-    // 2. Deteccion tactil / triple clic discreto en footer
-    const footerTargets = document.querySelectorAll('.ed-footer-brand-wrap, .ed-footer-copy');
-    let clickCount = 0;
-    let clickTimeout = null;
-
-    footerTargets.forEach(target => {
-      target.addEventListener('click', (e) => {
-        const isOrdersPage = window.location.pathname.endsWith('pedidos.html') || window.location.pathname.endsWith('/pedidos');
-        if (isOrdersPage) return;
-
-        // Ignorar si el clic fue en un enlace interactivo real
-        if (e.target.closest('a')) return;
-
-        clickCount++;
-        if (clickTimeout) clearTimeout(clickTimeout);
-
-        if (clickCount >= 3) {
-          clickCount = 0;
-          window.location.href = 'pedidos.html';
-        } else {
-          clickTimeout = setTimeout(() => {
-            clickCount = 0;
-          }, 650);
-        }
-      });
-    });
-  }
-
   /* ==========================================================================
-     5. INICIALIZACIÓN GLOBAL ZERO-LAG
+     4. INICIALIZACIÓN GLOBAL ZERO-LAG
      ========================================================================== */
   function init() {
     initScrollReveals();
     initFloatingHeader();
     initTactileInteractions();
-    initWorkshopAccessShortcut();
   }
 
   if (document.readyState === 'loading') {

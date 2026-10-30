@@ -1576,22 +1576,29 @@
         if (flowRes.ok) {
           flowResult = await flowRes.json();
         } else {
+          let errData = null;
+          try {
+            errData = await flowRes.json();
+          } catch (e) {
+            errData = { error: 'Error de comunicacion con el servidor' };
+          }
           flowResult = {
-            ok: true,
+            ok: false,
             gateway: 'flow',
-            mode: 'assisted_flow',
-            message: 'Orden registrada para pago Flow.cl',
-            orderId: normalizedOrder.folio
+            error: errData.error || 'Respuesta no exitosa de Flow.cl',
+            code: errData.code,
+            orderId: normalizedOrder.folio,
+            whatsappFallback: errData.whatsappFallback || buildWhatsAppOrderUrl(normalizedOrder)
           };
         }
       } catch (errFlow) {
-        console.warn('[ALZADO ROJO Backend] Canal Flow.cl derivo a modo asistido transparente:', errFlow);
+        console.warn('[ALZADO ROJO Backend] Error de red en invocacion Flow.cl:', errFlow);
         flowResult = {
-          ok: true,
+          ok: false,
           gateway: 'flow',
-          mode: 'assisted_flow',
-          message: 'Orden registrada para pago Flow.cl',
-          orderId: normalizedOrder.folio
+          error: 'Error de red al conectar con pasarela Flow: ' + errFlow.message,
+          orderId: normalizedOrder.folio,
+          whatsappFallback: buildWhatsAppOrderUrl(normalizedOrder)
         };
       }
     }
