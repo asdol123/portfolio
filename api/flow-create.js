@@ -146,7 +146,6 @@ module.exports = async function handler(req, res) {
       currency: (currency || 'CLP').toUpperCase(),
       amount: numericAmount,
       email: cleanEmail,
-      paymentMethod: 9, // Todos los medios de pago disponibles en Flow
       urlConfirmation: `${baseUrl}/api/flow-confirm`,
       urlReturn: `${baseUrl}/api/flow-return?order=${encodeURIComponent(cleanOrderId)}`
     };

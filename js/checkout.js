@@ -595,15 +595,18 @@
     // Copiar datos bancarios con feedback
     if (dom.btnCopyBank) {
       dom.btnCopyBank.addEventListener('click', async () => {
+        const bd = (window.AR_ECOMMERCE && window.AR_ECOMMERCE.BANK_DETAILS)
+          || (window.AREcommerce && window.AREcommerce.BANK_DETAILS)
+          || null;
         const bankText = [
           'DATOS BANCARIOS OFICIALES · AR ARQ SpA',
-          'Razón Social: AR ARQ SpA',
-          'RUT: 77.892.341-K',
-          'Banco: Banco Santander Chile',
-          'Tipo de Cuenta: Cuenta Corriente',
-          'Número de Cuenta: 89-23410-0',
-          'Correo: adolchilemods@gmail.com',
-          `Referencia: ${state.folio}`
+          `Razón Social: ${bd ? bd.businessName : 'Ar Arq Spa'}`,
+          `RUT: ${bd ? bd.rut : '78.516.116-5'}`,
+          `Banco: ${bd ? bd.bank : 'Banco Bci'}`,
+          `Tipo de Cuenta: ${bd ? bd.accountType : 'Cuenta corriente en pesos'}`,
+          `Número de Cuenta: ${bd ? bd.accountNumber : '71897223'}`,
+          `Correo: ${bd ? bd.email : 'adolchilemods@gmail.com'}`,
+          `Referencia: ${state.folio || 'ORDEN-WEB'}`
         ].join('\n');
 
         try {

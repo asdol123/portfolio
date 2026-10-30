@@ -40,12 +40,12 @@
 
   // --- DATOS BANCARIOS OFICIALES PARA TRANSFERENCIA DIRECTA ---
   const BANK_DETAILS = {
-    accountHolder: 'AR ARQ SpA',
-    businessName: 'AR ARQ SpA',
-    rut: '77.892.341-K',
-    bank: 'Banco Santander Chile',
-    accountType: 'Cuenta Corriente',
-    accountNumber: '89-23410-0',
+    accountHolder: 'Ar Arq Spa',
+    businessName: 'Ar Arq Spa',
+    rut: '78.516.116-5',
+    bank: 'Banco Bci',
+    accountType: 'Cuenta corriente en pesos',
+    accountNumber: '71897223',
     email: 'adolchilemods@gmail.com',
     notes: 'Por favor indique el Folio de su orden como referencia en la transferencia.'
   };
@@ -873,7 +873,7 @@
       '',
       'INSTRUCCIONES DE CONTINUIDAD:',
       '- Si su orden es con Pago en Linea Flow.cl (Webpay / Tarjetas), su transaccion es procesada y validada de forma automatica e integrada.',
-      '- Si su orden es con Transferencia Directa, transfiera a Cuenta Corriente AR ARQ SpA (Banco Santander, N 89-23410-0, RUT 77.892.341-K) e indique su Folio en la referencia.',
+      `- Si su orden es con Transferencia Directa, transfiera a ${BANK_DETAILS.accountType} ${BANK_DETAILS.accountHolder} (${BANK_DETAILS.bank}, N° ${BANK_DETAILS.accountNumber}, RUT ${BANK_DETAILS.rut}) e indique su Folio en la referencia.`,
       '- Si solicito Cotizacion Formal, este respaldo certifica la reserva de tarifas por 15 dias corridos para la gestion de su Orden de Compra.',
       '- Nuestro equipo tecnico revisara el modelo y coordinara el avance de manufactura aditiva.',
       '',
