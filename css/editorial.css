@@ -6260,7 +6260,8 @@ dialog#project-modal::backdrop {
   gap: 10px;
 }
 
-.btn-ecom-checkout {
+.btn-ecom-checkout,
+.btn-ecom-teaser-wsp {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6269,11 +6270,12 @@ dialog#project-modal::backdrop {
   min-height: 48px;
   padding: 12px 20px;
   background: var(--ed-text);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-decoration: none !important;
   border: none !important;
   outline: none !important;
   border-radius: var(--radius-pill);
@@ -6283,35 +6285,47 @@ dialog#project-modal::backdrop {
   font-family: inherit;
 }
 
+.btn-ecom-teaser-wsp {
+  font-family: var(--font-mono), monospace;
+}
+
 /* Iluminación en Carmesí Alzado Rojo al pasar cursor sobre la tarjeta */
-.ecom-card:hover .btn-ecom-checkout {
+.ecom-card:hover .btn-ecom-checkout,
+.ecom-card:hover .btn-ecom-teaser-wsp {
   background: var(--ed-red);
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   box-shadow: 0 8px 24px rgba(230, 25, 25, 0.38);
 }
 
-.btn-ecom-checkout:hover {
+.btn-ecom-checkout:hover,
+.btn-ecom-teaser-wsp:hover {
   background: var(--ed-red-hover) !important;
   color: #FFFFFF !important;
   transform: translateY(-2px);
   box-shadow: 0 10px 28px rgba(230, 25, 25, 0.48) !important;
 }
 
-.btn-ecom-checkout:active {
+.btn-ecom-checkout:active,
+.btn-ecom-teaser-wsp:active {
   transform: scale(0.97) !important;
 }
 
-.btn-ecom-checkout:focus-visible {
+.btn-ecom-checkout:focus-visible,
+.btn-ecom-teaser-wsp:focus-visible {
   outline: 2px solid var(--ed-red);
   outline-offset: 2px;
 }
 
-.btn-ecom-checkout .btn-arrow {
+.btn-ecom-checkout .btn-arrow,
+.btn-ecom-teaser-wsp .btn-arrow {
+  display: inline-flex;
+  align-items: center;
   transition: transform 0.25s var(--spring-ease);
   font-weight: 700;
 }
 
-.btn-ecom-checkout:hover .btn-arrow {
+.btn-ecom-checkout:hover .btn-arrow,
+.btn-ecom-teaser-wsp:hover .btn-arrow {
   transform: translateX(4px);
 }
 
@@ -10956,6 +10970,129 @@ dialog#project-modal::backdrop {
   }
 }
 
+/* ==========================================================================
+   PROMOCIÓN NOVIEMBRE 25% OFF · COLECCIONES Y TEASER LAGOS (100% BORDERLESS)
+   ========================================================================== */
 
+.ecom-promo-banner-nov {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: linear-gradient(135deg, rgba(217, 37, 37, 0.08) 0%, rgba(217, 37, 37, 0.03) 100%);
+  border-radius: var(--radius-pill);
+  border: none !important;
+  outline: none !important;
+  padding: 12px 24px;
+  margin: 20px auto 28px auto;
+  max-width: 960px;
+  box-shadow: 0 4px 20px rgba(217, 37, 37, 0.06);
+  text-align: center;
+}
 
+.ecom-promo-banner-nov .ecom-promo-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ed-red);
+  box-shadow: 0 0 10px rgba(217, 37, 37, 0.8);
+  flex-shrink: 0;
+}
 
+.ecom-promo-banner-nov .ecom-promo-text {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  color: var(--ed-red);
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.ecom-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ecom-price-original {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  text-decoration: line-through;
+  color: var(--ed-text-muted, #71717A);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.ecom-promo-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--ed-red);
+  text-transform: uppercase;
+  margin-top: -6px;
+  margin-bottom: 14px;
+}
+
+.ecom-size-btn.btn-quote-size {
+  background: rgba(217, 37, 37, 0.06);
+  color: var(--ed-red);
+  font-weight: 600;
+}
+
+.ecom-size-btn.btn-quote-size:hover {
+  background: var(--ed-red);
+  color: #FFFFFF;
+}
+
+.ecom-card-teaser {
+  background: #FFFFFF;
+  border: none !important;
+  border-radius: 26px;
+  box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ecom-card-teaser:hover {
+  transform: translate3d(0, -5px, 0);
+  box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
+}
+
+.ecom-teaser-thumb-box {
+  position: relative;
+  width: calc(100% - 24px);
+  margin: 12px 12px 0 12px;
+  aspect-ratio: 4 / 3;
+  background: #0E121A;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.ecom-teaser-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+.ecom-card-teaser:hover .ecom-teaser-thumb-box img {
+  transform: scale3d(1.04, 1.04, 1);
+  opacity: 0.95;
+}
+
+.ecom-card-teaser .ecom-title {
+  cursor: default !important;
+}
+
+.format-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}

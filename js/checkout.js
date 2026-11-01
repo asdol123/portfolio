@@ -28,7 +28,7 @@
     size: '10 × 10 cm',
     finish: 'Con Marco Shadowbox',
     thumbImg: 'catalog/santiago-costanera-marco.jpg',
-    unitPrice: 12990,
+    unitPrice: 9990,
     quantity: 1,
     shippingId: 'pickup',
     paymentMethod: 'transferencia',
@@ -213,7 +213,7 @@
     state.folio = ECOM ? ECOM.generateOrderFolio() : `AR-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     state.sku = productData.sku || 'SKU-SCL-01';
 
-    // Preservar y deducir categoria para resolucion de precios (Volcanes vs Estandar)
+    // Preservar y deducir categoría para resolución de precios (Volcanes vs Estándar)
     let cat = productData.category || '';
     if (!cat && state.sku && (state.sku.startsWith('SKU-VOL-') || state.sku.startsWith('SKU-VOL'))) {
       cat = 'volcanes';
@@ -224,13 +224,41 @@
     }
     state.category = cat;
 
-    state.productName = productData.productName || 'Santiago · Costanera Center';
-    state.size = productData.size || '10 × 10 cm';
-    state.finish = productData.finish || 'Con Marco Shadowbox';
-    state.thumbImg = productData.thumbImg || 'catalog/santiago-costanera-marco.jpg';
+    const isVolcano = (state.category === 'volcanes' || (state.sku && state.sku.startsWith('SKU-VOL')) || (ECOM && typeof ECOM.isVolcanoCategory === 'function' && ECOM.isVolcanoCategory(productData)));
+
+    const requestedSize = productData.size || '';
+    const isQuoteRequest = Boolean(
+      productData.isQuote ||
+      String(requestedSize).toLowerCase().includes('otro') ||
+      String(requestedSize).toLowerCase().includes('cotiz')
+    );
+
+    // Si se solicita 'Otro tamaño', redirigir de inmediato a cotización por WhatsApp oficial
+    if (isQuoteRequest) {
+      const prodName = productData.productName || (isVolcano ? 'Volcán Topográfico 3D' : 'Maqueta Arquitectónica');
+      const wspMsg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${prodName}.`;
+      const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspMsg)}`;
+      if (typeof window !== 'undefined') {
+        window.open(wspUrl, '_blank');
+      }
+      return;
+    }
+
+    if (isVolcano) {
+      state.productName = productData.productName || 'Volcán Villarrica · Relieve Topográfico 3D';
+      state.size = (requestedSize && requestedSize !== '10 × 10 cm') ? requestedSize : '20 × 20 cm';
+      state.finish = productData.finish || 'Con Marco Shadowbox';
+      state.thumbImg = productData.thumbImg || 'catalog/volcan-villarrica-marco.jpg';
+    } else {
+      state.productName = productData.productName || 'Santiago · Costanera Center';
+      state.size = requestedSize || '10 × 10 cm';
+      state.finish = productData.finish || 'Con Marco Shadowbox';
+      state.thumbImg = productData.thumbImg || 'catalog/santiago-costanera-marco.jpg';
+    }
+
     state.unitPrice = productData.unitPrice !== undefined
       ? (ECOM && typeof ECOM.parseCLP === 'function' ? ECOM.parseCLP(productData.unitPrice) : (parseInt(String(productData.unitPrice).replace(/[^0-9]/g, ''), 10) || 0))
-      : 12990;
+      : (isVolcano ? 24990 : 9990);
 
     // Detección de Medida Especial / Cotización a convenir
     const isCustomSpecial = String(state.size).toLowerCase().includes('especial') ||
@@ -240,14 +268,16 @@
                             String(state.size).toLowerCase().includes('volumen') ||
                             state.unitPrice === 0;
 
-    // Sincronización estricta del precio oficial mediante AR_ECOMMERCE con contexto de categoria/SKU
+    // Sincronización estricta del precio oficial mediante AR_ECOMMERCE con contexto de categoría/SKU
     let parsedPrice = 0;
     if (ECOM && typeof ECOM.resolveFormatPrice === 'function') {
       parsedPrice = ECOM.resolveFormatPrice(state.size, state.finish, productData.unitPrice, state.category || state.sku);
+    } else if (isVolcano) {
+      parsedPrice = 24990;
     } else if (ECOM && typeof ECOM.parseCLP === 'function') {
       parsedPrice = ECOM.parseCLP(productData.unitPrice || 0);
     } else {
-      parsedPrice = parseInt(String(productData.unitPrice || '').replace(/[^0-9]/g, ''), 10) || 0;
+      parsedPrice = parseInt(String(productData.unitPrice || '').replace(/[^0-9]/g, ''), 10) || 9990;
     }
     
     // Priorizar Transferencia Bancaria Directa o activar modo Cotización si es cotización o formato especial
@@ -261,7 +291,7 @@
     }
     state.isCustomSpecial = isCustomSpecial;
 
-    // Si es Medida Especial, Gran Formato / Volumen o precio 0: asegurar modo cotización con unitPrice 0 sin cobrar $12.990
+    // Si es Medida Especial o precio 0: asegurar modo cotización con unitPrice 0
     if (isCustomSpecial) {
       if (state.paymentMethod === 'cotizacion') {
         parsedPrice = 0;
@@ -269,9 +299,7 @@
         parsedPrice = 29990; // Abono inicial de manufactura si se selecciona transferencia
       }
     } else if (parsedPrice <= 0 && !isCustomSpecial) {
-      const isVolcano = (state.category === 'volcanes' || (state.sku && state.sku.startsWith('SKU-VOL')));
-      const isFrameless = String(state.finish).toLowerCase().includes('sin marco');
-      parsedPrice = isVolcano ? (isFrameless ? 11990 : 14990) : (isFrameless ? 9990 : 12990);
+      parsedPrice = isVolcano ? 24990 : 9990;
     }
 
     state.unitPrice = parsedPrice;
@@ -801,6 +829,35 @@
     // Vinculación automática con las tarjetas del catálogo e-commerce y formatos
     bindCatalogCards();
     bindFormatCards();
+    bindGlobalCustomButton();
+  }
+
+  /**
+   * Conecta el botón inerte .btn-global-custom (data-action="checkout-custom-city")
+   */
+  function bindGlobalCustomButton() {
+    const customBtns = document.querySelectorAll('.btn-global-custom, [data-action="checkout-custom-city"]');
+    customBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cotizador = document.querySelector('#cotizador-a-medida') || document.querySelector('#cotizador-personalizado');
+        if (cotizador) {
+          cotizador.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          openCheckout({
+            sku: 'SKU-CUST-08',
+            productName: 'Maqueta a Medida · Personalización de Ciudad',
+            size: 'Formato Personalizado',
+            finish: 'PLA Mate Blanco Arquitectónico · Marco Shadowbox',
+            unitPrice: 'A convenir',
+            thumbImg: 'catalog/santiago-costanera-marco.jpg',
+            quantity: 1,
+            paymentMethod: 'cotizacion',
+            notes: 'Personalización de ciudad o coordenadas específicas.'
+          });
+        }
+      });
+    });
   }
 
   /**
@@ -816,7 +873,7 @@
         const currentType = typeActive ? (typeActive.getAttribute('data-type') || 'Maqueta Urbana') : 'Maqueta Urbana';
 
         const format = btn.getAttribute('data-format') || (card ? card.getAttribute('data-format') : '10 × 10 cm');
-        let priceVal = btn.getAttribute('data-price') || (card ? card.getAttribute('data-price') : '$12.990 CLP');
+        let priceVal = btn.getAttribute('data-price') || (card ? card.getAttribute('data-price') : '$9.990 CLP');
 
         if (card) {
           document.querySelectorAll('.format-card').forEach(c => {
@@ -852,7 +909,7 @@
         const activeFmtCard = document.querySelector('.format-card.selected');
         const format = activeFmtCard ? (activeFmtCard.getAttribute('data-format') || '10 × 10 cm') : '10 × 10 cm';
         const activeBuyBtn = activeFmtCard ? activeFmtCard.querySelector('.btn-format-buy') : null;
-        const priceVal = (activeBuyBtn && activeBuyBtn.getAttribute('data-price')) || (activeFmtCard ? activeFmtCard.getAttribute('data-price') : '$12.990 CLP') || '$12.990 CLP';
+        const priceVal = (activeBuyBtn && activeBuyBtn.getAttribute('data-price')) || (activeFmtCard ? activeFmtCard.getAttribute('data-price') : '$9.990 CLP') || '$9.990 CLP';
         const isSpecial = format.toLowerCase().includes('especial') || format.toLowerCase().includes('volumen') || format.toLowerCase().includes('gran formato');
 
         openCheckout({
@@ -878,6 +935,7 @@
   function bindCatalogCards() {
     const cards = document.querySelectorAll('.ecom-card');
     cards.forEach(card => {
+      if (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos') return;
       const checkoutBtn = card.querySelector('.btn-ecom-checkout');
       if (!checkoutBtn) return;
 
@@ -885,13 +943,23 @@
         const sku = card.getAttribute('data-sku') || 'SKU-SCL-01';
         const category = card.getAttribute('data-category') || '';
         const name = card.getAttribute('data-prod-name') || 'Maqueta Prediseñada';
+        const isVolcano = category === 'volcanes' || sku.startsWith('SKU-VOL');
         const activeSizeBtn = card.querySelector('.ecom-size-btn.active');
-        const size = activeSizeBtn ? activeSizeBtn.getAttribute('data-size') : '10 × 10 cm';
+        const size = activeSizeBtn ? activeSizeBtn.getAttribute('data-size') : (isVolcano ? '20 × 20 cm' : '10 × 10 cm');
+        const isQuote = activeSizeBtn ? (activeSizeBtn.getAttribute('data-is-quote') === 'true' || size.toLowerCase().includes('otro')) : false;
+
+        if (isQuote || size.toLowerCase().includes('otro')) {
+          const wspMsg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${name}.`;
+          const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspMsg)}`;
+          window.open(wspUrl, '_blank');
+          return;
+        }
+
         const activePriceDisplay = card.querySelector('.ecom-price-display');
-        const priceStr = activePriceDisplay ? activePriceDisplay.textContent : '$9.990 CLP';
+        const priceStr = activePriceDisplay ? activePriceDisplay.textContent : (isVolcano ? '$24.990 CLP' : '$9.990 CLP');
 
         const activeViewBtn = card.querySelector('.ecom-view-btn.active');
-        const finish = activeViewBtn ? activeViewBtn.textContent.trim() : 'Estándar';
+        const finish = activeViewBtn ? activeViewBtn.textContent.trim() : 'Con Marco Shadowbox';
         const cardImg = card.querySelector('.ecom-img');
         const thumbImg = (activeViewBtn && activeViewBtn.getAttribute('data-img')) || (cardImg ? cardImg.getAttribute('src') : 'catalog/santiago-costanera-marco.jpg');
 
@@ -905,6 +973,22 @@
           thumbImg,
           quantity: 1
         });
+      });
+    });
+
+    // Interceptar clics directos en píldoras o botones de 'Otro tamaño' en tarjetas de catálogo
+    const sizeBtns = document.querySelectorAll('.ecom-size-btn');
+    sizeBtns.forEach(btn => {
+      const card = btn.closest('.ecom-card');
+      if (card && (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos')) return;
+      btn.addEventListener('click', () => {
+        const sizeVal = btn.getAttribute('data-size') || '';
+        if (sizeVal.toLowerCase().includes('otro') || btn.getAttribute('data-is-quote') === 'true') {
+          const prodName = card ? (card.getAttribute('data-prod-name') || 'esta maqueta') : 'Volcán';
+          const wspMsg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${prodName}.`;
+          const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspMsg)}`;
+          window.open(wspUrl, '_blank');
+        }
       });
     });
   }

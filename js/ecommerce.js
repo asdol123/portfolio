@@ -50,36 +50,43 @@
     notes: 'Por favor indique el Folio de su orden como referencia en la transferencia.'
   };
 
-  // --- ESCALAS OFICIALES DE PRECIOS Y FORMATOS ---
-  // Escala Estandar (Ciudades / Edicion Urbana / Territorios)
-  const STANDARD_PRICES = {
-    '10x10': { base: 9990, frame: 12990 },
-    '15x15': { base: 19990, frame: 19990 },
-    '20x20': { base: 25990, frame: 25990 },
-    '25x25': { base: 29990, frame: 29990, highlight: 'MEJOR VALOR' },
-    '30x30': { base: 79990, frame: 79990 },
-    '40x40': { base: 119990, frame: 119990 },
-    'mural': { base: 149990, frame: 149990 }
+  // --- ESCALAS OFICIALES DE PRECIOS Y FORMATOS UNIFICADOS ---
+  const PROMO_DISCOUNT_PERCENT = 25; // 25% OFF apertura noviembre
+
+  // Escala Unificada Promocional con Marco Shadowbox Incluido
+  const UNIFIED_PRICES = {
+    '10x10': { base: 9990, frame: 9990, original: 13290, label: 'Edición Bolsillo' },
+    '15x15': { base: 19990, frame: 19990, original: 26490 },
+    '20x20': { base: 24990, frame: 24990, original: 33290 },
+    '25x25': { base: 29990, frame: 29990, original: 39990, highlight: 'MEJOR VALOR' },
+    '30x30': { base: 79990, frame: 79990, original: 106990 },
+    '40x40': { base: 119990, frame: 119990, original: 159990 },
+    'mural': { base: 149990, frame: 149990, original: 199990 }
   };
 
-  // Escala Especial Volcanes de Chile (mayor complejidad morfologica, crater profundo y densidad topografica)
+  // Escala Estandar (Ciudades / Edicion Urbana / Territorios)
+  const STANDARD_PRICES = {
+    '10x10': { base: 9990, frame: 9990, original: 13290, label: 'Edición Bolsillo' },
+    '15x15': { base: 19990, frame: 19990, original: 26490 },
+    '20x20': { base: 24990, frame: 24990, original: 33290 },
+    '25x25': { base: 29990, frame: 29990, original: 39990, highlight: 'MEJOR VALOR' },
+    '30x30': { base: 79990, frame: 79990, original: 106990 },
+    '40x40': { base: 119990, frame: 119990, original: 159990 },
+    'mural': { base: 149990, frame: 149990, original: 199990 }
+  };
+
+  // Escala Exclusiva Volcanes de Chile (Formato unico de compra directa: 20 × 20 cm a $24.990 CLP con marco shadowbox incluido)
   const VOLCANO_PRICES = {
-    '10x10': { base: 11990, frame: 14990 },
-    '15x15': { base: 24990, frame: 24990 },
-    '20x20': { base: 32990, frame: 32990 },
-    '25x25': { base: 39990, frame: 39990, highlight: 'MEJOR VALOR VOLCANES' },
-    '30x30': { base: 89990, frame: 89990 },
-    '40x40': { base: 129990, frame: 129990 },
-    'mural': { base: 159990, frame: 159990 }
+    '20x20': { base: 24990, frame: 24990, original: 33290, label: '20 × 20 cm (Estándar)' },
+    'custom': { base: 0, frame: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
   };
 
   // Objeto unificado para compatibilidad directa y retrocompatible:
-  // Permite acceso indexado legacy OFFICIAL_PRICES['10x10'] (apunta a standard)
-  // y acceso categorizado OFFICIAL_PRICES.standard y OFFICIAL_PRICES.volcanes
   const OFFICIAL_PRICES = {
     ...STANDARD_PRICES,
     standard: STANDARD_PRICES,
-    volcanes: VOLCANO_PRICES
+    volcanes: VOLCANO_PRICES,
+    unified: UNIFIED_PRICES
   };
 
   const VALUE_PROPOSITION = 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida.';
@@ -115,76 +122,64 @@
    */
   function resolveFormatPrice(sizeInput, finishInput = 'Con Marco', overridePrice = null, categoryOrProduct = null) {
     const s = String(sizeInput || '').trim().toLowerCase();
-    const f = String(finishInput || '').trim().toLowerCase();
-    const isFrameless = f.includes('sin marco') || s.includes('sin marco');
 
-    // Deteccion de escala de precios (Volcanes vs Estandar)
-    let isVolcano = isVolcanoCategory(categoryOrProduct);
+    // Detección de formato especial / cotización / a medida
+    if (s.includes('otro') || s.includes('cotiz') || s.includes('especial') || s.includes('convenir') || s.includes('personalizado') || s.includes('archivo 3d') || s.includes('hora') || s.includes('gran formato') || s.includes('volumen')) {
+      const parsedOverride = (overridePrice !== null && overridePrice !== undefined && overridePrice !== '')
+        ? parseCLP(overridePrice)
+        : 0;
+      return parsedOverride > 0 ? parsedOverride : 0;
+    }
+
+    // Detección de escala de precios (Volcanes vs Estándar)
+    const isVolcano = isVolcanoCategory(categoryOrProduct);
+
+    if (isVolcano) {
+      // Formato exclusivo de compra directa para Volcanes: 20 × 20 cm a $24.990 CLP con marco incluido
+      if (s.includes('20 × 20') || s.includes('20x20') || s.includes('200 × 200') || s.includes('200x200')) {
+        return VOLCANO_PRICES['20x20'].frame; // 24990
+      }
+      // Cualquier otro tamaño en volcanes es cotización (precio 0)
+      if (s.includes('otro') || s.includes('medida')) {
+        return 0;
+      }
+      // Fallback estándar en volcanes: 20 × 20 cm ($24.990)
+      return VOLCANO_PRICES['20x20'].frame;
+    }
 
     const parsedOverride = (overridePrice !== null && overridePrice !== undefined && overridePrice !== '')
       ? parseCLP(overridePrice)
       : 0;
 
-    // Si no se especifico categoria pero overridePrice coincide con un valor de la escala de volcanes
-    if (!isVolcano && !categoryOrProduct && parsedOverride > 0) {
-      if (parsedOverride === 11990 || parsedOverride === 14990 || parsedOverride === 24990 ||
-          parsedOverride === 32990 || parsedOverride === 39990 || parsedOverride === 89990 ||
-          parsedOverride === 159990) {
-        isVolcano = true;
-      }
-    }
-
-    const scale = isVolcano ? VOLCANO_PRICES : STANDARD_PRICES;
-
-    // 10 × 10 cm (Estandar: $9.990 base / $12.990 marco · Volcanes: $11.990 base / $14.990 marco)
+    // Escala Ciudades / Estándar (precios unificados promocionales con marco incluido)
     if (s.includes('10 × 10') || s.includes('10x10') || s.includes('100 × 100') || s.includes('100x100')) {
-      return isFrameless ? scale['10x10'].base : scale['10x10'].frame;
+      return UNIFIED_PRICES['10x10'].frame; // 9990
     }
-
-    // 15 × 15 cm (Estandar: $19.990 con marco · Volcanes: $24.990 con marco)
     if (s.includes('15 × 15') || s.includes('15x15') || s.includes('150 × 150') || s.includes('150x150')) {
-      return scale['15x15'].frame;
+      return UNIFIED_PRICES['15x15'].frame; // 19990
     }
-
-    // 20 × 20 cm (Estandar: $25.990 con marco · Volcanes: $32.990 con marco)
     if (s.includes('20 × 20') || s.includes('20x20') || s.includes('200 × 200') || s.includes('200x200')) {
-      return scale['20x20'].frame;
+      return UNIFIED_PRICES['20x20'].frame; // 24990
     }
-
-    // 25 × 25 cm (Estandar: $29.990 · Volcanes: $39.990 · MEJOR VALOR)
     if (s.includes('25 × 25') || s.includes('25x25') || s.includes('250 × 250') || s.includes('250x250')) {
-      return scale['25x25'].frame;
+      return UNIFIED_PRICES['25x25'].frame; // 29990
     }
-
-    // 30 × 30 cm Gran formato modular (Estandar: $79.990 · Volcanes: $89.990)
     if (s.includes('30 × 30') || s.includes('30x30') || s.includes('300 × 300')) {
-      return scale['30x30'].frame;
+      return UNIFIED_PRICES['30x30'].frame; // 79990
     }
-
-    // 40 × 40 cm Gran formato modular (Estandar: $119.990 · Volcanes: $129.990)
     if (s.includes('40 × 40') || s.includes('40x40') || s.includes('400 × 400')) {
-      return scale['40x40'].frame;
+      return UNIFIED_PRICES['40x40'].frame; // 119990
     }
-
-    // Mural 4 Paneles (Estandar: $149.990 · Volcanes: $159.990)
     if (s.includes('mural') || s.includes('4 paneles')) {
-      return scale['mural'].frame;
+      return UNIFIED_PRICES['mural'].frame; // 149990
     }
 
-    // Medida especial / personalizado / volumen a cotizar
-    if (s.includes('especial') || s.includes('convenir') || s.includes('personalizado') || s.includes('archivo 3d') || s.includes('hora') || s.includes('gran formato') || s.includes('volumen')) {
-      return parsedOverride > 0 ? parsedOverride : 0;
-    }
-
-    // Si viene un precio explicito que no coincide con los estandares o difiere
     if (parsedOverride > 0) {
       return parsedOverride;
     }
 
-    // Fallback general 10x10
-    return isVolcano
-      ? (isFrameless ? VOLCANO_PRICES['10x10'].base : VOLCANO_PRICES['10x10'].frame)
-      : (isFrameless ? STANDARD_PRICES['10x10'].base : STANDARD_PRICES['10x10'].frame);
+    // Fallback general ciudades: 10x10 ($9.990)
+    return UNIFIED_PRICES['10x10'].frame;
   }
 
   // --- CATÁLOGO OFICIAL DE PRODUCTOS Y SKUs ---
@@ -214,19 +209,17 @@
       },
       images: {
         marco: 'catalog/volcan-villarrica-marco.jpg',
-        detalle: 'catalog/volcan-villarrica-detalle.jpg'
+        detalle: 'catalog/volcan-villarrica-detalle.jpg',
+        volcan: 'catalog/Volcan Villarica.jpg'
       },
       gallery: [
         { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Marco Shadowbox Negro' },
         { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle Cráter y Curvas de Nivel' },
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
+        { url: 'catalog/Volcan Villarica.jpg', label: 'Perspectiva Volcán Villarrica' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 11990, framePrice: 14990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 32990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR VOLCANES' },
-        { size: '30 × 30 cm', price: 89990, label: '30 × 30 cm (Gran Formato Modular)' }
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
       ]
     },
     {
@@ -243,7 +236,7 @@
       image: 'catalog/volcan-osorno-shadowbox.jpg',
       defaultImage: 'catalog/volcan-osorno-shadowbox.jpg',
       video: 'videos/reel-volcanes.mp4',
-      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Geometría cónica perfecta y relieve topográfico del lago en acabado blanco tiza de alta pureza arquitectónica.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Geometría cónica perfecta y relieve topográfico del lago Llanquihue en acabado blanco tiza de alta pureza arquitectónica.',
       specs: {
         escala: '1:1000 / 1:2000',
         tolerancia: '±0.20 mm',
@@ -256,16 +249,158 @@
         shadowbox: 'catalog/volcan-osorno-shadowbox.jpg'
       },
       gallery: [
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Marco Shadowbox' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Marco Shadowbox Negro' },
         { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Textura Cónica y Cota Real' },
         { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Perspectiva de Exhibición' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 11990, framePrice: 14990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 32990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR VOLCANES' },
-        { size: 'Mural 4 Paneles', price: 159990, label: 'Mural 4 Paneles (Gran Formato)' }
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-VOL-03',
+      id: 'volcan-llaima',
+      name: 'Volcán Llaima · Geometría Eruptiva y Parque Conguillío',
+      shortName: 'Volcán Llaima',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'GEOMETRÍA ERUPTIVA · CONGUILLÍO',
+      badge: 'NUEVA COLECCIÓN · PARQUE CONGUILLÍO',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/volcan llaima.jpg',
+      image: 'catalog/volcan llaima.jpg',
+      defaultImage: 'catalog/volcan llaima.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Morfología eruptiva, fisuras históricas y relieve del Parque Nacional Conguillío modelado tridimensionalmente.',
+      specs: {
+        escala: '1:1500 / 1:2500',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'DEM Satelital Alos Palsar 12.5 m',
+        acabado: 'Microcapas de Alta Definición'
+      },
+      images: {
+        principal: 'catalog/volcan llaima.jpg',
+        version1: 'catalog/Volcan Llaima v1.jpg'
+      },
+      gallery: [
+        { url: 'catalog/volcan llaima.jpg', label: 'Volcán Llaima Relieve 3D' },
+        { url: 'catalog/Volcan Llaima v1.jpg', label: 'Perspectiva Cráter Conguillío' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Estratos Topográficos' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-VOL-04',
+      id: 'volcan-lonquimay',
+      name: 'Volcán Lonquimay · Cráter Navidad y Falla Geológica',
+      shortName: 'Volcán Lonquimay',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'CRÁTER NAVIDAD · FALLA GEOLÓGICA',
+      badge: 'NUEVA COLECCIÓN · CRÁTER NAVIDAD',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcan Lonquimay.jpg',
+      image: 'catalog/Volcan Lonquimay.jpg',
+      defaultImage: 'catalog/Volcan Lonquimay.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Registro topográfico del cono principal y el histórico Cráter Navidad formado en la erupción de 1988 con su escorial volcánico.',
+      specs: {
+        escala: '1:1200 / 1:2000',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'DEM Satelital SRTM 30 m y Catastro Geológico',
+        acabado: 'Blanco Mate Texturizado'
+      },
+      images: {
+        principal: 'catalog/Volcan Lonquimay.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcan Lonquimay.jpg', label: 'Cráter Navidad y Cono Lonquimay' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Pendientes y Curvas' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-VOL-05',
+      id: 'volcan-lanin',
+      name: 'Volcán Lanín · Glaciar Binacional y Cono Estratovolcánico',
+      shortName: 'Volcán Lanín',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'GLACIAR BINACIONAL · ESTRATOVOLCÁN',
+      badge: 'NUEVA COLECCIÓN · GLACIAR BINACIONAL',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcan Lanin.jpg',
+      image: 'catalog/Volcan Lanin.jpg',
+      defaultImage: 'catalog/Volcan Lanin.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Monumental silueta del estratovolcán de 3.776 msnm en la frontera andina, con su casquete glaciar y vertientes abruptas en relieve 3D.',
+      specs: {
+        escala: '1:2000 / 1:3000',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'DEM Satelital Alos Palsar 12.5 m',
+        acabado: 'Microcapas de Precisión 0.20 mm'
+      },
+      images: {
+        principal: 'catalog/Volcan Lanin.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcan Lanin.jpg', label: 'Volcán Lanín y Glaciar Andino' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Cumbres y Filos' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-VOL-06',
+      id: 'volcan-quetrupillan',
+      name: 'Volcán Quetrupillán · Caldera Extinta y Cordón Andino',
+      shortName: 'Volcán Quetrupillán',
+      category: 'volcanes',
+      collection: 'Volcanes de Chile',
+      tag: 'CALDERA EXTINTA · CORDÓN ANDINO',
+      badge: 'NUEVA COLECCIÓN · CALDERA EXTINTA',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcan quetrupilan.jpg',
+      image: 'catalog/Volcan quetrupilan.jpg',
+      defaultImage: 'catalog/Volcan quetrupilan.jpg',
+      video: 'videos/reel-volcanes.mp4',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Gran caldera colapsada y glaciar interior del volcán Quetrupillán, situado en el cordón volcánico entre el Villarrica y el Lanín.',
+      specs: {
+        escala: '1:1500 / 1:2500',
+        tolerancia: '±0.20 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'DEM Satelital Alos Palsar 12.5 m',
+        acabado: 'Microestratificación 0.20 mm'
+      },
+      images: {
+        principal: 'catalog/Volcan quetrupilan.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcan quetrupilan.jpg', label: 'Caldera Extinta Volcán Quetrupillán' },
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Malla Topográfica' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
       ]
     },
     {
@@ -299,10 +434,10 @@
         { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle Microarquitectónico' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -335,11 +470,11 @@
         { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -372,11 +507,11 @@
         { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -409,10 +544,10 @@
         { url: 'catalog/topografia-valle-marco.jpg', label: 'Vista de Enmarcado' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -445,10 +580,12 @@
         { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Acople y Textura' }
       ],
       formats: [
-        { size: '30 × 30 cm (Modular)', price: 79990, label: '30 × 30 cm (Modular)' },
-        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles (Gran Formato)', highlight: 'MEJOR VALOR' },
-        { size: '40 × 40 cm (Modular)', price: 119990, label: '40 × 40 cm (Modular)' },
-        { size: 'Proyectos a Medida', price: 0, label: 'Cotización por volumen a medida' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm' },
+        { size: 'Mural 4 Paneles', price: 149990, framePrice: 149990, originalPrice: 199990, label: 'Mural 4 Paneles' }
       ]
     },
     {
@@ -482,10 +619,10 @@
         { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista Lateral Shadowbox' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -518,10 +655,10 @@
         { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Base de Sustrato Topográfico' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -554,13 +691,13 @@
         { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Ejemplo Mural Modular a Medida' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: 'Gran Formato (30 × 30 cm)', price: 79990, label: '30 × 30 cm Modular' },
-        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles' },
-        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto según escala y volumen' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: 'Gran Formato (30 × 30 cm)', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm Modular' },
+        { size: 'Mural 4 Paneles', price: 149990, framePrice: 149990, originalPrice: 199990, label: 'Mural 4 Paneles' },
+        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto según escala y volumen', isQuote: true }
       ]
     },
     {
@@ -593,11 +730,11 @@
         { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Precisión Geométrica en Aristas' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: 'Servicio por Hora / Gramo', price: 0, label: 'Cotización según archivo 3D' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: 'Servicio por Hora / Gramo', price: 0, label: 'Cotización según archivo 3D', isQuote: true }
       ]
     }
   ];
@@ -795,8 +932,16 @@
 
     // Formatear opciones de precios
     const formats = (product.formats || []).map(f => {
-      const effectivePrice = f.framePrice || f.price;
-      const formattedPrice = effectivePrice > 0 ? formatCLP(effectivePrice) : 'A convenir / Cotización';
+      const isQuote = !!f.isQuote || f.price === 0 || String(f.size).toLowerCase().includes('otro');
+      const effectivePrice = isQuote ? 0 : (f.framePrice || f.price || 0);
+      let formattedPrice = '';
+      if (isQuote) {
+        formattedPrice = 'Cotizar por WhatsApp';
+      } else if (effectivePrice > 0) {
+        formattedPrice = formatCLP(effectivePrice);
+      } else {
+        formattedPrice = 'A convenir / Cotización';
+      }
       const formattedBasePrice = f.price > 0 ? formatCLP(f.price) : undefined;
       const formattedFramePrice = f.framePrice > 0 ? formatCLP(f.framePrice) : undefined;
       return {
@@ -805,12 +950,14 @@
         basePrice: f.price,
         formattedPrice,
         formattedFramePrice,
+        isQuote,
         highlight: f.highlight || null
       };
     });
 
-    const basePrice = formats.length > 0 ? formats[0].price : 0;
-    const formattedBasePrice = basePrice > 0 ? formatCLP(basePrice) : 'A cotizar';
+    const activeFmt = formats.find(f => f.active && !f.isQuote) || formats.find(f => !f.isQuote) || formats[0];
+    const basePrice = activeFmt ? activeFmt.price : 0;
+    const formattedBasePrice = activeFmt ? activeFmt.formattedPrice : 'A cotizar';
 
     return {
       ...product,
@@ -1948,12 +2095,15 @@
     BANK_DETAILS,
     CATALOG_PRODUCTS,
     AR_CATALOG: CATALOG_PRODUCTS,
+    PROMO_DISCOUNT_PERCENT,
+    UNIFIED_PRICES,
     OFFICIAL_PRICES,
     STANDARD_PRICES,
     VOLCANO_PRICES,
     VALUE_PROPOSITION,
     SHIPPING_OPTIONS,
     PAYMENT_METHODS,
+    isVolcanoCategory,
     parseCLP,
     formatCLP,
     generateOrderFolio,

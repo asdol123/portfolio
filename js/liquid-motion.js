@@ -131,6 +131,7 @@
       '.ecom-btn-buy',
       '.ecom-btn-wsp',
       '.btn-ecom-checkout',
+      '.btn-ecom-teaser-wsp',
       '.btn-format-buy',
       '.ed-logo-link'
     ].join(', ');

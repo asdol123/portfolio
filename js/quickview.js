@@ -153,17 +153,33 @@
       }, { passive: true });
     }
 
-    // Boton de Compra Directa: lanza el checkout de Flow.cl
+    // Boton de Compra Directa: lanza el checkout formal o cotizacion por WhatsApp
     if (btnBuy) {
       btnBuy.addEventListener('click', function () {
         if (!currentProduct) return;
+
+        const isQuote = Boolean(selectedFormat && (selectedFormat.isQuote || selectedFormat.price === 0 || selectedFormat.size.toLowerCase().includes('otro')));
+
+        if (isQuote) {
+          const prodName = currentProduct.shortName || currentProduct.name;
+          const msg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${prodName}.`;
+          const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(msg)}`;
+          window.open(wspUrl, '_blank');
+          return;
+        }
+
+        const isVolcano = (currentProduct.category === 'volcanes' || String(currentProduct.sku || '').startsWith('SKU-VOL') || (window.AR_ECOMMERCE && window.AR_ECOMMERCE.isVolcanoCategory && window.AR_ECOMMERCE.isVolcanoCategory(currentProduct)));
+
+        const defaultSize = isVolcano ? '20 × 20 cm' : '10 × 10 cm';
+        const defaultPrice = isVolcano ? 24990 : 9990;
+
         const prodToCheckout = {
           sku: currentProduct.sku,
           category: currentProduct.category,
           productName: currentProduct.name,
-          size: selectedFormat ? selectedFormat.size : '10 × 10 cm',
+          size: selectedFormat ? selectedFormat.size : defaultSize,
           finish: 'Con Marco Shadowbox',
-          unitPrice: selectedFormat ? selectedFormat.formattedPrice : (currentProduct.formattedBasePrice || '$19.990 CLP'),
+          unitPrice: selectedFormat ? (selectedFormat.price || defaultPrice) : defaultPrice,
           thumbImg: currentViewerImg || currentProduct.main,
           quantity: 1
         };
@@ -224,6 +240,15 @@
    * @param {string|object} skuOrIdOrProduct
    */
   function openQuickView(skuOrIdOrProduct) {
+    if (!skuOrIdOrProduct) return;
+    if (typeof skuOrIdOrProduct === 'string') {
+      const lower = skuOrIdOrProduct.toLowerCase();
+      if (lower.includes('teaser') || lower.includes('lagos')) return;
+    }
+    if (typeof skuOrIdOrProduct === 'object' && skuOrIdOrProduct !== null) {
+      if (skuOrIdOrProduct.category === 'lagos' || (skuOrIdOrProduct.sku && skuOrIdOrProduct.sku.includes('LAGOS-TEASER'))) return;
+    }
+
     if (!modal) {
       const initialized = initDom();
       if (!initialized) {
@@ -258,10 +283,8 @@
           { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
         ],
         formats: [
-          { size: '10 × 10 cm', price: 14990, formattedPrice: '$14.990 CLP' },
-          { size: '15 × 15 cm', price: 24990, formattedPrice: '$24.990 CLP' },
-          { size: '20 × 20 cm', price: 32990, formattedPrice: '$32.990 CLP' },
-          { size: '25 × 25 cm', price: 39990, formattedPrice: '$39.990 CLP', highlight: 'MEJOR VALOR VOLCANES' }
+          { size: '20 × 20 cm', price: 24990, formattedPrice: '$24.990 CLP', active: true },
+          { size: 'Otro tamaño', price: 0, formattedPrice: 'Cotizar por WhatsApp', isQuote: true }
         ],
         specs: {
           escala: '1:1000 / 1:2000',
@@ -299,12 +322,35 @@
     renderGalleryStrip(product.gallery, currentViewerImg);
 
     // 4. Renderizar Selector de Formatos y Establecer Precio
+    const isVolcano = Boolean(
+      product.category === 'volcanes' ||
+      String(product.sku || '').startsWith('SKU-VOL') ||
+      (window.AR_ECOMMERCE && typeof window.AR_ECOMMERCE.isVolcanoCategory === 'function' && window.AR_ECOMMERCE.isVolcanoCategory(product))
+    );
+
     const formats = Array.isArray(product.formats) && product.formats.length > 0
       ? product.formats
-      : [{ size: '10 × 10 cm', price: 12990, formattedPrice: '$12.990 CLP' }];
+      : (isVolcano
+          ? [
+              { size: '20 × 20 cm', price: 24990, formattedPrice: '$24.990 CLP', active: true },
+              { size: 'Otro tamaño', price: 0, formattedPrice: 'Cotizar por WhatsApp', isQuote: true }
+            ]
+          : [
+              { size: '10 × 10 cm', price: 9990, formattedPrice: '$9.990 CLP', active: true },
+              { size: '15 × 15 cm', price: 19990, formattedPrice: '$19.990 CLP' },
+              { size: '20 × 20 cm', price: 24990, formattedPrice: '$24.990 CLP' },
+              { size: '25 × 25 cm', price: 29990, formattedPrice: '$29.990 CLP', highlight: 'MEJOR VALOR' }
+            ]);
 
-    selectedFormat = formats[0];
-    renderFormats(formats);
+    let initialFormat = formats.find(f => f.active && !f.isQuote);
+    if (!initialFormat && isVolcano) {
+      initialFormat = formats.find(f => f.size && (f.size.includes('20 × 20') || f.size.includes('20x20')));
+    }
+    if (!initialFormat) {
+      initialFormat = formats.find(f => !f.isQuote) || formats[0];
+    }
+    selectedFormat = initialFormat;
+    renderFormats(formats, selectedFormat);
     updatePriceAndWsp();
 
     // 5. Renderizar Especificaciones Tecnicas
@@ -411,16 +457,19 @@
   /**
    * Renderiza las pildoras interactivas de tamano / formato
    */
-  function renderFormats(formats) {
+  function renderFormats(formats, activeFormat) {
     if (!formatsList) return;
     formatsList.innerHTML = '';
 
+    const currentActive = activeFormat || selectedFormat || formats[0];
+
     formats.forEach(function (fmt, idx) {
+      const isSelected = (currentActive && currentActive.size === fmt.size) || (!currentActive && idx === 0);
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'ar-qv-size-pill' + (idx === 0 ? ' is-active' : '');
+      btn.className = 'ar-qv-size-pill' + (isSelected ? ' is-active' : '');
       btn.setAttribute('role', 'radio');
-      btn.setAttribute('aria-checked', idx === 0 ? 'true' : 'false');
+      btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
       btn.textContent = fmt.size;
 
       btn.addEventListener('click', function () {
@@ -434,6 +483,16 @@
 
         selectedFormat = fmt;
         updatePriceAndWsp();
+
+        // Si se hace clic en 'Otro tamaño' o cotización, redirigir de inmediato a WhatsApp oficial
+        if (fmt.isQuote || fmt.size.toLowerCase().includes('otro')) {
+          const prodName = (currentProduct && (currentProduct.shortName || currentProduct.name)) || 'esta maqueta';
+          const wspMsg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${prodName}.`;
+          const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspMsg)}`;
+          if (typeof window !== 'undefined') {
+            window.open(wspUrl, '_blank');
+          }
+        }
       });
 
       formatsList.appendChild(btn);
@@ -446,15 +505,38 @@
   function updatePriceAndWsp() {
     if (!selectedFormat) return;
 
+    const isQuote = Boolean(selectedFormat.isQuote || selectedFormat.price === 0 || selectedFormat.size.toLowerCase().includes('otro'));
+
     if (priceElem) {
-      priceElem.textContent = selectedFormat.formattedPrice || (window.AR_ECOMMERCE && window.AR_ECOMMERCE.formatCLP ? window.AR_ECOMMERCE.formatCLP(selectedFormat.price) : `$${selectedFormat.price} CLP`);
+      if (isQuote) {
+        priceElem.textContent = 'Cotizar por WhatsApp';
+      } else {
+        const p = selectedFormat.price || (selectedFormat.framePrice || 0);
+        priceElem.textContent = selectedFormat.formattedPrice || (window.AR_ECOMMERCE && window.AR_ECOMMERCE.formatCLP ? window.AR_ECOMMERCE.formatCLP(p) : `$${p} CLP`);
+      }
+    }
+
+    if (btnBuy) {
+      const buyLabel = btnBuy.querySelector('.ar-quickview-btn-text') || btnBuy;
+      if (isQuote) {
+        if (buyLabel !== btnBuy) buyLabel.textContent = 'COTIZAR POR WHATSAPP';
+        else btnBuy.textContent = 'COTIZAR POR WHATSAPP';
+      } else {
+        if (buyLabel !== btnBuy) buyLabel.textContent = 'COMPRA INMEDIATA';
+        else btnBuy.textContent = 'COMPRA INMEDIATA';
+      }
     }
 
     if (btnWsp && currentProduct) {
       const prodName = currentProduct.shortName || currentProduct.name;
-      const priceText = selectedFormat.formattedPrice || `$${selectedFormat.price} CLP`;
       const sizeText = selectedFormat.size;
-      const msg = `Hola Adolfo, deseo consultar por la maqueta de ${prodName} en tamano ${sizeText} por ${priceText}.`;
+      let msg = '';
+      if (isQuote) {
+        msg = `Hola Adolfo, deseo cotizar una medida especial/otro tamaño para la maqueta de ${prodName}.`;
+      } else {
+        const priceText = selectedFormat.formattedPrice || (window.AR_ECOMMERCE && window.AR_ECOMMERCE.formatCLP ? window.AR_ECOMMERCE.formatCLP(selectedFormat.price) : `$${selectedFormat.price} CLP`);
+        msg = `Hola Adolfo, deseo consultar por la maqueta de ${prodName} en tamano ${sizeText} por ${priceText}.`;
+      }
       btnWsp.href = `https://wa.me/56962032766?text=${encodeURIComponent(msg)}`;
     }
   }
@@ -507,6 +589,38 @@
   }
 
   /**
+   * Vincula el clic en el título de una tarjeta para abrir QuickView
+   * Ignora tarjetas teaser o de categoría 'lagos'
+   * @param {HTMLElement} card
+   */
+  function bindCatalogTitleClick(card) {
+    if (!card) return;
+    if (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos') return;
+
+    const titleElemCard = card.querySelector('.ecom-title');
+    if (!titleElemCard) return;
+
+    titleElemCard.style.cursor = 'pointer';
+    titleElemCard.setAttribute('tabindex', '0');
+    titleElemCard.setAttribute('role', 'button');
+    titleElemCard.setAttribute('aria-label', 'Ver detalles de ' + titleElemCard.textContent.trim());
+    titleElemCard.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const sku = card.getAttribute('data-sku') || '';
+      if (sku) openQuickView(sku);
+    });
+
+    titleElemCard.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const sku = card.getAttribute('data-sku') || '';
+        if (sku) openQuickView(sku);
+      }
+    });
+  }
+
+  /**
    * Vincula las tarjetas de producto existentes en la pagina
    * para que al hacer clic en .ecom-thumb-box, .ecom-zoom-hint o .ecom-title
    * abran el Quick View Inmersivo
@@ -514,6 +628,7 @@
   function bindCatalogCards() {
     const cards = document.querySelectorAll('.ecom-card');
     cards.forEach(function (card) {
+      if (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos') return;
       const sku = card.getAttribute('data-sku') || '';
       if (!sku) return;
 
@@ -547,31 +662,15 @@
       }
 
       // 3. Titulo de la tarjeta
-      const titleElemCard = card.querySelector('.ecom-title');
-      if (titleElemCard) {
-        titleElemCard.style.cursor = 'pointer';
-        titleElemCard.setAttribute('tabindex', '0');
-        titleElemCard.setAttribute('role', 'button');
-        titleElemCard.setAttribute('aria-label', 'Ver detalles de ' + titleElemCard.textContent.trim());
-        titleElemCard.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-          openQuickView(sku);
-        });
-
-        titleElemCard.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openQuickView(sku);
-          }
-        });
-      }
+      bindCatalogTitleClick(card);
     });
 
     // Delegacion general para cualquier elemento con data-open-quickview
     document.addEventListener('click', function (e) {
       const target = e.target.closest('[data-open-quickview]');
       if (target) {
+        const card = target.closest('.ecom-card');
+        if (card && (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos')) return;
         e.preventDefault();
         const sku = target.getAttribute('data-open-quickview');
         if (sku) openQuickView(sku);
@@ -579,21 +678,34 @@
     });
   }
 
+  /**
+   * Inicialización del Quick View e iteración segura de tarjetas
+   */
+  function initQuickView() {
+    initDom();
+    const cards = document.querySelectorAll('.ecom-card');
+    cards.forEach(function (card) {
+      if (card.classList.contains('ecom-card-teaser') || card.dataset.category === 'lagos') return;
+      bindCatalogTitleClick(card);
+    });
+    bindCatalogCards();
+  }
+
   // Auto-inicializacion al cargar el DOM
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function () {
-      initDom();
-      bindCatalogCards();
+      initQuickView();
     });
   } else {
-    initDom();
-    bindCatalogCards();
+    initQuickView();
   }
 
   return {
     init: initDom,
+    initQuickView: initQuickView,
     openQuickView: openQuickView,
     closeQuickView: closeQuickView,
-    bindCatalogCards: bindCatalogCards
+    bindCatalogCards: bindCatalogCards,
+    bindCatalogTitleClick: bindCatalogTitleClick
   };
 });
