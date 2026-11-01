@@ -23,6 +23,7 @@
     isOpen: false,
     folio: '',
     sku: 'SKU-SCL-01',
+    category: 'ciudades',
     productName: 'Santiago · Costanera Center',
     size: '10 × 10 cm',
     finish: 'Con Marco Shadowbox',
@@ -122,7 +123,9 @@
       quantity: state.quantity,
       shippingId: state.shippingId,
       size: state.size,
-      finish: state.finish
+      finish: state.finish,
+      category: state.category,
+      sku: state.sku
     });
 
     if (dom.breakdownUnit) dom.breakdownUnit.textContent = totals.formatted.unitPrice;
@@ -143,7 +146,7 @@
 
     const ECOM = window.AR_ECOMMERCE;
     if (ECOM && typeof ECOM.resolveFormatPrice === 'function') {
-      state.unitPrice = ECOM.resolveFormatPrice(state.size, state.finish);
+      state.unitPrice = ECOM.resolveFormatPrice(state.size, state.finish, null, state.category || state.sku);
     }
     if (dom.summarySize) dom.summarySize.textContent = `Formato: ${state.size}`;
     if (dom.summaryFinish) dom.summaryFinish.textContent = `Acabado: ${state.finish}`;
@@ -209,6 +212,18 @@
 
     state.folio = ECOM ? ECOM.generateOrderFolio() : `AR-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     state.sku = productData.sku || 'SKU-SCL-01';
+
+    // Preservar y deducir categoria para resolucion de precios (Volcanes vs Estandar)
+    let cat = productData.category || '';
+    if (!cat && state.sku && (state.sku.startsWith('SKU-VOL-') || state.sku.startsWith('SKU-VOL'))) {
+      cat = 'volcanes';
+    }
+    if (!cat && ECOM && typeof ECOM.getProductBySku === 'function') {
+      const p = ECOM.getProductBySku(state.sku);
+      if (p && p.category) cat = p.category;
+    }
+    state.category = cat;
+
     state.productName = productData.productName || 'Santiago · Costanera Center';
     state.size = productData.size || '10 × 10 cm';
     state.finish = productData.finish || 'Con Marco Shadowbox';
@@ -225,10 +240,10 @@
                             String(state.size).toLowerCase().includes('volumen') ||
                             state.unitPrice === 0;
 
-    // Sincronización estricta del precio oficial mediante AR_ECOMMERCE
+    // Sincronización estricta del precio oficial mediante AR_ECOMMERCE con contexto de categoria/SKU
     let parsedPrice = 0;
     if (ECOM && typeof ECOM.resolveFormatPrice === 'function') {
-      parsedPrice = ECOM.resolveFormatPrice(state.size, state.finish, productData.unitPrice);
+      parsedPrice = ECOM.resolveFormatPrice(state.size, state.finish, productData.unitPrice, state.category || state.sku);
     } else if (ECOM && typeof ECOM.parseCLP === 'function') {
       parsedPrice = ECOM.parseCLP(productData.unitPrice || 0);
     } else {
@@ -254,8 +269,9 @@
         parsedPrice = 29990; // Abono inicial de manufactura si se selecciona transferencia
       }
     } else if (parsedPrice <= 0 && !isCustomSpecial) {
-      // Precio según formato 10 × 10 cm ($9.990 sin marco o $12.990 con marco shadowbox)
-      parsedPrice = String(state.finish).toLowerCase().includes('sin marco') ? 9990 : 12990;
+      const isVolcano = (state.category === 'volcanes' || (state.sku && state.sku.startsWith('SKU-VOL')));
+      const isFrameless = String(state.finish).toLowerCase().includes('sin marco');
+      parsedPrice = isVolcano ? (isFrameless ? 11990 : 14990) : (isFrameless ? 9990 : 12990);
     }
 
     state.unitPrice = parsedPrice;
@@ -452,6 +468,7 @@
     const orderPayload = {
       folio: state.folio,
       sku: state.sku,
+      category: state.category,
       productName: state.productName,
       size: state.size,
       finish: state.finish,
@@ -866,6 +883,7 @@
 
       checkoutBtn.addEventListener('click', () => {
         const sku = card.getAttribute('data-sku') || 'SKU-SCL-01';
+        const category = card.getAttribute('data-category') || '';
         const name = card.getAttribute('data-prod-name') || 'Maqueta Prediseñada';
         const activeSizeBtn = card.querySelector('.ecom-size-btn.active');
         const size = activeSizeBtn ? activeSizeBtn.getAttribute('data-size') : '10 × 10 cm';
@@ -879,6 +897,7 @@
 
         openCheckout({
           sku,
+          category,
           productName: name,
           size,
           finish,
@@ -897,7 +916,7 @@
    * abre automáticamente el modal en la pantalla de éxito con la orden confirmada.
    */
   function checkFlowReturnStatus() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !window.location) return;
     try {
       const search = window.location.search || '';
       const isKhipuReturn = search.includes('khipu_status=completed');

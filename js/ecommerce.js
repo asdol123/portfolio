@@ -50,9 +50,9 @@
     notes: 'Por favor indique el Folio de su orden como referencia en la transferencia.'
   };
 
-  // --- ESCALA OFICIAL DE PRECIOS Y FORMATOS ---
-  // Todos los modelos con marco shadowbox de taller (salvo opcion base 10 × 10 cm sin marco)
-  const OFFICIAL_PRICES = {
+  // --- ESCALAS OFICIALES DE PRECIOS Y FORMATOS ---
+  // Escala Estandar (Ciudades / Edicion Urbana / Territorios)
+  const STANDARD_PRICES = {
     '10x10': { base: 9990, frame: 12990 },
     '15x15': { base: 19990, frame: 19990 },
     '20x20': { base: 25990, frame: 25990 },
@@ -62,68 +62,129 @@
     'mural': { base: 149990, frame: 149990 }
   };
 
+  // Escala Especial Volcanes de Chile (mayor complejidad morfologica, crater profundo y densidad topografica)
+  const VOLCANO_PRICES = {
+    '10x10': { base: 11990, frame: 14990 },
+    '15x15': { base: 24990, frame: 24990 },
+    '20x20': { base: 32990, frame: 32990 },
+    '25x25': { base: 39990, frame: 39990, highlight: 'MEJOR VALOR VOLCANES' },
+    '30x30': { base: 89990, frame: 89990 },
+    '40x40': { base: 129990, frame: 129990 },
+    'mural': { base: 159990, frame: 159990 }
+  };
+
+  // Objeto unificado para compatibilidad directa y retrocompatible:
+  // Permite acceso indexado legacy OFFICIAL_PRICES['10x10'] (apunta a standard)
+  // y acceso categorizado OFFICIAL_PRICES.standard y OFFICIAL_PRICES.volcanes
+  const OFFICIAL_PRICES = {
+    ...STANDARD_PRICES,
+    standard: STANDARD_PRICES,
+    volcanes: VOLCANO_PRICES
+  };
+
   const VALUE_PROPOSITION = 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida.';
 
   /**
-   * Resuelve el precio oficial segun el formato y el acabado (con marco vs sin marco)
+   * Determina si la categoria, SKU u objeto de producto pertenece a la Coleccion Volcanes
+   * @param {string|object} [categoryOrProduct]
+   * @returns {boolean}
+   */
+  function isVolcanoCategory(categoryOrProduct) {
+    if (!categoryOrProduct) return false;
+    if (typeof categoryOrProduct === 'string') {
+      const cat = categoryOrProduct.trim().toLowerCase();
+      return cat === 'volcanes' || cat.includes('volcan') || cat.startsWith('sku-vol-') || cat.startsWith('sku-vol');
+    }
+    if (typeof categoryOrProduct === 'object') {
+      const cat = String(categoryOrProduct.category || '').trim().toLowerCase();
+      const sku = String(categoryOrProduct.sku || '').trim().toLowerCase();
+      const col = String(categoryOrProduct.collection || '').trim().toLowerCase();
+      const name = String(categoryOrProduct.name || categoryOrProduct.productName || '').trim().toLowerCase();
+      return cat === 'volcanes' || cat.includes('volcan') || sku.startsWith('sku-vol') || col.includes('volcan') || name.includes('volcán') || name.includes('volcan');
+    }
+    return false;
+  }
+
+  /**
+   * Resuelve el precio oficial segun el formato, el acabado y la categoria o producto
    * @param {string} sizeInput
    * @param {string} [finishInput='Con Marco']
    * @param {number|string} [overridePrice=null]
+   * @param {string|object} [categoryOrProduct=null]
    * @returns {number}
    */
-  function resolveFormatPrice(sizeInput, finishInput = 'Con Marco', overridePrice = null) {
+  function resolveFormatPrice(sizeInput, finishInput = 'Con Marco', overridePrice = null, categoryOrProduct = null) {
     const s = String(sizeInput || '').trim().toLowerCase();
     const f = String(finishInput || '').trim().toLowerCase();
     const isFrameless = f.includes('sin marco') || s.includes('sin marco');
 
-    // 10 × 10 cm ($9.990 sin marco o $12.990 con marco shadowbox de taller)
+    // Deteccion de escala de precios (Volcanes vs Estandar)
+    let isVolcano = isVolcanoCategory(categoryOrProduct);
+
+    const parsedOverride = (overridePrice !== null && overridePrice !== undefined && overridePrice !== '')
+      ? parseCLP(overridePrice)
+      : 0;
+
+    // Si no se especifico categoria pero overridePrice coincide con un valor de la escala de volcanes
+    if (!isVolcano && !categoryOrProduct && parsedOverride > 0) {
+      if (parsedOverride === 11990 || parsedOverride === 14990 || parsedOverride === 24990 ||
+          parsedOverride === 32990 || parsedOverride === 39990 || parsedOverride === 89990 ||
+          parsedOverride === 159990) {
+        isVolcano = true;
+      }
+    }
+
+    const scale = isVolcano ? VOLCANO_PRICES : STANDARD_PRICES;
+
+    // 10 × 10 cm (Estandar: $9.990 base / $12.990 marco · Volcanes: $11.990 base / $14.990 marco)
     if (s.includes('10 × 10') || s.includes('10x10') || s.includes('100 × 100') || s.includes('100x100')) {
-      return isFrameless ? OFFICIAL_PRICES['10x10'].base : OFFICIAL_PRICES['10x10'].frame;
+      return isFrameless ? scale['10x10'].base : scale['10x10'].frame;
     }
 
-    // 15 × 15 cm ($19.990 con marco shadowbox)
+    // 15 × 15 cm (Estandar: $19.990 con marco · Volcanes: $24.990 con marco)
     if (s.includes('15 × 15') || s.includes('15x15') || s.includes('150 × 150') || s.includes('150x150')) {
-      return OFFICIAL_PRICES['15x15'].frame;
+      return scale['15x15'].frame;
     }
 
-    // 20 × 20 cm ($25.990 con marco shadowbox)
+    // 20 × 20 cm (Estandar: $25.990 con marco · Volcanes: $32.990 con marco)
     if (s.includes('20 × 20') || s.includes('20x20') || s.includes('200 × 200') || s.includes('200x200')) {
-      return OFFICIAL_PRICES['20x20'].frame;
+      return scale['20x20'].frame;
     }
 
-    // 25 × 25 cm ($29.990 con marco shadowbox · MEJOR VALOR)
+    // 25 × 25 cm (Estandar: $29.990 · Volcanes: $39.990 · MEJOR VALOR)
     if (s.includes('25 × 25') || s.includes('25x25') || s.includes('250 × 250') || s.includes('250x250')) {
-      return OFFICIAL_PRICES['25x25'].frame;
+      return scale['25x25'].frame;
     }
 
-    // 30 × 30 cm Gran formato modular ($79.990)
+    // 30 × 30 cm Gran formato modular (Estandar: $79.990 · Volcanes: $89.990)
     if (s.includes('30 × 30') || s.includes('30x30') || s.includes('300 × 300')) {
-      return OFFICIAL_PRICES['30x30'].frame;
+      return scale['30x30'].frame;
     }
 
-    // 40 × 40 cm Gran formato modular ($119.990)
+    // 40 × 40 cm Gran formato modular (Estandar: $119.990 · Volcanes: $129.990)
     if (s.includes('40 × 40') || s.includes('40x40') || s.includes('400 × 400')) {
-      return OFFICIAL_PRICES['40x40'].frame;
+      return scale['40x40'].frame;
     }
 
-    // Mural 4 Paneles ($149.990)
+    // Mural 4 Paneles (Estandar: $149.990 · Volcanes: $159.990)
     if (s.includes('mural') || s.includes('4 paneles')) {
-      return OFFICIAL_PRICES['mural'].frame;
+      return scale['mural'].frame;
     }
 
     // Medida especial / personalizado / volumen a cotizar
     if (s.includes('especial') || s.includes('convenir') || s.includes('personalizado') || s.includes('archivo 3d') || s.includes('hora') || s.includes('gran formato') || s.includes('volumen')) {
-      return 0;
+      return parsedOverride > 0 ? parsedOverride : 0;
     }
 
-    // Si viene un precio explicito que no coincide con los estandares
-    if (overridePrice !== null && overridePrice !== undefined && overridePrice !== '') {
-      const parsed = parseCLP(overridePrice);
-      if (parsed > 0) return parsed;
+    // Si viene un precio explicito que no coincide con los estandares o difiere
+    if (parsedOverride > 0) {
+      return parsedOverride;
     }
 
     // Fallback general 10x10
-    return isFrameless ? 9990 : 12990;
+    return isVolcano
+      ? (isFrameless ? VOLCANO_PRICES['10x10'].base : VOLCANO_PRICES['10x10'].frame)
+      : (isFrameless ? STANDARD_PRICES['10x10'].base : STANDARD_PRICES['10x10'].frame);
   }
 
   // --- CATÁLOGO OFICIAL DE PRODUCTOS Y SKUs ---
@@ -161,11 +222,11 @@
         { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
+        { size: '10 × 10 cm', price: 11990, framePrice: 14990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 32990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR VOLCANES' },
+        { size: '30 × 30 cm', price: 89990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -200,11 +261,11 @@
         { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Perspectiva de Exhibición' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
-        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
-        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles (Gran Formato)' }
+        { size: '10 × 10 cm', price: 11990, framePrice: 14990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 32990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR VOLCANES' },
+        { size: 'Mural 4 Paneles', price: 159990, label: 'Mural 4 Paneles (Gran Formato)' }
       ]
     },
     {
@@ -734,10 +795,14 @@
 
     // Formatear opciones de precios
     const formats = (product.formats || []).map(f => {
-      const formattedPrice = f.price > 0 ? formatCLP(f.price) : 'A convenir / Cotización';
+      const effectivePrice = f.framePrice || f.price;
+      const formattedPrice = effectivePrice > 0 ? formatCLP(effectivePrice) : 'A convenir / Cotización';
+      const formattedBasePrice = f.price > 0 ? formatCLP(f.price) : undefined;
       const formattedFramePrice = f.framePrice > 0 ? formatCLP(f.framePrice) : undefined;
       return {
         ...f,
+        price: effectivePrice,
+        basePrice: f.price,
         formattedPrice,
         formattedFramePrice,
         highlight: f.highlight || null
@@ -779,14 +844,16 @@
    * @param {number} [params.customShippingCost=null]
    * @param {string} [params.size=null]
    * @param {string} [params.finish='Con Marco']
+   * @param {string} [params.category=null]
+   * @param {string} [params.sku=null]
    * @returns {object}
    */
-  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'pickup', customShippingCost = null, size = null, finish = 'Con Marco' } = {}) {
+  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'pickup', customShippingCost = null, size = null, finish = 'Con Marco', category = null, sku = null } = {}) {
     let cleanUnitPrice = parseCLP(unitPrice);
 
     // Si no se proporciono unitPrice o vino en 0, y se paso size, resolver segun escala oficial
     if (cleanUnitPrice <= 0 && size) {
-      cleanUnitPrice = resolveFormatPrice(size, finish);
+      cleanUnitPrice = resolveFormatPrice(size, finish, null, category || sku);
     }
 
     const cleanQty = Math.max(1, parseInt(quantity, 10) || 1);
@@ -1596,13 +1663,16 @@
     const finish = orderData.finish || (orderData.viewCaption || 'Acabado Estandar');
 
     // 3. Calculo estricto de valores
+    const orderCat = orderData.category || (product ? product.category : null);
     const totals = calculateTotals({
       unitPrice: orderData.unitPrice,
       quantity: orderData.quantity || 1,
       shippingId: shippingId,
       customShippingCost: orderData.shippingCost,
       size: size,
-      finish: finish
+      finish: finish,
+      category: orderCat,
+      sku: sku
     });
 
     const now = new Date();
@@ -1617,6 +1687,7 @@
     const normalizedOrder = {
       folio,
       sku,
+      category: orderCat,
       productName,
       size,
       finish,
@@ -1812,15 +1883,19 @@
       if (!prod) return;
 
       // Actualizar botones de tamano .ecom-size-btn
+      const activeViewBtn = card.querySelector('.ecom-view-btn.active');
+      const viewText = activeViewBtn ? activeViewBtn.textContent.trim().toLowerCase() : 'marco';
+      const isFrameless = viewText.includes('sin marco');
+
       const sizeBtns = card.querySelectorAll('.ecom-size-btn');
       sizeBtns.forEach(btn => {
         const sizeVal = btn.getAttribute('data-size');
         const fmt = (prod.formats || []).find(f => f.size === sizeVal) || null;
         let officialPrice = 0;
         if (fmt) {
-          officialPrice = fmt.price;
+          officialPrice = (fmt.framePrice && !isFrameless) ? fmt.framePrice : fmt.price;
         } else {
-          officialPrice = resolveFormatPrice(sizeVal, 'Con Marco');
+          officialPrice = resolveFormatPrice(sizeVal, isFrameless ? 'Sin Marco' : 'Con Marco', null, prod);
         }
 
         if (officialPrice > 0) {
@@ -1874,6 +1949,8 @@
     CATALOG_PRODUCTS,
     AR_CATALOG: CATALOG_PRODUCTS,
     OFFICIAL_PRICES,
+    STANDARD_PRICES,
+    VOLCANO_PRICES,
     VALUE_PROPOSITION,
     SHIPPING_OPTIONS,
     PAYMENT_METHODS,

@@ -159,6 +159,7 @@
         if (!currentProduct) return;
         const prodToCheckout = {
           sku: currentProduct.sku,
+          category: currentProduct.category,
           productName: currentProduct.name,
           size: selectedFormat ? selectedFormat.size : '10 × 10 cm',
           finish: 'Con Marco Shadowbox',
@@ -257,10 +258,10 @@
           { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
         ],
         formats: [
-          { size: '10 × 10 cm', price: 12990, formattedPrice: '$12.990 CLP' },
-          { size: '15 × 15 cm', price: 19990, formattedPrice: '$19.990 CLP' },
-          { size: '20 × 20 cm', price: 25990, formattedPrice: '$25.990 CLP' },
-          { size: '25 × 25 cm', price: 29990, formattedPrice: '$29.990 CLP', highlight: 'MEJOR VALOR' }
+          { size: '10 × 10 cm', price: 14990, formattedPrice: '$14.990 CLP' },
+          { size: '15 × 15 cm', price: 24990, formattedPrice: '$24.990 CLP' },
+          { size: '20 × 20 cm', price: 32990, formattedPrice: '$32.990 CLP' },
+          { size: '25 × 25 cm', price: 39990, formattedPrice: '$39.990 CLP', highlight: 'MEJOR VALOR VOLCANES' }
         ],
         specs: {
           escala: '1:1000 / 1:2000',
