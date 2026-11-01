@@ -33,7 +33,7 @@
     quoteValidityDays: 15,
     formSubmitEndpoint: 'https://formsubmit.co/ajax/adolchilemods@gmail.com',
     flowEndpoint: '/api/flow-create',
-    khipuEndpoint: '/api/flow-create',
+    khipuEndpoint: '/api/khipu-create',
     storageKeyHistory: 'ar_orders_history',
     storageKeyLast: 'ar_last_order'
   };
@@ -565,6 +565,13 @@
 
   // --- METODOS DE PAGO DISPONIBLES ---
   const PAYMENT_METHODS = {
+    khipu: {
+      id: 'khipu',
+      label: 'Khipu · Transferencia Bancaria Simplificada y Segura',
+      badge: 'PASARELA OFICIAL · KHIPU CHILE',
+      fee: 0,
+      description: 'Pago en línea seguro e instantáneo mediante transferencia bancaria con Khipu (todos los bancos chilenos).'
+    },
     flow: {
       id: 'flow',
       label: 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago',
@@ -588,8 +595,7 @@
     }
   };
 
-  // Alias retrocompatible para solicitudes con identificador 'khipu' o 'transfer'
-  PAYMENT_METHODS.khipu = PAYMENT_METHODS.flow;
+  // Alias retrocompatible para solicitudes con identificador 'transfer'
   PAYMENT_METHODS.transfer = PAYMENT_METHODS.transferencia;
 
   // --- FUNCIONES DE CONVERSION MONETARIA CLP ---
@@ -1604,9 +1610,7 @@
 
     // Normalizacion de metodo de pago con alias retrocompatible
     let selectedMethod = orderData.paymentMethod || 'transferencia';
-    if (selectedMethod === 'khipu') {
-      selectedMethod = 'flow';
-    } else if (selectedMethod === 'transfer') {
+    if (selectedMethod === 'transfer') {
       selectedMethod = 'transferencia';
     }
 
@@ -1659,9 +1663,66 @@
       console.warn('[ALZADO ROJO Backend] Error al emitir correo via FormSubmit:', errEmail);
     }
 
-    // 6. Gestion Flow.cl si corresponde (incluye retrocompatibilidad para alias 'khipu')
+    // 6. Gestion de pasarelas de pago (Khipu o Flow.cl)
+    let khipuResult = null;
     let flowResult = null;
-    if (normalizedOrder.paymentMethod === 'flow' || normalizedOrder.paymentMethod === 'khipu') {
+
+    if (normalizedOrder.paymentMethod === 'khipu') {
+      try {
+        if (!normalizedOrder.total || normalizedOrder.total <= 0) {
+          normalizedOrder.unitPrice = 29990;
+          normalizedOrder.subtotal = 29990;
+          normalizedOrder.total = 29990;
+          normalizedOrder.notes = (normalizedOrder.notes ? normalizedOrder.notes + ' · ' : '') + 'Abono base inicial de manufactura ($29.990 CLP) para procesamiento en Khipu';
+        }
+
+        const khipuPayload = {
+          orderId: normalizedOrder.folio,
+          subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`.slice(0, 200),
+          amount: Math.round(Number(normalizedOrder.total)),
+          currency: 'CLP',
+          payer_email: normalizedOrder.customer.email,
+          payer_name: normalizedOrder.customer.name,
+          body: `${normalizedOrder.productName} · Formato: ${normalizedOrder.size} · Entrega: ${normalizedOrder.shippingLabel}`
+        };
+
+        const khipuEndpoint = CONFIG.khipuEndpoint || '/api/khipu-create';
+        const khipuRes = await fetch(khipuEndpoint, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(khipuPayload)
+        });
+
+        if (khipuRes.ok) {
+          khipuResult = await khipuRes.json();
+        } else {
+          let errData = null;
+          try {
+            errData = await khipuRes.json();
+          } catch (e) {
+            errData = { error: 'Error de comunicacion con el servidor' };
+          }
+          khipuResult = {
+            ok: false,
+            gateway: 'khipu',
+            error: errData.error || 'Respuesta no exitosa de Khipu',
+            orderId: normalizedOrder.folio,
+            whatsappFallback: errData.whatsappFallback || buildWhatsAppOrderUrl(normalizedOrder)
+          };
+        }
+      } catch (errKhipu) {
+        console.warn('[ALZADO ROJO Backend] Error de red en invocacion Khipu:', errKhipu);
+        khipuResult = {
+          ok: false,
+          gateway: 'khipu',
+          error: 'Error de red al conectar con pasarela Khipu: ' + errKhipu.message,
+          orderId: normalizedOrder.folio,
+          whatsappFallback: buildWhatsAppOrderUrl(normalizedOrder)
+        };
+      }
+    } else if (normalizedOrder.paymentMethod === 'flow') {
       try {
         // Blindaje anti-error para Flow: Si el monto es <= 0 (ej. Medida Especial), asignar abono base de $29.990 CLP
         if (!normalizedOrder.total || normalizedOrder.total <= 0) {
@@ -1723,11 +1784,14 @@
     // 7. Enlace directo WhatsApp con resumen completo
     const whatsappUrl = buildWhatsAppOrderUrl(normalizedOrder);
 
+    const resolvedPaymentUrl = (khipuResult && khipuResult.payment_url) || (flowResult && flowResult.payment_url) || null;
+
     return {
       ok: true,
       order: normalizedOrder,
-      flowResult,
-      khipuResult: flowResult, // Alias retrocompatible para checkout
+      khipuResult: khipuResult || flowResult,
+      flowResult: flowResult || khipuResult,
+      payment_url: resolvedPaymentUrl,
       whatsappUrl,
       emailSent: formSubmitSuccess
     };

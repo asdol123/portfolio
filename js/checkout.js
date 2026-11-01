@@ -156,7 +156,9 @@
   function updateSubmitButtonState() {
     if (!dom.btnSubmitLabel) return;
 
-    if (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu') {
+    if (state.paymentMethod === 'khipu') {
+      dom.btnSubmitLabel.textContent = 'PAGAR CON KHIPU';
+    } else if (state.paymentMethod === 'flow') {
       dom.btnSubmitLabel.textContent = 'INTENTAR PAGO CON TARJETA';
     } else if (state.paymentMethod === 'transferencia' || state.paymentMethod === 'transfer') {
       dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO POR TRANSFERENCIA';
@@ -170,7 +172,7 @@
    */
   function updatePaymentNoticeState() {
     if (!dom.paymentNotice) return;
-    const isFlow = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
+    const isFlow = (state.paymentMethod === 'flow');
     dom.paymentNotice.classList.toggle('is-flow-active', isFlow);
   }
 
@@ -237,6 +239,8 @@
     const requestedMethod = productData.paymentMethod;
     if (isCustomSpecial || requestedMethod === 'cotizacion') {
       state.paymentMethod = 'cotizacion';
+    } else if (requestedMethod === 'khipu') {
+      state.paymentMethod = 'khipu';
     } else {
       state.paymentMethod = 'transferencia';
     }
@@ -493,35 +497,71 @@
         }
       }
 
-      // Flow.cl en vivo o soporte asistido
+      // Pasarela en vivo (Khipu o Flow.cl)
       const isOnlineGateway = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
       if (isOnlineGateway && dom.successKhipuBox) {
         dom.successKhipuBox.style.display = 'block';
-        const flowData = result.flowResult || result.khipuResult;
-        if (flowData && flowData.payment_url) {
-          if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · PASARELA DE PAGO PREPARADA';
+        const isKhipuMethod = (state.paymentMethod === 'khipu');
+        let gatewayData = isKhipuMethod ? (result.khipuResult || result.flowResult) : (result.flowResult || result.khipuResult);
+        let paymentUrl = result.payment_url || (gatewayData && gatewayData.payment_url);
+
+        // Si es Khipu y aún no tenemos paymentUrl, llamada de contingencia directa a /api/khipu-create
+        if (isKhipuMethod && !paymentUrl) {
+          try {
+            const khipuPayload = {
+              orderId: (result.order && result.order.folio) || state.folio,
+              subject: `Orden ALZADO ROJO ${(result.order && result.order.folio) || state.folio} | ${state.productName} (${state.size})`.slice(0, 200),
+              amount: Math.round(Number((result.order && result.order.total) || state.unitPrice * state.quantity || 29990)),
+              currency: 'CLP',
+              payer_email: customer.email,
+              payer_name: customer.name,
+              body: `${state.productName} · Formato: ${state.size} · Despacho: ${state.shippingId}`
+            };
+            const directRes = await fetch('/api/khipu-create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(khipuPayload)
+            });
+            if (directRes.ok) {
+              const directData = await directRes.json();
+              if (directData && directData.payment_url) {
+                paymentUrl = directData.payment_url;
+                gatewayData = directData;
+              }
+            }
+          } catch (directErr) {
+            console.warn('[ALZADO ROJO Checkout] Error en contingencia /api/khipu-create:', directErr);
+          }
+        }
+        
+        if (paymentUrl) {
+          if (dom.khipuTitle) {
+            dom.khipuTitle.textContent = isKhipuMethod ? 'KHIPU · PASARELA DE PAGO PREPARADA' : 'FLOW.CL · PASARELA DE PAGO PREPARADA';
+          }
           if (dom.khipuDesc) {
-            dom.khipuDesc.textContent = 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente, haz clic en el siguiente botón:';
+            dom.khipuDesc.textContent = isKhipuMethod
+              ? 'Tu orden ha sido generada en Khipu. Redirigiendo a la pasarela segura de transferencia bancaria... Si no eres redirigido automáticamente, haz clic en el siguiente botón:'
+              : 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente, haz clic en el siguiente botón:';
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
-            dom.btnKhipuLink.href = flowData.payment_url;
-            dom.btnKhipuLink.textContent = 'IR A PAGAR EN FLOW.CL (WEBPAY)';
+            dom.btnKhipuLink.href = paymentUrl;
+            dom.btnKhipuLink.textContent = isKhipuMethod ? 'IR A PAGAR EN KHIPU' : 'IR A PAGAR EN FLOW.CL (WEBPAY)';
           }
-          // Redirección inmediata a Flow.cl
+          // Redirección inmediata a pasarela
           try {
-            window.location.href = flowData.payment_url;
+            window.location.href = paymentUrl;
           } catch (errRedirect) {
-            console.warn('[ALZADO ROJO Checkout] Redirección automática a Flow prevenida por el navegador:', errRedirect);
+            console.warn('[ALZADO ROJO Checkout] Redirección automática prevenida por el navegador:', errRedirect);
           }
         } else {
-          // Si Flow reporta error, mostrar aviso explicativo elegante con opción de transferir o WhatsApp
-          const flowError = (flowData && flowData.error) ? flowData.error : 'No fue posible conectar con la pasarela en este instante.';
-          const wspUrl = (flowData && flowData.whatsappFallback) ? flowData.whatsappFallback : result.whatsappUrl;
+          // Si la pasarela reporta error, mostrar aviso explicativo elegante con opción de transferir o WhatsApp
+          const gatewayError = (gatewayData && gatewayData.error) ? gatewayData.error : 'No fue posible conectar con la pasarela en este instante.';
+          const wspUrl = (gatewayData && gatewayData.whatsappFallback) ? gatewayData.whatsappFallback : result.whatsappUrl;
 
           if (dom.khipuTitle) dom.khipuTitle.textContent = 'PAGO EN LÍNEA · GESTIÓN DIRECTA DISPONIBLE';
           if (dom.khipuDesc) {
-            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada exitosamente en nuestro sistema.<br><br><strong>Detalle de pasarela:</strong> ${flowError}<br><br>Puede completar el pago de inmediato mediante Transferencia Electrónica Directa (datos bancarios abajo) o coordinar el link de pago por WhatsApp.`;
+            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada exitosamente en nuestro sistema.<br><br><strong>Detalle de pasarela:</strong> ${gatewayError}<br><br>Puede completar el pago de inmediato mediante Transferencia Electrónica Directa (datos bancarios abajo) o coordinar el link de pago por WhatsApp.`;
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
@@ -851,7 +891,8 @@
   }
 
   /**
-   * Detección de Retorno Exitoso desde Flow.cl (?flow_status=completed&order=...)
+   * Detección de Retorno Exitoso desde Khipu o Flow.cl
+   * (?khipu_status=completed&order=... o ?flow_status=completed&order=...)
    * Al cargar la página, verifica los parámetros de la URL y si está completado,
    * abre automáticamente el modal en la pantalla de éxito con la orden confirmada.
    */
@@ -859,12 +900,12 @@
     if (typeof window === 'undefined') return;
     try {
       const search = window.location.search || '';
-      if (!search.includes('flow_status=completed')) return;
+      const isKhipuReturn = search.includes('khipu_status=completed');
+      const isFlowReturn = search.includes('flow_status=completed');
+      if (!isKhipuReturn && !isFlowReturn) return;
 
       const urlParams = new URLSearchParams(search);
-      const statusParam = urlParams.get('flow_status');
-      if (statusParam !== 'completed') return;
-
+      const isKhipu = isKhipuReturn;
       const orderFolioFromUrl = urlParams.get('order') || urlParams.get('orderId') || '';
 
       if (!dom.modal) initDomReferences();
@@ -876,8 +917,8 @@
       // Si no existe orden previa o el folio de la URL es distinto, construir orden base con el folio recibido
       if (!order) {
         order = {
-          folio: orderFolioFromUrl || `AR-${new Date().getFullYear()}-FLOW`,
-          sku: 'SKU-FLOW-01',
+          folio: orderFolioFromUrl || (isKhipu ? `AR-${new Date().getFullYear()}-KHIPU` : `AR-${new Date().getFullYear()}-FLOW`),
+          sku: isKhipu ? 'SKU-KHIPU-01' : 'SKU-FLOW-01',
           productName: 'Maqueta Arquitectónica',
           size: 'Formato Estándar',
           finish: 'PLA Mate Arquitectónico',
@@ -888,25 +929,25 @@
           shippingLabel: 'Retiro en Taller / Despacho a Coordinar',
           shippingCost: 0,
           total: 0,
-          paymentMethod: 'flow',
-          paymentLabel: 'Flow.cl · Webpay, Débito y Crédito',
+          paymentMethod: isKhipu ? 'khipu' : 'flow',
+          paymentLabel: isKhipu ? 'Khipu · Transferencia Bancaria Simplificada' : 'Flow.cl · Webpay, Débito y Crédito',
           customer: {
-            name: 'Cliente Flow.cl',
+            name: isKhipu ? 'Cliente Khipu' : 'Cliente Flow.cl',
             email: 'adolchilemods@gmail.com',
             phone: '+56 9 7541 2203',
             rut: 'No informado',
             address: ''
           },
-          notes: 'Pago procesado exitosamente vía pasarela Flow.cl',
+          notes: isKhipu ? 'Pago procesado exitosamente vía pasarela Khipu' : 'Pago procesado exitosamente vía pasarela Flow.cl',
           dateIso: new Date().toISOString(),
           dateFormatted: new Date().toLocaleDateString('es-CL'),
-          status: 'PAGADA_FLOW'
+          status: isKhipu ? 'PAGADA_KHIPU' : 'PAGADA_FLOW'
         };
       } else if (orderFolioFromUrl && order.folio !== orderFolioFromUrl) {
         order.folio = orderFolioFromUrl;
       }
 
-      order.status = 'PAGADA_FLOW';
+      order.status = isKhipu ? 'PAGADA_KHIPU' : 'PAGADA_FLOW';
       state.lastProcessedOrder = order;
       state.folio = order.folio;
 
@@ -915,18 +956,25 @@
       if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
 
       if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
-      if (dom.successTitle) dom.successTitle.textContent = 'PAGO PROCESADO EN FLOW.CL · ORDEN CONFIRMADA';
+      if (dom.successTitle) {
+        dom.successTitle.textContent = isKhipu ? 'PAGO PROCESADO EN KHIPU · ORDEN CONFIRMADA' : 'PAGO PROCESADO EN FLOW.CL · ORDEN CONFIRMADA';
+      }
       if (dom.successLead) {
         const custEmail = (order.customer && order.customer.email) ? order.customer.email : 'su correo electrónico';
-        dom.successLead.innerHTML = `Su pago ha sido validado y procesado exitosamente mediante Flow.cl. Hemos emitido el comprobante oficial de su orden <strong>#${order.folio}</strong> a <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
+        const gatewayName = isKhipu ? 'Khipu' : 'Flow.cl';
+        dom.successLead.innerHTML = `Su pago ha sido validado y procesado exitosamente mediante ${gatewayName}. Hemos emitido el comprobante oficial de su orden <strong>#${order.folio}</strong> a <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
       }
 
-      // Bloque informativo de estado Flow.cl
+      // Bloque informativo de estado de pasarela
       if (dom.successKhipuBox) {
         dom.successKhipuBox.style.display = 'block';
-        if (dom.khipuTitle) dom.khipuTitle.textContent = 'FLOW.CL · TRANSACCIÓN VALIDADA EXITOSAMENTE';
+        if (dom.khipuTitle) {
+          dom.khipuTitle.textContent = isKhipu ? 'KHIPU · TRANSACCIÓN VALIDADA EXITOSAMENTE' : 'FLOW.CL · TRANSACCIÓN VALIDADA EXITOSAMENTE';
+        }
         if (dom.khipuDesc) {
-          dom.khipuDesc.textContent = 'Los fondos han sido acreditados. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.';
+          dom.khipuDesc.textContent = isKhipu
+            ? 'Los fondos han sido acreditados mediante transferencia bancaria simplificada Khipu. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.'
+            : 'Los fondos han sido acreditados. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.';
         }
         if (dom.btnKhipuLink) {
           dom.btnKhipuLink.style.display = 'none';
@@ -946,7 +994,10 @@
         if (ECOM && typeof ECOM.buildWhatsAppOrderUrl === 'function') {
           dom.btnCoordWsp.href = ECOM.buildWhatsAppOrderUrl(order);
         } else {
-          dom.btnCoordWsp.href = `https://wa.me/56975412203?text=${encodeURIComponent(`Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Flow.cl.`)}`;
+          const wspText = isKhipu
+            ? `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Khipu.`
+            : `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Flow.cl.`;
+          dom.btnCoordWsp.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspText)}`;
         }
       }
 

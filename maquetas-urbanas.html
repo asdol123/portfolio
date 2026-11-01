@@ -2190,14 +2190,15 @@
                                     </div>
                                 </label>
 
-                                <!-- Opción 2: Flow.cl (Tarjetas) -->
-                                <label class="ar-payment-option" id="payment-opt-flow">
-                                    <input type="radio" name="ar_payment" value="flow">
+                                <!-- Opción 2: Transferencia Instantánea Khipu (Pago Online Directo) -->
+                                <label class="ar-payment-option" id="payment-opt-khipu">
+                                    <input type="radio" name="ar_payment" value="khipu">
                                     <div class="ar-payment-body">
                                         <div class="ar-payment-header">
-                                            <span class="ar-payment-name">Pago Online (Webpay / Tarjetas)</span>
-                                            <span class="ar-payment-badge-maint">MANTENIMIENTO</span>
+                                            <span class="ar-payment-name">Transferencia Instantánea Khipu</span>
+                                            <span class="ar-payment-badge-online">PAGO ONLINE DIRECTO</span>
                                         </div>
+                                        <p class="ar-payment-desc">Paga directamente con tu banco de forma automatizada y segura sin ingresar datos manualmente.</p>
                                     </div>
                                 </label>
 
@@ -2207,6 +2208,17 @@
                                     <div class="ar-payment-body">
                                         <div class="ar-payment-header">
                                             <span class="ar-payment-name">Cotización Formal (PDF)</span>
+                                        </div>
+                                    </div>
+                                </label>
+
+                                <!-- Opción 4: Flow.cl (Tarjetas - Oculta por contingencia técnica) -->
+                                <label class="ar-payment-option" id="payment-opt-flow" style="display: none;">
+                                    <input type="radio" name="ar_payment" value="flow">
+                                    <div class="ar-payment-body">
+                                        <div class="ar-payment-header">
+                                            <span class="ar-payment-name">Pago Online (Webpay / Tarjetas)</span>
+                                            <span class="ar-payment-badge-maint">MANTENIMIENTO</span>
                                         </div>
                                     </div>
                                 </label>

@@ -5,14 +5,10 @@ Thumbs.db
 *.mp4
 !videos/*.mp4
 
-# Scripts de mantenimiento local de Windows
+# Scripts de desarrollo y mantenimiento (nunca servir como estáticos en Vercel)
 *.bat
-scripts/*.ps1
-scripts/organizador.ps1
-scripts/actualizar.ps1
-scripts/compile-pdf.ps1
-scripts/compile-pdf.js
 generate_pdf.js
+scripts/
 
 # Perfiles temporales y carpetas privadas de taller
 .temp_chrome_print_profile/
