@@ -257,10 +257,10 @@
           { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
         ],
         formats: [
-          { size: '10 × 10 cm', price: 19990, formattedPrice: '$19.990 CLP' },
-          { size: '15 × 15 cm', price: 34990, formattedPrice: '$34.990 CLP' },
-          { size: '20 × 20 cm', price: 49990, formattedPrice: '$49.990 CLP' },
-          { size: '30 × 30 cm', price: 79990, formattedPrice: '$79.990 CLP' }
+          { size: '10 × 10 cm', price: 12990, formattedPrice: '$12.990 CLP' },
+          { size: '15 × 15 cm', price: 19990, formattedPrice: '$19.990 CLP' },
+          { size: '20 × 20 cm', price: 25990, formattedPrice: '$25.990 CLP' },
+          { size: '25 × 25 cm', price: 29990, formattedPrice: '$29.990 CLP', highlight: 'MEJOR VALOR' }
         ],
         specs: {
           escala: '1:1000 / 1:2000',
@@ -300,7 +300,7 @@
     // 4. Renderizar Selector de Formatos y Establecer Precio
     const formats = Array.isArray(product.formats) && product.formats.length > 0
       ? product.formats
-      : [{ size: '10 × 10 cm', price: 19990, formattedPrice: '$19.990 CLP' }];
+      : [{ size: '10 × 10 cm', price: 12990, formattedPrice: '$12.990 CLP' }];
 
     selectedFormat = formats[0];
     renderFormats(formats);

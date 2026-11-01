@@ -50,6 +50,82 @@
     notes: 'Por favor indique el Folio de su orden como referencia en la transferencia.'
   };
 
+  // --- ESCALA OFICIAL DE PRECIOS Y FORMATOS ---
+  // Todos los modelos con marco shadowbox de taller (salvo opcion base 10 × 10 cm sin marco)
+  const OFFICIAL_PRICES = {
+    '10x10': { base: 9990, frame: 12990 },
+    '15x15': { base: 19990, frame: 19990 },
+    '20x20': { base: 25990, frame: 25990 },
+    '25x25': { base: 29990, frame: 29990, highlight: 'MEJOR VALOR' },
+    '30x30': { base: 79990, frame: 79990 },
+    '40x40': { base: 119990, frame: 119990 },
+    'mural': { base: 149990, frame: 149990 }
+  };
+
+  const VALUE_PROPOSITION = 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida.';
+
+  /**
+   * Resuelve el precio oficial segun el formato y el acabado (con marco vs sin marco)
+   * @param {string} sizeInput
+   * @param {string} [finishInput='Con Marco']
+   * @param {number|string} [overridePrice=null]
+   * @returns {number}
+   */
+  function resolveFormatPrice(sizeInput, finishInput = 'Con Marco', overridePrice = null) {
+    const s = String(sizeInput || '').trim().toLowerCase();
+    const f = String(finishInput || '').trim().toLowerCase();
+    const isFrameless = f.includes('sin marco') || s.includes('sin marco');
+
+    // 10 × 10 cm ($9.990 sin marco o $12.990 con marco shadowbox de taller)
+    if (s.includes('10 × 10') || s.includes('10x10') || s.includes('100 × 100') || s.includes('100x100')) {
+      return isFrameless ? OFFICIAL_PRICES['10x10'].base : OFFICIAL_PRICES['10x10'].frame;
+    }
+
+    // 15 × 15 cm ($19.990 con marco shadowbox)
+    if (s.includes('15 × 15') || s.includes('15x15') || s.includes('150 × 150') || s.includes('150x150')) {
+      return OFFICIAL_PRICES['15x15'].frame;
+    }
+
+    // 20 × 20 cm ($25.990 con marco shadowbox)
+    if (s.includes('20 × 20') || s.includes('20x20') || s.includes('200 × 200') || s.includes('200x200')) {
+      return OFFICIAL_PRICES['20x20'].frame;
+    }
+
+    // 25 × 25 cm ($29.990 con marco shadowbox · MEJOR VALOR)
+    if (s.includes('25 × 25') || s.includes('25x25') || s.includes('250 × 250') || s.includes('250x250')) {
+      return OFFICIAL_PRICES['25x25'].frame;
+    }
+
+    // 30 × 30 cm Gran formato modular ($79.990)
+    if (s.includes('30 × 30') || s.includes('30x30') || s.includes('300 × 300')) {
+      return OFFICIAL_PRICES['30x30'].frame;
+    }
+
+    // 40 × 40 cm Gran formato modular ($119.990)
+    if (s.includes('40 × 40') || s.includes('40x40') || s.includes('400 × 400')) {
+      return OFFICIAL_PRICES['40x40'].frame;
+    }
+
+    // Mural 4 Paneles ($149.990)
+    if (s.includes('mural') || s.includes('4 paneles')) {
+      return OFFICIAL_PRICES['mural'].frame;
+    }
+
+    // Medida especial / personalizado / volumen a cotizar
+    if (s.includes('especial') || s.includes('convenir') || s.includes('personalizado') || s.includes('archivo 3d') || s.includes('hora') || s.includes('gran formato') || s.includes('volumen')) {
+      return 0;
+    }
+
+    // Si viene un precio explicito que no coincide con los estandares
+    if (overridePrice !== null && overridePrice !== undefined && overridePrice !== '') {
+      const parsed = parseCLP(overridePrice);
+      if (parsed > 0) return parsed;
+    }
+
+    // Fallback general 10x10
+    return isFrameless ? 9990 : 12990;
+  }
+
   // --- CATÁLOGO OFICIAL DE PRODUCTOS Y SKUs ---
   const CATALOG_PRODUCTS = [
     {
@@ -66,7 +142,7 @@
       image: 'catalog/volcan-villarrica-marco.jpg',
       defaultImage: 'catalog/volcan-villarrica-marco.jpg',
       video: 'videos/reel-volcanes.mp4',
-      description: 'Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.',
       specs: {
         escala: '1:1000 / 1:2000',
         tolerancia: '±0.20 mm',
@@ -85,10 +161,11 @@
         { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 49990, label: '20 × 20 cm' },
-        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -105,7 +182,7 @@
       image: 'catalog/volcan-osorno-shadowbox.jpg',
       defaultImage: 'catalog/volcan-osorno-shadowbox.jpg',
       video: 'videos/reel-volcanes.mp4',
-      description: 'Geometría cónica perfecta y relieve topográfico del lago en acabado blanco tiza de alta pureza arquitectónica.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Geometría cónica perfecta y relieve topográfico del lago en acabado blanco tiza de alta pureza arquitectónica.',
       specs: {
         escala: '1:1000 / 1:2000',
         tolerancia: '±0.20 mm',
@@ -123,10 +200,11 @@
         { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Perspectiva de Exhibición' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 19990, label: '10 × 10 cm' },
-        { size: '15 × 15 cm', price: 34990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 49990, label: '20 × 20 cm' },
-        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles (Gran Formato)' }
       ]
     },
     {
@@ -138,7 +216,7 @@
       tag: 'TOP VENTAS · STOCK INMEDIATO',
       badge: 'MÁS VENDIDO · STOCK DISPONIBLE',
       leadTime: 'Despacho prioritario en 24 a 48 horas en Santiago',
-      description: 'Malla morfológica tridimensional de alta precisión del centro financiero de Santiago y Gran Torre Costanera. Manufactura en PLA arquitectónico mate con marco perimetral de exhibición.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Malla morfológica tridimensional de alta precisión del centro financiero de Santiago y Gran Torre Costanera. Manufactura en PLA arquitectónico mate con marco perimetral shadowbox.',
       main: 'catalog/santiago-costanera-marco.jpg',
       image: 'catalog/santiago-costanera-marco.jpg',
       defaultImage: 'catalog/santiago-costanera-marco.jpg',
@@ -160,10 +238,10 @@
         { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle Microarquitectónico' }
       ],
       formats: [
-        { size: '10 × 10 cm', price: 9990, label: '10 × 10 cm' },
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
         { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 34990, label: '20 × 20 cm' },
-        { size: 'Enmarcado 25 × 25 cm', price: 49990, label: 'Enmarcado 25 × 25 cm' }
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -175,7 +253,7 @@
       tag: 'CUADRO ENMARCADO · TEXTO 3D',
       badge: 'EDICIÓN INTERNACIONAL · LOOP 3D',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
-      description: 'Trama de rascacielos del Loop de Chicago con el río Chicago y ribera del Lago Michigan. Cuadro rígido con tipografía volumétrica integrada en relieve arquitectónico 3D.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Trama de rascacielos del Loop de Chicago con el río Chicago y ribera del Lago Michigan. Cuadro rígido con tipografía volumétrica integrada en relieve arquitectónico 3D.',
       main: 'catalog/chicago-cuadro.jpg',
       image: 'catalog/chicago-cuadro.jpg',
       defaultImage: 'catalog/chicago-cuadro.jpg',
@@ -196,9 +274,11 @@
         { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
       ],
       formats: [
-        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 39990, label: '20 × 20 cm' },
-        { size: 'Enmarcado 30 × 30 cm', price: 59990, label: 'Enmarcado 30 × 30 cm' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -210,7 +290,7 @@
       tag: 'CUADRO ENMARCADO · TEXTO 3D',
       badge: 'EDICIÓN INTERNACIONAL · MANHATTAN 3D',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
-      description: 'Topografía urbana densa de Manhattan entre el Río Hudson y East River. Rascacielos históricos y modernos en manufactura aditiva monocromática de máxima fidelidad.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Topografía urbana densa de Manhattan entre el Río Hudson y East River. Rascacielos históricos y modernos en manufactura aditiva monocromática de máxima fidelidad.',
       main: 'catalog/new-york-cuadro.jpg',
       image: 'catalog/new-york-cuadro.jpg',
       defaultImage: 'catalog/new-york-cuadro.jpg',
@@ -231,9 +311,11 @@
         { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
       ],
       formats: [
-        { size: '15 × 15 cm', price: 24990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 39990, label: '20 × 20 cm' },
-        { size: 'Enmarcado 30 × 30 cm', price: 59990, label: 'Enmarcado 30 × 30 cm' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, label: '30 × 30 cm (Gran Formato Modular)' }
       ]
     },
     {
@@ -245,7 +327,7 @@
       tag: 'TOPOGRAFIA ARQUEOLOGICA',
       badge: 'PATRIMONIO DE LA HUMANIDAD · GIS 3D',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
-      description: 'Topografía geoespacial de la meseta de Guiza con las pirámides de Keops, Kefrén y Micerino. Detalle de pendientes y textura desértica en microcapas FDM de alta resolución.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Topografía geoespacial de la meseta de Guiza con las pirámides de Keops, Kefrén y Micerino. Detalle de pendientes y textura desértica en microcapas FDM de alta resolución.',
       main: 'catalog/piramides-guiza.jpg',
       image: 'catalog/piramides-guiza.jpg',
       defaultImage: 'catalog/piramides-guiza.jpg',
@@ -266,9 +348,10 @@
         { url: 'catalog/topografia-valle-marco.jpg', label: 'Vista de Enmarcado' }
       ],
       formats: [
-        { size: '15 × 15 cm', price: 22990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 36990, label: '20 × 20 cm' },
-        { size: 'Enmarcado 25 × 25 cm', price: 52990, label: 'Enmarcado 25 × 25 cm' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -280,7 +363,7 @@
       tag: 'MURAL 4 BALDOSAS · GRAN FORMATO',
       badge: 'ARTE TERRITORIAL · GRAN FORMATO',
       leadTime: 'Fabricación y calibración en taller · Despacho en 5 a 7 días hábiles',
-      description: 'Instalación mural de gran formato compuesta por cuatro baldosas topográficas interconectadas. Ideal para salas de reuniones, recepciones corporativas y vestíbulos de despachos.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Instalación mural de gran formato compuesta por cuatro baldosas topográficas interconectadas. Ideal para salas de reuniones, recepciones corporativas y vestíbulos de despachos.',
       main: 'catalog/relieve-modular-4paneles.jpg',
       image: 'catalog/relieve-modular-4paneles.jpg',
       defaultImage: 'catalog/relieve-modular-4paneles.jpg',
@@ -302,7 +385,9 @@
       ],
       formats: [
         { size: '30 × 30 cm (Modular)', price: 79990, label: '30 × 30 cm (Modular)' },
-        { size: '40 × 40 cm (Modular)', price: 119990, label: '40 × 40 cm (Modular)' }
+        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles (Gran Formato)', highlight: 'MEJOR VALOR' },
+        { size: '40 × 40 cm (Modular)', price: 119990, label: '40 × 40 cm (Modular)' },
+        { size: 'Proyectos a Medida', price: 0, label: 'Cotización por volumen a medida' }
       ]
     },
     {
@@ -314,7 +399,7 @@
       tag: 'MODELO TERRITORIAL GIS',
       badge: 'MODELO TERRITORIAL GIS · COTA REAL',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
-      description: 'Curvas de nivel GIS satelitales en relieve blanco mate puro. Captura la transición entre el valle central y los cordones montañosos con precisión micrométrica.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Curvas de nivel GIS satelitales en relieve blanco mate puro. Captura la transición entre el valle central y los cordones montañosos con precisión micrométrica.',
       main: 'catalog/topografia-valle-marco.jpg',
       image: 'catalog/topografia-valle-marco.jpg',
       defaultImage: 'catalog/topografia-valle-marco.jpg',
@@ -336,9 +421,10 @@
         { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista Lateral Shadowbox' }
       ],
       formats: [
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
         { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 34990, label: '20 × 20 cm' },
-        { size: 'Enmarcado 25 × 25 cm', price: 49990, label: 'Enmarcado 25 × 25 cm' }
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -350,7 +436,7 @@
       tag: 'ALTO CONTRASTE · NEGRO / BLANCO',
       badge: 'CONCEPTO BICOLOR · VOLUMETRÍA PURA',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
-      description: 'Enfoque volumétrico diferencial: topografía en sustrato negro azabache y propuesta arquitectónica en blanco puro para evidenciar la huella e inserción en el relieve.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Enfoque volumétrico diferencial: topografía en sustrato negro azabache y propuesta arquitectónica en blanco puro para evidenciar la huella e inserción en el relieve.',
       main: 'catalog/insercion-arquitectura-contraste.jpg',
       image: 'catalog/insercion-arquitectura-contraste.jpg',
       defaultImage: 'catalog/insercion-arquitectura-contraste.jpg',
@@ -371,8 +457,10 @@
         { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Base de Sustrato Topográfico' }
       ],
       formats: [
-        { size: '15 × 15 cm', price: 22990, label: '15 × 15 cm' },
-        { size: '20 × 20 cm', price: 38990, label: '20 × 20 cm' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' }
       ]
     },
     {
@@ -384,7 +472,7 @@
       tag: 'A MEDIDA · LEVANTAMIENTO GIS',
       badge: 'PROYECTO ESPECIAL · COTIZACIÓN A MEDIDA',
       leadTime: 'Tiempo estimado según escala y complejidad del modelo (5 a 12 días)',
-      description: 'Manufactura a medida según levantamiento topográfico, plano CAD, modelo BIM o coordenadas satelitales específicas de su proyecto.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Manufactura a medida según levantamiento topográfico, plano CAD, modelo BIM o coordenadas satelitales específicas de su proyecto.',
       main: 'catalog/santiago-costanera-marco.jpg',
       image: 'catalog/santiago-costanera-marco.jpg',
       defaultImage: 'catalog/santiago-costanera-marco.jpg',
@@ -405,7 +493,13 @@
         { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Ejemplo Mural Modular a Medida' }
       ],
       formats: [
-        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto según escala' }
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: 'Gran Formato (30 × 30 cm)', price: 79990, label: '30 × 30 cm Modular' },
+        { size: 'Mural 4 Paneles', price: 149990, label: 'Mural 4 Paneles' },
+        { size: 'Formato Personalizado', price: 0, label: 'Presupuesto según escala y volumen' }
       ]
     },
     {
@@ -417,7 +511,7 @@
       tag: 'PROTOTIPADO RAPIDO ±0.1 MM',
       badge: 'FABRICACIÓN ADITIVA · ALTA PRECISIÓN',
       leadTime: 'Cotización inmediata y despacho en 24 a 72 horas según volumen',
-      description: 'Servicio de fabricación aditiva de precisión para oficinas de arquitectura, constructoras y estudiantes. PLA mate, filamentos técnicos y optimización de mallas.',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Servicio de fabricación aditiva de precisión para oficinas de arquitectura, constructoras y estudiantes. PLA mate, filamentos técnicos y optimización de mallas.',
       main: 'catalog/topografia-valle-detalle.jpg',
       image: 'catalog/topografia-valle-detalle.jpg',
       defaultImage: 'catalog/topografia-valle-detalle.jpg',
@@ -438,6 +532,10 @@
         { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Precisión Geométrica en Aristas' }
       ],
       formats: [
+        { size: '10 × 10 cm', price: 9990, framePrice: 12990, label: '10 × 10 cm' },
+        { size: '15 × 15 cm', price: 19990, label: '15 × 15 cm' },
+        { size: '20 × 20 cm', price: 25990, label: '20 × 20 cm' },
+        { size: '25 × 25 cm', price: 29990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
         { size: 'Servicio por Hora / Gramo', price: 0, label: 'Cotización según archivo 3D' }
       ]
     }
@@ -629,10 +727,16 @@
     }
 
     // Formatear opciones de precios
-    const formats = (product.formats || []).map(f => ({
-      ...f,
-      formattedPrice: f.price > 0 ? formatCLP(f.price) : 'A convenir / Cotización'
-    }));
+    const formats = (product.formats || []).map(f => {
+      const formattedPrice = f.price > 0 ? formatCLP(f.price) : 'A convenir / Cotización';
+      const formattedFramePrice = f.framePrice > 0 ? formatCLP(f.framePrice) : undefined;
+      return {
+        ...f,
+        formattedPrice,
+        formattedFramePrice,
+        highlight: f.highlight || null
+      };
+    });
 
     const basePrice = formats.length > 0 ? formats[0].price : 0;
     const formattedBasePrice = basePrice > 0 ? formatCLP(basePrice) : 'A cotizar';
@@ -662,15 +766,23 @@
 
   /**
    * Calcula el desglose financiero de la orden
-   * @param {object} params
-   * @param {number|string} params.unitPrice
+   * @param {object} [params={}]
+   * @param {number|string} [params.unitPrice]
    * @param {number} [params.quantity=1]
    * @param {string} [params.shippingId='pickup']
    * @param {number} [params.customShippingCost=null]
+   * @param {string} [params.size=null]
+   * @param {string} [params.finish='Con Marco']
    * @returns {object}
    */
-  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'pickup', customShippingCost = null }) {
-    const cleanUnitPrice = parseCLP(unitPrice);
+  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'pickup', customShippingCost = null, size = null, finish = 'Con Marco' } = {}) {
+    let cleanUnitPrice = parseCLP(unitPrice);
+
+    // Si no se proporciono unitPrice o vino en 0, y se paso size, resolver segun escala oficial
+    if (cleanUnitPrice <= 0 && size) {
+      cleanUnitPrice = resolveFormatPrice(size, finish);
+    }
+
     const cleanQty = Math.max(1, parseInt(quantity, 10) || 1);
 
     let cleanShippingCost = 0;
@@ -1482,7 +1594,9 @@
       unitPrice: orderData.unitPrice,
       quantity: orderData.quantity || 1,
       shippingId: shippingId,
-      customShippingCost: orderData.shippingCost
+      customShippingCost: orderData.shippingCost,
+      size: size,
+      finish: finish
     });
 
     const now = new Date();
@@ -1619,12 +1733,84 @@
     };
   }
 
+  /**
+   * Sincroniza datos, atributos de precio y descripciones en el DOM si estan presentes
+   * sin alterar clases CSS ni maquetacion visual.
+   */
+  function syncCatalogDom() {
+    if (typeof document === 'undefined') return;
+
+    // 1. Sincronizar tarjetas de catalogo .ecom-card
+    const cards = document.querySelectorAll('.ecom-card');
+    cards.forEach(card => {
+      const sku = card.getAttribute('data-sku');
+      const prod = getProductBySku(sku);
+      if (!prod) return;
+
+      // Actualizar botones de tamano .ecom-size-btn
+      const sizeBtns = card.querySelectorAll('.ecom-size-btn');
+      sizeBtns.forEach(btn => {
+        const sizeVal = btn.getAttribute('data-size');
+        const fmt = (prod.formats || []).find(f => f.size === sizeVal) || null;
+        let officialPrice = 0;
+        if (fmt) {
+          officialPrice = fmt.price;
+        } else {
+          officialPrice = resolveFormatPrice(sizeVal, 'Con Marco');
+        }
+
+        if (officialPrice > 0) {
+          const formatted = formatCLP(officialPrice);
+          btn.setAttribute('data-price', formatted);
+          if (btn.classList.contains('active')) {
+            const priceDisplay = card.querySelector('.ecom-price-display');
+            if (priceDisplay) {
+              priceDisplay.textContent = formatted;
+            }
+          }
+        }
+      });
+    });
+
+    // 2. Sincronizar tarjetas de formato .format-card
+    const formatCards = document.querySelectorAll('.format-card');
+    formatCards.forEach(card => {
+      const formatVal = card.getAttribute('data-format');
+      if (!formatVal) return;
+
+      const officialPrice = resolveFormatPrice(formatVal, 'Con Marco');
+      if (officialPrice > 0) {
+        const formatted = formatCLP(officialPrice);
+        card.setAttribute('data-price', formatted);
+        const priceEl = card.querySelector('.format-price');
+        if (priceEl) {
+          priceEl.textContent = formatted;
+        }
+        const buyBtn = card.querySelector('.btn-format-buy');
+        if (buyBtn) {
+          buyBtn.setAttribute('data-price', String(officialPrice));
+        }
+      }
+    });
+  }
+
+  // Auto-sincronizacion de datos en el cliente
+  if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', syncCatalogDom);
+    } else {
+      syncCatalogDom();
+    }
+  }
+
   // --- API PUBLICA EXPUESTA ---
   return {
     CONFIG,
     BANK_DETAILS,
     CATALOG_PRODUCTS,
     AR_CATALOG: CATALOG_PRODUCTS,
+    OFFICIAL_PRICES,
+    VALUE_PROPOSITION,
     SHIPPING_OPTIONS,
     PAYMENT_METHODS,
     parseCLP,
@@ -1635,6 +1821,7 @@
     getProductByName,
     getProductDetails,
     getAllProducts,
+    resolveFormatPrice,
     calculateTotals,
     validateCustomerData,
     saveOrderToStorage,
@@ -1644,6 +1831,7 @@
     buildWhatsAppOrderUrl,
     generatePrintableQuoteHTML,
     openQuotePrintWindow,
-    submitOrder
+    submitOrder,
+    syncCatalogDom
   };
 });

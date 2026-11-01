@@ -25,9 +25,9 @@
     sku: 'SKU-SCL-01',
     productName: 'Santiago · Costanera Center',
     size: '10 × 10 cm',
-    finish: 'Con Marco',
+    finish: 'Con Marco Shadowbox',
     thumbImg: 'catalog/santiago-costanera-marco.jpg',
-    unitPrice: 9990,
+    unitPrice: 12990,
     quantity: 1,
     shippingId: 'pickup',
     paymentMethod: 'transferencia',
@@ -111,13 +111,18 @@
   /**
    * Recalcula y actualiza la tabla de totales
    */
+  /**
+   * Recalcula y actualiza la tabla de totales
+   */
   function refreshFinancials() {
     if (!window.AR_ECOMMERCE) return;
 
     const totals = window.AR_ECOMMERCE.calculateTotals({
       unitPrice: state.unitPrice,
       quantity: state.quantity,
-      shippingId: state.shippingId
+      shippingId: state.shippingId,
+      size: state.size,
+      finish: state.finish
     });
 
     if (dom.breakdownUnit) dom.breakdownUnit.textContent = totals.formatted.unitPrice;
@@ -125,6 +130,24 @@
     if (dom.breakdownSubtotal) dom.breakdownSubtotal.textContent = totals.formatted.subtotal;
     if (dom.breakdownShipping) dom.breakdownShipping.textContent = totals.formatted.shippingCost;
     if (dom.breakdownTotal) dom.breakdownTotal.textContent = totals.formatted.total;
+  }
+
+  /**
+   * Cambia programáticamente el formato o acabado seleccionado recalculando finanzas
+   * @param {string} size
+   * @param {string} [finish]
+   */
+  function setFormat(size, finish) {
+    if (size) state.size = size;
+    if (finish !== undefined) state.finish = finish;
+
+    const ECOM = window.AR_ECOMMERCE;
+    if (ECOM && typeof ECOM.resolveFormatPrice === 'function') {
+      state.unitPrice = ECOM.resolveFormatPrice(state.size, state.finish);
+    }
+    if (dom.summarySize) dom.summarySize.textContent = `Formato: ${state.size}`;
+    if (dom.summaryFinish) dom.summaryFinish.textContent = `Acabado: ${state.finish}`;
+    refreshFinancials();
   }
 
   /**
@@ -183,37 +206,52 @@
     const ECOM = window.AR_ECOMMERCE;
 
     state.folio = ECOM ? ECOM.generateOrderFolio() : `AR-2026-${Math.floor(1000 + Math.random() * 9000)}`;
-    state.sku = productData.sku || 'SKU-CUSTOM';
-    state.productName = productData.productName || 'Maqueta Arquitectónica';
+    state.sku = productData.sku || 'SKU-SCL-01';
+    state.productName = productData.productName || 'Santiago · Costanera Center';
     state.size = productData.size || '10 × 10 cm';
-    state.finish = productData.finish || 'Con Marco';
+    state.finish = productData.finish || 'Con Marco Shadowbox';
     state.thumbImg = productData.thumbImg || 'catalog/santiago-costanera-marco.jpg';
+    state.unitPrice = productData.unitPrice !== undefined
+      ? (ECOM && typeof ECOM.parseCLP === 'function' ? ECOM.parseCLP(productData.unitPrice) : (parseInt(String(productData.unitPrice).replace(/[^0-9]/g, ''), 10) || 0))
+      : 12990;
 
     // Detección de Medida Especial / Cotización a convenir
-    const isCustomSpecial = String(state.size || '').toLowerCase().includes('especial') ||
-                            String(state.productName || '').toLowerCase().includes('especial') ||
-                            String(productData.unitPrice || '').toLowerCase().includes('convenir');
+    const isCustomSpecial = String(state.size).toLowerCase().includes('especial') ||
+                            String(state.size).toLowerCase().includes('convenir') ||
+                            String(state.size).toLowerCase().includes('personalizado') ||
+                            String(state.size).toLowerCase().includes('gran formato') ||
+                            String(state.size).toLowerCase().includes('volumen') ||
+                            state.unitPrice === 0;
 
-    let parsedPrice = ECOM ? ECOM.parseCLP(productData.unitPrice || 0) : 0;
+    // Sincronización estricta del precio oficial mediante AR_ECOMMERCE
+    let parsedPrice = 0;
+    if (ECOM && typeof ECOM.resolveFormatPrice === 'function') {
+      parsedPrice = ECOM.resolveFormatPrice(state.size, state.finish, productData.unitPrice);
+    } else if (ECOM && typeof ECOM.parseCLP === 'function') {
+      parsedPrice = ECOM.parseCLP(productData.unitPrice || 0);
+    } else {
+      parsedPrice = parseInt(String(productData.unitPrice || '').replace(/[^0-9]/g, ''), 10) || 0;
+    }
     
-    // Priorizar Transferencia Bancaria Directa ante la contingencia técnica con tarjetas
+    // Priorizar Transferencia Bancaria Directa o activar modo Cotización si es cotización o formato especial
     const requestedMethod = productData.paymentMethod;
-    if (requestedMethod === 'cotizacion') {
+    if (isCustomSpecial || requestedMethod === 'cotizacion') {
       state.paymentMethod = 'cotizacion';
     } else {
       state.paymentMethod = 'transferencia';
     }
     state.isCustomSpecial = isCustomSpecial;
 
-    // Si es Medida Especial o precio 0: si el método es Flow o Transferencia se asigna abono base de $29.990 CLP
-    if (parsedPrice <= 0 && isCustomSpecial) {
+    // Si es Medida Especial, Gran Formato / Volumen o precio 0: asegurar modo cotización con unitPrice 0 sin cobrar $12.990
+    if (isCustomSpecial) {
       if (state.paymentMethod === 'cotizacion') {
         parsedPrice = 0;
       } else {
-        parsedPrice = 29990; // Abono inicial de manufactura
+        parsedPrice = 29990; // Abono inicial de manufactura si se selecciona transferencia
       }
     } else if (parsedPrice <= 0 && !isCustomSpecial) {
-      parsedPrice = 9990;
+      // Precio según formato 10 × 10 cm ($9.990 sin marco o $12.990 con marco shadowbox)
+      parsedPrice = String(state.finish).toLowerCase().includes('sin marco') ? 9990 : 12990;
     }
 
     state.unitPrice = parsedPrice;
@@ -721,19 +759,28 @@
         const currentType = typeActive ? (typeActive.getAttribute('data-type') || 'Maqueta Urbana') : 'Maqueta Urbana';
 
         const format = btn.getAttribute('data-format') || (card ? card.getAttribute('data-format') : '10 × 10 cm');
-        let priceVal = btn.getAttribute('data-price') || (card ? card.getAttribute('data-price') : '$9.990 CLP');
+        let priceVal = btn.getAttribute('data-price') || (card ? card.getAttribute('data-price') : '$12.990 CLP');
+
+        if (card) {
+          document.querySelectorAll('.format-card').forEach(c => {
+            c.classList.remove('selected');
+            c.setAttribute('aria-pressed', 'false');
+          });
+          card.classList.add('selected');
+          card.setAttribute('aria-pressed', 'true');
+        }
 
         openCheckout({
           sku: 'SKU-CUST-08',
           productName: `${currentType} Personalizada (${format})`,
           size: format,
-          finish: 'PLA Mate Blanco Arquitectónico · Base Calibrada',
+          finish: 'PLA Mate Blanco Arquitectónico · Marco Shadowbox',
           unitPrice: priceVal,
           thumbImg: 'catalog/santiago-costanera-marco.jpg',
           quantity: 1,
           paymentMethod: 'transferencia',
-          notes: format.toLowerCase().includes('especial')
-            ? `Reserva de producción inicial para ${currentType} en Medida Especial personalizada.`
+          notes: (format.toLowerCase().includes('especial') || format.toLowerCase().includes('volumen') || format.toLowerCase().includes('gran formato'))
+            ? `Reserva de producción inicial para ${currentType} en ${format}.`
             : `Pedido directo para ${currentType} en formato ${format}.`
         });
       });
@@ -747,17 +794,22 @@
         const currentType = typeActive ? (typeActive.getAttribute('data-type') || 'Maqueta Urbana') : 'Maqueta Urbana';
         const activeFmtCard = document.querySelector('.format-card.selected');
         const format = activeFmtCard ? (activeFmtCard.getAttribute('data-format') || '10 × 10 cm') : '10 × 10 cm';
-        const priceVal = activeFmtCard ? (activeFmtCard.getAttribute('data-price') || '$9.990 CLP') : '$9.990 CLP';
+        const activeBuyBtn = activeFmtCard ? activeFmtCard.querySelector('.btn-format-buy') : null;
+        const priceVal = (activeBuyBtn && activeBuyBtn.getAttribute('data-price')) || (activeFmtCard ? activeFmtCard.getAttribute('data-price') : '$12.990 CLP') || '$12.990 CLP';
+        const isSpecial = format.toLowerCase().includes('especial') || format.toLowerCase().includes('volumen') || format.toLowerCase().includes('gran formato');
 
         openCheckout({
           sku: 'SKU-CUST-08',
           productName: `${currentType} Personalizada (${format})`,
           size: format,
-          finish: 'PLA Mate Blanco Arquitectónico · Base Calibrada',
-          unitPrice: priceVal,
+          finish: 'PLA Mate Blanco Arquitectónico · Marco Shadowbox',
+          unitPrice: isSpecial ? 'A convenir' : priceVal,
           thumbImg: 'catalog/santiago-costanera-marco.jpg',
           quantity: 1,
-          paymentMethod: 'transferencia'
+          paymentMethod: isSpecial ? 'cotizacion' : 'transferencia',
+          notes: isSpecial
+            ? `Reserva de producción inicial para ${currentType} en ${format}.`
+            : `Pedido directo para ${currentType} en formato ${format}.`
         });
       });
     }
@@ -935,6 +987,8 @@
     openCheckout,
     closeCheckout,
     checkFlowReturnStatus,
+    setFormat,
+    refreshFinancials,
     getState: () => ({ ...state })
   };
 });
