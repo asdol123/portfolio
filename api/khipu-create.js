@@ -140,7 +140,7 @@ module.exports = async function handler(req, res) {
         gateway: 'khipu',
         error: 'Pasarela Khipu en mantenimiento. Le sugerimos seleccionar Transferencia Bancaria Directa para procesar su orden de inmediato.',
         orderId: cleanOrderId,
-        whatsappFallback: `https://wa.me/56975412203?text=${wspFallbackText}`
+        whatsappFallback: `https://wa.me/56962032766?text=${wspFallbackText}`
       });
     }
 
@@ -196,7 +196,7 @@ module.exports = async function handler(req, res) {
     const wspFallbackText = encodeURIComponent(
       `Hola Adolfo, estuve intentando realizar el pago de la orden ${cleanOrderId} por ${numericAmount} CLP con Khipu y deseo coordinar la transferencia directa o link de pago.`
     );
-    const whatsappFallback = `https://wa.me/56975412203?text=${wspFallbackText}`;
+    const whatsappFallback = `https://wa.me/56962032766?text=${wspFallbackText}`;
 
     return res.status(200).json({
       ok: false,
@@ -213,7 +213,7 @@ module.exports = async function handler(req, res) {
       ok: false,
       gateway: 'khipu',
       error: 'Error interno de conexion con la pasarela Khipu.',
-      whatsappFallback: 'https://wa.me/56975412203?text=Hola%20Adolfo,%20deseo%20coordinar%20mi%20orden%20con%20Alzado%20Rojo'
+      whatsappFallback: 'https://wa.me/56962032766?text=Hola%20Adolfo,%20deseo%20coordinar%20mi%20orden%20con%20Alzado%20Rojo'
     });
   }
 };

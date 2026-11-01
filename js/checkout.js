@@ -953,7 +953,7 @@
           customer: {
             name: isKhipu ? 'Cliente Khipu' : 'Cliente Flow.cl',
             email: 'adolchilemods@gmail.com',
-            phone: '+56 9 7541 2203',
+            phone: '+56 9 6203 2766',
             rut: 'No informado',
             address: ''
           },
@@ -1016,7 +1016,7 @@
           const wspText = isKhipu
             ? `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Khipu.`
             : `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Flow.cl.`;
-          dom.btnCoordWsp.href = `https://wa.me/56975412203?text=${encodeURIComponent(wspText)}`;
+          dom.btnCoordWsp.href = `https://wa.me/56962032766?text=${encodeURIComponent(wspText)}`;
         }
       }
 

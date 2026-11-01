@@ -455,7 +455,7 @@
       const priceText = selectedFormat.formattedPrice || `$${selectedFormat.price} CLP`;
       const sizeText = selectedFormat.size;
       const msg = `Hola Adolfo, deseo consultar por la maqueta de ${prodName} en tamano ${sizeText} por ${priceText}.`;
-      btnWsp.href = `https://wa.me/56975412203?text=${encodeURIComponent(msg)}`;
+      btnWsp.href = `https://wa.me/56962032766?text=${encodeURIComponent(msg)}`;
     }
   }
 

@@ -166,7 +166,7 @@ module.exports = async function handler(req, res) {
         gateway: 'flow',
         error: 'No fue posible establecer conexion con la pasarela Flow.cl: ' + errFetch.message,
         orderId: cleanOrderId,
-        whatsappFallback: `https://wa.me/56975412203?text=${encodeURIComponent(`Hola Adolfo, no pude conectar con Flow para pagar mi orden #${cleanOrderId}. Deseo coordinar el pago directamente.`)}`
+        whatsappFallback: `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, no pude conectar con Flow para pagar mi orden #${cleanOrderId}. Deseo coordinar el pago directamente.`)}`
       });
     }
 
@@ -199,7 +199,7 @@ module.exports = async function handler(req, res) {
       error: errorMessage,
       code: errorCode,
       orderId: cleanOrderId,
-      whatsappFallback: `https://wa.me/56975412203?text=${encodeURIComponent(`Hola Adolfo, se presento un aviso al procesar mi orden #${cleanOrderId} en Flow: ${errorMessage}. Deseo coordinar el pago directamente.`)}`
+      whatsappFallback: `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, se presento un aviso al procesar mi orden #${cleanOrderId} en Flow: ${errorMessage}. Deseo coordinar el pago directamente.`)}`
     });
 
   } catch (error) {
@@ -208,7 +208,7 @@ module.exports = async function handler(req, res) {
       ok: false,
       gateway: 'flow',
       error: 'Error interno de procesamiento: ' + error.message,
-      whatsappFallback: 'https://wa.me/56975412203'
+      whatsappFallback: 'https://wa.me/56962032766'
     });
   }
 };

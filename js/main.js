@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Enlace WhatsApp dinámico según proyecto
         if (modalQuoteLink) {
-            modalQuoteLink.href = `https://wa.me/56975412203?text=${encodeURIComponent(`Hola Adolfo, me interesa consultar por un proyecto similar a: "${proyecto.titulo || 'Proyecto'}"`)}`;
+            modalQuoteLink.href = `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, me interesa consultar por un proyecto similar a: "${proyecto.titulo || 'Proyecto'}"`)}`;
         }
 
         // Galería de imágenes

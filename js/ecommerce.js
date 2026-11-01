@@ -7,7 +7,7 @@
  * - Cero emojis en cadenas de texto visibles y plantillas.
  * - Cero ampersands en titulos y etiquetas (uso estricto de 'y', 'e' o separadores '·').
  * - Lote de recepcion oficial: adolchilemods@gmail.com
- * - Canal de atencion WhatsApp: +56 9 7541 2203
+ * - Canal de atencion WhatsApp: +56 9 6203 2766
  */
 
 (function (root, factory) {
@@ -27,8 +27,8 @@
     tradeName: 'ALZADO ROJO',
     subTitle: 'ARQUITECTURA Y FABRICACION DIGITAL',
     officialEmail: 'adolchilemods@gmail.com',
-    officialPhone: '+56 9 7541 2203',
-    whatsappPhoneRaw: '56975412203',
+    officialPhone: '+56 9 6203 2766',
+    whatsappPhoneRaw: '56962032766',
     cityCountry: 'Santiago, Chile',
     quoteValidityDays: 15,
     formSubmitEndpoint: 'https://formsubmit.co/ajax/adolchilemods@gmail.com',
