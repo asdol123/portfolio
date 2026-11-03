@@ -13,4 +13,6 @@ scripts/
 # Perfiles temporales y carpetas privadas de taller
 .temp_chrome_print_profile/
 _taller-privado/
+taller-privado/
+agenda-pedidos.html
 scratch/

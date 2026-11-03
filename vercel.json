@@ -8,26 +8,6 @@
     {
       "source": "/manuales/manual-sketchup.html",
       "destination": "/manuales/manual_sketchup_arquitectura.html"
-    },
-    {
-      "source": "/_taller-privado/agenda-pedidos",
-      "destination": "/taller-privado/agenda-pedidos.html"
-    },
-    {
-      "source": "/_taller-privado/agenda-pedidos.html",
-      "destination": "/taller-privado/agenda-pedidos.html"
-    },
-    {
-      "source": "/taller-privado/agenda-pedidos",
-      "destination": "/taller-privado/agenda-pedidos.html"
-    },
-    {
-      "source": "/agenda-pedidos",
-      "destination": "/taller-privado/agenda-pedidos.html"
-    },
-    {
-      "source": "/taller/pedidos",
-      "destination": "/taller-privado/agenda-pedidos.html"
     }
   ],
   "headers": [
