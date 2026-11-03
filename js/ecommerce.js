@@ -1881,6 +1881,30 @@
       console.warn('[ALZADO ROJO Backend] Error al emitir correo via FormSubmit:', errEmail);
     }
 
+    // 5.1 Envio asincrono al motor serverless de correos transaccionales
+    try {
+      if (normalizedOrder.customer && normalizedOrder.customer.email) {
+        fetch('/api/email-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            type: 'order_received',
+            orderId: normalizedOrder.folio,
+            customerName: normalizedOrder.customer.name,
+            customerEmail: normalizedOrder.customer.email,
+            productName: normalizedOrder.productName,
+            size: normalizedOrder.size,
+            amount: normalizedOrder.total,
+            address: normalizedOrder.customer.address,
+            city: normalizedOrder.customer.commune,
+            phone: normalizedOrder.customer.phone
+          })
+        }).catch(() => {});
+      }
+    } catch (eEmailNotify) {
+      // Ignorar en entornos sin fetch o sin red
+    }
+
     // 6. Gestion de pasarelas de pago (Khipu o Flow.cl)
     let khipuResult = null;
     let flowResult = null;

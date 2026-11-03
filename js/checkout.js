@@ -524,6 +524,34 @@
 
       state.lastProcessedOrder = result.order;
 
+      // Disparo asincrono de correo transaccional de confirmacion automatica al cliente y taller
+      try {
+        const emailNotifyPayload = {
+          type: 'order_received',
+          orderId: (result.order && result.order.folio) || state.folio,
+          customerName: customer.name,
+          customerEmail: customer.email,
+          productName: state.productName,
+          size: state.size,
+          amount: (result.order && result.order.total) || (state.unitPrice * state.quantity),
+          address: customer.address || 'Por coordinar',
+          city: customer.commune || 'Santiago',
+          phone: customer.phone
+        };
+
+        fetch('/api/email-notify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(emailNotifyPayload)
+        }).then(r => r.json()).then(resp => {
+          console.log('[ALZADO ROJO Checkout] Notificacion transaccional emitida:', resp);
+        }).catch(errEmail => {
+          console.warn('[ALZADO ROJO Checkout] Aviso en envio asincrono de confirmacion:', errEmail);
+        });
+      } catch (errNotify) {
+        console.warn('[ALZADO ROJO Checkout] Excepcion al invocar endpoint email-notify:', errNotify);
+      }
+
       // Transición a la pantalla de éxito
       if (dom.viewMain) dom.viewMain.style.display = 'none';
       if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');

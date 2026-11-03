@@ -5956,47 +5956,65 @@ dialog#project-modal::backdrop {
   flex-shrink: 0;
 }
 
-/* Grilla de productos Liquid Glass */
-.ecommerce-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-  gap: 20px;
-  margin-bottom: 32px;
+/* ==========================================================================
+   E-COMMERCE INMERSIVO: FULL-BLEED MEDIA CANVAS (ESTILO EMIL KOWALSKI / AWWWARDS)
+   El fondo es el contenido visual 100% (fotografía de alta resolución / video 3D)
+   Atmospheric Scrim Cinematográfico + Controles Flotantes Minimalistas con Blur
+   100% Borderless · Cero Cajas Duras · Aprovechamiento Total de Pantalla
+   ========================================================================== */
+
+/* Sección de Catálogo Panorámica */
+.ecommerce-catalog-section {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto 56px auto;
+  padding: 0 clamp(12px, 2.5vw, 36px);
 }
 
-/* Tarjeta de producto Apple Liquid Glass (Estilo Bionova) */
+/* Grilla Expansiva de Borde a Borde */
+.ecommerce-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+/* Tarjeta Inmersiva Full-Bleed */
 .ecom-card {
-  background: #FFFFFF;
+  position: relative;
+  background: #09090B;
+  border-radius: 28px;
+  overflow: hidden;
   border: none !important;
   outline: none !important;
-  border-radius: 26px;
-  box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
+  box-shadow: 0 20px 48px -15px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.18);
   display: flex;
   flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  justify-content: space-between;
+  min-height: 540px;
+  aspect-ratio: 3 / 4;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
   transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
+  isolation: isolate;
 }
 
 .ecom-card:hover {
-  transform: translate3d(0, -5px, 0);
+  transform: translateY(-6px);
   border: none !important;
-  box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
+  box-shadow: 0 32px 75px -16px rgba(0, 0, 0, 0.65), 0 12px 30px -8px rgba(230, 25, 25, 0.28);
 }
 
-/* Caja de Imagen con esquinas redondeadas y zoom cinematográfico */
+/* El Fondo ES la Fotografía / Relieve 3D (Lienzo 100%) */
 .ecom-thumb-box {
-  position: relative;
-  width: calc(100% - 24px);
-  margin: 12px 12px 0 12px;
-  aspect-ratio: 4 / 3;
-  background: #F4F4F4;
-  border-radius: 24px;
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  border-radius: inherit;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+  z-index: 1;
 }
 
 .ecom-img {
@@ -6004,199 +6022,308 @@ dialog#project-modal::backdrop {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
   transform: scale3d(1, 1, 1);
+  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
   backface-visibility: hidden;
 }
 
-.ecom-thumb-box:hover .ecom-img,
-.ecom-card:hover .ecom-img {
-  transform: scale3d(1.04, 1.04, 1);
+.ecom-card:hover .ecom-img,
+.ecom-thumb-box:hover .ecom-img {
+  transform: scale3d(1.055, 1.055, 1);
 }
 
-.ecom-badge {
+/* Scrim Atmosférico Cinematográfico Sutil (Relieve Protagonista) */
+.ecom-card-scrim {
   position: absolute;
-  top: 14px;
-  left: 14px;
-  background: rgba(255, 255, 255, 0.94);
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 11, 0.62) 0%,
+    rgba(9, 9, 11, 0.16) 24%,
+    rgba(9, 9, 11, 0.02) 42%,
+    rgba(9, 9, 11, 0.58) 68%,
+    rgba(9, 9, 11, 0.96) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  transition: background 0.35s ease;
+}
+
+.ecom-card:hover .ecom-card-scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(9, 9, 11, 0.70) 0%,
+    rgba(9, 9, 11, 0.12) 24%,
+    rgba(9, 9, 11, 0.02) 42%,
+    rgba(9, 9, 11, 0.64) 66%,
+    rgba(9, 9, 11, 0.98) 100%
+  );
+}
+
+/* Cabecera Flotante Superior (Top Bar Minimalista) */
+.ecom-card-header-floating {
+  position: relative;
+  z-index: 3;
+  padding: 16px 16px 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.ecom-card-header-floating > * {
+  pointer-events: auto;
+}
+
+.ecom-floating-tags {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: nowrap;
+}
+
+.ecom-badge,
+.ecom-cat-tag {
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 9999px;
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.ecom-promo-badge {
+  background: var(--ed-red);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 8px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(230, 25, 25, 0.45);
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ecom-floating-tools {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Botón Flotante de Video Minimalista */
+.btn-ecom-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.16);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  color: var(--ed-text);
-  font-size: 0.65rem;
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: 999px;
+  letter-spacing: 0.08em;
+  padding: 6px 12px;
+  border-radius: 9999px;
   border: none !important;
   outline: none !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  z-index: 2;
-  pointer-events: none;
+  cursor: pointer;
+  transition: all 0.22s var(--spring-ease);
 }
 
-.ecom-zoom-hint {
-  position: absolute;
-  bottom: 12px;
-  right: 12px;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: none !important;
-  outline: none !important;
-  padding: 5px 10px;
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  border-radius: var(--radius-pill);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.25s var(--spring-ease), transform 0.25s var(--spring-ease);
-  z-index: 2;
-  pointer-events: none;
-  color: var(--ed-text);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+.btn-ecom-video:hover {
+  background: #FFFFFF;
+  color: #0A0A0B;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-.ecom-thumb-box:hover .ecom-zoom-hint {
-  opacity: 1;
-  transform: translateY(0);
+.btn-ecom-video:active {
+  transform: scale(0.96);
 }
 
-/* Switcher de Vistas / Acabado en Cápsulas (100% Borderless) */
+/* Micro Toggle de Vistas Flotante */
 .ecom-view-switcher {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 18px;
-  background: rgba(244, 243, 239, 0.6);
+  gap: 3px;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 3px;
+  border-radius: 9999px;
   border: none !important;
   outline: none !important;
-}
-
-.ecom-view-label {
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ed-text-muted);
 }
 
 .ecom-view-btn {
-  background: rgba(17, 17, 17, 0.045);
-  border: none !important;
-  outline: none !important;
-  border-radius: 999px;
-  font-size: 0.7rem;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 6px 14px;
-  min-height: 34px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  border: none !important;
+  outline: none !important;
   cursor: pointer;
-  transition: all 0.2s var(--spring-ease);
-  text-transform: uppercase;
-  color: var(--ed-text-secondary);
-  font-family: inherit;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  transition: all 0.2s ease;
+  min-height: 24px;
 }
 
 .ecom-view-btn:hover {
-  border: none !important;
-  color: var(--ed-red);
-  background: rgba(17, 17, 17, 0.09);
-}
-
-.ecom-view-btn:focus-visible {
-  outline: 2px solid var(--ed-red);
-  outline-offset: 2px;
+  color: #FFFFFF;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .ecom-view-btn.active {
-  background: #D92525 !important;
-  color: #FFFFFF !important;
-  border: none !important;
+  background: #FFFFFF !important;
+  color: #0A0A0B !important;
   font-weight: 700;
-  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* Contenido / Cuerpo de la Tarjeta */
-.ecom-body {
-  padding: 18px 20px;
+/* Botón sutil de zoom/lupa flotante */
+.ecom-zoom-hint {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  border: none !important;
+  outline: none !important;
+  cursor: pointer;
+  transition: all 0.22s var(--spring-ease);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ecom-zoom-hint:hover {
+  background: #FFFFFF;
+  color: #0A0A0B;
+  transform: scale(1.08);
+}
+
+/* Pie Flotante Inferior (Bottom Bar con Scrim Oscuro) */
+.ecom-card-footer-floating {
+  position: relative;
+  z-index: 3;
+  padding: 0 20px 20px 20px;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  gap: 10px;
+  pointer-events: none;
 }
 
-.ecom-cat-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ed-red);
-  margin-bottom: 8px;
+.ecom-card-footer-floating > * {
+  pointer-events: auto;
 }
 
+/* Título Arquitectónico */
 .ecom-title {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
   line-height: 1.25;
-  color: var(--ed-text);
-  letter-spacing: -0.025em;
-  margin-bottom: 10px;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: color 0.2s ease;
 }
 
-.ecom-desc {
-  font-size: 0.88rem;
-  color: var(--ed-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 20px;
-  flex-grow: 1;
+.ecom-title:hover {
+  color: #FF5A5A;
 }
 
-/* Selector de Tamaño en Píldoras */
-.ecom-size-section {
-  margin-top: auto;
-  padding-top: 16px;
-  border-top: none !important;
+/* Línea de Precio Pura */
+.ecom-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.ecom-size-label {
-  display: block;
-  font-size: 0.66rem;
+.ecom-price-original {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.52);
+  text-decoration: line-through;
+  font-variant-numeric: tabular-nums;
+}
+
+.ecom-price-display {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ed-text-muted);
-  margin-bottom: 10px;
+  color: #FFFFFF;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+.ecom-frame-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #FF8080;
+  background: rgba(230, 25, 25, 0.28);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 3px 9px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Selector de Tamaño en Píldoras Translúcidas */
 .ecom-size-pills {
   display: flex;
+  align-items: center;
+  gap: 6px;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 18px;
 }
 
 .ecom-size-btn {
-  background: rgba(17, 17, 17, 0.045);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.9);
   border: none !important;
   outline: none !important;
-  border-radius: 999px;
-  font-size: 0.74rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 8px 14px;
-  min-height: 38px;
+  padding: 6px 12px;
+  min-height: 32px;
   cursor: pointer;
   transition: all 0.2s var(--spring-ease);
-  color: var(--ed-text);
-  font-family: inherit;
   font-variant-numeric: tabular-nums;
   display: inline-flex;
   align-items: center;
@@ -6204,73 +6331,230 @@ dialog#project-modal::backdrop {
 }
 
 .ecom-size-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+  color: #FFFFFF;
   border: none !important;
-  background: rgba(17, 17, 17, 0.09);
-  color: var(--ed-red);
   transform: translateY(-1px);
 }
 
 .ecom-size-btn:focus-visible {
-  outline: 2px solid var(--ed-red);
+  outline: 2px solid #FFFFFF;
   outline-offset: 2px;
 }
 
-.ecom-size-btn.active {
-  background: #D92525 !important;
+/* Blindaje de especificidad para botones dentro de tarjetas inmersivas */
+.ecom-card .ecom-size-btn {
+  background: rgba(255, 255, 255, 0.14) !important;
   color: #FFFFFF !important;
   border: none !important;
-  font-weight: 700;
-  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
-/* Display de Precio Translúcido */
-.ecom-price-box {
+.ecom-card .ecom-size-btn:hover {
+  background: rgba(255, 255, 255, 0.28) !important;
+  color: #FFFFFF !important;
+  transform: translateY(-1px);
+}
+
+.ecom-card .ecom-size-btn.active {
+  background: #FFFFFF !important;
+  color: #0A0A0B !important;
+  font-weight: 700 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4) !important;
+}
+
+.ecom-card .ecom-size-btn.btn-quote-size {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.68rem;
+}
+
+.ecom-card .ecom-size-btn.btn-quote-size:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+  color: #FFFFFF !important;
+}
+
+.ecom-card .ecom-view-btn {
+  color: rgba(255, 255, 255, 0.75) !important;
+  background: transparent !important;
+}
+
+.ecom-card .ecom-view-btn:hover {
+  color: #FFFFFF !important;
+  background: rgba(255, 255, 255, 0.16) !important;
+}
+
+.ecom-card .ecom-view-btn.active {
+  background: #FFFFFF !important;
+  color: #0A0A0B !important;
+  font-weight: 700 !important;
+}
+
+.ecom-card .btn-ecom-video {
+  background: rgba(0, 0, 0, 0.48) !important;
+  color: #FFFFFF !important;
+}
+
+.ecom-card .btn-ecom-video:hover {
+  background: #FFFFFF !important;
+  color: #0A0A0B !important;
+}
+
+.ecom-card .btn-ecom-wsp-alt {
+  background: rgba(255, 255, 255, 0.14) !important;
+  color: #FFFFFF !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.ecom-card .btn-ecom-wsp-alt:hover {
+  background: #25D366 !important;
+  color: #FFFFFF !important;
+}
+
+/* Fila de Acción Simplificada de Alto Impacto */
+.ecom-cta-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.btn-ecom-checkout {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  padding: 12px 18px;
-  background: rgba(217, 37, 37, 0.04);
-  border: none !important;
-  border-radius: 16px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.04);
-}
-
-.ecom-price-label {
-  font-size: 0.7rem;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  color: #0A0A0B !important;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ed-red);
+  text-decoration: none !important;
+  border: none !important;
+  outline: none !important;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.32);
+  transition: transform 0.2s var(--spring-ease), background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
-.ecom-price-display {
-  font-family: var(--font-mono);
-  font-size: 1.45rem;
+.btn-ecom-checkout:hover {
+  background: var(--ed-red) !important;
+  color: #FFFFFF !important;
+  border: none !important;
+  box-shadow: 0 8px 26px rgba(230, 25, 25, 0.48);
+  transform: translateY(-2px);
+}
+
+.btn-ecom-checkout:active {
+  transform: scale(0.97);
+}
+
+.btn-ecom-checkout:focus-visible {
+  outline: 2px solid #FFFFFF;
+  outline-offset: 2px;
+}
+
+.btn-ecom-checkout .btn-arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s var(--spring-ease);
+}
+
+.btn-ecom-checkout:hover .btn-arrow {
+  transform: translateX(4px);
+}
+
+/* Acceso Directo Minimalista a WhatsApp */
+.btn-ecom-wsp-alt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 46px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #FFFFFF !important;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
   font-weight: 600;
-  color: var(--ed-text);
-  letter-spacing: -0.03em;
-  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  border: none !important;
+  outline: none !important;
+  border-radius: 9999px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: all 0.2s var(--spring-ease);
+  white-space: nowrap;
 }
 
-/* Acciones de Tarjeta E-Commerce: Botones Líquidos 100% Borderless */
-.ecom-actions-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.btn-ecom-wsp-alt:hover {
+  background: #25D366;
+  color: #FFFFFF !important;
+  border: none !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(37, 211, 102, 0.35);
 }
 
-.btn-ecom-checkout,
+.btn-ecom-wsp-alt:active {
+  transform: scale(0.97);
+}
+
+.btn-ecom-wsp-alt:focus-visible {
+  outline: 2px solid #25D366;
+  outline-offset: 2px;
+}
+
+/* Tarjeta Teaser Lagos de Chile Inmersiva */
+.ecom-card-teaser {
+  position: relative;
+  background: #09090B;
+}
+
+.ecom-teaser-thumb-box {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ecom-teaser-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.75;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+.ecom-card-teaser:hover .ecom-teaser-thumb-box img {
+  transform: scale3d(1.055, 1.055, 1);
+  opacity: 0.9;
+}
+
 .btn-ecom-teaser-wsp {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   width: 100%;
-  min-height: 48px;
-  padding: 12px 20px;
-  background: var(--ed-text);
-  color: #FFFFFF !important;
+  min-height: 46px;
+  padding: 10px 20px;
+  background: #FFFFFF;
+  color: #0A0A0B !important;
+  font-family: var(--font-sans);
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -6278,139 +6562,36 @@ dialog#project-modal::backdrop {
   text-decoration: none !important;
   border: none !important;
   outline: none !important;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 14px rgba(10, 10, 11, 0.08);
+  border-radius: 9999px;
   cursor: pointer;
-  transition: transform 0.25s var(--spring-ease), box-shadow 0.25s var(--spring-ease), background 0.25s ease;
-  font-family: inherit;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s var(--spring-ease), background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
-.btn-ecom-teaser-wsp {
-  font-family: var(--font-mono), monospace;
-}
-
-/* Iluminación en Carmesí Alzado Rojo al pasar cursor sobre la tarjeta */
-.ecom-card:hover .btn-ecom-checkout,
-.ecom-card:hover .btn-ecom-teaser-wsp {
-  background: var(--ed-red);
-  color: #FFFFFF !important;
-  box-shadow: 0 8px 24px rgba(230, 25, 25, 0.38);
-}
-
-.btn-ecom-checkout:hover,
 .btn-ecom-teaser-wsp:hover {
-  background: var(--ed-red-hover) !important;
+  background: var(--ed-red) !important;
   color: #FFFFFF !important;
   transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(230, 25, 25, 0.48) !important;
+  box-shadow: 0 8px 24px rgba(230, 25, 25, 0.45);
 }
 
-.btn-ecom-checkout:active,
 .btn-ecom-teaser-wsp:active {
-  transform: scale(0.97) !important;
+  transform: scale(0.97);
 }
 
-.btn-ecom-checkout:focus-visible,
-.btn-ecom-teaser-wsp:focus-visible {
-  outline: 2px solid var(--ed-red);
-  outline-offset: 2px;
-}
-
-.btn-ecom-checkout .btn-arrow,
 .btn-ecom-teaser-wsp .btn-arrow {
   display: inline-flex;
   align-items: center;
-  transition: transform 0.25s var(--spring-ease);
-  font-weight: 700;
+  transition: transform 0.2s var(--spring-ease);
 }
 
-.btn-ecom-checkout:hover .btn-arrow,
 .btn-ecom-teaser-wsp:hover .btn-arrow {
   transform: translateX(4px);
 }
 
-.btn-ecom-wsp-alt {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 44px;
-  padding: 10px 18px;
-  background: rgba(17, 17, 17, 0.045);
-  color: var(--ed-text);
-  font-size: 0.74rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: none !important;
-  outline: none !important;
-  border-radius: 999px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.25s var(--spring-ease);
-  font-family: inherit;
-}
-
-.btn-ecom-wsp-alt:hover {
-  background: rgba(17, 17, 17, 0.09);
-  color: var(--ed-red);
-  border: none !important;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.12);
-}
-
-.btn-ecom-wsp-alt:focus-visible {
-  outline: 2px solid var(--ed-red);
-  outline-offset: 2px;
-}
-
-.ecom-trust-micro {
-  text-align: center;
-  font-size: 0.68rem;
-  letter-spacing: 0.03em;
-  color: var(--ed-text-muted);
-  padding-top: 6px;
-  line-height: 1.45;
-}
-
-/* Compatibilidad heredada para btn-ecom-buy */
-.btn-ecom-buy {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  min-height: 46px;
-  padding: 12px 18px;
-  background: var(--ed-red-gradient);
-  color: #FFFFFF;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: var(--radius-pill);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45), var(--ed-red-glow);
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.25s var(--spring-ease);
-}
-
-.btn-ecom-buy:hover {
-  background: var(--ed-red-gradient-hover);
-  color: #FFFFFF;
-  transform: translateY(-2px);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.6), 0 14px 30px -4px rgba(217, 37, 37, 0.5);
-}
-
-.btn-ecom-buy .btn-arrow {
-  transition: transform 0.25s var(--spring-ease);
-  font-weight: 700;
-}
-
-.btn-ecom-buy:hover .btn-arrow {
-  transform: translateX(4px);
+/* Compatibilidad con clases secundarias */
+.ecom-body {
+  display: contents; /* Permitir que los hijos se posicionen en header y footer */
 }
 
 /* Banner de Cotizador a Medida */
@@ -8387,22 +8568,49 @@ dialog#project-modal::backdrop {
     font-size: 0.82rem !important;
   }
 
+  .ecommerce-catalog-section {
+    padding: 0 8px !important;
+    margin-bottom: 36px !important;
+  }
+
   .ecommerce-grid {
     grid-template-columns: 1fr !important;
-    gap: 14px !important;
+    gap: 18px !important;
     margin-bottom: 24px !important;
   }
 
   .ecom-card {
-    border-radius: 22px !important;
+    border-radius: 24px !important;
+    aspect-ratio: 4 / 5 !important;
+    min-height: 480px !important;
   }
 
-  .ecom-body {
-    padding: 14px !important;
+  .ecom-card-header-floating {
+    padding: 14px 14px 0 14px !important;
+  }
+
+  .ecom-card-footer-floating {
+    padding: 0 16px 16px 16px !important;
+    gap: 8px !important;
   }
 
   .ecom-title {
-    font-size: 1.12rem !important;
+    font-size: 1.15rem !important;
+  }
+
+  .ecom-price-display {
+    font-size: 1.25rem !important;
+  }
+
+  .btn-ecom-checkout {
+    min-height: 44px !important;
+    padding: 8px 16px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .btn-ecom-wsp-alt {
+    min-height: 44px !important;
+    padding: 8px 14px !important;
   }
 
   /* Footer en móvil */
@@ -11035,60 +11243,7 @@ dialog#project-modal::backdrop {
   margin-bottom: 14px;
 }
 
-.ecom-size-btn.btn-quote-size {
-  background: rgba(217, 37, 37, 0.06);
-  color: var(--ed-red);
-  font-weight: 600;
-}
 
-.ecom-size-btn.btn-quote-size:hover {
-  background: var(--ed-red);
-  color: #FFFFFF;
-}
-
-.ecom-card-teaser {
-  background: #FFFFFF;
-  border: none !important;
-  border-radius: 26px;
-  box-shadow: 0 18px 45px -15px rgba(15, 23, 42, 0.06), 0 4px 14px -4px rgba(15, 23, 42, 0.03);
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.ecom-card-teaser:hover {
-  transform: translate3d(0, -5px, 0);
-  box-shadow: 0 28px 65px -12px rgba(217, 37, 37, 0.13), 0 12px 28px -6px rgba(15, 23, 42, 0.07);
-}
-
-.ecom-teaser-thumb-box {
-  position: relative;
-  width: calc(100% - 24px);
-  margin: 12px 12px 0 12px;
-  aspect-ratio: 4 / 3;
-  background: #0E121A;
-  border-radius: 24px;
-  overflow: hidden;
-}
-
-.ecom-teaser-thumb-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.85;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
-}
-
-.ecom-card-teaser:hover .ecom-teaser-thumb-box img {
-  transform: scale3d(1.04, 1.04, 1);
-  opacity: 0.95;
-}
-
-.ecom-card-teaser .ecom-title {
-  cursor: default !important;
-}
 
 .format-price-wrap {
   display: flex;
