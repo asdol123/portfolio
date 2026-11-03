@@ -1,0 +1,40 @@
+========================================================================
+ALZADO ROJO · AR ARQ SpA
+AGENDA Y CONTROL DE PEDIDOS DE TALLER (USO PRIVADO Y 100% LOCAL)
+========================================================================
+
+Esta herramienta es de uso exclusivo y confidencial del taller de ALZADO ROJO.
+Ha sido desacoplada totalmente del sitio web publico ar-arq.cl y del repositorio Git.
+
+CARACTERISTICAS:
+1. 100% Autonoma y Local: No requiere conexion a internet ni servidor Vercel.
+2. Persistencia en el navegador: Los datos se guardan automaticamente en el
+   almacenamiento local (localStorage) de tu computadora.
+3. Copias de Seguridad (Exportar / Importar):
+   - Con el boton "Exportar JSON" puedes descargar en un clic una copia de seguridad
+     completa de todos tus pedidos.
+   - Con el boton "Importar JSON" puedes restaurar tus pedidos o transferirlos a otro
+     equipo en segundos.
+4. Estados de Taller: Permite cambiar directamente el estado de cada pedido:
+   - En Modelado
+   - En Impresion
+   - En Enmarcado
+   - Listo para Despacho
+   - Entregado
+5. Control Financiero:
+   - Registro de Total Facturado ($ CLP)
+   - Registro de Abono ($ CLP)
+   - Estados de pago (Pendiente, Abonado 50%, Pagado Total)
+   - Metricas automaticas de saldo pendiente de cobro en tiempo real.
+
+INSTRUCCIONES DE USO:
+- Para abrirla, simplemente haz doble clic en `agenda-pedidos.html` desde tu explorador
+  de archivos de Windows (se abrira en tu navegador predeterminado: Chrome, Edge, etc.).
+- Tambien puedes crear un acceso directo en tu Escritorio hacia este archivo HTML.
+
+SEGURIDAD Y PRIVACIDAD:
+- La carpeta `_taller-privado/` se encuentra explicitamente ignorada en `.gitignore`
+  y en `.vercelignore`.
+- Ningun cliente externo puede acceder a esta base de pedidos por internet.
+- Todo respaldo adicional se encuentra guardado en `D:\Aplicaciones\Taller AR respaldo\`.
+========================================================================
