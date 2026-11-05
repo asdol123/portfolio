@@ -11,7 +11,8 @@
  */
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
-const OFFICIAL_FROM = process.env.RESEND_FROM_EMAIL || 'ALZADO ROJO <pedidos@ar-arq.cl>';
+const OFFICIAL_FROM = (process.env.RESEND_FROM_EMAIL || 'ALZADO ROJO <pedidos@ar-arq.cl>').trim();
+const OFFICIAL_REPLY_TO = 'ALZADO ROJO <pedidos@ar-arq.cl>';
 const FALLBACK_FROM = 'ALZADO ROJO <onboarding@resend.dev>';
 const WORKSHOP_EMAIL = 'adolchilemods@gmail.com';
 const WORKSHOP_PHONE = '+56 9 6203 2766';
@@ -447,6 +448,7 @@ module.exports = async function handler(req, res) {
       const resendPayload = {
         from: OFFICIAL_FROM,
         to: [customerEmail],
+        reply_to: OFFICIAL_REPLY_TO,
         bcc: [WORKSHOP_EMAIL],
         subject: subject,
         html: htmlContent
@@ -462,9 +464,10 @@ module.exports = async function handler(req, res) {
       });
 
       // Si falla por dominio no verificado en Resend (error comun con correos personalizados), reintentar con fallback
+      let lastErrorData = null;
       if (!resendResponse.ok) {
-        const errorJson = await resendResponse.json().catch(() => ({}));
-        console.warn('[ALZADO ROJO Email] Advertencia en envio primario con Resend:', errorJson);
+        lastErrorData = await resendResponse.json().catch(() => ({}));
+        console.warn('[ALZADO ROJO Email] Advertencia en envio primario con Resend:', lastErrorData);
 
         if (OFFICIAL_FROM !== FALLBACK_FROM) {
           resendPayload.from = FALLBACK_FROM;
@@ -476,6 +479,9 @@ module.exports = async function handler(req, res) {
             },
             body: JSON.stringify(resendPayload)
           });
+          if (!resendResponse.ok) {
+            lastErrorData = await resendResponse.json().catch(() => ({}));
+          }
         }
       }
 
@@ -491,7 +497,7 @@ module.exports = async function handler(req, res) {
           message: `Correo transaccional enviado exitosamente a ${customerEmail}.`
         });
       } else {
-        const errData = await resendResponse.json().catch(() => ({}));
+        const errData = lastErrorData || {};
         console.warn('[ALZADO ROJO Email] Resend retorno estado no satisfactorio:', errData);
         // Fallback seguro sin 500
         return res.status(200).json({

@@ -100,16 +100,19 @@ module.exports = async function handler(req, res) {
           phone: '+56 9 6203 2766'
         };
 
-        // Disparo asincrono sin bloquear la respuesta inmediata de webhook
-        fetch(emailEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(emailPayload)
-        }).then(r => r.json()).then(resEmail => {
+        // Disparo asincrono garantizado antes de terminar la invocacion serverless
+        try {
+          const resFetch = await fetch(emailEndpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(emailPayload),
+            signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(4000) : undefined
+          });
+          const resEmail = await resFetch.json().catch(() => ({}));
           console.info(`[ALZADO ROJO Payku] Correo transaccional emitido tras confirmacion de Payku para orden #${cleanOrder}:`, resEmail.ok);
-        }).catch(errFetchEmail => {
+        } catch (errFetchEmail) {
           console.warn('[ALZADO ROJO Payku] Aviso al emitir correo transaccional en confirmacion:', errFetchEmail.message);
-        });
+        }
 
       } catch (errEmail) {
         console.warn('[ALZADO ROJO Payku] Error al preparar notificacion transaccional:', errEmail.message);
