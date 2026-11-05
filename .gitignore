@@ -18,3 +18,7 @@ scripts/
 taller-privado/
 _taller-privado/
 agenda-pedidos.html
+.env
+.env*.local
+.env.production
+.env.development

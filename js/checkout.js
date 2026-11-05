@@ -18,6 +18,21 @@
 })(typeof window !== 'undefined' ? window : this, function () {
   'use strict';
 
+  /**
+   * Sanitiza cualquier cadena para prevenir inyección DOM-based XSS
+   * @param {string} str
+   * @returns {string}
+   */
+  function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   // Estado reactivo de la sesión de checkout
   const state = {
     isOpen: false,
@@ -95,6 +110,7 @@
       // Pantalla de éxito
       successFolio: document.getElementById('ar-success-folio'),
       successTitle: document.getElementById('ar-success-title'),
+      successLead: document.getElementById('ar-success-lead'),
       successPaykuBox: document.getElementById('ar-payku-status-box') || document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
       successKhipuBox: document.getElementById('ar-payku-status-box') || document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
       btnPaykuLink: document.getElementById('btn-ar-payku-link') || document.getElementById('btn-ar-khipu-link') || document.getElementById('btn-ar-flow-link'),
@@ -565,12 +581,15 @@
       if (state.paymentMethod === 'cotizacion') {
         if (dom.successTitle) dom.successTitle.textContent = '¡COTIZACIÓN FORMAL EMITIDA!';
         if (dom.successLead) {
-          dom.successLead.innerHTML = `Hemos enviado la cotización formal desglosada a su correo <strong>${customer.email}</strong> y a nuestro taller (<strong>adolchilemods@gmail.com</strong>). Sus tarifas quedan reservadas formalmente por 15 días.`;
+          const safeEmail = escapeHtml(customer.email);
+          dom.successLead.innerHTML = `Hemos enviado la cotización formal desglosada a su correo <strong>${safeEmail}</strong> y a nuestro taller (<strong>adolchilemods@gmail.com</strong>). Sus tarifas quedan reservadas formalmente por 15 días.`;
         }
       } else {
         if (dom.successTitle) dom.successTitle.textContent = '¡ORDEN REGISTRADA CON ÉXITO!';
         if (dom.successLead) {
-          dom.successLead.innerHTML = `Hemos registrado su orden oficial <strong>#${result.order.folio}</strong> y enviado el comprobante con desglose formal a su correo <strong>${customer.email}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
+          const safeFolio = escapeHtml(result.order ? result.order.folio : state.folio);
+          const safeEmail = escapeHtml(customer.email);
+          dom.successLead.innerHTML = `Hemos registrado su orden oficial <strong>#${safeFolio}</strong> y enviado el comprobante con desglose formal a su correo <strong>${safeEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
         }
       }
 
@@ -643,13 +662,17 @@
         } else {
           // Si la pasarela reporta error, derivar a WhatsApp oficial 56962032766 o transferencia bancaria como respaldo
           const gatewayError = (gatewayData && gatewayData.error) ? gatewayData.error : 'No fue posible conectar con Payku en este instante.';
+          const safeFolio = escapeHtml(result.order ? result.order.folio : state.folio);
+          const safeError = escapeHtml(gatewayError);
           const wspUrl = (gatewayData && gatewayData.whatsappFallback)
             ? gatewayData.whatsappFallback
-            : `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, se presento un aviso al procesar mi orden #${result.order.folio} en Payku: ${gatewayError}. Deseo pagar por transferencia bancaria o coordinar el pago directamente.`)}`;
+            : `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, se presento un aviso al procesar mi orden #${result.order ? result.order.folio : state.folio} en Payku: ${gatewayError}. Deseo pagar por transferencia bancaria o coordinar el pago directamente.`)}`;
 
-          if (dom.khipuTitle) dom.khipuTitle.textContent = 'PAGO EN LÍNEA · RESPALDO POR WHATSAPP O TRANSFERENCIA';
-          if (dom.khipuDesc) {
-            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada en nuestro taller.<br><br><strong>Aviso de pasarela:</strong> ${gatewayError}<br><br>Puede completar el pago de inmediato mediante Transferencia Bancaria Directa (Banco Bci) o coordinar el pago vía WhatsApp oficial.`;
+          const titleEl = dom.paykuTitle || dom.khipuTitle;
+          const descEl = dom.paykuDesc || dom.khipuDesc;
+          if (titleEl) titleEl.textContent = 'PAGO EN LÍNEA · RESPALDO POR WHATSAPP O TRANSFERENCIA';
+          if (descEl) {
+            descEl.innerHTML = `Su orden <strong>#${safeFolio}</strong> ha sido registrada en nuestro taller.<br><br><strong>Aviso de pasarela:</strong> ${safeError}<br><br>Puede completar el pago de inmediato mediante Transferencia Bancaria Directa (Banco Bci) o coordinar el pago vía WhatsApp oficial.`;
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
@@ -1061,16 +1084,17 @@
 
     const titleText = (type === 'approved') ? 'Pago Aprobado' : 'Pago Cancelado';
 
+    const safeMessage = escapeHtml(message);
     let actionBtnHtml = '';
     if (options.actionLabel) {
-      actionBtnHtml = `<button type="button" class="ar-checkout-toast-action" id="ar-toast-action-btn">${options.actionLabel}</button>`;
+      actionBtnHtml = `<button type="button" class="ar-checkout-toast-action" id="ar-toast-action-btn">${escapeHtml(options.actionLabel)}</button>`;
     }
 
     toast.innerHTML = `
       <div class="ar-checkout-toast-icon" aria-hidden="true">${iconSvg}</div>
       <div class="ar-checkout-toast-content">
         <strong class="ar-checkout-toast-title">${titleText}</strong>
-        <p class="ar-checkout-toast-msg">${message}</p>
+        <p class="ar-checkout-toast-msg">${safeMessage}</p>
         ${actionBtnHtml}
       </div>
       <button type="button" class="ar-checkout-toast-close" id="ar-toast-close-btn" aria-label="Cerrar notificación">
@@ -1134,7 +1158,11 @@
 
       if (!isApproved && !isCancelled) return;
 
-      const orderFolioFromUrl = urlParams.get('order') || urlParams.get('orderId') || urlParams.get('order_id') || '';
+      const rawFolio = (urlParams.get('order') || urlParams.get('orderId') || urlParams.get('order_id') || '').trim();
+      const orderFolioFromUrl = rawFolio.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40);
+      const tokenFromUrl = (urlParams.get('token') || urlParams.get('trx_id') || '').trim().replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 80);
+      const emailFromUrl = (urlParams.get('email') || urlParams.get('payer_email') || '').trim().slice(0, 100);
+      const nameFromUrl = (urlParams.get('name') || urlParams.get('payer_name') || '').trim().slice(0, 100);
 
       if (!dom.modal) initDomReferences();
       if (!dom.modal) return;
@@ -1208,7 +1236,8 @@
           dom.successTitle.textContent = 'PAGO CANCELADO';
         }
         if (dom.successLead) {
-          dom.successLead.innerHTML = `El pago fue cancelado. Puedes reintentar o pagar mediante Transferencia Bancaria.<br><br>Tu orden <strong>#${order.folio}</strong> permanece reservada en nuestro sistema.`;
+          const safeFolio = escapeHtml(order.folio);
+          dom.successLead.innerHTML = `El pago fue cancelado. Puedes reintentar o pagar mediante Transferencia Bancaria.<br><br>Tu orden <strong>#${safeFolio}</strong> permanece reservada en nuestro sistema.`;
         }
 
         const statusBox = dom.successPaykuBox || dom.successKhipuBox;
@@ -1220,7 +1249,7 @@
 
           if (titleEl) titleEl.textContent = 'TRANSFERENCIA BANCARIA DIRECTA';
           if (descEl) {
-            descEl.innerHTML = 'Puedes completar el pago de inmediato mediante transferencia bancaria a Banco Bci o coordinar la confirmación directa por WhatsApp oficial.';
+            descEl.textContent = 'Puedes completar el pago de inmediato mediante transferencia bancaria a Banco Bci o coordinar la confirmación directa por WhatsApp oficial.';
           }
           if (linkBtn) {
             linkBtn.style.display = 'inline-flex';
@@ -1247,11 +1276,11 @@
 
           const payerEmail = (order.customer && order.customer.email && order.customer.email !== 'adolchilemods@gmail.com')
             ? order.customer.email
-            : (urlParams.get('email') || urlParams.get('payer_email') || (order.customer && order.customer.email) || '');
+            : (emailFromUrl || (order.customer && order.customer.email) || '');
 
           const payerName = (order.customer && order.customer.name && order.customer.name !== 'Cliente Payku')
             ? order.customer.name
-            : (urlParams.get('name') || urlParams.get('payer_name') || 'Cliente ALZADO ROJO');
+            : (nameFromUrl || 'Cliente ALZADO ROJO');
 
           if (payerEmail && order.customer) {
             order.customer.email = payerEmail;
@@ -1298,7 +1327,9 @@
         }
         if (dom.successLead) {
           const custEmail = (order.customer && order.customer.email) ? order.customer.email : 'tu correo';
-          dom.successLead.innerHTML = `¡Pago Aprobado! Tu orden <strong>#${order.folio}</strong> ha sido confirmada exitosamente. Te enviamos los detalles a tu correo <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
+          const safeFolio = escapeHtml(order.folio);
+          const safeEmail = escapeHtml(custEmail);
+          dom.successLead.innerHTML = `¡Pago Aprobado! Tu orden <strong>#${safeFolio}</strong> ha sido confirmada exitosamente. Te enviamos los detalles a tu correo <strong>${safeEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
         }
 
         const statusBox = dom.successPaykuBox || dom.successKhipuBox;
@@ -1375,6 +1406,7 @@
   }
 
   return {
+    escapeHtml,
     openCheckout,
     closeCheckout,
     checkPaykuReturnStatus,

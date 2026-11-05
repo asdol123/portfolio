@@ -15,16 +15,13 @@
 const OFFICIAL_PHONE = '56962032766';
 const OFFICIAL_EMAIL = 'contacto@ar-arq.cl';
 
-// Credenciales oficiales AR ARQ SpA
-const DEFAULT_PUBLIC_TOKEN = 'tkpudcb500cf54f5ab35609572ce31f2';
-const DEFAULT_PRIVATE_TOKEN = 'tkpic31267f96187c8cbc563cafc1f57';
-
+// Configuración oficial AR ARQ SpA
 /**
- * Obtiene y valida la configuracion activa de Payku
+ * Obtiene y valida la configuracion activa de Payku exclusivamente desde variables de entorno
  */
 function getPaykuConfig() {
-  const tokenPublic = (process.env.PAYKU_TOKEN_PUBLIC || DEFAULT_PUBLIC_TOKEN).trim();
-  const tokenSecret = (process.env.PAYKU_TOKEN_SECRET || DEFAULT_PRIVATE_TOKEN).trim();
+  const tokenPublic = (process.env.PAYKU_TOKEN_PUBLIC || '').trim();
+  const tokenSecret = (process.env.PAYKU_TOKEN_PRIVATE || process.env.PAYKU_TOKEN_SECRET || '').trim();
 
   // Los tokens de produccion oficiales de Payku inician con tkpu (publico) y tkpi (privado)
   const isProductionCredentials = tokenPublic.startsWith('tkpu') || tokenSecret.startsWith('tkpi');
@@ -160,6 +157,17 @@ module.exports = async function handler(req, res) {
         orderId: cleanOrderId,
         amount: numericAmount,
         subject: cleanSubject
+      });
+    }
+
+    if (!hasRealCreds) {
+      console.warn('[ALZADO ROJO Payku] Token público de Payku no configurado en servidor.');
+      return res.status(503).json({
+        ok: false,
+        gateway: 'payku',
+        error: 'Pasarela de pagos en mantención o configuración. Por favor seleccione Transferencia Bancaria Directa o coordine vía WhatsApp oficial.',
+        orderId: cleanOrderId,
+        whatsappFallback: `https://wa.me/${OFFICIAL_PHONE}?text=${encodeURIComponent(`Hola Adolfo, deseo pagar mi orden #${cleanOrderId} por transferencia bancaria.`)}`
       });
     }
 

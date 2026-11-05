@@ -126,9 +126,9 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // Credenciales oficiales comprobadas
-    const apiKey = (process.env.FLOW_API_KEY || '6ABF2DFB-E963-4181-9B2E-658930LFA874').trim();
-    const secretKey = (process.env.FLOW_SECRET_KEY || 'e91d2e117100d39df37628fc7fa862f7fc3518d3').trim();
+    // Credenciales oficiales aisladas en variables de entorno
+    const apiKey = (process.env.FLOW_API_KEY || '').trim();
+    const secretKey = (process.env.FLOW_SECRET_KEY || '').trim();
 
     // Deteccion robusta de la URL base
     const proto = req.headers['x-forwarded-proto'] || 'https';
@@ -137,6 +137,17 @@ module.exports = async function handler(req, res) {
 
     const cleanOrderId = String(orderId || `AR-${Date.now()}`).slice(0, 45);
     const cleanSubject = String(subject || `Orden ALZADO ROJO ${cleanOrderId}`).slice(0, 250);
+
+    if (!apiKey || !secretKey) {
+      console.warn('[ALZADO ROJO Flow] Credenciales no configuradas en variables de entorno.');
+      return res.status(503).json({
+        ok: false,
+        gateway: 'flow',
+        error: 'Pasarela Flow inactiva o en mantención. Por favor seleccione Transferencia Bancaria Directa o coordine vía WhatsApp oficial.',
+        orderId: cleanOrderId,
+        whatsappFallback: `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, deseo pagar mi orden #${cleanOrderId} por transferencia bancaria.`)}`
+      });
+    }
 
     // Parametros oficiales Flow payment/create
     const flowParams = {

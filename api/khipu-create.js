@@ -11,9 +11,9 @@
  */
 
 const KHIPU_CONFIG = {
-  apiKey: (process.env.KHIPU_API_KEY || 'd5b864ad-c04d-4b99-a7d8-004bdc720092').trim(),
-  receiverId: (process.env.KHIPU_RECEIVER_ID || '531908').trim(),
-  secret: (process.env.KHIPU_SECRET || '6e4e814572592b8b1ba4ec1893972b3955582f09').trim(),
+  apiKey: (process.env.KHIPU_API_KEY || '').trim(),
+  receiverId: (process.env.KHIPU_RECEIVER_ID || '').trim(),
+  secret: (process.env.KHIPU_SECRET || '').trim(),
   defaultOrigin: 'https://alzado-rojo.cl'
 };
 

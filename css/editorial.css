@@ -1869,7 +1869,8 @@ button, input, textarea, select {
   box-shadow: 0 20px 48px -15px rgba(10, 10, 12, 0.14);
 }
 
-.bionova-page-hero-cinematic .page-hero-bg-banner {
+.bionova-page-hero-cinematic .page-hero-bg-banner,
+.bionova-page-hero-cinematic .page-hero-bg-video {
   position: absolute;
   top: 0;
   left: 0;
@@ -1879,9 +1880,11 @@ button, input, textarea, select {
   object-position: right center;
   z-index: 1;
   transition: transform 0.85s var(--spring-ease);
+  pointer-events: none;
 }
 
-.bionova-page-hero-cinematic:hover .page-hero-bg-banner {
+.bionova-page-hero-cinematic:hover .page-hero-bg-banner,
+.bionova-page-hero-cinematic:hover .page-hero-bg-video {
   transform: scale(1.02);
 }
 
@@ -6413,15 +6416,16 @@ dialog#project-modal::backdrop {
   color: #FFFFFF !important;
 }
 
-/* Fila de Acción Simplificada de Alto Impacto */
+/* Fila de Acción Simplificada de Galería Arquitectónica */
 .ecom-cta-row {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr;
   gap: 8px;
   align-items: center;
-  margin-top: 4px;
+  margin-top: 6px;
 }
 
+.btn-ecom-action,
 .btn-ecom-checkout {
   display: flex;
   align-items: center;
@@ -6446,6 +6450,7 @@ dialog#project-modal::backdrop {
   transition: transform 0.2s var(--spring-ease), background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
 }
 
+.btn-ecom-action:hover,
 .btn-ecom-checkout:hover {
   background: var(--ed-red) !important;
   color: #FFFFFF !important;
@@ -6454,23 +6459,56 @@ dialog#project-modal::backdrop {
   transform: translateY(-2px);
 }
 
+.btn-ecom-action:active,
 .btn-ecom-checkout:active {
   transform: scale(0.97);
 }
 
+.btn-ecom-action:focus-visible,
 .btn-ecom-checkout:focus-visible {
   outline: 2px solid #FFFFFF;
   outline-offset: 2px;
 }
 
+.btn-ecom-action .btn-arrow,
 .btn-ecom-checkout .btn-arrow {
   display: inline-flex;
   align-items: center;
   transition: transform 0.2s var(--spring-ease);
 }
 
+.btn-ecom-action:hover .btn-arrow,
 .btn-ecom-checkout:hover .btn-arrow {
   transform: translateX(4px);
+}
+
+/* Indicador Discreto de Video 3D en Tarjeta */
+.ecom-video-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+/* Prefijo de Precio para Formatos Múltiples */
+.ecom-price-prefix {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 /* Acceso Directo Minimalista a WhatsApp */
