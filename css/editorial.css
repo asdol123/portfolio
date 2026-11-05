@@ -11775,3 +11775,34 @@ dialog#project-modal::backdrop {
   margin-right: calc(50% - 50vw) !important;
 }
 
+
+
+/* ==========================================================================
+   Critical Contrast & Responsive Refinements (20261105g)
+   ========================================================================== */
+.ed-header .ed-logo-text { color: #FFFFFF !important; }
+.ed-header .ed-sublogo { color: rgba(255, 255, 255, 0.68) !important; }
+.ed-header .bionova-nav-pill-btn { background: #E61919 !important; color: #FFFFFF !important; }
+.bionova-hero-fullbleed .hero-tech-label { color: rgba(255, 255, 255, 0.9) !important; }
+.bionova-page-hero-cinematic { padding: 130px 6vw 64px !important; display: flex !important; align-items: flex-end !important; box-sizing: border-box !important; }
+
+.ed-main > .ed-section,
+.ed-main > .portfolio-gallery-section {
+  max-width: 1560px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: clamp(16px, 4vw, 48px) !important;
+  padding-right: clamp(16px, 4vw, 48px) !important;
+}
+
+@media (max-width: 900px) {
+  .bionova-hero-fullbleed .hero-fullbleed-bottom-bar,
+  .hero-hud-nav {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 14px !important;
+  }
+  .hero-hud-sep {
+    display: none !important;
+  }
+}
