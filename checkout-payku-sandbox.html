@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payku Chile · Simulador de Pagos Sandbox Webpay Plus</title>
+  <style>
+    :root {
+      --bg-canvas: #0a0a0c;
+      --card-bg: #141418;
+      --card-border: #26262e;
+      --accent-red: #c82333;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --mono-font: 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+      --sans-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: var(--sans-font);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      line-height: 1.5;
+    }
+
+    .sandbox-container {
+      width: 100%;
+      max-width: 520px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+
+    /* Barra Superior Sandbox */
+    .sandbox-bar {
+      background: #1c1416;
+      border-bottom: 1px solid #3d171b;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-red);
+    }
+
+    .sandbox-badge {
+      background: rgba(200, 35, 51, 0.15);
+      border: 1px solid var(--accent-red);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-family: var(--mono-font);
+      font-size: 10px;
+    }
+
+    /* Encabezado del Comercio */
+    .merchant-header {
+      padding: 24px 24px 16px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .merchant-brand {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .merchant-name {
+      font-size: 20px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+
+    .merchant-name span {
+      color: var(--accent-red);
+    }
+
+    /* Detalle de la Transacción */
+    .transaction-body {
+      padding: 24px;
+    }
+
+    .detail-card {
+      background: #0f0f13;
+      border: 1px solid #1f1f26;
+      border-radius: 6px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #1a1a22;
+      font-size: 13px;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+      padding-top: 12px;
+      margin-top: 4px;
+    }
+
+    .detail-label {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .detail-value {
+      font-weight: 600;
+      color: var(--text-main);
+      font-family: var(--mono-font);
+      font-size: 13px;
+    }
+
+    .detail-total {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      font-family: var(--sans-font);
+    }
+
+    /* Tarjeta Virtual de Prueba */
+    .virtual-card-box {
+      background: linear-gradient(135deg, #181920 0%, #101116 100%);
+      border: 1px solid #2d2d38;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .virtual-card-chip {
+      width: 32px;
+      height: 24px;
+      background: #4a4030;
+      border: 1px solid #78684d;
+      border-radius: 4px;
+      margin-bottom: 14px;
+    }
+
+    .virtual-card-number {
+      font-family: var(--mono-font);
+      font-size: 15px;
+      letter-spacing: 0.15em;
+      color: #e5e7eb;
+      margin-bottom: 12px;
+    }
+
+    .virtual-card-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-family: var(--mono-font);
+    }
+
+    .virtual-card-network {
+      position: absolute;
+      right: 20px;
+      top: 18px;
+      font-weight: 800;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: #93c5fd;
+    }
+
+    /* Explicacion de pruebas */
+    .sandbox-notice {
+      background: #11141a;
+      border-left: 3px solid var(--accent-amber);
+      padding: 12px 14px;
+      margin-bottom: 24px;
+      font-size: 12px;
+      color: #d1d5db;
+      line-height: 1.5;
+    }
+
+    .sandbox-notice strong {
+      color: #fef08a;
+    }
+
+    /* Botones de Accion del Simulador */
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn-action {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 6px;
+      font-family: var(--sans-font);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      text-decoration: none;
+    }
+
+    .btn-approve {
+      background-color: var(--accent-green);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-approve:hover {
+      background-color: #059669;
+      transform: translateY(-1px);
+    }
+
+    .btn-cancel {
+      background-color: transparent;
+      color: #9ca3af;
+      border: 1px solid #2a2a35;
+    }
+
+    .btn-cancel:hover {
+      background-color: #1a1a24;
+      color: #ef4444;
+      border-color: #4b1d22;
+    }
+
+    /* Pie */
+    .sandbox-footer {
+      padding: 16px 24px;
+      background: #0d0d10;
+      border-top: 1px solid var(--card-border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .sandbox-footer a {
+      color: var(--text-muted);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sandbox-container">
+    <!-- Barra Superior -->
+    <div class="sandbox-bar">
+      <span>PAYKU CHILE · WEBPAY PLUS</span>
+      <span class="sandbox-badge">MODO SIMULADOR SANDBOX</span>
+    </div>
+
+    <!-- Encabezado Comercio -->
+    <div class="merchant-header">
+      <div class="merchant-brand">COMERCIO CERTIFICADO</div>
+      <div class="merchant-name">ALZADO <span>ROJO</span> · AR ARQ SpA</div>
+    </div>
+
+    <!-- Contenido Transacción -->
+    <div class="transaction-body">
+      
+      <!-- Detalle Financiero -->
+      <div class="detail-card">
+        <div class="detail-row">
+          <span class="detail-label">Orden / Folio</span>
+          <span class="detail-value" id="display-order">AR-2026-TALLER</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Cliente</span>
+          <span class="detail-value" id="display-email">cliente@alzado-rojo.cl</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Pasarela</span>
+          <span class="detail-value">Webpay Plus / Débito / Crédito</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Total a Pagar</span>
+          <span class="detail-total" id="display-amount">$24.990 CLP</span>
+        </div>
+      </div>
+
+      <!-- Tarjeta Virtual de Prueba -->
+      <div class="virtual-card-box">
+        <div class="virtual-card-network">WEBPAY</div>
+        <div class="virtual-card-chip"></div>
+        <div class="virtual-card-number">•••• •••• •••• 4022</div>
+        <div class="virtual-card-footer">
+          <span>TITULAR: PRUEBA SANDBOX</span>
+          <span>EXP: 12/28</span>
+        </div>
+      </div>
+
+      <!-- Aviso Explicativo -->
+      <div class="sandbox-notice">
+        <strong>Ambiente de pruebas interactivo:</strong> Esta transacción se ejecuta en modo simulación de Payku Chile. No se realizará ningún cargo a su cuenta bancaria o tarjeta de crédito.
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="action-stack">
+        <button type="button" class="btn-action btn-approve" id="btn-approve">
+          <span>SIMULAR PAGO APROBADO (WEBPAY)</span>
+        </button>
+
+        <button type="button" class="btn-action btn-cancel" id="btn-cancel">
+          <span>SIMULAR PAGO RECHAZADO / CANCELAR</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Pie -->
+    <div class="sandbox-footer">
+      Integración pasarela Payku Chile · Taller de Maquetería Digital ALZADO ROJO · Santiago, Chile
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // Parsear parámetros de la URL
+      const params = new URLSearchParams(window.location.search);
+      const order = params.get('order') || params.get('orderId') || 'AR-SANDBOX-' + Math.floor(1000 + Math.random() * 9000);
+      const amount = parseInt(params.get('amount'), 10) || 24990;
+      const email = params.get('email') || 'cliente@alzado-rojo.cl';
+
+      // Actualizar vista
+      const elemOrder = document.getElementById('display-order');
+      const elemAmount = document.getElementById('display-amount');
+      const elemEmail = document.getElementById('display-email');
+
+      if (elemOrder) elemOrder.textContent = order;
+      if (elemEmail) elemEmail.textContent = email;
+      if (elemAmount) {
+        elemAmount.textContent = '$' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ' CLP';
+      }
+
+      // Handler para Pago Aprobado
+      document.getElementById('btn-approve').addEventListener('click', function() {
+        this.disabled = true;
+        this.textContent = 'PROCESANDO AUTORIZACION...';
+
+        // Redirige pasando por el endpoint de retorno para procesar la transaccion
+        const targetUrl = '/api/payku-return?status=approved&order=' + encodeURIComponent(order);
+        
+        // Si el cliente corre en un host sin serverless local (ej. file:// o live-server estatico)
+        if (window.location.protocol === 'file:' || !window.location.hostname.includes('.')) {
+          window.location.href = '/maquetas-urbanas.html?payku_status=approved&order=' + encodeURIComponent(order);
+        } else {
+          window.location.href = targetUrl;
+        }
+      });
+
+      // Handler para Pago Rechazado / Cancelado
+      document.getElementById('btn-cancel').addEventListener('click', function() {
+        this.disabled = true;
+        this.textContent = 'CANCELANDO TRANSACCION...';
+
+        const targetUrl = '/api/payku-return?status=cancelled&order=' + encodeURIComponent(order);
+
+        if (window.location.protocol === 'file:' || !window.location.hostname.includes('.')) {
+          window.location.href = '/maquetas-urbanas.html?payku_status=cancelled&order=' + encodeURIComponent(order);
+        } else {
+          window.location.href = targetUrl;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

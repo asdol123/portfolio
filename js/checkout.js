@@ -31,7 +31,7 @@
     unitPrice: 9990,
     quantity: 1,
     shippingId: 'pickup',
-    paymentMethod: 'transferencia',
+    paymentMethod: 'payku',
     lastProcessedOrder: null
   };
 
@@ -95,11 +95,14 @@
       // Pantalla de éxito
       successFolio: document.getElementById('ar-success-folio'),
       successTitle: document.getElementById('ar-success-title'),
-      successLead: document.getElementById('ar-success-lead'),
-      successKhipuBox: document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
-      btnKhipuLink: document.getElementById('btn-ar-khipu-link') || document.getElementById('btn-ar-flow-link'),
-      khipuTitle: document.getElementById('ar-flow-action-title') || document.getElementById('ar-khipu-action-title'),
-      khipuDesc: document.getElementById('ar-flow-action-desc') || document.getElementById('ar-khipu-action-desc'),
+      successPaykuBox: document.getElementById('ar-payku-status-box') || document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
+      successKhipuBox: document.getElementById('ar-payku-status-box') || document.getElementById('ar-khipu-status-box') || document.getElementById('ar-success-khipu-box'),
+      btnPaykuLink: document.getElementById('btn-ar-payku-link') || document.getElementById('btn-ar-khipu-link') || document.getElementById('btn-ar-flow-link'),
+      btnKhipuLink: document.getElementById('btn-ar-payku-link') || document.getElementById('btn-ar-khipu-link') || document.getElementById('btn-ar-flow-link'),
+      paykuTitle: document.getElementById('ar-payku-action-title') || document.getElementById('ar-flow-action-title') || document.getElementById('ar-khipu-action-title'),
+      khipuTitle: document.getElementById('ar-payku-action-title') || document.getElementById('ar-flow-action-title') || document.getElementById('ar-khipu-action-title'),
+      paykuDesc: document.getElementById('ar-payku-action-desc') || document.getElementById('ar-flow-action-desc') || document.getElementById('ar-khipu-action-desc'),
+      khipuDesc: document.getElementById('ar-payku-action-desc') || document.getElementById('ar-flow-action-desc') || document.getElementById('ar-khipu-action-desc'),
       btnDownloadPdf: document.getElementById('btn-ar-download-pdf'),
       btnCoordWsp: document.getElementById('btn-ar-coord-wsp'),
       btnTogglePreview: document.getElementById('btn-ar-toggle-preview'),
@@ -159,24 +162,23 @@
   function updateSubmitButtonState() {
     if (!dom.btnSubmitLabel) return;
 
-    if (state.paymentMethod === 'khipu') {
-      dom.btnSubmitLabel.textContent = 'PAGAR CON KHIPU';
-    } else if (state.paymentMethod === 'flow') {
-      dom.btnSubmitLabel.textContent = 'INTENTAR PAGO CON TARJETA';
+    if (state.paymentMethod === 'payku' || state.paymentMethod === 'tarjeta' || state.paymentMethod === 'flow' || state.paymentMethod === 'khipu') {
+      dom.btnSubmitLabel.textContent = 'PAGAR CON TARJETA (WEBPAY PLUS)';
     } else if (state.paymentMethod === 'transferencia' || state.paymentMethod === 'transfer') {
       dom.btnSubmitLabel.textContent = 'CONFIRMAR PEDIDO POR TRANSFERENCIA';
     } else if (state.paymentMethod === 'cotizacion') {
       dom.btnSubmitLabel.textContent = 'DESCARGAR COTIZACIÓN';
+    } else {
+      dom.btnSubmitLabel.textContent = 'CONFIRMAR ORDEN';
     }
   }
 
   /**
-   * Actualiza el estado visual del aviso técnico según el medio de pago seleccionado
+   * Actualiza el estado visual del aviso según el medio de pago seleccionado
    */
   function updatePaymentNoticeState() {
     if (!dom.paymentNotice) return;
-    const isFlow = (state.paymentMethod === 'flow');
-    dom.paymentNotice.classList.toggle('is-flow-active', isFlow);
+    dom.paymentNotice.style.display = 'flex';
   }
 
   /**
@@ -188,7 +190,7 @@
     if (dom.paymentOptions) {
       dom.paymentOptions.forEach(opt => {
         const radio = opt.querySelector('input[type="radio"]');
-        const match = radio && radio.value === targetMethod;
+        const match = radio && (radio.value === targetMethod || (targetMethod === 'transferencia' && radio.value === 'transfer'));
         if (radio) radio.checked = match;
         opt.classList.toggle('is-selected', match);
       });
@@ -280,14 +282,14 @@
       parsedPrice = parseInt(String(productData.unitPrice || '').replace(/[^0-9]/g, ''), 10) || 9990;
     }
     
-    // Priorizar Transferencia Bancaria Directa o activar modo Cotización si es cotización o formato especial
+    // Metodo de pago solicitado o por defecto payku
     const requestedMethod = productData.paymentMethod;
     if (isCustomSpecial || requestedMethod === 'cotizacion') {
       state.paymentMethod = 'cotizacion';
-    } else if (requestedMethod === 'khipu') {
-      state.paymentMethod = 'khipu';
-    } else {
+    } else if (requestedMethod === 'transfer' || requestedMethod === 'transferencia') {
       state.paymentMethod = 'transferencia';
+    } else {
+      state.paymentMethod = 'payku';
     }
     state.isCustomSpecial = isCustomSpecial;
 
@@ -570,56 +572,65 @@
         }
       }
 
-      // Pasarela en vivo (Khipu o Flow.cl)
-      const isOnlineGateway = (state.paymentMethod === 'flow' || state.paymentMethod === 'khipu');
-      if (isOnlineGateway && dom.successKhipuBox) {
+      // Pasarela en vivo: Payku Chile (Webpay Plus / Débito / Crédito)
+      const isPaykuMethod = (state.paymentMethod === 'payku');
+      if (isPaykuMethod && dom.successKhipuBox) {
         dom.successKhipuBox.style.display = 'block';
-        const isKhipuMethod = (state.paymentMethod === 'khipu');
-        let gatewayData = isKhipuMethod ? (result.khipuResult || result.flowResult) : (result.flowResult || result.khipuResult);
+        let gatewayData = result.paykuResult || null;
         let paymentUrl = result.payment_url || (gatewayData && gatewayData.payment_url);
 
-        // Si es Khipu y aún no tenemos paymentUrl, llamada de contingencia directa a /api/khipu-create
-        if (isKhipuMethod && !paymentUrl) {
+        // Si aún no tenemos paymentUrl, llamada directa hacia /api/payku-create
+        if (!paymentUrl) {
           try {
-            const khipuPayload = {
+            const paykuPayload = {
               orderId: (result.order && result.order.folio) || state.folio,
               subject: `Orden ALZADO ROJO ${(result.order && result.order.folio) || state.folio} | ${state.productName} (${state.size})`.slice(0, 200),
-              amount: Math.round(Number((result.order && result.order.total) || state.unitPrice * state.quantity || 29990)),
+              amount: Math.round(Number((result.order && result.order.total) || state.unitPrice * state.quantity || 24990)),
               currency: 'CLP',
               payer_email: customer.email,
-              payer_name: customer.name,
-              body: `${state.productName} · Formato: ${state.size} · Despacho: ${state.shippingId}`
+              payer_name: customer.name
             };
-            const directRes = await fetch('/api/khipu-create', {
+            const directRes = await fetch('/api/payku-create', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(khipuPayload)
+              body: JSON.stringify(paykuPayload)
             });
             if (directRes.ok) {
               const directData = await directRes.json();
-              if (directData && directData.payment_url) {
+              if (directData && directData.ok && directData.payment_url) {
                 paymentUrl = directData.payment_url;
                 gatewayData = directData;
+              } else if (directData && !directData.ok) {
+                gatewayData = directData;
+              }
+            } else {
+              try {
+                gatewayData = await directRes.json();
+              } catch (eJson) {
+                gatewayData = { error: 'Error de respuesta del servidor Payku' };
               }
             }
           } catch (directErr) {
-            console.warn('[ALZADO ROJO Checkout] Error en contingencia /api/khipu-create:', directErr);
+            console.warn('[ALZADO ROJO Checkout] Error de conexion con /api/payku-create:', directErr);
+            gatewayData = { error: directErr.message };
           }
         }
-        
+
         if (paymentUrl) {
-          if (dom.khipuTitle) {
-            dom.khipuTitle.textContent = isKhipuMethod ? 'KHIPU · PASARELA DE PAGO PREPARADA' : 'FLOW.CL · PASARELA DE PAGO PREPARADA';
+          const titleEl = dom.paykuTitle || dom.khipuTitle;
+          const descEl = dom.paykuDesc || dom.khipuDesc;
+          const linkBtn = dom.btnPaykuLink || dom.btnKhipuLink;
+
+          if (titleEl) {
+            titleEl.textContent = 'PAYKU · PASARELA WEBPAY PREPARADA';
           }
-          if (dom.khipuDesc) {
-            dom.khipuDesc.textContent = isKhipuMethod
-              ? 'Tu orden ha sido generada en Khipu. Redirigiendo a la pasarela segura de transferencia bancaria... Si no eres redirigido automáticamente, haz clic en el siguiente botón:'
-              : 'Tu orden ha sido generada en Flow.cl. Redirigiendo a la pasarela segura Webpay... Si no eres redirigido automáticamente, haz clic en el siguiente botón:';
+          if (descEl) {
+            descEl.textContent = 'Tu orden ha sido generada en Payku. Redirigiendo a la pasarela segura Webpay Plus... Si no eres redirigido automáticamente, haz clic en el siguiente botón:';
           }
-          if (dom.btnKhipuLink) {
-            dom.btnKhipuLink.style.display = 'inline-flex';
-            dom.btnKhipuLink.href = paymentUrl;
-            dom.btnKhipuLink.textContent = isKhipuMethod ? 'IR A PAGAR EN KHIPU' : 'IR A PAGAR EN FLOW.CL (WEBPAY)';
+          if (linkBtn) {
+            linkBtn.style.display = 'inline-flex';
+            linkBtn.href = paymentUrl;
+            linkBtn.textContent = 'IR A PAGAR CON WEBPAY PLUS (PAYKU)';
           }
           // Redirección inmediata a pasarela
           try {
@@ -628,13 +639,15 @@
             console.warn('[ALZADO ROJO Checkout] Redirección automática prevenida por el navegador:', errRedirect);
           }
         } else {
-          // Si la pasarela reporta error, mostrar aviso explicativo elegante con opción de transferir o WhatsApp
-          const gatewayError = (gatewayData && gatewayData.error) ? gatewayData.error : 'No fue posible conectar con la pasarela en este instante.';
-          const wspUrl = (gatewayData && gatewayData.whatsappFallback) ? gatewayData.whatsappFallback : result.whatsappUrl;
+          // Si la pasarela reporta error, derivar a WhatsApp oficial 56962032766 o transferencia bancaria como respaldo
+          const gatewayError = (gatewayData && gatewayData.error) ? gatewayData.error : 'No fue posible conectar con Payku en este instante.';
+          const wspUrl = (gatewayData && gatewayData.whatsappFallback)
+            ? gatewayData.whatsappFallback
+            : `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, se presento un aviso al procesar mi orden #${result.order.folio} en Payku: ${gatewayError}. Deseo pagar por transferencia bancaria o coordinar el pago directamente.`)}`;
 
-          if (dom.khipuTitle) dom.khipuTitle.textContent = 'PAGO EN LÍNEA · GESTIÓN DIRECTA DISPONIBLE';
+          if (dom.khipuTitle) dom.khipuTitle.textContent = 'PAGO EN LÍNEA · RESPALDO POR WHATSAPP O TRANSFERENCIA';
           if (dom.khipuDesc) {
-            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada exitosamente en nuestro sistema.<br><br><strong>Detalle de pasarela:</strong> ${gatewayError}<br><br>Puede completar el pago de inmediato mediante Transferencia Electrónica Directa (datos bancarios abajo) o coordinar el link de pago por WhatsApp.`;
+            dom.khipuDesc.innerHTML = `Su orden <strong>#${result.order.folio}</strong> ha sido registrada en nuestro taller.<br><br><strong>Aviso de pasarela:</strong> ${gatewayError}<br><br>Puede completar el pago de inmediato mediante Transferencia Bancaria Directa (Banco Bci) o coordinar el pago vía WhatsApp oficial.`;
           }
           if (dom.btnKhipuLink) {
             dom.btnKhipuLink.style.display = 'inline-flex';
@@ -1022,22 +1035,104 @@
   }
 
   /**
-   * Detección de Retorno Exitoso desde Khipu o Flow.cl
-   * (?khipu_status=completed&order=... o ?flow_status=completed&order=...)
-   * Al cargar la página, verifica los parámetros de la URL y si está completado,
-   * abre automáticamente el modal en la pantalla de éxito con la orden confirmada.
+   * Muestra un toast flotante accesible de confirmación o alerta de pago
+   * @param {'approved'|'cancelled'} type
+   * @param {string} message
+   * @param {object} [options]
    */
-  function checkFlowReturnStatus() {
+  function showCheckoutToast(type, message, options = {}) {
+    if (typeof document === 'undefined') return;
+
+    // Eliminar toast previo si ya está presente
+    const existing = document.getElementById('ar-checkout-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.id = 'ar-checkout-toast';
+    toast.className = `ar-checkout-toast toast-${type}`;
+    toast.setAttribute('role', type === 'approved' ? 'status' : 'alert');
+    toast.setAttribute('aria-live', 'polite');
+
+    const iconSvg = (type === 'approved')
+      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+      : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+
+    const titleText = (type === 'approved') ? 'Pago Aprobado' : 'Pago Cancelado';
+
+    let actionBtnHtml = '';
+    if (options.actionLabel) {
+      actionBtnHtml = `<button type="button" class="ar-checkout-toast-action" id="ar-toast-action-btn">${options.actionLabel}</button>`;
+    }
+
+    toast.innerHTML = `
+      <div class="ar-checkout-toast-icon" aria-hidden="true">${iconSvg}</div>
+      <div class="ar-checkout-toast-content">
+        <strong class="ar-checkout-toast-title">${titleText}</strong>
+        <p class="ar-checkout-toast-msg">${message}</p>
+        ${actionBtnHtml}
+      </div>
+      <button type="button" class="ar-checkout-toast-close" id="ar-toast-close-btn" aria-label="Cerrar notificación">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    `;
+
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(() => {
+      toast.classList.add('is-visible');
+    });
+
+    const closeBtn = toast.querySelector('#ar-toast-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', () => {
+        toast.classList.remove('is-visible');
+        setTimeout(() => toast.remove(), 260);
+      });
+    }
+
+    if (options.onAction) {
+      const actionBtn = toast.querySelector('#ar-toast-action-btn');
+      if (actionBtn) {
+        actionBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          options.onAction();
+          toast.classList.remove('is-visible');
+          setTimeout(() => toast.remove(), 260);
+        });
+      }
+    }
+
+    setTimeout(() => {
+      if (document.body.contains(toast)) {
+        toast.classList.remove('is-visible');
+        setTimeout(() => toast.remove(), 260);
+      }
+    }, 9000);
+  }
+
+  /**
+   * Detección y manejo del retorno de pago Payku
+   * (?payku_status=approved&order=... o ?payku_status=cancelled&order=...)
+   */
+  function checkPaykuReturnStatus() {
     if (typeof window === 'undefined' || !window.location) return;
     try {
       const search = window.location.search || '';
-      const isKhipuReturn = search.includes('khipu_status=completed');
-      const isFlowReturn = search.includes('flow_status=completed');
-      if (!isKhipuReturn && !isFlowReturn) return;
+      if (!search) return;
 
       const urlParams = new URLSearchParams(search);
-      const isKhipu = isKhipuReturn;
-      const orderFolioFromUrl = urlParams.get('order') || urlParams.get('orderId') || '';
+      const rawStatus = urlParams.get('payku_status') ||
+        (urlParams.get('flow_status') === 'completed' ? 'approved' : null) ||
+        (urlParams.get('khipu_status') === 'completed' ? 'approved' : null);
+
+      if (!rawStatus) return;
+
+      const isApproved = (rawStatus === 'approved' || rawStatus === 'completed' || rawStatus === 'success');
+      const isCancelled = (rawStatus === 'cancelled' || rawStatus === 'canceled' || rawStatus === 'rejected' || rawStatus === 'failed');
+
+      if (!isApproved && !isCancelled) return;
+
+      const orderFolioFromUrl = urlParams.get('order') || urlParams.get('orderId') || urlParams.get('order_id') || '';
 
       if (!dom.modal) initDomReferences();
       if (!dom.modal) return;
@@ -1045,70 +1140,132 @@
       const ECOM = window.AR_ECOMMERCE;
       let order = (ECOM && typeof ECOM.getLastOrder === 'function') ? ECOM.getLastOrder() : null;
 
-      // Si no existe orden previa o el folio de la URL es distinto, construir orden base con el folio recibido
+      const folioVal = orderFolioFromUrl || (order && order.folio) || `AR-${new Date().getFullYear()}-PAYKU`;
+
       if (!order) {
         order = {
-          folio: orderFolioFromUrl || (isKhipu ? `AR-${new Date().getFullYear()}-KHIPU` : `AR-${new Date().getFullYear()}-FLOW`),
-          sku: isKhipu ? 'SKU-KHIPU-01' : 'SKU-FLOW-01',
+          folio: folioVal,
+          sku: 'SKU-PAYKU-01',
           productName: 'Maqueta Arquitectónica',
           size: 'Formato Estándar',
           finish: 'PLA Mate Arquitectónico',
           quantity: 1,
-          unitPrice: 0,
-          subtotal: 0,
+          unitPrice: 24990,
+          subtotal: 24990,
           shippingId: 'pickup',
           shippingLabel: 'Retiro en Taller / Despacho a Coordinar',
           shippingCost: 0,
-          total: 0,
-          paymentMethod: isKhipu ? 'khipu' : 'flow',
-          paymentLabel: isKhipu ? 'Khipu · Transferencia Bancaria Simplificada' : 'Flow.cl · Webpay, Débito y Crédito',
+          total: 24990,
+          paymentMethod: 'payku',
+          paymentLabel: 'Tarjeta de Débito, Crédito o Redcompra (Payku)',
           customer: {
-            name: isKhipu ? 'Cliente Khipu' : 'Cliente Flow.cl',
+            name: 'Cliente Payku',
             email: 'adolchilemods@gmail.com',
             phone: '+56 9 6203 2766',
             rut: 'No informado',
             address: ''
           },
-          notes: isKhipu ? 'Pago procesado exitosamente vía pasarela Khipu' : 'Pago procesado exitosamente vía pasarela Flow.cl',
+          notes: isApproved ? 'Pago validado exitosamente vía Payku (Webpay Plus)' : 'Transacción cancelada en pasarela Payku',
           dateIso: new Date().toISOString(),
           dateFormatted: new Date().toLocaleDateString('es-CL'),
-          status: isKhipu ? 'PAGADA_KHIPU' : 'PAGADA_FLOW'
+          status: isApproved ? 'PAGADA_PAYKU' : 'CANCELADA_PAYKU'
         };
       } else if (orderFolioFromUrl && order.folio !== orderFolioFromUrl) {
         order.folio = orderFolioFromUrl;
       }
 
-      order.status = isKhipu ? 'PAGADA_KHIPU' : 'PAGADA_FLOW';
       state.lastProcessedOrder = order;
       state.folio = order.folio;
 
-      // Cambiar a la vista de éxito del modal
-      if (dom.viewMain) dom.viewMain.style.display = 'none';
-      if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
+      if (isCancelled) {
+        order.status = 'CANCELADA_PAYKU';
+        const cancelMsg = 'El pago fue cancelado. Puedes reintentar o pagar mediante Transferencia Bancaria.';
 
-      if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
-      if (dom.successTitle) {
-        dom.successTitle.textContent = isKhipu ? 'PAGO PROCESADO EN KHIPU · ORDEN CONFIRMADA' : 'PAGO PROCESADO EN FLOW.CL · ORDEN CONFIRMADA';
-      }
-      if (dom.successLead) {
-        const custEmail = (order.customer && order.customer.email) ? order.customer.email : 'su correo electrónico';
-        const gatewayName = isKhipu ? 'Khipu' : 'Flow.cl';
-        dom.successLead.innerHTML = `Su pago ha sido validado y procesado exitosamente mediante ${gatewayName}. Hemos emitido el comprobante oficial de su orden <strong>#${order.folio}</strong> a <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
-      }
+        // Mostrar Toast flotante con botón de acción directa a Transferencia Bancaria
+        showCheckoutToast('cancelled', cancelMsg, {
+          actionLabel: 'Pagar por Transferencia',
+          onAction: () => {
+            selectPaymentMethod('transferencia');
+            if (dom.viewSuccess) dom.viewSuccess.classList.remove('is-visible');
+            if (dom.viewMain) dom.viewMain.style.display = '';
+            if (dom.modal) {
+              dom.modal.classList.add('is-open');
+              dom.modal.setAttribute('aria-hidden', 'false');
+              document.body.style.overflow = 'hidden';
+              state.isOpen = true;
+            }
+          }
+        });
 
-      // Bloque informativo de estado de pasarela
-      if (dom.successKhipuBox) {
-        dom.successKhipuBox.style.display = 'block';
-        if (dom.khipuTitle) {
-          dom.khipuTitle.textContent = isKhipu ? 'KHIPU · TRANSACCIÓN VALIDADA EXITOSAMENTE' : 'FLOW.CL · TRANSACCIÓN VALIDADA EXITOSAMENTE';
+        // Mostrar pantalla en el modal
+        if (dom.viewMain) dom.viewMain.style.display = 'none';
+        if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
+
+        if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
+        if (dom.successTitle) {
+          dom.successTitle.textContent = 'PAGO CANCELADO';
         }
-        if (dom.khipuDesc) {
-          dom.khipuDesc.textContent = isKhipu
-            ? 'Los fondos han sido acreditados mediante transferencia bancaria simplificada Khipu. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.'
-            : 'Los fondos han sido acreditados. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.';
+        if (dom.successLead) {
+          dom.successLead.innerHTML = `El pago fue cancelado. Puedes reintentar o pagar mediante Transferencia Bancaria.<br><br>Tu orden <strong>#${order.folio}</strong> permanece reservada en nuestro sistema.`;
         }
-        if (dom.btnKhipuLink) {
-          dom.btnKhipuLink.style.display = 'none';
+
+        const statusBox = dom.successPaykuBox || dom.successKhipuBox;
+        if (statusBox) {
+          statusBox.style.display = 'block';
+          const titleEl = dom.paykuTitle || dom.khipuTitle;
+          const descEl = dom.paykuDesc || dom.khipuDesc;
+          const linkBtn = dom.btnPaykuLink || dom.btnKhipuLink;
+
+          if (titleEl) titleEl.textContent = 'TRANSFERENCIA BANCARIA DIRECTA';
+          if (descEl) {
+            descEl.innerHTML = 'Puedes completar el pago de inmediato mediante transferencia bancaria a Banco Bci o coordinar la confirmación directa por WhatsApp oficial.';
+          }
+          if (linkBtn) {
+            linkBtn.style.display = 'inline-flex';
+            linkBtn.href = `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, se canceló mi pago para la orden #${order.folio}. Deseo coordinar el pago por transferencia bancaria.`)}`;
+            linkBtn.textContent = 'COORDINAR PAGO VÍA WHATSAPP';
+          }
+        }
+        if (dom.bankBox) {
+          dom.bankBox.classList.add('is-visible');
+        }
+
+      } else {
+        // Pago Aprobado
+        order.status = 'PAGADA_PAYKU';
+        const approvedMsg = `¡Pago Aprobado! Tu orden #${order.folio} ha sido confirmada exitosamente. Te enviamos los detalles a tu correo.`;
+
+        // Mostrar Toast flotante de aprobación
+        showCheckoutToast('approved', approvedMsg);
+
+        if (dom.viewMain) dom.viewMain.style.display = 'none';
+        if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
+
+        if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
+        if (dom.successTitle) {
+          dom.successTitle.textContent = '¡PAGO APROBADO!';
+        }
+        if (dom.successLead) {
+          const custEmail = (order.customer && order.customer.email) ? order.customer.email : 'tu correo';
+          dom.successLead.innerHTML = `¡Pago Aprobado! Tu orden <strong>#${order.folio}</strong> ha sido confirmada exitosamente. Te enviamos los detalles a tu correo <strong>${custEmail}</strong> y a nuestro taller corporativo (<strong>adolchilemods@gmail.com</strong>).`;
+        }
+
+        const statusBox = dom.successPaykuBox || dom.successKhipuBox;
+        if (statusBox) {
+          statusBox.style.display = 'block';
+          const titleEl = dom.paykuTitle || dom.khipuTitle;
+          const descEl = dom.paykuDesc || dom.khipuDesc;
+          const linkBtn = dom.btnPaykuLink || dom.btnKhipuLink;
+
+          if (titleEl) {
+            titleEl.textContent = 'PAYKU · TRANSACCIÓN VALIDADA EXITOSAMENTE';
+          }
+          if (descEl) {
+            descEl.textContent = 'Los fondos han sido acreditados mediante Webpay Plus. Nuestro equipo técnico inicia de inmediato la preparación de manufactura y despacho de su pieza.';
+          }
+          if (linkBtn) {
+            linkBtn.style.display = 'none';
+          }
         }
       }
 
@@ -1125,14 +1282,13 @@
         if (ECOM && typeof ECOM.buildWhatsAppOrderUrl === 'function') {
           dom.btnCoordWsp.href = ECOM.buildWhatsAppOrderUrl(order);
         } else {
-          const wspText = isKhipu
-            ? `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Khipu.`
-            : `Hola Adolfo, confirmo el pago exitoso de mi orden #${order.folio} en Flow.cl.`;
+          const wspText = isApproved
+            ? `Hola Adolfo, confirmo el pago aprobado de mi orden #${order.folio} en Payku (Webpay Plus).`
+            : `Hola Adolfo, deseo coordinar por transferencia bancaria mi orden #${order.folio}.`;
           dom.btnCoordWsp.href = `https://wa.me/56962032766?text=${encodeURIComponent(wspText)}`;
         }
       }
 
-      // Renderizar vista previa técnica del correo
       renderEmailPreview(order);
 
       // Desplegar modal interactivo
@@ -1141,14 +1297,16 @@
       document.body.style.overflow = 'hidden';
       state.isOpen = true;
 
-      // Posicionar scroll en la parte superior
       const scroller = dom.modal.querySelector('.ar-modal-scroll');
       if (scroller) scroller.scrollTop = 0;
 
     } catch (errCheck) {
-      console.warn('[ALZADO ROJO Checkout] Error al verificar retorno de Flow.cl:', errCheck);
+      console.warn('[ALZADO ROJO Checkout] Error al verificar retorno de pasarela:', errCheck);
     }
   }
+
+  // Alias retrocompatible
+  const checkFlowReturnStatus = checkPaykuReturnStatus;
 
   // Inicialización cuando el DOM esté listo
   if (typeof document !== 'undefined') {
@@ -1156,19 +1314,22 @@
       document.addEventListener('DOMContentLoaded', () => {
         initDomReferences();
         bindEvents();
-        checkFlowReturnStatus();
+        checkPaykuReturnStatus();
       });
     } else {
       initDomReferences();
       bindEvents();
-      checkFlowReturnStatus();
+      checkPaykuReturnStatus();
     }
   }
 
   return {
     openCheckout,
     closeCheckout,
+    checkPaykuReturnStatus,
     checkFlowReturnStatus,
+    showCheckoutToast,
+    selectPaymentMethod,
     setFormat,
     refreshFinancials,
     getState: () => ({ ...state })

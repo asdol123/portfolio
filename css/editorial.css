@@ -7579,26 +7579,21 @@ dialog#project-modal::backdrop {
   gap: 16px;
 }
 
-/* Banner de Aviso Técnico Pasarela Webpay / Tarjeta */
+/* Banner de Confianza y Pago Seguro Payku / Transferencia Directa */
 .checkout-payment-notice {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
-  padding: 13px 16px;
-  margin-bottom: 12px;
-  background: rgba(245, 158, 11, 0.08);
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  background: rgba(16, 185, 129, 0.06);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   border: none !important;
-  border-radius: 14px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
   font-family: var(--font-sans);
   transition: background 0.25s var(--spring-ease), box-shadow 0.25s var(--spring-ease);
-}
-
-.checkout-payment-notice.is-flow-active {
-  background: rgba(230, 25, 25, 0.08);
-  box-shadow: 0 4px 18px rgba(230, 25, 25, 0.08);
 }
 
 .checkout-payment-notice-icon {
@@ -7608,14 +7603,7 @@ dialog#project-modal::backdrop {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #B45309;
-  margin-top: 2px;
-  transition: color 0.25s ease, transform 0.25s var(--spring-ease);
-}
-
-.checkout-payment-notice.is-flow-active .checkout-payment-notice-icon {
-  color: var(--ed-red);
-  transform: scale(1.06);
+  color: #059669;
 }
 
 .checkout-payment-notice-body {
@@ -7623,44 +7611,12 @@ dialog#project-modal::backdrop {
   min-width: 0;
 }
 
-.checkout-payment-notice-title {
-  display: block;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #92400E;
-  margin-bottom: 3px;
-  line-height: 1.3;
-}
-
-.checkout-payment-notice.is-flow-active .checkout-payment-notice-title {
-  color: var(--ed-red);
-}
-
 .checkout-payment-notice-text {
-  font-size: 0.76rem;
+  font-size: 0.74rem;
   line-height: 1.45;
-  color: #6B2A06;
+  color: #065F46;
   margin: 0;
   font-weight: 500;
-}
-
-.checkout-payment-notice.is-flow-active .checkout-payment-notice-text {
-  color: #4A1515;
-}
-
-.checkout-payment-notice-actions {
-  display: none;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(230, 25, 25, 0.08);
-}
-
-.checkout-payment-notice.is-flow-active .checkout-payment-notice-actions {
-  display: flex;
 }
 
 .btn-notice-switch-transfer {
@@ -7781,27 +7737,49 @@ dialog#project-modal::backdrop {
 }
 
 .ar-payment-option {
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  border: none !important;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 11px 14px;
+  background: rgba(17, 17, 17, 0.03);
+  padding: 12px 14px;
   cursor: pointer;
-  transition: border-color 0.2s var(--spring-ease), background 0.2s var(--spring-ease), box-shadow 0.2s var(--spring-ease);
+  transition: background 0.2s var(--spring-ease), box-shadow 0.2s var(--spring-ease), transform 0.15s var(--spring-ease);
   display: flex;
   gap: 12px;
   align-items: flex-start;
 }
 
 .ar-payment-option:hover {
-  border-color: var(--ed-red);
-  background: #FFFFFF;
+  border: none !important;
+  background: rgba(17, 17, 17, 0.06);
 }
 
 .ar-payment-option.is-selected {
-  border: 2px solid var(--ed-red);
-  background: rgba(255, 245, 245, 0.95);
-  padding: 10px 13px;
-  box-shadow: 0 4px 14px rgba(217, 37, 37, 0.08);
+  border: none !important;
+  background: rgba(230, 25, 25, 0.06);
+  box-shadow: 0 4px 14px rgba(230, 25, 25, 0.08);
+}
+
+.ar-payment-pill-badges {
+  margin-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.ar-payment-mini-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background: rgba(17, 17, 17, 0.05);
+  color: var(--ed-text-secondary);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none !important;
+  line-height: 1.3;
 }
 
 .ar-payment-option input[type="radio"] {
@@ -8079,6 +8057,8 @@ dialog#project-modal::backdrop {
 }
 
 /* Bloque Pasarela Dinámica (Flow.cl y Khipu) */
+/* Bloque Pasarela Dinámica (Payku / Webpay Plus) */
+.ar-payku-action-box,
 .ar-khipu-action-box,
 .ar-flow-action-box {
   background: #FFF9F9;
@@ -8090,6 +8070,7 @@ dialog#project-modal::backdrop {
   text-align: center;
 }
 
+.ar-payku-action-title,
 .ar-khipu-action-title,
 .ar-flow-action-title {
   font-size: 0.92rem;
@@ -8100,6 +8081,7 @@ dialog#project-modal::backdrop {
   letter-spacing: 0.08em;
 }
 
+.ar-payku-action-text,
 .ar-khipu-action-text,
 .ar-flow-action-text {
   font-size: 0.82rem;
@@ -8108,6 +8090,7 @@ dialog#project-modal::backdrop {
   line-height: 1.5;
 }
 
+.btn-ar-payku-pay,
 .btn-ar-khipu-pay,
 .btn-ar-flow-pay {
   display: inline-flex;
@@ -8128,6 +8111,7 @@ dialog#project-modal::backdrop {
   min-height: 44px;
 }
 
+.btn-ar-payku-pay:hover,
 .btn-ar-khipu-pay:hover,
 .btn-ar-flow-pay:hover {
   background: var(--ed-red-hover);
@@ -8135,6 +8119,7 @@ dialog#project-modal::backdrop {
   box-shadow: 0 10px 24px -4px rgba(217, 37, 37, 0.35);
 }
 
+.btn-ar-payku-pay:active,
 .btn-ar-khipu-pay:active,
 .btn-ar-flow-pay:active {
   background: var(--ed-red-hover);
@@ -8143,10 +8128,129 @@ dialog#project-modal::backdrop {
   transform: scale(0.98);
 }
 
+.btn-ar-payku-pay:focus-visible,
 .btn-ar-khipu-pay:focus-visible,
 .btn-ar-flow-pay:focus-visible {
   outline: 2px solid var(--ed-text);
   outline-offset: 2px;
+}
+
+/* Notificación Flotante Toast para Checkout y Retorno Payku */
+.ar-checkout-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100000;
+  max-width: 440px;
+  width: calc(100vw - 32px);
+  padding: 16px 18px;
+  background: #FFFFFF;
+  border: none !important;
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  transition: opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1), transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  pointer-events: none;
+  font-family: var(--font-sans);
+}
+
+.ar-checkout-toast.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.ar-checkout-toast-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-top: 1px;
+}
+
+.ar-checkout-toast.toast-approved .ar-checkout-toast-icon {
+  background: rgba(16, 185, 129, 0.14);
+  color: #059669;
+}
+
+.ar-checkout-toast.toast-cancelled .ar-checkout-toast-icon {
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--ed-red);
+}
+
+.ar-checkout-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.ar-checkout-toast-title {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ed-text);
+  margin-bottom: 3px;
+}
+
+.ar-checkout-toast-msg {
+  font-size: 0.76rem;
+  line-height: 1.45;
+  color: var(--ed-text-secondary);
+  margin: 0;
+}
+
+.ar-checkout-toast-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  padding: 6px 14px;
+  background: var(--ed-red);
+  color: #FFFFFF;
+  border: none !important;
+  border-radius: var(--radius-pill);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+
+.ar-checkout-toast-action:hover {
+  background: var(--ed-red-hover);
+}
+
+.ar-checkout-toast-action:active {
+  transform: scale(0.97);
+}
+
+.ar-checkout-toast-close {
+  flex-shrink: 0;
+  background: transparent;
+  border: none !important;
+  color: var(--ed-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: color 0.15s ease;
+}
+
+.ar-checkout-toast-close:hover {
+  color: var(--ed-text);
 }
 
 /* 3 Botones de Acción Post-Orden */

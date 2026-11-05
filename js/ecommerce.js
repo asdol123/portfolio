@@ -32,8 +32,9 @@
     cityCountry: 'Santiago, Chile',
     quoteValidityDays: 15,
     formSubmitEndpoint: 'https://formsubmit.co/ajax/adolchilemods@gmail.com',
-    flowEndpoint: '/api/flow-create',
-    khipuEndpoint: '/api/khipu-create',
+    paykuEndpoint: '/api/payku-create',
+    flowEndpoint: '/api/payku-create',
+    khipuEndpoint: '/api/payku-create',
     storageKeyHistory: 'ar_orders_history',
     storageKeyLast: 'ar_last_order'
   };
@@ -763,38 +764,33 @@
 
   // --- METODOS DE PAGO DISPONIBLES ---
   const PAYMENT_METHODS = {
-    khipu: {
-      id: 'khipu',
-      label: 'Khipu · Transferencia Bancaria Simplificada y Segura',
-      badge: 'PASARELA OFICIAL · KHIPU CHILE',
+    payku: {
+      id: 'payku',
+      label: 'Tarjeta de Débito, Crédito o Redcompra',
+      badge: 'WEBPAY PLUS · VISA · MASTERCARD · REDCOMPRA',
       fee: 0,
-      description: 'Pago en línea seguro e instantáneo mediante transferencia bancaria con Khipu (todos los bancos chilenos).'
-    },
-    flow: {
-      id: 'flow',
-      label: 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago',
-      badge: 'PASARELA OFICIAL · WEBPAY PLUS',
-      fee: 0,
-      description: 'Pago en línea seguro mediante Flow.cl con tarjetas bancarias chilenas, Webpay, Redcompra, Mach y transferencia.'
+      description: 'Webpay Plus, Visa, Mastercard y prepago. Procesado por Payku.'
     },
     transferencia: {
       id: 'transferencia',
-      label: 'Transferencia Electronica Directa',
-      badge: 'PROCESAMIENTO INMEDIATO',
+      label: 'Transferencia Bancaria Directa (Banco Bci)',
+      badge: 'BANCO BCI',
       fee: 0,
-      description: 'Transferencia directa a cuenta corporativa AR ARQ SpA con confirmacion inmediata.'
+      description: 'Sin intermediarios. Coordinación y confirmación inmediata por WhatsApp.'
     },
     cotizacion: {
       id: 'cotizacion',
       label: 'Orden de Cotizacion Formal (Empresa / Oficina)',
-      badge: 'DOCUMENTO OFICIAL PDF + CORREO',
+      badge: 'DOCUMENTO OFICIAL PDF · CORREO',
       fee: 0,
       description: 'Recibe la cotizacion formal desglosada en tu correo para aprobacion o pago con Orden de Compra.'
     }
   };
 
-  // Alias retrocompatible para solicitudes con identificador 'transfer'
+  // Alias retrocompatibles
   PAYMENT_METHODS.transfer = PAYMENT_METHODS.transferencia;
+  PAYMENT_METHODS.flow = PAYMENT_METHODS.payku;
+  PAYMENT_METHODS.khipu = PAYMENT_METHODS.payku;
 
   // --- FUNCIONES DE CONVERSION MONETARIA CLP ---
 
@@ -1164,10 +1160,10 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
+      label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
     };
 
-    let statusText = 'PAGO ONLINE FLOW.CL (WEBPAY / TARJETAS) INICIADO';
+    let statusText = 'PAGO ONLINE PAYKU (WEBPAY PLUS / TARJETAS) INICIADO';
     if (order.paymentMethod === 'transferencia' || order.paymentMethod === 'transfer') {
       statusText = 'ORDEN EMITIDA · TRANSFERENCIA DIRECTA PENDIENTE';
     } else if (order.paymentMethod === 'cotizacion') {
@@ -1205,7 +1201,7 @@
       `Direccion / Comuna: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller'}`,
       '',
       'INSTRUCCIONES DE CONTINUIDAD:',
-      '- Si su orden es con Pago en Linea Flow.cl (Webpay / Tarjetas), su transaccion es procesada y validada de forma automatica e integrada.',
+      '- Si su orden es con Pago en Linea Payku Chile (Webpay Plus / Tarjetas), su transaccion es procesada y validada de forma automatica e integrada.',
       `- Si su orden es con Transferencia Directa, transfiera a ${BANK_DETAILS.accountType} ${BANK_DETAILS.accountHolder} (${BANK_DETAILS.bank}, N° ${BANK_DETAILS.accountNumber}, RUT ${BANK_DETAILS.rut}) e indique su Folio en la referencia.`,
       '- Si solicito Cotizacion Formal, este respaldo certifica la reserva de tarifas por 15 dias corridos para la gestion de su Orden de Compra.',
       '- Nuestro equipo tecnico revisara el modelo y coordinara el avance de manufactura aditiva.',
@@ -1259,7 +1255,7 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
+      label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
     };
 
     const lines = [
@@ -1316,7 +1312,7 @@
       cost: order.shippingCost || 0
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
-      label: order.paymentLabel || 'Flow.cl · Webpay, Tarjetas Débito / Crédito y Prepago'
+      label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
     };
 
     const isQuote = order.paymentMethod === 'cotizacion';
@@ -1780,7 +1776,7 @@
   /**
    * Procesa, valida, persiste y despacha una orden formal
    * @param {object} orderData
-   * @returns {Promise<{ ok: boolean, order: object, flowResult?: object, khipuResult?: object, whatsappUrl: string, errors?: object }>}
+   * @returns {Promise<{ ok: boolean, order: object, paykuResult?: object, whatsappUrl: string, errors?: object }>}
    */
   async function submitOrder(orderData) {
     orderData = orderData || {};
@@ -1905,76 +1901,19 @@
       // Ignorar en entornos sin fetch o sin red
     }
 
-    // 6. Gestion de pasarelas de pago (Khipu o Flow.cl)
-    let khipuResult = null;
-    let flowResult = null;
+    // 6. Gestion de pasarela de pago oficial: Payku Chile
+    let paykuResult = null;
 
-    if (normalizedOrder.paymentMethod === 'khipu') {
+    if (normalizedOrder.paymentMethod === 'payku') {
       try {
         if (!normalizedOrder.total || normalizedOrder.total <= 0) {
-          normalizedOrder.unitPrice = 29990;
-          normalizedOrder.subtotal = 29990;
-          normalizedOrder.total = 29990;
-          normalizedOrder.notes = (normalizedOrder.notes ? normalizedOrder.notes + ' · ' : '') + 'Abono base inicial de manufactura ($29.990 CLP) para procesamiento en Khipu';
+          normalizedOrder.unitPrice = 24990;
+          normalizedOrder.subtotal = 24990;
+          normalizedOrder.total = 24990;
+          normalizedOrder.notes = (normalizedOrder.notes ? normalizedOrder.notes + ' · ' : '') + 'Abono base inicial de manufactura ($24.990 CLP) para procesamiento en Payku';
         }
 
-        const khipuPayload = {
-          orderId: normalizedOrder.folio,
-          subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`.slice(0, 200),
-          amount: Math.round(Number(normalizedOrder.total)),
-          currency: 'CLP',
-          payer_email: normalizedOrder.customer.email,
-          payer_name: normalizedOrder.customer.name,
-          body: `${normalizedOrder.productName} · Formato: ${normalizedOrder.size} · Entrega: ${normalizedOrder.shippingLabel}`
-        };
-
-        const khipuEndpoint = CONFIG.khipuEndpoint || '/api/khipu-create';
-        const khipuRes = await fetch(khipuEndpoint, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(khipuPayload)
-        });
-
-        if (khipuRes.ok) {
-          khipuResult = await khipuRes.json();
-        } else {
-          let errData = null;
-          try {
-            errData = await khipuRes.json();
-          } catch (e) {
-            errData = { error: 'Error de comunicacion con el servidor' };
-          }
-          khipuResult = {
-            ok: false,
-            gateway: 'khipu',
-            error: errData.error || 'Respuesta no exitosa de Khipu',
-            orderId: normalizedOrder.folio,
-            whatsappFallback: errData.whatsappFallback || buildWhatsAppOrderUrl(normalizedOrder)
-          };
-        }
-      } catch (errKhipu) {
-        console.warn('[ALZADO ROJO Backend] Error de red en invocacion Khipu:', errKhipu);
-        khipuResult = {
-          ok: false,
-          gateway: 'khipu',
-          error: 'Error de red al conectar con pasarela Khipu: ' + errKhipu.message,
-          orderId: normalizedOrder.folio,
-          whatsappFallback: buildWhatsAppOrderUrl(normalizedOrder)
-        };
-      }
-    } else if (normalizedOrder.paymentMethod === 'flow') {
-      try {
-        // Blindaje anti-error para Flow: Si el monto es <= 0 (ej. Medida Especial), asignar abono base de $29.990 CLP
-        if (!normalizedOrder.total || normalizedOrder.total <= 0) {
-          normalizedOrder.unitPrice = 29990;
-          normalizedOrder.subtotal = 29990;
-          normalizedOrder.total = 29990;
-          normalizedOrder.notes = (normalizedOrder.notes ? normalizedOrder.notes + ' · ' : '') + 'Abono base inicial de manufactura ($29.990 CLP) para procesamiento en Flow.cl';
-        }
-
-        const flowPayload = {
+        const paykuPayload = {
           orderId: normalizedOrder.folio,
           subject: `Orden ALZADO ROJO ${normalizedOrder.folio} | ${normalizedOrder.productName} (${normalizedOrder.size})`.slice(0, 250),
           amount: Math.round(Number(normalizedOrder.total)),
@@ -1984,39 +1923,38 @@
           body: `${normalizedOrder.productName} · Formato: ${normalizedOrder.size} · Entrega: ${normalizedOrder.shippingLabel}`
         };
 
-        const flowEndpoint = CONFIG.flowEndpoint || '/api/flow-create';
-        const flowRes = await fetch(flowEndpoint, {
+        const paykuEndpoint = CONFIG.paykuEndpoint || '/api/payku-create';
+        const paykuRes = await fetch(paykuEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(flowPayload)
+          body: JSON.stringify(paykuPayload)
         });
 
-        if (flowRes.ok) {
-          flowResult = await flowRes.json();
+        if (paykuRes.ok) {
+          paykuResult = await paykuRes.json();
         } else {
           let errData = null;
           try {
-            errData = await flowRes.json();
+            errData = await paykuRes.json();
           } catch (e) {
             errData = { error: 'Error de comunicacion con el servidor' };
           }
-          flowResult = {
+          paykuResult = {
             ok: false,
-            gateway: 'flow',
-            error: errData.error || 'Respuesta no exitosa de Flow.cl',
-            code: errData.code,
+            gateway: 'payku',
+            error: errData.error || 'Respuesta no exitosa de Payku Chile',
             orderId: normalizedOrder.folio,
             whatsappFallback: errData.whatsappFallback || buildWhatsAppOrderUrl(normalizedOrder)
           };
         }
-      } catch (errFlow) {
-        console.warn('[ALZADO ROJO Backend] Error de red en invocacion Flow.cl:', errFlow);
-        flowResult = {
+      } catch (errPayku) {
+        console.warn('[ALZADO ROJO Backend] Error de red en invocacion Payku:', errPayku);
+        paykuResult = {
           ok: false,
-          gateway: 'flow',
-          error: 'Error de red al conectar con pasarela Flow: ' + errFlow.message,
+          gateway: 'payku',
+          error: 'Error de red al conectar con pasarela Payku: ' + errPayku.message,
           orderId: normalizedOrder.folio,
           whatsappFallback: buildWhatsAppOrderUrl(normalizedOrder)
         };
@@ -2026,13 +1964,12 @@
     // 7. Enlace directo WhatsApp con resumen completo
     const whatsappUrl = buildWhatsAppOrderUrl(normalizedOrder);
 
-    const resolvedPaymentUrl = (khipuResult && khipuResult.payment_url) || (flowResult && flowResult.payment_url) || null;
+    const resolvedPaymentUrl = (paykuResult && paykuResult.payment_url) || null;
 
     return {
       ok: true,
       order: normalizedOrder,
-      khipuResult: khipuResult || flowResult,
-      flowResult: flowResult || khipuResult,
+      paykuResult,
       payment_url: resolvedPaymentUrl,
       whatsappUrl,
       emailSent: formSubmitSuccess
