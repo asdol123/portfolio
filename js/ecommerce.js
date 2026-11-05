@@ -1877,28 +1877,36 @@
       console.warn('[ALZADO ROJO Backend] Error al emitir correo via FormSubmit:', errEmail);
     }
 
-    // 5.1 Envio asincrono al motor serverless de correos transaccionales
-    try {
-      if (normalizedOrder.customer && normalizedOrder.customer.email) {
-        fetch('/api/email-notify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            type: 'order_received',
-            orderId: normalizedOrder.folio,
-            customerName: normalizedOrder.customer.name,
-            customerEmail: normalizedOrder.customer.email,
-            productName: normalizedOrder.productName,
-            size: normalizedOrder.size,
-            amount: normalizedOrder.total,
-            address: normalizedOrder.customer.address,
-            city: normalizedOrder.customer.commune,
-            phone: normalizedOrder.customer.phone
-          })
-        }).catch(() => {});
+    // 5.1 Envio asincrono al motor serverless de correos transaccionales (para ordenes regulares: transferencia o cotizacion)
+    let emailNotifySent = false;
+    if (normalizedOrder.paymentMethod !== 'payku') {
+      try {
+        if (normalizedOrder.customer && normalizedOrder.customer.email) {
+          fetch('/api/email-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              type: 'order_received',
+              orderId: normalizedOrder.folio,
+              customerName: normalizedOrder.customer.name || 'Cliente ALZADO ROJO',
+              customerEmail: normalizedOrder.customer.email,
+              productName: normalizedOrder.productName || 'Relieve Arquitectonico 3D',
+              size: normalizedOrder.size || 'Estandar',
+              amount: normalizedOrder.total || normalizedOrder.subtotal || 24990,
+              address: normalizedOrder.customer.address || 'Por coordinar',
+              city: normalizedOrder.customer.commune || 'Santiago',
+              phone: normalizedOrder.customer.phone || 'No especificado'
+            })
+          }).then(r => r.json()).then(resp => {
+            console.info('[ALZADO ROJO Ecommerce] Email transaccional despachado:', resp);
+          }).catch(err => {
+            console.warn('[ALZADO ROJO Ecommerce] Aviso en envio asincrono de email:', err);
+          });
+          emailNotifySent = true;
+        }
+      } catch (eEmailNotify) {
+        console.warn('[ALZADO ROJO Ecommerce] Error al invocar email-notify:', eEmailNotify);
       }
-    } catch (eEmailNotify) {
-      // Ignorar en entornos sin fetch o sin red
     }
 
     // 6. Gestion de pasarela de pago oficial: Payku Chile
@@ -1972,7 +1980,8 @@
       paykuResult,
       payment_url: resolvedPaymentUrl,
       whatsappUrl,
-      emailSent: formSubmitSuccess
+      emailSent: formSubmitSuccess,
+      emailNotifySent: emailNotifySent
     };
   }
 

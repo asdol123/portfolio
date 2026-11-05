@@ -11,11 +11,43 @@
  */
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
-const OFFICIAL_FROM = (process.env.RESEND_FROM_EMAIL || 'ALZADO ROJO <pedidos@ar-arq.cl>').trim();
-const OFFICIAL_REPLY_TO = 'ALZADO ROJO <pedidos@ar-arq.cl>';
+const OFFICIAL_FROM = (process.env.RESEND_FROM_EMAIL || 'ALZADO ROJO <contacto@ar-arq.cl>').trim();
+const OFFICIAL_REPLY_TO = 'ALZADO ROJO <contacto@ar-arq.cl>';
 const FALLBACK_FROM = 'ALZADO ROJO <onboarding@resend.dev>';
 const WORKSHOP_EMAIL = 'adolchilemods@gmail.com';
 const WORKSHOP_PHONE = '+56 9 6203 2766';
+
+/**
+ * Resuelve la URL oficial de seguimiento segun courier y numero de seguimiento
+ * @param {string} courier
+ * @param {string} trackingNumber
+ * @param {string} [customUrl]
+ * @returns {string}
+ */
+function resolveTrackingUrl(courier, trackingNumber, customUrl) {
+  if (customUrl && typeof customUrl === 'string' && customUrl.trim()) {
+    return customUrl.trim();
+  }
+  const cleanTracking = String(trackingNumber || '').trim();
+  const cleanCourier = String(courier || 'Blue Express').trim().toLowerCase();
+
+  if (!cleanTracking) {
+    return 'https://www.bluex.cl/seguimiento/';
+  }
+
+  if (cleanCourier.includes('chilexpress')) {
+    return `https://www.chilexpress.cl/seguimiento?tracking=${encodeURIComponent(cleanTracking)}`;
+  }
+  if (cleanCourier.includes('starken')) {
+    return `https://www.starken.cl/seguimiento?codigo=${encodeURIComponent(cleanTracking)}`;
+  }
+  if (cleanCourier.includes('correos')) {
+    return `https://www.correos.cl/seguimiento-en-linea?envio=${encodeURIComponent(cleanTracking)}`;
+  }
+
+  // Por defecto: Blue Express Chile
+  return `https://www.bluex.cl/seguimiento/?tracking=${encodeURIComponent(cleanTracking)}`;
+}
 
 /**
  * Sanitiza cadenas de texto para insercion segura en plantillas HTML
@@ -199,9 +231,10 @@ function buildOrderReceivedTemplate(data) {
 function buildOrderShippedTemplate(data) {
   const orderId = escapeHtml(data.orderId || 'AR-TALLER');
   const customerName = escapeHtml(data.customerName || 'Cliente');
-  const trackingNumber = escapeHtml(data.trackingNumber || 'BX-PENDIENTE');
+  const rawTracking = String(data.trackingNumber || '').trim();
+  const trackingNumber = escapeHtml(rawTracking || 'BX-PENDIENTE');
   const courier = escapeHtml(data.courier || 'Blue Express');
-  const trackingUrl = escapeHtml(data.trackingUrl || `https://www.bluex.cl/seguimiento/?tracking=${data.trackingNumber || ''}`);
+  const trackingUrl = escapeHtml(resolveTrackingUrl(data.courier, rawTracking, data.trackingUrl));
   const estimatedDays = escapeHtml(data.estimatedDays || '2 a 4 dias habiles');
   const address = escapeHtml(data.address || 'Direccion registrada');
   const city = escapeHtml(data.city || 'Destino');
@@ -358,11 +391,16 @@ function buildOrderShippedTemplate(data) {
  * Handler principal del endpoint serverless
  */
 module.exports = async function handler(req, res) {
-  // Cabeceras CORS universales
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  // Cabeceras CORS universales y seguras
+  const origin = req.headers.origin;
+  if (origin && origin !== 'null') {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  } else {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
@@ -418,9 +456,14 @@ module.exports = async function handler(req, res) {
       htmlContent = buildOrderReceivedTemplate(payload);
       plainTextSummary = `Hola ${customerName}, recibimos tu orden ${orderId} en taller ALZADO ROJO. Pieza: ${payload.productName || 'Relieve 3D'} (${payload.size || 'Estandar'}). Fabricacion en PLA mate y marco shadowbox (3 a 5 dias habiles). Contacto: ${WORKSHOP_PHONE}`;
     } else {
+      const rawTracking = String(payload.trackingNumber || '').trim();
+      const courierName = String(payload.courier || 'Blue Express').trim();
+      const trackingUrl = resolveTrackingUrl(courierName, rawTracking, payload.trackingUrl);
+      payload.trackingUrl = trackingUrl;
+
       subject = `Tu pedido ${orderId} va en camino · ALZADO ROJO`;
       htmlContent = buildOrderShippedTemplate(payload);
-      plainTextSummary = `Hola ${customerName}, tu orden ${orderId} ha sido despachada por ${payload.courier || 'Blue Express'}. Numero de seguimiento: ${payload.trackingNumber || 'BX-PENDIENTE'}. Rastreo: ${payload.trackingUrl || 'https://www.bluex.cl'}. Contacto taller: ${WORKSHOP_PHONE}`;
+      plainTextSummary = `Hola ${customerName}, tu orden ${orderId} ha sido despachada por ${courierName}. Numero de seguimiento: ${rawTracking || 'BX-PENDIENTE'}. Rastreo: ${trackingUrl}. Contacto taller: ${WORKSHOP_PHONE}`;
     }
 
     const mailtoFallback = `mailto:${encodeURIComponent(customerEmail)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(plainTextSummary)}`;

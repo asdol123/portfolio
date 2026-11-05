@@ -526,32 +526,34 @@
 
       state.lastProcessedOrder = result.order;
 
-      // Disparo asincrono de correo transaccional de confirmacion automatica al cliente y taller
-      try {
-        const emailNotifyPayload = {
-          type: 'order_received',
-          orderId: (result.order && result.order.folio) || state.folio,
-          customerName: customer.name,
-          customerEmail: customer.email,
-          productName: state.productName,
-          size: state.size,
-          amount: (result.order && result.order.total) || (state.unitPrice * state.quantity),
-          address: customer.address || 'Por coordinar',
-          city: customer.commune || 'Santiago',
-          phone: customer.phone
-        };
+      // Disparo asincrono de correo transaccional de confirmacion automatica al cliente y taller (para flujos regulares de orden)
+      if (!result.emailNotifySent && state.paymentMethod !== 'payku') {
+        try {
+          const emailNotifyPayload = {
+            type: 'order_received',
+            orderId: (result.order && result.order.folio) || state.folio,
+            customerName: customer.name || 'Cliente ALZADO ROJO',
+            customerEmail: customer.email,
+            productName: state.productName,
+            size: state.size,
+            amount: (result.order && result.order.total) || (state.unitPrice * state.quantity),
+            address: customer.address || 'Por coordinar',
+            city: customer.commune || 'Santiago',
+            phone: customer.phone || 'No especificado'
+          };
 
-        fetch('/api/email-notify', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(emailNotifyPayload)
-        }).then(r => r.json()).then(resp => {
-          console.log('[ALZADO ROJO Checkout] Notificacion transaccional emitida:', resp);
-        }).catch(errEmail => {
-          console.warn('[ALZADO ROJO Checkout] Aviso en envio asincrono de confirmacion:', errEmail);
-        });
-      } catch (errNotify) {
-        console.warn('[ALZADO ROJO Checkout] Excepcion al invocar endpoint email-notify:', errNotify);
+          fetch('/api/email-notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(emailNotifyPayload)
+          }).then(r => r.json()).then(resp => {
+            console.log('[ALZADO ROJO Checkout] Notificacion transaccional emitida:', resp);
+          }).catch(errEmail => {
+            console.warn('[ALZADO ROJO Checkout] Aviso en envio asincrono de confirmacion:', errEmail);
+          });
+        } catch (errNotify) {
+          console.warn('[ALZADO ROJO Checkout] Excepcion al invocar endpoint email-notify:', errNotify);
+        }
       }
 
       // Transición a la pantalla de éxito
@@ -1237,6 +1239,55 @@
 
         // Mostrar Toast flotante de aprobación
         showCheckoutToast('approved', approvedMsg);
+
+        // Disparo de confirmacion a /api/email-notify si no se habia emitido para esta orden
+        const notifySessionKey = `ar_email_payku_notified_${order.folio}`;
+        try {
+          const isAlreadyNotified = (typeof sessionStorage !== 'undefined') && sessionStorage.getItem(notifySessionKey);
+
+          const payerEmail = (order.customer && order.customer.email && order.customer.email !== 'adolchilemods@gmail.com')
+            ? order.customer.email
+            : (urlParams.get('email') || urlParams.get('payer_email') || (order.customer && order.customer.email) || '');
+
+          const payerName = (order.customer && order.customer.name && order.customer.name !== 'Cliente Payku')
+            ? order.customer.name
+            : (urlParams.get('name') || urlParams.get('payer_name') || 'Cliente ALZADO ROJO');
+
+          if (payerEmail && order.customer) {
+            order.customer.email = payerEmail;
+            if (payerName) order.customer.name = payerName;
+          }
+
+          if (!isAlreadyNotified && payerEmail) {
+            const emailPayload = {
+              type: 'order_received',
+              orderId: order.folio,
+              customerName: payerName,
+              customerEmail: payerEmail,
+              productName: order.productName || 'Relieve Arquitectónico 3D · Maqueta Urbana',
+              size: order.size || 'Formato Estándar',
+              amount: order.total || order.subtotal || 24990,
+              address: (order.customer && order.customer.address) || 'Confirmado vía Pasarela Payku Chile',
+              city: (order.customer && (order.customer.commune || order.customer.city)) || 'Santiago',
+              phone: (order.customer && order.customer.phone) || '+56 9 6203 2766'
+            };
+
+            fetch('/api/email-notify', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(emailPayload)
+            }).then(r => r.json()).then(resp => {
+              console.info('[ALZADO ROJO Checkout] Correo de confirmacion Payku enviado exitosamente:', resp);
+              if (typeof sessionStorage !== 'undefined') {
+                sessionStorage.setItem(notifySessionKey, 'true');
+              }
+            }).catch(err => {
+              console.warn('[ALZADO ROJO Checkout] Error no critico al emitir email-notify en retorno Payku:', err);
+            });
+          }
+        } catch (errNotify) {
+          console.warn('[ALZADO ROJO Checkout] Excepcion al emitir notificacion de retorno Payku:', errNotify);
+        }
 
         if (dom.viewMain) dom.viewMain.style.display = 'none';
         if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
