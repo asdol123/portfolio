@@ -198,7 +198,7 @@
       main: 'catalog/volcan-villarrica-marco.jpg',
       image: 'catalog/volcan-villarrica-marco.jpg',
       defaultImage: 'catalog/volcan-villarrica-marco.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/workshop-collection-loop.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Relieve del cono volcánico, glaciar y cráter activo con curvas de nivel extruidas a 0.20 mm de precisión en marco shadowbox negro mate.',
       specs: {
         escala: '1:1000 / 1:2000',
