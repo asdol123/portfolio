@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
-    <link rel="stylesheet" href="css/editorial.css?v=20261028d">
+    <link rel="stylesheet" href="css/editorial.css?v=20261105f">
 
     <!-- Estructura de Datos JSON-LD de Autoridad (Schema.org / GEO y AI Search) -->
     <script type="application/ld+json">
@@ -142,137 +142,100 @@
     <main class="index-container" id="main-content">
 
         <!-- HERO PRINCIPAL SPLIT-SCREEN TIPO BIONOVA -->
-        <section class="bionova-hero-section ed-animate-fade" aria-label="Presentación Alzado Rojo">
-            <div class="bionova-hero-grid">
+        <!-- HERO PRINCIPAL INMERSIVO FULL-BLEED (ZERO ROUNDED BOXES / BACKGROUND-FIRST) -->
+        <section class="bionova-hero-section bionova-hero-fullbleed ed-animate-fade" aria-label="Presentación Alzado Rojo">
+            <!-- VIDEO DE FONDO A PANTALLA COMPLETA 1080P -->
+            <video id="hero-architectural-video" class="hero-fullbleed-video" autoplay muted loop playsinline preload="auto" poster="images/Architect_desk_with_city_model_a67346f2_2K.jpg" aria-label="Relieve topográfico 3D de Volcanes de Chile con barrido de luz rasante">
+                <source src="images/Light_sweeping_across_model_relief_c97943d5_1080p.mp4" type="video/mp4">
+                <source src="videos/Light_sweeping_across_model_relief_c97943d5_1080p.mp4" type="video/mp4">
+                <source src="videos/hero-architectural-loop.webm" type="video/webm">
+                <source src="videos/hero-architectural-loop.mp4" type="video/mp4">
+            </video>
+            <!-- VELO ARQUITECTÓNICO CINEMÁTICO OSCURO -->
+            <div class="hero-fullbleed-scrim" aria-hidden="true"></div>
 
-                <!-- COLUMNA IZQUIERDA: EYEBROW TÉCNICO + TITULAR ESCULTURAL + CTA + MÉTRICAS -->
-                <div class="bionova-hero-left">
-                    <div class="bionova-hero-top-content">
-                        <!-- Eyebrow técnico minimalista sin bordes -->
-                        <div class="hero-tech-eyebrow" aria-label="Estudio de Arquitectura · Santiago de Chile">
-                            <span class="hero-pulse-dot" aria-hidden="true"></span>
-                            <span class="hero-tech-label">ESTUDIO DE ARQUITECTURA · SANTIAGO DE CHILE</span>
-                        </div>
-
-                        <h1 class="bionova-hero-headline">
-                            Arquitectura y <span class="brand-red">Maquetas 3D.</span>
-                        </h1>
-
-                        <!-- Fila de Botones debajo del titular -->
-                        <div class="bionova-cta-row">
-                            <a href="maquetas-urbanas.html" class="bionova-cta-pill-btn">
-                                <span>Explorar catálogo</span>
-                                <span class="bionova-cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                            </a>
-                            <a href="maquetas-3d.html" class="bionova-cta-text-link">
-                                Impresión 3D a medida
-                            </a>
-                        </div>
-
-                        <!-- Fila de 3 Métricas Arquitectónicas Limpias sin bordes -->
-                        <div class="hero-metrics-strip" aria-label="Métricas de estudio">
-                            <div class="hero-metric-cell">
-                                <span class="hero-metric-num tabular-nums">23+</span>
-                                <span class="hero-metric-text">Modelos 3D</span>
-                            </div>
-                            <div class="hero-metric-divider" aria-hidden="true"></div>
-                            <div class="hero-metric-cell">
-                                <span class="hero-metric-num tabular-nums">0.1mm</span>
-                                <span class="hero-metric-text">Precisión Digital</span>
-                            </div>
-                            <div class="hero-metric-divider" aria-hidden="true"></div>
-                            <div class="hero-metric-cell">
-                                <span class="hero-metric-num tabular-nums">100%</span>
-                                <span class="hero-metric-text">Envío a Todo Chile</span>
-                            </div>
-                        </div>
+            <!-- CONTENIDO EDITORIAL SUPERPUESTO DIRECTAMENTE SOBRE EL VIDEO (ZERO ROUNDED BOXES) -->
+            <div class="hero-fullbleed-content">
+                <!-- CABECERA DE IMPACTO: EYEBROW + TOGGLE VIDEO -->
+                <div class="hero-fullbleed-eyebrow-row">
+                    <div class="hero-tech-eyebrow" aria-label="Estudio de Arquitectura · Santiago de Chile">
+                        <span class="hero-pulse-dot" aria-hidden="true"></span>
+                        <span class="hero-tech-label">ESTUDIO DE ARQUITECTURA · SANTIAGO DE CHILE</span>
                     </div>
-
-                    <!-- Parte inferior de la columna izquierda (alineada al fondo) -->
-                    <div class="bionova-hero-bottom-info">
-                        <p class="bionova-hero-lead-text">
-                            Colaboramos con estudios de arquitectura, inmobiliarias y amantes del diseño en todo Chile con manufactura de alta precisión.
-                        </p>
-                        <div class="bionova-brands-band" aria-label="Especialidades">
-                            <span class="bionova-brand-name">DISEÑO 3D</span>
-                            <span class="bionova-brand-dot" aria-hidden="true">·</span>
-                            <span class="bionova-brand-name">ARQUITECTURA</span>
-                            <span class="bionova-brand-dot" aria-hidden="true">·</span>
-                            <span class="bionova-brand-name">FABRICACIÓN DIGITAL</span>
-                            <span class="bionova-brand-dot" aria-hidden="true">·</span>
-                            <span class="bionova-brand-name">PRECISIÓN</span>
-                        </div>
-                    </div>
+                    <button type="button" class="bionova-video-toggle-btn hero-video-toggle-glass" id="hero-video-toggle-btn" aria-label="Pausar video de relieve" title="Pausar o reproducir video">
+                        <svg class="toggle-icon-pause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
+                        <svg class="toggle-icon-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="display: none;"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
+                    </button>
                 </div>
 
-                <!-- COLUMNA DERECHA: BENTO GRID DE 3 TARJETAS VISUALES BIONOVA (100% BRANDING AR) -->
-                <div class="bionova-hero-right">
-                    <div class="bionova-bento-grid">
+                <!-- TITULAR ESCULTURAL ARQUITECTÓNICO -->
+                <h1 class="bionova-hero-headline">
+                    Arquitectura y <span class="brand-red">Maquetas 3D.</span>
+                </h1>
 
-                        <!-- TARJETA SUPERIOR ANCHA CON VIDEO LOOP CINEMÁTICO -->
-                        <div class="bionova-card bionova-card-featured" id="hero-featured-card">
-                            <video id="hero-architectural-video" class="bionova-card-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/img/banners/banner-hero-space.webp" aria-label="Relieve topográfico 3D de Volcanes de Chile con barrido de luz rasante">
-                                <source src="videos/hero-architectural-loop.webm" type="video/webm">
-                                <source src="videos/hero-architectural-loop.mp4" type="video/mp4">
-                                <img src="assets/img/banners/banner-hero-space.webp" alt="Relieve topográfico 3D Volcanes de Chile en marco shadowbox" class="bionova-card-bg-img" loading="eager" fetchpriority="high" decoding="async">
-                            </video>
-                            <div class="bionova-card-scrim-cinematic" aria-hidden="true"></div>
-                            <a href="maquetas-urbanas.html" class="bionova-card-overlay-link" aria-label="Explorar catálogo de maquetas urbanas y volcanes de Chile"></a>
-                            <div class="bionova-card-content bionova-card-top-layout">
-                                <div class="bionova-card-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">01</span> · VOLCANES DE CHILE</span>
-                                    <div style="display: flex; align-items: center; gap: 8px;">
-                                        <button type="button" class="bionova-video-toggle-btn" id="hero-video-toggle-btn" aria-label="Pausar video de relieve" title="Pausar o reproducir video">
-                                            <svg class="toggle-icon-pause" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true"><rect x="6" y="4" width="4" height="16" rx="1"></rect><rect x="14" y="4" width="4" height="16" rx="1"></rect></svg>
-                                            <svg class="toggle-icon-play" width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none" aria-hidden="true" style="display: none;"><polygon points="6 3 20 12 6 21 6 3"></polygon></svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <h2 class="bionova-card-lead-title">
-                                    Relieves topográficos y volcanes de Chile en 3D
-                                </h2>
-                                <div class="bionova-card-bottom-row">
-                                    <p class="bionova-card-subtext">
-                                        Piezas escultóricas y morfología territorial en marco shadowbox de taller.
-                                    </p>
-                                    <span class="bionova-card-text-cta">Ver catálogo <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
-                                </div>
-                            </div>
-                        </div>
+                <!-- TEXTO INTRODUCTORIO SOBRE EL FONDO -->
+                <p class="bionova-hero-lead-text">
+                    Colaboramos con estudios de arquitectura, inmobiliarias y amantes del diseño en todo Chile con manufactura aditiva y relieves topográficos de alta precisión.
+                </p>
 
-                        <!-- TARJETA INFERIOR IZQUIERDA -->
-                        <a href="maquetas-urbanas.html" class="bionova-card bionova-card-half" aria-label="Colección de ciudades: Santiago, Chicago, Nueva York">
-                            <img src="catalog/new-york-cuadro.jpg" alt="Maqueta 3D relieve urbano Nueva York" class="bionova-card-bg-img" loading="lazy" decoding="async">
-                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
-                            <div class="bionova-card-content bionova-card-split-layout">
-                                <div class="bionova-card-head">
-                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">02</span> · CIUDADES</span>
-                                </div>
-                                <div class="bionova-card-foot">
-                                    <h3 class="bionova-card-foot-title">Colección de ciudades</h3>
-                                    <p class="bionova-card-foot-desc">Santiago, Chicago, Nueva York y relieves territoriales de alta fidelidad.</p>
-                                </div>
-                            </div>
-                        </a>
-
-                        <!-- TARJETA INFERIOR DERECHA -->
-                        <a href="maquetas-3d.html" class="bionova-card bionova-card-half" aria-label="Fabricación 3D: Cotizador en línea y modelos a medida">
-                            <img src="catalog/piramides-guiza.jpg" alt="Relieve 3D Pirámides de Guiza" class="bionova-card-bg-img" loading="lazy" decoding="async">
-                            <div class="bionova-card-scrim bionova-scrim-midnight" aria-hidden="true"></div>
-                            <div class="bionova-card-content bionova-card-split-layout">
-                                <div class="bionova-card-head">
-                                    <span class="bionova-tag-minimal"><span class="hero-card-idx">03</span> · A MEDIDA</span>
-                                </div>
-                                <div class="bionova-card-foot">
-                                    <div class="bionova-big-stat">+23</div>
-                                    <p class="bionova-card-foot-desc">Modelos exclusivos, relieves topográficos y prototipos listos para ti.</p>
-                                </div>
-                            </div>
-                        </a>
-
-                    </div>
+                <!-- FILA DE BOTONES DE ACCIÓN DIRECTA -->
+                <div class="bionova-cta-row">
+                    <a href="maquetas-urbanas.html" class="bionova-cta-pill-btn">
+                        <span>Explorar catálogo</span>
+                        <span class="bionova-cta-arrow" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+                    </a>
+                    <a href="maquetas-3d.html" class="bionova-cta-text-link">
+                        Impresión 3D a medida
+                    </a>
                 </div>
 
+                <!-- HUD INFERIOR ARQUITECTÓNICO A LO ANCHO DE PANTALLA SOBRE EL FONDO DEL VIDEO -->
+                <div class="hero-fullbleed-bottom-bar" aria-label="HUD Arquitectónico">
+                    <!-- IZQUIERDA: 3 MÉTRICAS TÉCNICAS -->
+                    <div class="hero-metrics-strip hero-hud-metrics" aria-label="Métricas de estudio">
+                        <div class="hero-metric-cell">
+                            <span class="hero-metric-num tabular-nums">25+</span>
+                            <span class="hero-metric-text">Modelos 3D</span>
+                        </div>
+                        <div class="hero-metric-divider" aria-hidden="true"></div>
+                        <div class="hero-metric-cell">
+                            <span class="hero-metric-num tabular-nums">0.1mm</span>
+                            <span class="hero-metric-text">Precisión Digital</span>
+                        </div>
+                        <div class="hero-metric-divider" aria-hidden="true"></div>
+                        <div class="hero-metric-cell">
+                            <span class="hero-metric-num tabular-nums">100%</span>
+                            <span class="hero-metric-text">Envío a Todo Chile</span>
+                        </div>
+                    </div>
+
+                    <!-- DERECHA: 3 ENLACES ARQUITECTÓNICOS BORDERLESS DIRECTAMENTE SOBRE EL FONDO -->
+                    <nav class="hero-hud-nav" aria-label="Colecciones destacadas">
+                        <a href="maquetas-urbanas.html" class="hero-hud-link">
+                            <span class="hero-hud-idx">01</span>
+                            <span class="hero-hud-body">
+                                <strong>VOLCANES DE CHILE</strong>
+                                <small>Relieves y morfología territorial</small>
+                            </span>
+                        </a>
+                        <span class="hero-hud-sep" aria-hidden="true">/</span>
+                        <a href="maquetas-urbanas.html" class="hero-hud-link">
+                            <span class="hero-hud-idx">02</span>
+                            <span class="hero-hud-body">
+                                <strong>COLECCIÓN DE CIUDADES</strong>
+                                <small>Santiago, NY, París</small>
+                            </span>
+                        </a>
+                        <span class="hero-hud-sep" aria-hidden="true">/</span>
+                        <a href="maquetas-3d.html" class="hero-hud-link">
+                            <span class="hero-hud-idx">03</span>
+                            <span class="hero-hud-body">
+                                <strong>FABRICACIÓN A MEDIDA</strong>
+                                <small>Cotizador 3D online</small>
+                            </span>
+                        </a>
+                    </nav>
+                </div>
             </div>
         </section>
 
@@ -333,9 +296,13 @@
 
             <div class="bionova-collections-grid">
 
-                <!-- 01. Maquetas Urbanas (Span 7 - Módulo Heroico Destacado) -->
+                <!-- 01. Maquetas Urbanas (Span 7 - Módulo Heroico Destacado con Fondo de Video 1080p) -->
                 <a href="maquetas-urbanas.html" class="bionova-dir-card bionova-dir-span-7 directory-item" aria-label="Módulo 01: Maquetas Urbanas y Colección Volcanes de Chile">
-                    <img src="assets/img/banners/banner-collections-desk.webp" alt="Mesa de taller con plano de arquitecto y maquetas urbanas 3D" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <video class="bionova-dir-card-bg" autoplay muted loop playsinline preload="auto" poster="images/Architect_desk_with_city_model_a67346f2_2K.jpg" aria-hidden="true">
+                        <source src="images/Three_framed_topographic_models_on_concrete_wall_059fd68f_1080p.mp4" type="video/mp4">
+                        <source src="videos/Three_framed_topographic_models_…_059fd68f_1080p.mp4" type="video/mp4">
+                        <source src="videos/workshop-collection-loop.mp4" type="video/mp4">
+                    </video>
                     <div class="bionova-dir-head" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                         <span class="bionova-dir-tag">01 · TIENDA ONLINE</span>
                         <span style="font-family: var(--font-mono); font-size: 0.66rem; font-weight: 700; background: var(--ed-red); color: #FFFFFF; padding: 3px 8px; border-radius: 9999px;">NUEVA COLECCIÓN</span>
@@ -347,9 +314,13 @@
                     </div>
                 </a>
 
-                <!-- 02. Fabricación Digital 3D (Span 5 - Cotizador en Vivo) -->
+                <!-- 02. Fabricación Digital 3D (Span 5 - Cotizador en Vivo con Fondo de Video 1080p) -->
                 <a href="maquetas-3d.html" class="bionova-dir-card bionova-dir-span-5 directory-item" aria-label="Módulo 02: Fabricación Digital 3D">
-                    <img src="assets/img/banners/banner-workshop-craft.webp" alt="Taller en Santiago y manufactura aditiva artesanal de alta precisión" class="bionova-dir-card-bg" width="600" height="400" loading="lazy" decoding="async">
+                    <video class="bionova-dir-card-bg" autoplay muted loop playsinline preload="auto" poster="assets/img/banners/banner-workshop-craft.webp" aria-hidden="true">
+                        <source src="images/Close-up_of_3d_printer_extruding_white_filament_37673114_1080p.mp4" type="video/mp4">
+                        <source src="assets/video/interactivo.mp4" type="video/mp4">
+                        <img src="assets/img/banners/banner-workshop-craft.webp" alt="Taller en Santiago y manufactura aditiva artesanal de alta precisión" class="bionova-dir-card-bg">
+                    </video>
                     <div class="bionova-dir-head">
                         <span class="bionova-dir-tag">02 · COTIZADOR 3D</span>
                     </div>
