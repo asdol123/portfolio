@@ -236,7 +236,7 @@
       main: 'catalog/volcan-osorno-shadowbox.jpg',
       image: 'catalog/volcan-osorno-shadowbox.jpg',
       defaultImage: 'catalog/volcan-osorno-shadowbox.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/Light_sweeping_across_model_relief_c97943d5_1080p.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Geometría cónica perfecta y relieve topográfico del lago Llanquihue en acabado blanco tiza de alta pureza arquitectónica.',
       specs: {
         escala: '1:1000 / 1:2000',
@@ -272,7 +272,7 @@
       main: 'catalog/volcan llaima.jpg',
       image: 'catalog/volcan llaima.jpg',
       defaultImage: 'catalog/volcan llaima.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/Light_sweeping_across_scale_model_75205996_1080p.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Morfología eruptiva, fisuras históricas y relieve del Parque Nacional Conguillío modelado tridimensionalmente.',
       specs: {
         escala: '1:1500 / 1:2500',
@@ -309,7 +309,7 @@
       main: 'catalog/Volcan Lonquimay.jpg',
       image: 'catalog/Volcan Lonquimay.jpg',
       defaultImage: 'catalog/Volcan Lonquimay.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/showcase-relief.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Registro topográfico del cono principal y el histórico Cráter Navidad formado en la erupción de 1988 con su escorial volcánico.',
       specs: {
         escala: '1:1200 / 1:2000',
@@ -345,7 +345,7 @@
       main: 'catalog/Volcan Lanin.jpg',
       image: 'catalog/Volcan Lanin.jpg',
       defaultImage: 'catalog/Volcan Lanin.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/Woman_rotating_white_model_frame_e89d915e_1080p.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Monumental silueta del estratovolcán de 3.776 msnm en la frontera andina, con su casquete glaciar y vertientes abruptas en relieve 3D.',
       specs: {
         escala: '1:2000 / 1:3000',
@@ -381,7 +381,7 @@
       main: 'catalog/Volcan quetrupilan.jpg',
       image: 'catalog/Volcan quetrupilan.jpg',
       defaultImage: 'catalog/Volcan quetrupilan.jpg',
-      video: 'videos/reel-volcanes.mp4',
+      video: 'videos/Three_framed_topographic_models_…_059fd68f_1080p.mp4',
       description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Gran caldera colapsada y glaciar interior del volcán Quetrupillán, situado en el cordón volcánico entre el Villarrica y el Lanín.',
       specs: {
         escala: '1:1500 / 1:2500',
