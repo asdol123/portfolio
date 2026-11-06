@@ -51,7 +51,8 @@
 
         <!-- PESTAÑAS DE FILTRADO INTERACTIVAS -->
         <div class="manual-tabs" role="tablist" aria-label="Filtrar manuales por especialidad">
-            <button type="button" class="manual-tab-btn active" role="tab" aria-selected="true" data-filter="all">TODOS (3)</button>
+            <button type="button" class="manual-tab-btn active" role="tab" aria-selected="true" data-filter="all">TODOS (4)</button>
+            <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="energia">EFICIENCIA ENERGÉTICA (1)</button>
             <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="render">RENDERIZADO (1)</button>
             <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="maquetas">FABRICACIÓN DIGITAL (1)</button>
             <button type="button" class="manual-tab-btn" role="tab" aria-selected="false" data-filter="modelado">MODELADO 3D (1)</button>
@@ -60,7 +61,44 @@
         <!-- GRILLA DE MANUALES -->
         <section class="manuals-grid" aria-label="Listado de Manuales Disponibles">
 
-            <!-- 1. MANUAL DE RENDERIZADO ARQUITECTÓNICO -->
+            <!-- 1. MANUAL DE EFICIENCIA ENERGÉTICA Y CONFORT TÉRMICO -->
+            <article class="manual-card" data-category="energia">
+                <div class="manual-card-header">
+                    <span class="manual-badge">FÍSICA DE EDIFICIOS &amp; OGUC</span>
+                    <span class="manual-format-tag">PDF OFICIAL</span>
+                </div>
+                <div class="manual-card-body">
+                    <h2 class="manual-title">Manual de Eficiencia Energética y Confort Térmico</h2>
+                    <p class="manual-desc">Cálculo de transmitancia térmica U, condensaciones intersticiales (Glaser), simulación bioclimática horaria y cumplimiento OGUC 4.1.10 y CEV.</p>
+                    <div class="manual-software-tags" aria-label="Software y metodologías cubiertas">
+                        <span class="manual-software-tag">EnergyPlus</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">EcoDesigner STAR</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">Ladybug Tools</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">MINVU CEV</span>
+                        <span class="manual-software-sep">·</span>
+                        <span class="manual-software-tag">ISO 13788</span>
+                    </div>
+                    <div class="manual-meta">
+                        <span class="manual-meta-item">
+                            <svg class="manual-meta-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            10 Páginas
+                        </span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">PDF Vectorial</span>
+                        <span class="manual-meta-sep">·</span>
+                        <span class="manual-meta-item">Nivel Avanzado / Consultoría</span>
+                    </div>
+                </div>
+                <div class="manual-actions">
+                    <a href="manuales/manual-eficiencia.pdf" download="Manual-Eficiencia-Energetica-Alzado-Rojo.pdf" class="btn-ed-primary">DESCARGAR PDF (GRATIS)</a>
+                    <a href="manuales/manual-eficiencia.html" target="_blank" class="btn-ed-secondary">LEER ONLINE</a>
+                </div>
+            </article>
+
+            <!-- 2. MANUAL DE RENDERIZADO ARQUITECTÓNICO -->
             <article class="manual-card" data-category="render">
                 <div class="manual-card-header">
                     <span class="manual-badge">CGI Y RENDERIZADO</span>

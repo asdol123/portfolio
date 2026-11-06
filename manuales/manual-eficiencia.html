@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Manual de Eficiencia Energética y Confort Térmico • Alzado Rojo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 18mm 14mm 18mm 14mm;
+      @bottom-left {
+        content: "ALZADO ROJO // MANUAL TÉCNICO DE EFICIENCIA ENERGÉTICA";
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8pt;
+        letter-spacing: 0.12em;
+        color: #888888;
+      }
+      @bottom-right {
+        content: "PÁG. " counter(page);
+        font-family: 'Montserrat', sans-serif;
+        font-size: 8pt;
+        font-weight: 600;
+        color: #888888;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: #111827;
+      background: #FFFFFF;
+      line-height: 1.55;
+      font-size: 9.5pt;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Portada Editorial */
+    .cover-page {
+      page-break-after: always;
+      break-after: page;
+      display: flex;
+      flex-direction: column;
+      justifyContent: space-between;
+      min-height: 88vh;
+      border-left: 8px solid #D92525;
+      padding: 40px 0 30px 36px;
+    }
+
+    .cover-header {
+      margin-top: 15px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: #FEF2F2;
+      color: #D92525;
+      border: 1px solid #FCA5A5;
+      font-weight: 700;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 22px;
+    }
+
+    .cover-title {
+      font-size: 28pt;
+      font-weight: 900;
+      color: #111827;
+      line-height: 1.15;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .cover-title span {
+      color: #D92525;
+    }
+
+    .cover-subtitle {
+      font-size: 12.5pt;
+      color: #4B5563;
+      font-weight: 400;
+      line-height: 1.5;
+      max-width: 92%;
+      margin: 0 0 25px 0;
+    }
+
+    .cover-software-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 25px;
+      max-width: 95%;
+    }
+
+    .software-pill {
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 4px;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .software-pill .name {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: #1F2937;
+      display: block;
+    }
+
+    .software-pill .use {
+      font-size: 7.5pt;
+      color: #6B7280;
+      margin-top: 2px;
+      display: block;
+    }
+
+    .cover-meta {
+      border-top: 1px solid #E5E7EB;
+      padding-top: 20px;
+      display: flex;
+      justifyContent: space-between;
+      align-items: flex-end;
+      max-width: 95%;
+    }
+
+    .cover-author {
+      font-size: 9pt;
+      color: #374151;
+      line-height: 1.4;
+    }
+
+    .cover-author strong {
+      color: #111827;
+      display: block;
+      font-size: 9.5pt;
+    }
+
+    .cover-edition {
+      text-align: right;
+      font-size: 8.5pt;
+      color: #6B7280;
+    }
+
+    /* Estructura Interior */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    h1 {
+      font-size: 17pt;
+      font-weight: 800;
+      color: #111827;
+      border-bottom: 2px solid #D92525;
+      padding-bottom: 6px;
+      margin-top: 26px;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    h2 {
+      font-size: 12.5pt;
+      font-weight: 700;
+      color: #1F2937;
+      margin-top: 20px;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #374151;
+      margin-top: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin: 0 0 10px 0;
+      color: #374151;
+      text-align: justify;
+    }
+
+    .section-desc {
+      font-size: 9.8pt;
+      color: #6B7280;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    /* Cajas y Tarjetas */
+    .step-card {
+      background: #F9FAFB;
+      border: 1px solid #E5E7EB;
+      border-radius: 4px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .step-number {
+      background: #D92525;
+      color: #FFFFFF;
+      font-weight: 800;
+      font-size: 8.5pt;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justifyContent: center;
+      border-radius: 50%;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-weight: 700;
+      font-size: 10.5pt;
+      color: #111827;
+    }
+
+    .step-content {
+      font-size: 9pt;
+      color: #374151;
+      line-height: 1.5;
+    }
+
+    ul, ol {
+      margin: 6px 0 12px 20px;
+      padding: 0;
+      color: #374151;
+    }
+
+    li {
+      margin-bottom: 4px;
+      line-height: 1.45;
+    }
+
+    .key-badge {
+      font-family: 'JetBrains Mono', monospace;
+      background: #EEF2F6;
+      border: 1px solid #CBD5E1;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #0F172A;
+    }
+
+    .formula-box {
+      background: #111827;
+      color: #F9FAFB;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 12px 18px;
+      border-radius: 4px;
+      font-size: 9.5pt;
+      margin: 12px 0;
+      border-left: 4px solid #D92525;
+      line-height: 1.5;
+    }
+
+    .formula-box span.comment {
+      color: #9CA3AF;
+      font-size: 8.5pt;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .callout {
+      border-left: 4px solid #D92525;
+      background: #FEF2F2;
+      padding: 12px 16px;
+      margin: 14px 0;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .callout-title {
+      font-weight: 700;
+      font-size: 9.5pt;
+      color: #991B1B;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .callout-tip {
+      border-left-color: #059669;
+      background: #ECFDF5;
+    }
+
+    .callout-tip .callout-title {
+      color: #065F46;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 8.5pt;
+    }
+
+    th, td {
+      border: 1px solid #E5E7EB;
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #111827;
+      color: #FFFFFF;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+    }
+
+    tr:nth-child(even) {
+      background: #F9FAFB;
+    }
+
+    .footer-note {
+      margin-top: 30px;
+      padding-top: 12px;
+      border-top: 1px solid #E5E7EB;
+      font-size: 8pt;
+      color: #9CA3AF;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PORTADA ==================== -->
+  <div class="cover-page">
+    <div class="cover-header">
+      <span class="cover-badge">DOSSIER TÉCNICO OFICIAL • ALZADO ROJO</span>
+      <h1 class="cover-title">MANUAL DE EFICIENCIA ENERGÉTICA & <span>CONFORT TÉRMICO</span></h1>
+      <p class="cover-subtitle">
+        Guía práctica de cálculo de transmitancia U, puentes térmicos, simulación bioclimática horaria y cumplimiento reglamentario OGUC 4.1.10 y acreditación CEV en Chile.
+      </p>
+
+      <div class="cover-software-grid">
+        <div class="software-pill">
+          <span class="name">EnergyPlus</span>
+          <span class="use">Simulación Dinámica</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">EcoDesigner STAR</span>
+          <span class="use">Balance BIM Archicad</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Ladybug / Radiance</span>
+          <span class="use">Asoleamiento & sDA</span>
+        </div>
+        <div class="software-pill">
+          <span class="name">Norma OGUC & CEV</span>
+          <span class="use">Cumplimiento MINVU</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cover-meta">
+      <div class="cover-author">
+        <strong>Adolfo Risopatrón Inzunza</strong>
+        Arquitecto • Magíster en Arquitectura Sustentable y Energía (MASE UC)<br>
+        Director de Estudio Alzado Rojo (AR ARQ SpA)
+      </div>
+      <div class="cover-edition">
+        Edición 2026 // Versión 1.0<br>
+        Santiago de Chile • www.ar-arq.cl
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== CONTENIDO ==================== -->
+
+  <!-- SECCIÓN 1: FÍSICA DE EDIFICIOS -->
+  <h1>1. Fundamentos de Física de Edificios & Balance Térmico Dinámico</h1>
+  <p class="section-desc">El confort higrotérmico interior es una ecuación matemática de flujos de calor, masa y radiación.</p>
+
+  <p>En el diseño arquitectónico contemporáneo, la envolvente edilicia no puede considerarse una mera piel formal. Opera como una membrana de intercambio termodinámico continuo entre el microclima exterior y los requerimientos biológicos de confort humano (rango adaptativo de <strong>19°C a 24°C</strong> con humedad relativa entre 40% y 60%).</p>
+
+  <div class="formula-box">
+    Q_balance = (Q_conduccion + Q_ventilacion) - (Q_solar + Q_interna + Q_calefaccion)
+    <span class="comment">// Donde Q_balance = 0 representa el estado de equilibrio térmico estacionario.</span>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Transmitancia Térmica (Valor U) vs Resistencia Térmica (R)</div>
+    </div>
+    <div class="step-content">
+      <p>La transmitancia térmica ($U$, medida en $W/m^2K$) cuantifica la tasa de calor que atraviesa un metro cuadrado de envolvente por cada grado Kelvin de diferencia de temperatura entre ambientes. A menor valor $U$, mayor capacidad de aislamiento.</p>
+      <div class="formula-box">
+        R_total = R_se + ∑ (e_i / λ_i) + R_aire + R_si &nbsp;&nbsp;⟹&nbsp;&nbsp; U = 1 / R_total
+        <span class="comment">// e = espesor (m) | λ = conductividad térmica del material (W/mK) | R_si, R_se = resistencias superficiales.</span>
+      </div>
+      <ul>
+        <li><strong>Lana Mineral / Lana de Vidrio:</strong> $\lambda \approx 0.038 - 0.042\ W/mK$. Gran aislante térmico y acústico incombustible.</li>
+        <li><strong>Poliestireno Expandido (EPS alta densidad):</strong> $\lambda \approx 0.035\ W/mK$. Ideal para sistemas EIFS exteriores.</li>
+        <li><strong>Hormigón Armado:</strong> $\lambda \approx 1.63\ W/mK$. Alta inercia térmica pero nula resistencia; requiere aislamiento continuo exterior obligatorio.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Inercia Térmica y Capacidad de Amortiguamiento Diurno</div>
+    </div>
+    <div class="step-content">
+      <p>En climas mediterráneos semiáridos como la cuenca central de Chile (Santiago, Rancagua, Los Andes), la oscilación térmica diurna en verano supera frecuentemente los <strong>18°C a 20°C</strong> (máximas de 34°C diurnas, mínimas de 14°C nocturnas). La inercia térmica de muros de tierra compactada, ladrillo macizo u hormigón desacoplado retarda el paso de la onda de calor (desfase térmico de <strong>6 a 9 horas</strong>), permitiendo que la temperatura máxima exterior ingrese al interior recién de madrugada, cuando puede evacuarse mediante ventilación nocturna pasiva.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2: NORMATIVA CHILENA OGUC -->
+  <div class="page-break"></div>
+  <h1>2. Cumplimiento Reglamentario OGUC 4.1.10 (Chile)</h1>
+  <p class="section-desc">Exigencias de acondicionamiento térmico en techumbres, muros, pisos ventilados y ventanas según zonificación MINVU.</p>
+
+  <p>El Artículo 4.1.10 de la Ordenanza General de Urbanismo y Construcciones (OGUC) establece los estándares mínimos obligatorios de transmitancia térmica para edificaciones residenciales en Chile, dividiendo el territorio nacional en <strong>9 Zonas Térmicas (Zonas 1 a 9)</strong>.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 14%;">Zona Térmica</th>
+        <th style="width: 26%;">Ciudades de Referencia</th>
+        <th style="width: 15%;">Techo U máx</th>
+        <th style="width: 15%;">Muro U máx</th>
+        <th style="width: 15%;">Piso U máx</th>
+        <th style="width: 15%;">Vidrio máx</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Zona 1</strong></td>
+        <td>Arica, Iquique, Antofagasta</td>
+        <td>0.84 W/m²K</td>
+        <td>4.00 W/m²K</td>
+        <td>3.60 W/m²K</td>
+        <td>Monovidrio libre</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 2</strong></td>
+        <td>Copiapó, La Serena, Coquimbo</td>
+        <td>0.60 W/m²K</td>
+        <td>3.00 W/m²K</td>
+        <td>3.60 W/m²K</td>
+        <td>Monovidrio libre</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 3</strong></td>
+        <td>Santiago Centro, Quillota, Rancagua</td>
+        <td>0.47 W/m²K</td>
+        <td>1.90 W/m²K</td>
+        <td>3.60 W/m²K</td>
+        <td>Monovidrio / DVH</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 4</strong></td>
+        <td>Talca, Chillán, Concepción</td>
+        <td>0.38 W/m²K</td>
+        <td>1.70 W/m²K</td>
+        <td>3.60 W/m²K</td>
+        <td>DVH recomendado</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 5</strong></td>
+        <td>Temuco, Los Ángeles, Valdivia</td>
+        <td>0.33 W/m²K</td>
+        <td>1.60 W/m²K</td>
+        <td>0.87 W/m²K</td>
+        <td>Doble Vidriado Oblig.</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 6</strong></td>
+        <td>Osorno, Puerto Montt, Chiloé</td>
+        <td>0.28 W/m²K</td>
+        <td>1.10 W/m²K</td>
+        <td>0.70 W/m²K</td>
+        <td>DVH Low-E + Argón</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 7</strong></td>
+        <td>Coyhaique, Aysén, Puerto Natales</td>
+        <td>0.25 W/m²K</td>
+        <td>0.60 W/m²K</td>
+        <td>0.50 W/m²K</td>
+        <td>Triple Vidriado / RPT</td>
+      </tr>
+      <tr>
+        <td><strong>Zona 8 y 9</strong></td>
+        <td>Punta Arenas, Antártica, Cordillera</td>
+        <td>0.20 W/m²K</td>
+        <td>0.45 W/m²K</td>
+        <td>0.35 W/m²K</td>
+        <td>Estándar Passivhaus</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-important">
+    <div class="callout-title">[ALERTA MINVU] Actualización Reglamentaria hacia Nuevas Exigencias</div>
+    La actualización de la reglamentación térmica nacional endurece los límites de transmitancia en muros de Zona 3 a valores cercanos a <strong>0.50 W/m²K</strong>. Diseñar hoy con los límites mínimos históricos de 1.90 W/m²K condena al edificio a la obsolescencia energética y a facturas eléctricas astronómicas.
+  </div>
+
+  <!-- SECCIÓN 3: PATOLOGÍAS Y PUENTES TÉRMICOS -->
+  <div class="page-break"></div>
+  <h1>3. Patologías Críticas: Condensación Intersticial & Puentes Térmicos</h1>
+  <p class="section-desc">Cómo evitar la formación de hongos y pérdidas masivas de calor en nudos estructurales.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Condensación Intersticial y la Regla de Oro de las Membranas</div>
+    </div>
+    <div class="step-content">
+      <p>La condensación superficial ocurre cuando el aire caliente y húmedo interior choca con una superficie fría por debajo de la <strong>temperatura de rocío</strong> ($T_{rocio}$). La condensación intersticial ocurre dentro del tabique, pudriendo montantes de madera, oxidando perfiles volcometal y arruinando el aislamiento.</p>
+      <ul>
+        <li><strong>Barrera de Vapor (Polietileno 0.2 mm o papel kraft sellado):</strong> Debe colocarse SIEMPRE en la <strong>cara cálida</strong> de la aislación (hacia el interior del recinto). Impide que la humedad interior ingrese a la estructura.</li>
+        <li><strong>Membrana Hidrófuga y Respirable (Tyvek / Durex):</strong> Debe instalarse en la <strong>cara fría exterior</strong>. Impide el paso de agua líquida y viento exterior, pero permite la difusión del vapor remanente hacia afuera.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Neutralización de Puentes Térmicos Lineales (Ψ)</div>
+    </div>
+    <div class="step-content">
+      <p>Un puente térmico es una discontinuidad de la resistencia térmica provocada por cambios de espesor, nudos estructurales (encuentro de losa con muro de fachada, dinteles de vano, jambas de ventana) o fijaciones metálicas. Puede generar hasta un <strong>30% de las pérdidas totales de calor</strong> de una vivienda.</p>
+      <ul>
+        <li><strong>Solución EIFS (Exterior Insulation and Finish System):</strong> Al envolver el edificio con aislamiento exterior continuo de poliestireno o lana mineral de 50 mm a 100 mm, se eliminan todos los puentes térmicos de borde de losa.</li>
+        <li><strong>Ruptura de Puente Térmico (RPT) en Ventanas:</strong> Los perfiles de aluminio sin RPT transmiten el frío directo al interior, condensando agua en los marcos. Usar PVC multcámara o aluminio con poliamida intermedia.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4: DISEÑO PASIVO -->
+  <h1>4. Estrategias Bioclimáticas Pasivas</h1>
+  <p class="section-desc">Asoleamiento controlado, protección solar paramétrica y ventilación natural adaptativa.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Cálculo Geométrico de Aleros y Celosías Solares</div>
+    </div>
+    <div class="step-content">
+      <p>En el hemisferio sur, la fachada <strong>Norte</strong> recibe la radiación solar benéfica de invierno a ángulos bajos (altura solar $\alpha \approx 33^\circ$ en Santiago a mediodía de junio), y radiación cenital de verano a ángulos altos ($\alpha \approx 80^\circ$ en diciembre).</p>
+      <div class="formula-box">
+        Profundidad_Alero = Altura_Ventana / tan(α_verano)
+        <span class="comment">// Un alero horizontal fijo en fachada Norte bloquea el 100% del sol de verano y deja entrar el sol de invierno.</span>
+      </div>
+      <p>Para fachadas <strong>Oriente y Poniente</strong>, el sol viaja bajo en el horizonte matinal y vespertino. Los aleros horizontales son inútiles: se requiere vegetación caduca, celosías verticales o persianas exteriores orientables.</p>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">Ventilación Cruzada Natural y Efecto Chimenea</div>
+    </div>
+    <div class="step-content">
+      <p>La ventilación cruzada requiere vanos enfrentados en fachadas sometidas a diferente presión aerodinámica (barlovento y sotavento). En climas calurosos, la ventilación nocturna descarga la masa térmica del edificio:</p>
+      <ul>
+        <li><strong>Efecto Chimenea:</strong> Aire frío ingresa por aperturas bajas; aire caliente asciende y evacúa por lucarnas altas o aberturas cenitales.</li>
+        <li>Tasa de renovación nocturna recomendada: <strong>4 a 6 renovaciones de aire por hora (ACH)</strong> entre 23:00 y 07:00 hrs.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 5: SIMULACIÓN ENERGÉTICA COMPUTACIONAL -->
+  <div class="page-break"></div>
+  <h1>5. Flujo de Simulación Dinámica Computacional</h1>
+  <p class="section-desc">Del modelo BIM paramétrico al cálculo horario en EnergyPlus y Archicad EcoDesigner STAR.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Archicad EcoDesigner STAR (Evaluación Integrada en BIM)</div>
+    </div>
+    <div class="step-content">
+      <p>Permite vincular el modelo de información de construcción (BIM) directamente al motor VIP-Core sin exportaciones intermedias corruptas:</p>
+      <ul>
+        <li><strong>Zonificación Térmica (Thermal Blocks):</strong> Asignar recintos a bloques térmicos según carga interna y perfil de uso (Dormitorios, Estar/Comedor, Baños/Servicio).</li>
+        <li><strong>Asignación de Estructuras:</strong> Detección automática de superficies de envolvente en contacto con aire exterior, terreno o recintos no calefaccionados.</li>
+        <li><strong>Archivo Climático (.EPW):</strong> Cargar datos meteorológicos horarios oficiales de la estación más cercana (Pudahuel, Tobalaba, Carriel Sur, El Tepual).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div class="step-title">EnergyPlus & Grasshopper Ladybug Tools</div>
+    </div>
+    <div class="step-content">
+      <p>Para proyectos de alta complejidad o certificación LEED / Passivhaus / CEV:</p>
+      <ul>
+        <li><strong>Ladybug Solar Analysis:</strong> Mapeo de radiación acumulada ($kWh/m^2$) sobre superficies exteriores en Rhinoceros para ubicar paneles fotovoltaicos y colectores solares.</li>
+        <li><strong>Radiance sDA / ASE:</strong> Simulación de autonomía de luz natural diurna ($sDA_{300,50\%}$) para garantizar que al menos el 75% del espacio reciba luz solar difusa sin encender ampolletas durante el día.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 6: CALIFICACIÓN ENERGÉTICA CEV -->
+  <h1>6. Pre-Evaluación para Calificación Energética de Viviendas (CEV)</h1>
+  <p class="section-desc">El sello oficial del MINVU que valoriza los proyectos inmobiliarios y reduce el dividendo bancario.</p>
+
+  <p>La Calificación Energética de Viviendas (CEV) evalúa la eficiencia de la envolvente y los sistemas activos de calefacción, refrigeración, agua caliente sanitaria (ACS) e iluminación, otorgando una letra desde <strong>A+ (ahorro superior al 85%)</strong> hasta <strong>G (sin ahorro respecto a estándar base)</strong>.</p>
+
+  <div class="step-card">
+    <div class="step-header">
+      <div class="step-number">1</div>
+      <div class="step-title">Indicadores Clave del Informe CEV</div>
+    </div>
+    <div class="step-content">
+      <ul>
+        <li><strong>Demanda de Calefacción ($kWh/m^2\cdot año$):</strong> Energía térmica necesaria para mantener el edificio en confort durante el período frío.</li>
+        <li><strong>Demanda de Enfriamiento ($kWh/m^2\cdot año$):</strong> Energía térmica requerida para evitar sobrecalentamiento estival.</li>
+        <li><strong>Porcentaje de Ahorro (%):</strong> Comparación directa contra la "Vivienda de Referencia" que cumple estrictamente el mínimo de la OGUC.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 7: MATRIZ DE RESOLUCIÓN DE ERRORES -->
+  <div class="page-break"></div>
+  <h1>7. Matriz de Errores Constructivos Frecuentes & Soluciones</h1>
+  <p class="section-desc">Guía rápida de diagnóstico en terreno y fase de proyecto.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 25%;">Error / Síntoma</th>
+        <th style="width: 28%;">Causa Técnica</th>
+        <th style="width: 47%;">Solución Constructiva Recomendada</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Moho negro detrás de cabeceras de cama y clósets</strong></td>
+        <td>Puente térmico en encuentro losa-muro o falta de barrera de vapor en tabique perimetral.</td>
+        <td>
+          1. Instalar polietileno de 0.2 mm en la cara cálida antes de la placa de yeso-cartón.<br>
+          2. Aislar térmicamente el retorno de losa exterior con placa EIFS.<br>
+          3. Diseñar separadores de 5 cm entre muebles fijos y muros exteriores fríos.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Ventanas termopanel "lloran" agua en los marcos</strong></td>
+        <td>Perfil de aluminio estándar sin Ruptura de Puente Térmico (RPT).</td>
+        <td>
+          1. Especificar marcos de PVC foliado multcámara o aluminio con RPT.<br>
+          2. Verificar que el vidrio DVH cuente con espaciador térmico (Warm Edge).<br>
+          3. Incorporar microventilación pasiva autorregulable en cabezal de ventana.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Sobrecalentamiento sofocante en segundo piso en verano</strong></td>
+        <td>Falta de aislación en techumbre y ausencia de cámara de aire ventilada en entretecho.</td>
+        <td>
+          1. Incrementar espesor de lana mineral a <strong>160 mm – 200 mm</strong> en cielo.<br>
+          2. Instalar cumbrera ventilada y celosías en tímpanos para evacuar colchón de aire caliente.<br>
+          3. Aplicar barrera radiante reflectiva de aluminio bajo la placa de cubierta.
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Sensación de "muro frío" pese a tener calefacción encendida</strong></td>
+        <td>Baja temperatura radiante media ($T_{rm}$) por transmitancia excesiva del muro.</td>
+        <td>
+          1. El confort térmico no depende sólo del aire: depende de la radiación de los muros.<br>
+          2. Reducir valor $U$ del muro a menos de <strong>0.40 W/m²K</strong> para que la superficie interior no baje de 17°C en invierno.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-tip">
+    <div class="callout-title">[LISTA DE CHEQUEO] Control Pre-Ingreso DOM & Construcción</div>
+    <ol style="margin-bottom: 0;">
+      <li>¿Verificaste la Zona Térmica exacta según la comuna en el listado oficial MINVU?</li>
+      <li>¿El cálculo de transmitancia U incluye las resistencias superficiales ($R_{si} + R_{se}$)?</li>
+      <li>¿La barrera de vapor está en la cara interior y la membrana hidrófuga en la exterior?</li>
+      <li>¿Se coordinaron los detalles constructivos de alféizares, dinteles y retornos de losa?</li>
+    </ol>
+  </div>
+
+  <div class="footer-note">
+    Manual de Eficiencia Energética y Confort Térmico • Alzado Rojo (AR ARQ SpA) • Santiago de Chile, 2026 • Documentación para Arquitectura, Ingeniería y Construcción Sostenible.
+  </div>
+
+</body>
+</html>
