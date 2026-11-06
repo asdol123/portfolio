@@ -4,6 +4,7 @@ Thumbs.db
 .DS_Store
 *.mp4
 !videos/*.mp4
+!assets/video/*.mp4
 
 # Scripts de desarrollo y mantenimiento (nunca servir como estáticos en Vercel)
 *.bat
