@@ -27,7 +27,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
-    <link rel="stylesheet" href="css/editorial.css?v=20261105g">
+    <link rel="stylesheet" href="css/editorial.css?v=20261106a">
 
     <!-- Estructura de Datos JSON-LD de Autoridad (Schema.org / GEO y AI Search) -->
     <script type="application/ld+json">
@@ -240,6 +240,10 @@
                             <span class="ecom-cat-tag">VOLCANES DE CHILE</span>
                         </div>
                         <div class="ecom-floating-tools">
+                            <div class="ecom-view-switcher" aria-label="Selector de vistas del Volcán Villarrica">
+                                <button type="button" class="ecom-view-btn active" data-img="catalog/volcan-villarrica-marco.jpg" data-caption="Volcán Villarrica · Relieve Topográfico 3D" aria-pressed="true">Con Marco</button>
+                                <button type="button" class="ecom-view-btn" data-img="catalog/Volcan Villarica.jpg" data-caption="Volcán Villarrica · Vista Estudio" aria-pressed="false">Vista Estudio</button>
+                            </div>
                             <span class="ecom-video-pill" title="Video 3D disponible en QuickView"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Video 3D</span>
                         </div>
                     </div>
@@ -298,6 +302,10 @@
                             <span class="ecom-cat-tag">VOLCANES DE CHILE</span>
                         </div>
                         <div class="ecom-floating-tools">
+                            <div class="ecom-view-switcher" aria-label="Selector de vistas del Volcán Llaima">
+                                <button type="button" class="ecom-view-btn active" data-img="catalog/volcan llaima.jpg" data-caption="Volcán Llaima · Geometría Eruptiva y Parque Conguillío" aria-pressed="true">Con Marco</button>
+                                <button type="button" class="ecom-view-btn" data-img="catalog/Volcan Llaima v1.jpg" data-caption="Volcán Llaima · Vista Estudio" aria-pressed="false">Vista Estudio</button>
+                            </div>
                             <span class="ecom-video-pill" title="Video 3D disponible en QuickView"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg> Video 3D</span>
                         </div>
                     </div>
@@ -675,7 +683,7 @@
                 </article>
 
                 <!-- 14. COLECCIÓN LAGOS DE CHILE · TEASER DE PRÓXIMO LANZAMIENTO -->
-                <article class="ecom-card ecom-card-teaser" id="coleccion-lagos-teaser" data-category="lagos" data-prod-name="Colección Lagos de Chile" style="border-radius: 0; width: 100vw; margin-left: calc(50% - 50vw);">
+                <article class="ecom-card ecom-card-teaser" id="coleccion-lagos-teaser" data-category="lagos" data-prod-name="Colección Lagos de Chile">
                     <div class="ecom-teaser-thumb-box" aria-label="Próximamente: Colección Lagos de Chile">
                         <img src="catalog/volcan-osorno-shadowbox.jpg" alt="Colección Lagos de Chile maquetas topográficas y batimétricas 3D" class="ecom-img" loading="lazy" decoding="async">
                         <div class="ecom-card-scrim" aria-hidden="true"></div>
@@ -2400,9 +2408,9 @@
     </div>
 
     <!-- MOTOR E-COMMERCE Y GESTIÓN DE CHECKOUT FORMAL -->
-    <script src="js/ecommerce.js?v=20261028d"></script>
+    <script src="js/ecommerce.js?v=20261106a"></script>
     <script src="js/checkout.js?v=20261028d"></script>
-    <script src="js/quickview.js?v=20261028d"></script>
+    <script src="js/quickview.js?v=20261106a"></script>
 
     <!-- MOTOR DE ANIMACIONES LIQUID MOTION -->
     <script src="js/liquid-motion.js?v=20261028d" defer></script>

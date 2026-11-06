@@ -278,9 +278,8 @@
         description: 'Relieve del cono volcanico, glaciar y crater activo con curvas de nivel extruidas a 0.20 mm de precision en marco shadowbox negro mate.',
         main: 'catalog/volcan-villarrica-marco.jpg',
         gallery: [
-          { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Marco Shadowbox Negro' },
-          { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle Crater y Curvas' },
-          { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Relieve Blanco Tiza' }
+          { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Volcán Villarrica · Mesa de Arquitecto' },
+          { url: 'catalog/Volcan Villarica.jpg', label: 'Volcán Villarrica · Marco Shadowbox Estudio' }
         ],
         formats: [
           { size: '20 × 20 cm', price: 24990, formattedPrice: '$24.990 CLP', active: true },
@@ -410,6 +409,10 @@
     const list = Array.isArray(gallery) && gallery.length > 0
       ? gallery
       : [{ url: activeUrl, label: 'Vista Principal' }];
+
+    const wrap = galleryStrip.closest('.ar-quickview-gallery-wrap');
+    if (wrap) wrap.style.display = list.length <= 1 ? 'none' : '';
+    if (list.length <= 1) return;
 
     list.forEach(function (item, idx) {
       const btn = document.createElement('button');

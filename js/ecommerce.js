@@ -209,14 +209,12 @@
         acabado: 'Blanco Tiza Mate Antirreflejo'
       },
       images: {
-        marco: 'catalog/volcan-villarrica-marco.jpg',
-        detalle: 'catalog/volcan-villarrica-detalle.jpg',
-        volcan: 'catalog/Volcan Villarica.jpg'
+        'Con Marco': 'catalog/volcan-villarrica-marco.jpg',
+        'Estudio': 'catalog/Volcan Villarica.jpg'
       },
       gallery: [
-        { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Marco Shadowbox Negro' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle Cráter y Curvas de Nivel' },
-        { url: 'catalog/Volcan Villarica.jpg', label: 'Perspectiva Volcán Villarrica' }
+        { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Volcán Villarrica · Mesa de Arquitecto' },
+        { url: 'catalog/Volcan Villarica.jpg', label: 'Volcán Villarrica · Marco Shadowbox Estudio' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -247,12 +245,10 @@
         acabado: 'Microestratificación 0.20 mm'
       },
       images: {
-        shadowbox: 'catalog/volcan-osorno-shadowbox.jpg'
+        'Con Marco': 'catalog/volcan-osorno-shadowbox.jpg'
       },
       gallery: [
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Marco Shadowbox Negro' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Textura Cónica y Cota Real' },
-        { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Perspectiva de Exhibición' }
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Volcán Osorno · Marco Shadowbox Negro' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -283,13 +279,12 @@
         acabado: 'Microcapas de Alta Definición'
       },
       images: {
-        principal: 'catalog/volcan llaima.jpg',
-        version1: 'catalog/Volcan Llaima v1.jpg'
+        'Con Marco': 'catalog/volcan llaima.jpg',
+        'Estudio': 'catalog/Volcan Llaima v1.jpg'
       },
       gallery: [
-        { url: 'catalog/volcan llaima.jpg', label: 'Volcán Llaima Relieve 3D' },
-        { url: 'catalog/Volcan Llaima v1.jpg', label: 'Perspectiva Cráter Conguillío' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Estratos Topográficos' }
+        { url: 'catalog/volcan llaima.jpg', label: 'Volcán Llaima · Mesa de Estudio' },
+        { url: 'catalog/Volcan Llaima v1.jpg', label: 'Volcán Llaima · Marco Shadowbox Estudio' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -320,12 +315,10 @@
         acabado: 'Blanco Mate Texturizado'
       },
       images: {
-        principal: 'catalog/Volcan Lonquimay.jpg'
+        'Con Marco': 'catalog/Volcan Lonquimay.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcan Lonquimay.jpg', label: 'Cráter Navidad y Cono Lonquimay' },
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Pendientes y Curvas' }
+        { url: 'catalog/Volcan Lonquimay.jpg', label: 'Volcán Lonquimay · Cráter Navidad y Falla' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -356,12 +349,10 @@
         acabado: 'Microcapas de Precisión 0.20 mm'
       },
       images: {
-        principal: 'catalog/Volcan Lanin.jpg'
+        'Con Marco': 'catalog/Volcan Lanin.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcan Lanin.jpg', label: 'Volcán Lanín y Glaciar Andino' },
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Cumbres y Filos' }
+        { url: 'catalog/Volcan Lanin.jpg', label: 'Volcán Lanín · Glaciar Binacional 3D' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -392,12 +383,10 @@
         acabado: 'Microestratificación 0.20 mm'
       },
       images: {
-        principal: 'catalog/Volcan quetrupilan.jpg'
+        'Con Marco': 'catalog/Volcan quetrupilan.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcan quetrupilan.jpg', label: 'Caldera Extinta Volcán Quetrupillán' },
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista de Enmarcado Shadowbox' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Malla Topográfica' }
+        { url: 'catalog/Volcan quetrupilan.jpg', label: 'Volcán Quetrupillán · Caldera Extinta 3D' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -426,13 +415,12 @@
         acabado: 'Mate Antirreflejo'
       },
       images: {
-        marco: 'catalog/santiago-costanera-marco.jpg',
-        sinMarco: 'catalog/santiago-costanera-sin-marco.jpg'
+        'Con Marco': 'catalog/santiago-costanera-marco.jpg',
+        'Sin Marco': 'catalog/santiago-costanera-sin-marco.jpg'
       },
       gallery: [
-        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Enmarcado Shadowbox' },
-        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Relieve Puro Sin Marco' },
-        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle Microarquitectónico' }
+        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Santiago Costanera · Con Marco Shadowbox' },
+        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Santiago Costanera · Relieve Sin Marco' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -463,12 +451,10 @@
         acabado: 'Volumetría con Tipografía 3D en Bajo Relieve'
       },
       images: {
-        principal: 'catalog/chicago-cuadro.jpg'
+        'Con Marco': 'catalog/chicago-cuadro.jpg'
       },
       gallery: [
-        { url: 'catalog/chicago-cuadro.jpg', label: 'Cuadro Topográfico con Tipografía 3D' },
-        { url: 'catalog/new-york-cuadro.jpg', label: 'Perspectiva Serie Ciudades' },
-        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
+        { url: 'catalog/chicago-cuadro.jpg', label: 'Chicago · Cuadro Topográfico con Tipografía 3D' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -500,12 +486,10 @@
         acabado: 'Tipografía Volumétrica 3D Integrada'
       },
       images: {
-        principal: 'catalog/new-york-cuadro.jpg'
+        'Con Marco': 'catalog/new-york-cuadro.jpg'
       },
       gallery: [
-        { url: 'catalog/new-york-cuadro.jpg', label: 'Manhattan en Relieve Blanco Tiza' },
-        { url: 'catalog/chicago-cuadro.jpg', label: 'Perspectiva Serie Ciudades' },
-        { url: 'catalog/santiago-costanera-marco.jpg', label: 'Perfil de Enmarcado' }
+        { url: 'catalog/new-york-cuadro.jpg', label: 'New York · Manhattan en Relieve Blanco Tiza' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -537,12 +521,10 @@
         acabado: 'Curvas de Nivel FDM Microcapas 0.15 mm'
       },
       images: {
-        principal: 'catalog/piramides-guiza.jpg'
+        'Con Marco': 'catalog/piramides-guiza.jpg'
       },
       gallery: [
-        { url: 'catalog/piramides-guiza.jpg', label: 'Meseta Arqueológica de Guiza' },
-        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Detalle de Estratos y Curvas' },
-        { url: 'catalog/topografia-valle-marco.jpg', label: 'Vista de Enmarcado' }
+        { url: 'catalog/piramides-guiza.jpg', label: 'Guiza · Meseta Arqueológica Pirámides de Egipto' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -573,12 +555,10 @@
         acabado: 'Continuidad Tridimensional entre Baldosas'
       },
       images: {
-        principal: 'catalog/relieve-modular-4paneles.jpg'
+        '4 Paneles': 'catalog/relieve-modular-4paneles.jpg'
       },
       gallery: [
-        { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Mural 4 Baldosas Modulares' },
-        { url: 'catalog/topografia-valle-marco.jpg', label: 'Encuadre de Transición Territorial' },
-        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Acople y Textura' }
+        { url: 'catalog/relieve-modular-4paneles.jpg', label: 'Relieve Modular 4 Paneles · Mural Cordillerano' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Bolsillo)' },
@@ -611,13 +591,14 @@
         acabado: 'Curvas Extruidas Capa a Capa'
       },
       images: {
-        general: 'catalog/topografia-valle-marco.jpg',
-        detalle: 'catalog/topografia-valle-detalle.jpg'
+        'Con Marco': 'catalog/topografia-valle-marco.jpg',
+        'Mesa de Estudio': 'catalog/volcan-villarrica-detalle.jpg',
+        'Detalle Macro': 'catalog/topografia-valle-detalle.jpg'
       },
       gallery: [
-        { url: 'catalog/topografia-valle-marco.jpg', label: 'Cuadro Topográfico Valle Central' },
-        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Curvas y Pendientes' },
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Vista Lateral Shadowbox' }
+        { url: 'catalog/topografia-valle-marco.jpg', label: 'Topografía Territorial · Marco Shadowbox Estudio' },
+        { url: 'catalog/volcan-villarrica-detalle.jpg', label: 'Topografía Territorial · Mesa de Estudio' },
+        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Topografía Territorial · Macro Curvas de Nivel' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -648,12 +629,10 @@
         acabado: 'Contraste Óptico Mate de Alta Definición'
       },
       images: {
-        principal: 'catalog/insercion-arquitectura-contraste.jpg'
+        'Con Marco': 'catalog/insercion-arquitectura-contraste.jpg'
       },
       gallery: [
-        { url: 'catalog/insercion-arquitectura-contraste.jpg', label: 'Alto Contraste Arquitectónico' },
-        { url: 'catalog/topografia-valle-detalle.jpg', label: 'Detalle de Encuentro y Relieve' },
-        { url: 'catalog/santiago-costanera-sin-marco.jpg', label: 'Base de Sustrato Topográfico' }
+        { url: 'catalog/insercion-arquitectura-contraste.jpg', label: 'Inserción Arquitectónica de Alto Contraste' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
