@@ -45,7 +45,7 @@
     thumbImg: 'catalog/santiago-costanera-marco.jpg',
     unitPrice: 9990,
     quantity: 1,
-    shippingId: 'pickup',
+    shippingId: 'blue_pickup',
     paymentMethod: 'payku',
     lastProcessedOrder: null
   };
@@ -219,6 +219,53 @@
   }
 
   /**
+   * Sincroniza la modalidad de despacho seleccionada, clases visuales y placeholder de dirección
+   * @param {string} shippingId
+   */
+  function selectShippingMethod(shippingId) {
+    const targetId = (shippingId === 'pickup' ? 'blue_pickup' : shippingId) || 'blue_pickup';
+    state.shippingId = targetId;
+
+    if (!dom.shippingOptions || dom.shippingOptions.length === 0) {
+      dom.shippingOptions = document.querySelectorAll('.ar-shipping-option');
+    }
+
+    if (dom.shippingOptions) {
+      dom.shippingOptions.forEach(opt => {
+        const radio = opt.querySelector('input[type="radio"]');
+        const match = radio && (radio.value === targetId);
+        if (radio) radio.checked = match;
+        opt.classList.toggle('is-selected', Boolean(match));
+      });
+    }
+
+    // Sincronizar explícitamente las tres opciones por ID
+    const optBluePickup = document.getElementById('shipping-opt-blue-pickup');
+    const optSantiago = document.getElementById('shipping-opt-santiago');
+    const optRegiones = document.getElementById('shipping-opt-regiones');
+
+    if (optBluePickup) optBluePickup.classList.toggle('is-selected', targetId === 'blue_pickup');
+    if (optSantiago) optSantiago.classList.toggle('is-selected', targetId === 'santiago');
+    if (optRegiones) optRegiones.classList.toggle('is-selected', targetId === 'regiones');
+
+    // El bloque de dirección se mantiene SIEMPRE visible ya que no existe retiro en taller
+    if (dom.shippingAddressWrap) {
+      dom.shippingAddressWrap.style.display = 'block';
+    }
+
+    // Actualizar placeholder de la dirección según modalidad
+    if (dom.inputAddress) {
+      if (targetId === 'blue_pickup') {
+        dom.inputAddress.placeholder = 'Punto Blue Express o dirección de referencia para retiro';
+      } else {
+        dom.inputAddress.placeholder = 'Calle, número, departamento o casa';
+      }
+    }
+
+    refreshFinancials();
+  }
+
+  /**
    * Abre la ventana modal de Checkout con los datos del producto o servicio
    * @param {object} productData
    */
@@ -322,7 +369,8 @@
 
     state.unitPrice = parsedPrice;
     state.quantity = Math.max(1, parseInt(productData.quantity, 10) || 1);
-    state.shippingId = productData.shippingId || 'pickup';
+    state.shippingId = productData.shippingId || 'blue_pickup';
+    if (state.shippingId === 'pickup') state.shippingId = 'blue_pickup';
 
     // Rellenar cabecera y producto
     if (dom.folioDisplay) dom.folioDisplay.textContent = `FOLIO #${state.folio}`;
@@ -336,20 +384,8 @@
     if (dom.summaryFinish) dom.summaryFinish.textContent = `Acabado: ${state.finish}`;
     if (dom.qtyVal) dom.qtyVal.textContent = String(state.quantity);
 
-    // Ajustar radio de envío inicial
-    if (dom.shippingOptions) {
-      dom.shippingOptions.forEach(opt => {
-        const radio = opt.querySelector('input[type="radio"]');
-        const match = radio && radio.value === state.shippingId;
-        if (radio) radio.checked = match;
-        opt.classList.toggle('is-selected', match);
-      });
-    }
-
-    // Mostrar/ocultar dirección según envío
-    if (dom.shippingAddressWrap) {
-      dom.shippingAddressWrap.style.display = state.shippingId === 'pickup' ? 'none' : 'block';
-    }
+    // Ajustar modalidad de despacho inicial, clases visuales y mantener dirección siempre visible
+    selectShippingMethod(state.shippingId);
 
     // Ajustar radio de pago inicial (Priorizando Transferencia)
     if (dom.paymentOptions) {
@@ -480,7 +516,7 @@
       commune: dom.inputAddress ? dom.inputAddress.value.trim() : ''
     };
 
-    const requiresShipping = state.shippingId !== 'pickup';
+    const requiresShipping = true;
 
     // Validación previa del lado del cliente
     let hasError = false;
@@ -498,7 +534,7 @@
       if (dom.errPhone) dom.errPhone.classList.add('is-active');
       hasError = true;
     }
-    if (requiresShipping && (!customer.address || customer.address.length < 5)) {
+    if (!customer.address || customer.address.length < 5) {
       if (dom.errAddress) dom.errAddress.classList.add('is-active');
       hasError = true;
     }
@@ -773,18 +809,7 @@
         opt.addEventListener('click', () => {
           const radio = opt.querySelector('input[type="radio"]');
           if (radio) {
-            radio.checked = true;
-            state.shippingId = radio.value;
-
-            dom.shippingOptions.forEach(o => o.classList.remove('is-selected'));
-            opt.classList.add('is-selected');
-
-            // Mostrar/ocultar dirección
-            if (dom.shippingAddressWrap) {
-              dom.shippingAddressWrap.style.display = state.shippingId === 'pickup' ? 'none' : 'block';
-            }
-
-            refreshFinancials();
+            selectShippingMethod(radio.value);
           }
         });
       });
@@ -1183,10 +1208,10 @@
           quantity: 1,
           unitPrice: 24990,
           subtotal: 24990,
-          shippingId: 'pickup',
-          shippingLabel: 'Retiro en Taller / Despacho a Coordinar',
-          shippingCost: 0,
-          total: 24990,
+          shippingId: 'blue_pickup',
+          shippingLabel: 'Punto Blue Express (Pikup)',
+          shippingCost: 4490,
+          total: 29480,
           paymentMethod: 'payku',
           paymentLabel: 'Tarjeta de Débito, Crédito o Redcompra (Payku)',
           customer: {
@@ -1468,6 +1493,7 @@
     checkFlowReturnStatus,
     showCheckoutToast,
     selectPaymentMethod,
+    selectShippingMethod,
     setFormat,
     refreshFinancials,
     getState: () => ({ ...state })

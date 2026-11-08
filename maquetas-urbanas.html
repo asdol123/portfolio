@@ -2174,12 +2174,12 @@
                         <div>
                             <span class="ar-checkout-section-title">ENTREGA</span>
                             <div class="ar-shipping-list" role="radiogroup" aria-label="Modalidad de Entrega">
-                                <label class="ar-shipping-option is-selected" id="shipping-opt-pickup">
-                                    <input type="radio" name="ar_shipping" value="pickup" checked>
+                                <label class="ar-shipping-option is-selected" id="shipping-opt-blue-pickup">
+                                    <input type="radio" name="ar_shipping" value="blue_pickup" checked>
                                     <div class="ar-shipping-option-body">
                                         <div class="ar-shipping-title-row">
-                                            <span class="ar-shipping-name">Retiro en Taller (Santiago)</span>
-                                            <span class="ar-shipping-cost">Gratis</span>
+                                            <span class="ar-shipping-name">Punto Blue Express (Pikup)</span>
+                                            <span class="ar-shipping-cost">$4.490</span>
                                         </div>
                                     </div>
                                 </label>
@@ -2187,7 +2187,7 @@
                                     <input type="radio" name="ar_shipping" value="santiago">
                                     <div class="ar-shipping-option-body">
                                         <div class="ar-shipping-title-row">
-                                            <span class="ar-shipping-name">Despacho Santiago</span>
+                                            <span class="ar-shipping-name">Despacho Domicilio Santiago</span>
                                             <span class="ar-shipping-cost">$4.990</span>
                                         </div>
                                     </div>
@@ -2196,7 +2196,7 @@
                                     <input type="radio" name="ar_shipping" value="regiones">
                                     <div class="ar-shipping-option-body">
                                         <div class="ar-shipping-title-row">
-                                            <span class="ar-shipping-name">Envío a Regiones</span>
+                                            <span class="ar-shipping-name">Despacho Domicilio Regiones</span>
                                             <span class="ar-shipping-cost">$7.990</span>
                                         </div>
                                     </div>
@@ -2219,11 +2219,11 @@
                                     </tr>
                                     <tr>
                                         <td>Envío:</td>
-                                        <td class="val" id="ar-breakdown-shipping">Gratis ($0)</td>
+                                        <td class="val" id="ar-breakdown-shipping">$4.490 CLP</td>
                                     </tr>
                                     <tr class="total-row">
                                         <td>TOTAL A PAGAR:</td>
-                                        <td class="val" id="ar-breakdown-total">$9.990 CLP</td>
+                                        <td class="val" id="ar-breakdown-total">$14.480 CLP</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -2329,9 +2329,9 @@
                                 </div>
 
                                 <div class="ar-field-group ar-form-col-full" id="ar-shipping-address-wrap">
-                                    <label for="ar-input-address" class="ar-field-label">Dirección y Comuna <span class="req">*</span></label>
-                                    <input type="text" id="ar-input-address" name="address" class="ar-form-input" placeholder="Calle, número y comuna" autocomplete="street-address">
-                                    <span class="ar-field-error" id="err-address">Indique dirección y comuna para el despacho.</span>
+                                    <label for="ar-input-address" class="ar-field-label">Dirección o Punto Blue Express <span class="req">*</span></label>
+                                    <input type="text" id="ar-input-address" name="address" class="ar-form-input" placeholder="Punto Blue Express o dirección de referencia para retiro" autocomplete="street-address" required>
+                                    <span class="ar-field-error" id="err-address">Indique dirección de entrega o Punto Blue Express.</span>
                                 </div>
 
                                 <div class="ar-field-group ar-form-col-full" style="display: none;">

@@ -719,27 +719,29 @@
     }
   ];
 
-  // --- TARIFAS DE DESPACHO ---
+  // --- TARIFAS DE DESPACHO OFICIALES ---
   const SHIPPING_OPTIONS = {
-    pickup: {
-      id: 'pickup',
-      label: 'Retiro en Taller (Santiago)',
-      cost: 0,
-      eta: 'Coordinacion directa al finalizar manufactura'
+    blue_pickup: {
+      id: 'blue_pickup',
+      label: 'Retiro en Punto Blue Express (Pikup / Sucursal)',
+      cost: 4490,
+      eta: '2 a 3 dias habiles post-manufactura'
     },
     santiago: {
       id: 'santiago',
-      label: 'Despacho Urbano Region Metropolitana',
+      label: 'Despacho a Domicilio · Santiago (RM)',
       cost: 4990,
       eta: '24 a 48 hrs habiles post-manufactura'
     },
     regiones: {
       id: 'regiones',
-      label: 'Envio Protegido a Regiones (Starken / Chilexpress)',
+      label: 'Despacho a Domicilio · Regiones (Blue Express)',
       cost: 7990,
       eta: '2 a 4 dias habiles post-manufactura'
     }
   };
+  // Alias retrocompatibles
+  SHIPPING_OPTIONS.pickup = SHIPPING_OPTIONS.blue_pickup;
 
   // --- METODOS DE PAGO DISPONIBLES ---
   const PAYMENT_METHODS = {
@@ -962,7 +964,7 @@
    * @param {object} [params={}]
    * @param {number|string} [params.unitPrice]
    * @param {number} [params.quantity=1]
-   * @param {string} [params.shippingId='pickup']
+   * @param {string} [params.shippingId='santiago']
    * @param {number} [params.customShippingCost=null]
    * @param {string} [params.size=null]
    * @param {string} [params.finish='Con Marco']
@@ -970,7 +972,7 @@
    * @param {string} [params.sku=null]
    * @returns {object}
    */
-  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'pickup', customShippingCost = null, size = null, finish = 'Con Marco', category = null, sku = null } = {}) {
+  function calculateTotals({ unitPrice, quantity = 1, shippingId = 'santiago', customShippingCost = null, size = null, finish = 'Con Marco', category = null, sku = null } = {}) {
     let cleanUnitPrice = parseCLP(unitPrice);
 
     // Si no se proporciono unitPrice o vino en 0, y se paso size, resolver segun escala oficial
@@ -980,11 +982,14 @@
 
     const cleanQty = Math.max(1, parseInt(quantity, 10) || 1);
 
-    let cleanShippingCost = 0;
+    const resolvedShippingId = shippingId || 'santiago';
+    const shippingConfig = SHIPPING_OPTIONS[resolvedShippingId] || SHIPPING_OPTIONS.santiago;
+
+    let cleanShippingCost = shippingConfig ? shippingConfig.cost : 4990;
     if (customShippingCost !== null && !isNaN(customShippingCost)) {
       cleanShippingCost = Math.max(0, Math.round(Number(customShippingCost)));
-    } else if (SHIPPING_OPTIONS[shippingId]) {
-      cleanShippingCost = SHIPPING_OPTIONS[shippingId].cost;
+    } else if (SHIPPING_OPTIONS[resolvedShippingId]) {
+      cleanShippingCost = SHIPPING_OPTIONS[resolvedShippingId].cost;
     }
 
     const subtotal = cleanUnitPrice * cleanQty;
@@ -994,7 +999,7 @@
       unitPrice: cleanUnitPrice,
       quantity: cleanQty,
       subtotal,
-      shippingId,
+      shippingId: resolvedShippingId,
       shippingCost: cleanShippingCost,
       total,
       formatted: {
@@ -1010,11 +1015,12 @@
 
   /**
    * Valida la estructura de los datos del cliente
+   * Todo pedido requiere modalidad de entrega y direccion o Punto Blue Express
    * @param {object} customer
-   * @param {boolean} [requiresShipping=false]
+   * @param {boolean} [requiresShipping=true]
    * @returns {{ valid: boolean, errors: object }}
    */
-  function validateCustomerData(customer, requiresShipping = false) {
+  function validateCustomerData(customer, requiresShipping = true) {
     const errors = {};
     customer = customer || {};
 
@@ -1037,11 +1043,11 @@
       errors.phone = 'Ingrese un telefono de contacto valido (minimo 8 digitos).';
     }
 
-    // Direccion y comuna (si requiere despacho)
+    // Direccion y comuna (todo pedido requiere datos de entrega: domicilio o Punto Blue Express)
     if (requiresShipping) {
       const address = (customer.address || '').trim();
       if (!address || address.length < 5) {
-        errors.address = 'Ingrese la calle y numero para el despacho.';
+        errors.address = 'Ingrese la direccion de entrega o Punto Blue Express deseado (minimo 5 caracteres).';
       }
       const commune = (customer.commune || customer.city || '').trim();
       if (!commune || commune.length < 2) {
@@ -1135,8 +1141,8 @@
   function buildFormalEmailPayload(order) {
     const customer = order.customer || {};
     const shipping = SHIPPING_OPTIONS[order.shippingId] || {
-      label: order.shippingLabel || 'Retiro en Taller (Santiago)',
-      cost: order.shippingCost || 0
+      label: order.shippingLabel || 'Despacho a Domicilio · Santiago (RM)',
+      cost: order.shippingCost || 4990
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
       label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
@@ -1186,7 +1192,7 @@
       `RUT: ${customer.rut || 'No informado'}`,
       `Correo: ${customer.email || 'No informado'}`,
       `Telefono: ${customer.phone || 'No informado'}`,
-      `Direccion / Comuna: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller'}`,
+      `Direccion / Comuna: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Direccion o Punto Blue Express por coordinar'}`,
       '',
       'INSTRUCCIONES DE CONTINUIDAD:',
       '- Si su orden es con Pago en Linea Payku Chile (Webpay Plus / Tarjetas), recuerde que la confirmacion de fabricacion requiere completar la autorizacion en Webpay. Si cerro la pasarela o la transaccion quedo pendiente, puede transferir directamente a Banco Bci o coordinar por WhatsApp.',
@@ -1224,7 +1230,7 @@
       '15_Cliente_RUT': customer.rut || 'No aplica / Persona Natural',
       '16_Cliente_Correo': customer.email || '',
       '17_Cliente_Telefono': customer.phone || '',
-      '18_Direccion_Comuna_Entrega': customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro presencial en taller',
+      '18_Direccion_Comuna_Entrega': customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Despacho a domicilio o Punto Blue Express',
       '19_Notas_Especificaciones': order.notes || 'Sin especificaciones complementarias'
     };
   }
@@ -1239,8 +1245,8 @@
   function buildWhatsAppOrderUrl(order) {
     const customer = order.customer || {};
     const shipping = SHIPPING_OPTIONS[order.shippingId] || {
-      label: order.shippingLabel || 'Retiro en Taller (Santiago)',
-      cost: order.shippingCost || 0
+      label: order.shippingLabel || 'Despacho a Domicilio · Santiago (RM)',
+      cost: order.shippingCost || 4990
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
       label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
@@ -1272,7 +1278,7 @@
       `- RUT: ${customer.rut || 'No informado'}`,
       `- Correo: ${customer.email || 'No informado'}`,
       `- Telefono: ${customer.phone || 'No informado'}`,
-      `- Direccion: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller'}`
+      `- Direccion: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Direccion o Punto Blue Express'}`
     ];
 
     if (order.notes && order.notes.trim()) {
@@ -1296,8 +1302,8 @@
   function generatePrintableQuoteHTML(order) {
     const customer = order.customer || {};
     const shipping = SHIPPING_OPTIONS[order.shippingId] || {
-      label: order.shippingLabel || 'Retiro en Taller (Santiago)',
-      cost: order.shippingCost || 0
+      label: order.shippingLabel || 'Despacho a Domicilio · Santiago (RM)',
+      cost: order.shippingCost || 4990
     };
     const payment = PAYMENT_METHODS[order.paymentMethod] || {
       label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
@@ -1646,7 +1652,7 @@
                 </tr>
                 <tr>
                     <td class="label">Destino:</td>
-                    <td class="val">${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller (Santiago)'}</td>
+                    <td class="val">${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Despacho a Domicilio / Punto Blue Express'}</td>
                 </tr>
                 <tr>
                     <td class="label">Metodo de Pago:</td>
@@ -1769,8 +1775,8 @@
   async function submitOrder(orderData) {
     orderData = orderData || {};
 
-    const shippingId = orderData.shippingId || 'pickup';
-    const requiresShipping = shippingId !== 'pickup';
+    const shippingId = orderData.shippingId || 'santiago';
+    const requiresShipping = true; // Todo pedido requiere datos de entrega (despacho o Punto Blue Express)
 
     // 1. Validacion de datos de contacto
     const customerValidation = validateCustomerData(orderData.customer, requiresShipping);
@@ -1827,7 +1833,7 @@
       subtotal: totals.subtotal,
       shippingId: totals.shippingId,
       shippingCost: totals.shippingCost,
-      shippingLabel: SHIPPING_OPTIONS[totals.shippingId]?.label || 'Retiro en Taller',
+      shippingLabel: SHIPPING_OPTIONS[totals.shippingId]?.label || 'Despacho a Domicilio · Santiago (RM)',
       total: totals.total,
       paymentMethod: selectedMethod,
       paymentLabel: PAYMENT_METHODS[selectedMethod]?.label || 'Transferencia Electronica Directa',
