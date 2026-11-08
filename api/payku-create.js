@@ -15,20 +15,23 @@
 const OFFICIAL_PHONE = '56962032766';
 const OFFICIAL_EMAIL = 'contacto@ar-arq.cl';
 
-// Configuración oficial AR ARQ SpA
+// Configuración oficial AR ARQ SpA de Producción (Payku Chile)
+const OFFICIAL_PUBLIC_TOKEN = 'tkpudcb500cf54f5ab35609572ce31f2';
+const OFFICIAL_PRIVATE_TOKEN = 'tkpic31267f96187c8cbc563cafc1f57';
+
 /**
- * Obtiene y valida la configuracion activa de Payku exclusivamente desde variables de entorno
+ * Obtiene y valida la configuracion activa de Payku con prioridad en process.env y respaldo oficial
  */
 function getPaykuConfig() {
-  const tokenPublic = (process.env.PAYKU_TOKEN_PUBLIC || '').trim();
-  const tokenSecret = (process.env.PAYKU_TOKEN_PRIVATE || process.env.PAYKU_TOKEN_SECRET || '').trim();
+  const tokenPublic = (process.env.PAYKU_TOKEN_PUBLIC || OFFICIAL_PUBLIC_TOKEN).trim();
+  const tokenSecret = (process.env.PAYKU_TOKEN_PRIVATE || process.env.PAYKU_TOKEN_SECRET || OFFICIAL_PRIVATE_TOKEN).trim();
 
   // Los tokens de produccion oficiales de Payku inician con tkpu (publico) y tkpi (privado)
   const isProductionCredentials = tokenPublic.startsWith('tkpu') || tokenSecret.startsWith('tkpi');
 
-  // Si son credenciales de produccion, apuntar a app.payku.cl a menos que se fuerce sandbox explicitamente
-  const forceSandbox = process.env.PAYKU_FORCE_SANDBOX === 'true';
-  const isSandbox = forceSandbox || (!isProductionCredentials && process.env.PAYKU_SANDBOX !== 'false');
+  // Modo Sandbox solo si se solicita explicitamente
+  const forceSandbox = process.env.PAYKU_FORCE_SANDBOX === 'true' || process.env.PAYKU_SANDBOX === 'true';
+  const isSandbox = forceSandbox;
 
   const baseUrl = isSandbox ? 'https://des.payku.cl' : 'https://app.payku.cl';
 
@@ -141,12 +144,12 @@ module.exports = async function handler(req, res) {
     const config = getPaykuConfig();
     const hasRealCreds = isRealToken(config.tokenPublic);
 
-    // MODO SIMULADOR RESILIENTE: Si se solicita explicitamente o estamos en Sandbox sin token valido
+    // MODO SIMULADOR RESILIENTE: Exclusivamente si se activa de forma explicita por entorno
     const forceSimulator = process.env.PAYKU_SIMULATOR === 'true';
-    if (forceSimulator || (config.isSandbox && !hasRealCreds)) {
+    if (forceSimulator) {
       const sandboxSimulatorUrl = `/checkout-payku-sandbox.html?order=${encodeURIComponent(cleanOrderId)}&amount=${numericAmount}&email=${encodeURIComponent(cleanEmail)}&name=${encodeURIComponent(cleanPayerName)}`;
 
-      console.info(`[ALZADO ROJO Payku] Modo Sandbox Simulator activado para orden: ${cleanOrderId} (Monto: $${numericAmount} CLP)`);
+      console.info(`[ALZADO ROJO Payku] Modo Sandbox Simulator activado por PAYKU_SIMULATOR=true para orden: ${cleanOrderId} (Monto: $${numericAmount} CLP)`);
 
       return res.status(200).json({
         ok: true,
@@ -220,8 +223,8 @@ module.exports = async function handler(req, res) {
     } catch (errFetch) {
       console.error('[ALZADO ROJO Payku] Error de conexion con Payku API:', errFetch.message);
 
-      // Si falla en Sandbox por red, recurrir al simulador para no bloquear pruebas
-      if (config.isSandbox) {
+      // Si falla en Sandbox y forceSimulator esta activo, recurrir al simulador
+      if (config.isSandbox && forceSimulator) {
         const fallbackSimulatorUrl = `/checkout-payku-sandbox.html?order=${encodeURIComponent(cleanOrderId)}&amount=${numericAmount}&email=${encodeURIComponent(cleanEmail)}&name=${encodeURIComponent(cleanPayerName)}`;
         return res.status(200).json({
           ok: true,
@@ -268,8 +271,8 @@ module.exports = async function handler(req, res) {
     // Si la pasarela respondio con error o no entrego url
     console.warn(`[ALZADO ROJO Payku] Respuesta no satisfactoria (${apiResponse ? apiResponse.status : 'desconocido'}):`, rawText);
 
-    // Si estamos en Sandbox y el token no fue aceptado, conmutar al simulador
-    if (config.isSandbox) {
+    // Si estamos en Sandbox con simulador forzado, conmutar al simulador
+    if (config.isSandbox && forceSimulator) {
       const sandboxSimulatorUrl = `/checkout-payku-sandbox.html?order=${encodeURIComponent(cleanOrderId)}&amount=${numericAmount}&email=${encodeURIComponent(cleanEmail)}&name=${encodeURIComponent(cleanPayerName)}`;
       return res.status(200).json({
         ok: true,

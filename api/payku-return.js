@@ -27,14 +27,14 @@ module.exports = async function handler(req, res) {
 
   try {
     let orderId = '';
-    let status = 'approved';
+    let status = '';
     let token = '';
 
     // Extraer desde querystring
     if (req.query) {
-      orderId = req.query.order || req.query.orderId || req.query.order_id || req.query.trx_id || '';
-      status = req.query.status || req.query.payku_status || req.query.result || status;
-      token = req.query.token || req.query.transaction_key || '';
+      orderId = req.query.order || req.query.orderId || req.query.order_id || '';
+      status = req.query.status || req.query.payku_status || req.query.result || '';
+      token = req.query.token || req.query.transaction_key || req.query.id || req.query.trx_id || '';
     }
 
     // Extraer desde body en caso de POST de retorno
@@ -46,19 +46,50 @@ module.exports = async function handler(req, res) {
         } catch (e) {
           const params = new URLSearchParams(req.body);
           orderId = orderId || params.get('order') || params.get('orderId') || params.get('order_id') || '';
-          status = params.get('status') || params.get('payku_status') || params.get('result') || status;
-          token = token || params.get('token') || params.get('transaction_key') || '';
+          status = status || params.get('status') || params.get('payku_status') || params.get('result') || '';
+          token = token || params.get('token') || params.get('transaction_key') || params.get('id') || params.get('trx_id') || '';
         }
       }
       if (typeof bodyObj === 'object' && bodyObj !== null) {
-        orderId = orderId || bodyObj.order || bodyObj.orderId || bodyObj.order_id || bodyObj.trx_id || '';
-        status = bodyObj.status || bodyObj.payku_status || bodyObj.result || status;
-        token = token || bodyObj.token || bodyObj.transaction_key || '';
+        orderId = orderId || bodyObj.order || bodyObj.orderId || bodyObj.order_id || '';
+        status = status || bodyObj.status || bodyObj.payku_status || bodyObj.result || '';
+        token = token || bodyObj.token || bodyObj.transaction_key || bodyObj.id || bodyObj.trx_id || '';
       }
     }
 
     const cleanOrder = String(orderId || '').trim();
-    const normalizedStatus = String(status || '').toLowerCase().trim();
+    let normalizedStatus = String(status || '').toLowerCase().trim();
+
+    // Verificacion activa contra API oficial de Payku si tenemos token de transaccion
+    const publicToken = (process.env.PAYKU_TOKEN_PUBLIC || 'tkpudcb500cf54f5ab35609572ce31f2').trim();
+    if (token && publicToken) {
+      try {
+        const queryRes = await fetch(`https://app.payku.cl/api/transaction/${encodeURIComponent(token)}`, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${publicToken}`
+          },
+          signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(3000) : undefined
+        });
+        if (queryRes.ok) {
+          const trxData = await queryRes.json();
+          if (trxData && trxData.status) {
+            normalizedStatus = String(trxData.status).toLowerCase().trim();
+            console.info(`[ALZADO ROJO Payku] Estado real verificado con API Payku para trx ${token}: ${normalizedStatus}`);
+          }
+        }
+      } catch (errApiQuery) {
+        console.warn('[ALZADO ROJO Payku] Aviso al consultar estado en Payku API:', errApiQuery.message);
+      }
+    }
+
+    const isApproved = (
+      normalizedStatus === 'approved' ||
+      normalizedStatus === 'success' ||
+      normalizedStatus === 'completado' ||
+      normalizedStatus === 'pagado' ||
+      normalizedStatus === '1'
+    );
 
     const isRejectedOrCancelled = (
       normalizedStatus === 'cancelled' ||
@@ -70,7 +101,14 @@ module.exports = async function handler(req, res) {
       normalizedStatus === '0'
     );
 
-    const finalStatus = isRejectedOrCancelled ? 'cancelled' : 'approved';
+    let finalStatus = 'pending';
+    if (isApproved) {
+      finalStatus = 'approved';
+    } else if (isRejectedOrCancelled) {
+      finalStatus = 'cancelled';
+    } else {
+      finalStatus = 'pending';
+    }
 
     const targetUrl = `/maquetas-urbanas.html?payku_status=${finalStatus}&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
 
@@ -99,7 +137,7 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error('[ALZADO ROJO Payku] Error en endpoint payku-return:', error);
-    const fallbackUrl = '/maquetas-urbanas.html?payku_status=approved';
+    const fallbackUrl = '/maquetas-urbanas.html?payku_status=pending';
     res.writeHead(302, {
       Location: fallbackUrl
     });

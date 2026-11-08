@@ -1142,20 +1142,29 @@
       label: order.paymentLabel || 'Payku Chile · Webpay Plus, Tarjetas de Débito y Crédito'
     };
 
-    let statusText = 'PAGO ONLINE PAYKU (WEBPAY PLUS / TARJETAS) INICIADO';
-    if (order.paymentMethod === 'transferencia' || order.paymentMethod === 'transfer') {
-      statusText = 'ORDEN EMITIDA · TRANSFERENCIA DIRECTA PENDIENTE';
+    let subjectPrefix = '[ORDEN REGISTRADA]';
+    let statusText = 'PAGO ONLINE PAYKU (WEBPAY PLUS / TARJETAS) INICIADO · PENDIENTE';
+    if (order.paymentMethod === 'payku') {
+      subjectPrefix = '[PENDIENTE DE PAGO WEBPAY]';
+      statusText = 'ORDEN INICIADA · PENDIENTE DE PAGO EN WEBPAY PLUS (PAYKU)';
+    } else if (order.paymentMethod === 'transferencia' || order.paymentMethod === 'transfer') {
+      subjectPrefix = '[TRANSFERENCIA PENDIENTE]';
+      statusText = 'ORDEN REGISTRADA · TRANSFERENCIA DIRECTA PENDIENTE';
     } else if (order.paymentMethod === 'cotizacion') {
+      subjectPrefix = '[COTIZACIÓN FORMAL]';
       statusText = 'COTIZACION FORMAL SOLICITADA';
     }
 
+    const isPayku = (order.paymentMethod === 'payku');
     const autoresponseMessage = [
       'ALZADO ROJO · AR ARQ SpA',
       'Arquitectura y Fabricacion Digital',
       `Santiago, Chile | ${CONFIG.officialEmail} | ${CONFIG.officialPhone}`,
       '',
       'ESTIMADO/A CLIENTE:',
-      'Hemos registrado con exito su orden formal. A continuacion encuentra el resumen oficial del pedido emitido:',
+      isPayku
+        ? 'Hemos registrado su solicitud de orden en nuestro taller. Para que la manufactura inicie, la transaccion debe ser completada y acreditada via Webpay Plus (Payku) o por transferencia bancaria directa de respaldo.'
+        : 'Hemos registrado con exito su orden formal. A continuacion encuentra el resumen oficial del pedido emitido:',
       '',
       `FOLIO OFICIAL: ${order.folio}`,
       `FECHA DE EMISION: ${order.dateIso || new Date().toLocaleString('es-CL')}`,
@@ -1180,7 +1189,7 @@
       `Direccion / Comuna: ${customer.address ? `${customer.address}, ${customer.commune || ''}` : 'Retiro en Taller'}`,
       '',
       'INSTRUCCIONES DE CONTINUIDAD:',
-      '- Si su orden es con Pago en Linea Payku Chile (Webpay Plus / Tarjetas), su transaccion es procesada y validada de forma automatica e integrada.',
+      '- Si su orden es con Pago en Linea Payku Chile (Webpay Plus / Tarjetas), recuerde que la confirmacion de fabricacion requiere completar la autorizacion en Webpay. Si cerro la pasarela o la transaccion quedo pendiente, puede transferir directamente a Banco Bci o coordinar por WhatsApp.',
       `- Si su orden es con Transferencia Directa, transfiera a ${BANK_DETAILS.accountType} ${BANK_DETAILS.accountHolder} (${BANK_DETAILS.bank}, N° ${BANK_DETAILS.accountNumber}, RUT ${BANK_DETAILS.rut}) e indique su Folio en la referencia.`,
       '- Si solicito Cotizacion Formal, este respaldo certifica la reserva de tarifas por 15 dias corridos para la gestion de su Orden de Compra.',
       '- Nuestro equipo tecnico revisara el modelo y coordinara el avance de manufactura aditiva.',
@@ -1190,7 +1199,7 @@
     ].join('\n');
 
     return {
-      _subject: `ORDEN DE PEDIDO #${order.folio} | ${order.productName} (${order.size}) - ALZADO ROJO`,
+      _subject: `${subjectPrefix} ORDEN #${order.folio} | ${order.productName} (${order.size}) - ALZADO ROJO`,
       _template: 'table',
       _captcha: 'false',
       _replyto: customer.email || CONFIG.officialEmail,

@@ -80,8 +80,8 @@ module.exports = async function handler(req, res) {
     const isApproved = (
       cleanStatus === 'approved' ||
       cleanStatus === 'success' ||
-      cleanStatus === 'registered' ||
       cleanStatus === 'completado' ||
+      cleanStatus === 'pagado' ||
       cleanStatus === '1'
     );
 

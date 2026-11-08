@@ -1155,8 +1155,9 @@
 
       const isApproved = (rawStatus === 'approved' || rawStatus === 'completed' || rawStatus === 'success');
       const isCancelled = (rawStatus === 'cancelled' || rawStatus === 'canceled' || rawStatus === 'rejected' || rawStatus === 'failed');
+      const isPending = (rawStatus === 'pending' || rawStatus === 'pendiente' || rawStatus === 'register');
 
-      if (!isApproved && !isCancelled) return;
+      if (!isApproved && !isCancelled && !isPending) return;
 
       const rawFolio = (urlParams.get('order') || urlParams.get('orderId') || urlParams.get('order_id') || '').trim();
       const orderFolioFromUrl = rawFolio.replace(/[^a-zA-Z0-9_-]/g, '').slice(0, 40);
@@ -1195,10 +1196,10 @@
             rut: 'No informado',
             address: ''
           },
-          notes: isApproved ? 'Pago validado exitosamente vía Payku (Webpay Plus)' : 'Transacción cancelada en pasarela Payku',
+          notes: isApproved ? 'Pago validado exitosamente vía Payku (Webpay Plus)' : (isPending ? 'Transacción iniciada en Payku · Pendiente de acreditación' : 'Transacción cancelada en pasarela Payku'),
           dateIso: new Date().toISOString(),
           dateFormatted: new Date().toLocaleDateString('es-CL'),
-          status: isApproved ? 'PAGADA_PAYKU' : 'CANCELADA_PAYKU'
+          status: isApproved ? 'PAGADA_PAYKU' : (isPending ? 'PENDIENTE_PAYKU' : 'CANCELADA_PAYKU')
         };
       } else if (orderFolioFromUrl && order.folio !== orderFolioFromUrl) {
         order.folio = orderFolioFromUrl;
@@ -1206,6 +1207,60 @@
 
       state.lastProcessedOrder = order;
       state.folio = order.folio;
+
+      if (isPending) {
+        order.status = 'PENDIENTE_PAYKU';
+        const pendingMsg = `Pago en proceso: Tu orden #${order.folio} está pendiente de confirmación en Webpay Plus.`;
+
+        showCheckoutToast('pending', pendingMsg, {
+          actionLabel: 'Pagar por Transferencia',
+          onAction: () => {
+            selectPaymentMethod('transferencia');
+            if (dom.viewSuccess) dom.viewSuccess.classList.remove('is-visible');
+            if (dom.viewMain) dom.viewMain.style.display = '';
+            if (dom.modal) {
+              dom.modal.classList.add('is-open');
+              dom.modal.setAttribute('aria-hidden', 'false');
+              document.body.style.overflow = 'hidden';
+              state.isOpen = true;
+            }
+          }
+        });
+
+        if (dom.viewMain) dom.viewMain.style.display = 'none';
+        if (dom.viewSuccess) dom.viewSuccess.classList.add('is-visible');
+
+        if (dom.successFolio) dom.successFolio.textContent = `FOLIO #${order.folio}`;
+        if (dom.successTitle) {
+          dom.successTitle.textContent = 'PAGO EN PROCESO · PENDIENTE WEBPAY';
+        }
+        if (dom.successLead) {
+          const safeFolio = escapeHtml(order.folio);
+          dom.successLead.innerHTML = `Tu orden <strong>#${safeFolio}</strong> se encuentra <strong>pendiente de acreditación bancaria en Webpay Plus</strong>.<br><br>Si ya realizaste el pago en tu banco, la confirmación se actualizará en unos instantes. Si tuviste un inconveniente o prefieres asegurar tu pedido de inmediato, puedes completar el pago mediante Transferencia Bancaria Directa o coordinar vía WhatsApp oficial.`;
+        }
+
+        const statusBox = dom.successPaykuBox || dom.successKhipuBox;
+        if (statusBox) {
+          statusBox.style.display = 'block';
+          const titleEl = dom.paykuTitle || dom.khipuTitle;
+          const descEl = dom.paykuDesc || dom.khipuDesc;
+          const linkBtn = dom.btnPaykuLink || dom.btnKhipuLink;
+
+          if (titleEl) titleEl.textContent = 'PAYKU · PAGO EN PROCESO DE ACREDITACIÓN';
+          if (descEl) {
+            descEl.textContent = 'Estamos a la espera de la confirmación final de Transbank / Webpay Plus. También puedes transferir directamente a nuestra cuenta bancaria o contactar a nuestro taller por WhatsApp para validar tu comprobante.';
+          }
+          if (linkBtn) {
+            linkBtn.style.display = 'inline-flex';
+            linkBtn.href = `https://wa.me/56962032766?text=${encodeURIComponent(`Hola Adolfo, mi pago en Webpay para la orden #${order.folio} figura pendiente. Deseo verificar el estado o transferir directamente.`)}`;
+            linkBtn.textContent = 'VERIFICAR PAGO VÍA WHATSAPP';
+          }
+        }
+        if (dom.bankBox) {
+          dom.bankBox.classList.add('is-visible');
+        }
+        return;
+      }
 
       if (isCancelled) {
         order.status = 'CANCELADA_PAYKU';
