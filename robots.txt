@@ -1,40 +1,64 @@
 # Robots.txt para ar-arq.cl - Portafolio de Arquitectura y Maquetas 3D
 # Permitir indexacion para buscadores tradicionales y modelos de IA generativa (AEO/GEO),
-# protegiendo rutas privadas y APIs de gestion interna.
+# protegiendo rutas privadas, APIs y herramientas de gestion interna de taller.
 
 User-agent: *
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 # Buscadores Principales
 User-agent: Googlebot
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 User-agent: Bingbot
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
-# Rastreadores y Motores de IA Generativa
+# Rastreadores y Motores de IA Generativa (AEO / GEO / Perplexity / OpenAI / Claude)
 User-agent: ChatGPT-User
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 User-agent: GPTBot
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 User-agent: PerplexityBot
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 User-agent: ClaudeBot
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
 User-agent: anthropic-ai
 Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos.html
 Allow: /
 
-# Ubicacion del Sitemap XML
+# Ubicacion del Sitemap XML Canónico
 Sitemap: https://ar-arq.cl/sitemap.xml
