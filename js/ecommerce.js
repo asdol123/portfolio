@@ -210,11 +210,13 @@
       },
       images: {
         'Con Marco': 'catalog/volcan-villarrica-marco.jpg',
-        'Estudio': 'catalog/Volcan Villarica.jpg'
+        'Estudio': 'catalog/Volcan Villarica.jpg',
+        'Detalle 3D': 'catalog/Volcanic_terrain_model_in_frame_f484ac3c.jpg'
       },
       gallery: [
         { url: 'catalog/volcan-villarrica-marco.jpg', label: 'Volcán Villarrica · Mesa de Arquitecto' },
-        { url: 'catalog/Volcan Villarica.jpg', label: 'Volcán Villarrica · Marco Shadowbox Estudio' }
+        { url: 'catalog/Volcan Villarica.jpg', label: 'Volcán Villarrica · Marco Shadowbox Estudio' },
+        { url: 'catalog/Volcanic_terrain_model_in_frame_f484ac3c.jpg', label: 'Volcán Villarrica · Cráter y Relieve Enmarcado' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -245,10 +247,12 @@
         acabado: 'Microestratificación 0.20 mm'
       },
       images: {
-        'Con Marco': 'catalog/volcan-osorno-shadowbox.jpg'
+        'Con Marco': 'catalog/volcan-osorno-shadowbox.jpg',
+        'Perspectiva': 'catalog/Volcanic_terrain_model_framed_9e772193.jpg'
       },
       gallery: [
-        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Volcán Osorno · Marco Shadowbox Negro' }
+        { url: 'catalog/volcan-osorno-shadowbox.jpg', label: 'Volcán Osorno · Marco Shadowbox Negro' },
+        { url: 'catalog/Volcanic_terrain_model_framed_9e772193.jpg', label: 'Volcán Osorno · Perspectiva Frontal Enmarcada' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -315,10 +319,12 @@
         acabado: 'Blanco Mate Texturizado'
       },
       images: {
-        'Con Marco': 'catalog/Volcan Lonquimay.jpg'
+        'Con Marco': 'catalog/Volcan Lonquimay.jpg',
+        'Perspectiva': 'catalog/Volcanic_terrain_model_in_frame_3aabeb88.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcan Lonquimay.jpg', label: 'Volcán Lonquimay · Cráter Navidad y Falla' }
+        { url: 'catalog/Volcan Lonquimay.jpg', label: 'Volcán Lonquimay · Cráter Navidad y Falla' },
+        { url: 'catalog/Volcanic_terrain_model_in_frame_3aabeb88.jpg', label: 'Volcán Lonquimay · Cráter Navidad en Marco Shadowbox' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -430,6 +436,410 @@
       ]
     },
     {
+      sku: 'SKU-SCL-02',
+      id: 'santiago-cerro-santa-lucia',
+      name: 'Cerro Santa Lucía · Santiago Centro 3D',
+      shortName: 'Cerro Santa Lucía',
+      category: 'EDICION URBANA CHILE // CAPITAL',
+      tag: 'HITO FUNDACIONAL · SANTIAGO CENTRO',
+      badge: 'PATRIMONIO URBANO · RELIEVE 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_38d4da7a.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_38d4da7a.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_38d4da7a.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Cerro isla fundacional de Santiago y trazado del damero histórico en relieve tridimensional. Castillo Hidalgo y terrazas neoclásicas extruidas a 0.15 mm de precisión en marco shadowbox.',
+      specs: {
+        escala: '1:2000 / 1:3000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate con Montaje Integrado',
+        origen: 'Catastro Morfológico Urbano y DEM Satelital 12.5 m',
+        acabado: 'Microcapas FDM de Alta Fidelidad 0.15 mm'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_38d4da7a.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_38d4da7a.jpg', label: 'Cerro Santa Lucía · Santiago Centro en Marco Shadowbox' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-SCL-03',
+      id: 'santiago-cerro-san-cristobal',
+      name: 'Cerro San Cristóbal y Parque Metropolitano 3D',
+      shortName: 'Cerro San Cristóbal',
+      category: 'EDICION URBANA CHILE // CAPITAL',
+      tag: 'PARQUEMET · RELIEVE Y CORDÓN SAN CRISTÓBAL',
+      badge: 'PARQUE URBANO · RELIEVE 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_d3a32f4c.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_d3a32f4c.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_d3a32f4c.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Morfología completa del Parque Metropolitano de Santiago, Cumbre Tupahue y ribera del Río Mapocho modelados con cota real y máxima densidad de curvas de nivel.',
+      specs: {
+        escala: '1:2500 / 1:4000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Cota Real DEM Satelital SRTM y Malla Urbana SIG',
+        acabado: 'Microestratificación 0.20 mm Antirreflejo'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_d3a32f4c.jpg',
+        'Perspectiva': 'catalog/Framed_volcanic_terrain_model_1e46be43.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_d3a32f4c.jpg', label: 'Cerro San Cristóbal · Parque Metropolitano en Marco' },
+        { url: 'catalog/Framed_volcanic_terrain_model_1e46be43.jpg', label: 'Cerro San Cristóbal · Detalle Cota Real y Cuenca' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-SCL-04',
+      id: 'santiago-estadio-nacional',
+      name: 'Parque Estadio Nacional · Ñuñoa 3D',
+      shortName: 'Estadio Nacional',
+      category: 'EDICION URBANA CHILE // CAPITAL',
+      tag: 'HITO DEPORTIVO · ÑUÑOA 3D',
+      badge: 'HITO PATRIMONIAL · EDICIÓN URBANA',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Framed_white_volcanic_terrain_model_1981ae8c.jpg',
+      image: 'catalog/Framed_white_volcanic_terrain_model_1981ae8c.jpg',
+      defaultImage: 'catalog/Framed_white_volcanic_terrain_model_1981ae8c.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. El coliseo deportivo principal de Chile, la explanada del Parque Deportivo Estadio Nacional y la trama urbana de Ñuñoa con volumetría perimetral y relieve de alta definición.',
+      specs: {
+        escala: '1:2000 / 1:3000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Fotogrametría Aérea y Levantamiento Catastral 3D',
+        acabado: 'Microcapas FDM de Precisión 0.15 mm'
+      },
+      images: {
+        'Con Marco': 'catalog/Framed_white_volcanic_terrain_model_1981ae8c.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Framed_white_volcanic_terrain_model_1981ae8c.jpg', label: 'Parque Estadio Nacional · Ñuñoa en Marco Shadowbox' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-SCL-05',
+      id: 'santiago-parque-ohiggins',
+      name: 'Parque O\'Higgins y Movistar Arena 3D',
+      shortName: 'Parque O\'Higgins',
+      category: 'EDICION URBANA CHILE // CAPITAL',
+      tag: 'ELIPSE · CÚPULA MOVISTAR ARENA',
+      badge: 'PULMÓN VERDE · RELIEVE URBANO',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Icónico parque republicano de Santiago, su elipse militar histórica, la cúpula volumétrica del Movistar Arena, lagunas y red vial perimetral en relieve arquitectónico.',
+      specs: {
+        escala: '1:2500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Catastro Geoespacial Parque O\'Higgins y SIG Santiago',
+        acabado: 'Microcapas Texturizadas Antirreflejo'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg', label: 'Parque O\'Higgins y Cúpula Movistar Arena · Marco Shadowbox' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-SCL-06',
+      id: 'santiago-plaza-baquedano',
+      name: 'Plaza Baquedano y San Borja · Eje Alameda 3D',
+      shortName: 'Plaza Baquedano',
+      category: 'EDICION URBANA CHILE // CAPITAL',
+      tag: 'PLAZA ITALIA · EJE ALAMEDA · SAN BORJA',
+      badge: 'EJE CÍVICO · TRAMA URBANA',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
+      image: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
+      defaultImage: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. El epicentro cívico y neurálgico de Santiago: rotonda Baquedano, Parque Forestal, Parque Bustamante, torres San Borja y Eje Alameda modelados en relieve 3D.',
+      specs: {
+        escala: '1:2000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Mate Biobasado',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Catastro Morfológico Comunas Santiago y Providencia',
+        acabado: 'Malla Urbana de Alta Definición'
+      },
+      images: {
+        'Con Marco': 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg'
+      },
+      gallery: [
+        { url: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg', label: 'Plaza Baquedano y Torres San Borja · Relieve Urbano 3D' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-VAP-01',
+      id: 'valparaiso-cerros-puerto',
+      name: 'Valparaíso · Plan Histórico, Cerros y Molo de Abrigo',
+      shortName: 'Valparaíso',
+      category: 'EDICION URBANA CHILE // COSTAS Y PUERTOS',
+      tag: 'ANFITEATRO NATURAL · BAHÍA Y CERROS',
+      badge: 'PATRIMONIO DE LA HUMANIDAD · GIS 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/White_volcanic_terrain_model_framed_4f3e244d.jpg',
+      image: 'catalog/White_volcanic_terrain_model_framed_4f3e244d.jpg',
+      defaultImage: 'catalog/White_volcanic_terrain_model_framed_4f3e244d.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. La topografía única del anfiteatro natural porteño: Cerros Alegre, Concepción, Bellavista, molo de abrigo portuario y borde costero del Océano Pacífico extruidos a cota real.',
+      specs: {
+        escala: '1:2500 / 1:3500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Biobasado',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Malla Batimétrica y Altimétrica de la Bahía de Valparaíso',
+        acabado: 'Curvas de Nivel Escalonadas de Precisión'
+      },
+      images: {
+        'Con Marco': 'catalog/White_volcanic_terrain_model_framed_4f3e244d.jpg',
+        'Detalle Puerto': 'catalog/White_volcanic_terrain_model_framed_a8b627ef.jpg'
+      },
+      gallery: [
+        { url: 'catalog/White_volcanic_terrain_model_framed_4f3e244d.jpg', label: 'Valparaíso · Anfiteatro de Cerros y Molo de Abrigo' },
+        { url: 'catalog/White_volcanic_terrain_model_framed_a8b627ef.jpg', label: 'Valparaíso · Borde Costero y Cerros Históricos' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-ZAP-01',
+      id: 'zapallar-costa',
+      name: 'Zapallar · Bahía y Relieve Costero 3D',
+      shortName: 'Zapallar',
+      category: 'EDICION URBANA CHILE // LITORAL CENTRAL',
+      tag: 'BAHÍA PROTEGIDA · QUEBRADAS Y COSTA',
+      badge: 'LITORAL EXCLUSIVO · RELIEVE 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_4cfa54ed_2K.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_4cfa54ed_2K.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_4cfa54ed_2K.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Relieve costero de la ensenada de Zapallar, acantilados graníticos, cerros que resguardan la bahía y trazado del histórico balneario en manufactura de alta precisión.',
+      specs: {
+        escala: '1:2000 / 1:3000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Biobasado',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'DEM Costero Alos Palsar 12.5 m y Catastro Litoral',
+        acabado: 'Microcapas FDM de Alta Fidelidad 0.15 mm'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_4cfa54ed_2K.jpg',
+        'Detalle Bahía': 'catalog/Volcanic_terrain_model_in_frame_ba3120ea.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_4cfa54ed_2K.jpg', label: 'Zapallar · Bahía y Relieve Costero en Marco Shadowbox' },
+        { url: 'catalog/Volcanic_terrain_model_in_frame_ba3120ea.jpg', label: 'Zapallar · Acantilados y Bahía en Detalle 3D' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-PIC-01',
+      id: 'pichilemu-punta-de-lobos',
+      name: 'Pichilemu · Punta de Lobos y Costa del Surf',
+      shortName: 'Pichilemu Punta de Lobos',
+      category: 'EDICION URBANA CHILE // LITORAL SUR',
+      tag: 'PUNTA DE LOBOS · ACANTILADOS Y OLAS',
+      badge: 'RESERVA MUNDIAL DEL SURF · RELIEVE 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_85568aba.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_85568aba.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_85568aba.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Morfología emblemática de Punta de Lobos, los morros rocosos, rompientes oceánicas y borde costero de la capital nacional del surf en relieve escultórico 3D.',
+      specs: {
+        escala: '1:2000 / 1:3500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Levantamiento Altimétrico Satelital Costero',
+        acabado: 'Microcapas FDM 0.15 mm'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_85568aba.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_85568aba.jpg', label: 'Pichilemu · Punta de Lobos y Acantilados Oceánicos' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-IQQ-01',
+      id: 'iquique-cavancha',
+      name: 'Iquique · Península y Playa Cavancha 3D',
+      shortName: 'Iquique Cavancha',
+      category: 'EDICION URBANA CHILE // NORTE GRANDE',
+      tag: 'PENÍNSULA CAVANCHA · BORDE COSTERO',
+      badge: 'NORTE GRANDE · RELIEVE URBANO 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_fcb9cad1.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_fcb9cad1.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_fcb9cad1.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. La franja costera de Iquique, la península rocosa de Cavancha, playa Brava y la transición hacia el gran farallón costero de la Cordillera de la Costa norteña.',
+      specs: {
+        escala: '1:2500 / 1:4000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Catastro Urbano y Cartografía Satelital Iquique',
+        acabado: 'Microestratificación 0.20 mm Antirreflejo'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_fcb9cad1.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_fcb9cad1.jpg', label: 'Iquique · Península de Cavancha y Borde Costero 3D' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-ANF-01',
+      id: 'antofagasta-costanera',
+      name: 'Antofagasta · Trama Urbana Costera y Puerto',
+      shortName: 'Antofagasta',
+      category: 'EDICION URBANA CHILE // NORTE GRANDE',
+      tag: 'PUERTO HISTÓRICO · BORDE COSTERO',
+      badge: 'PERLA DEL NORTE · RELIEVE URBANO',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_in_frame_d372c6ac.jpg',
+      image: 'catalog/Volcanic_terrain_model_in_frame_d372c6ac.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_in_frame_d372c6ac.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Relieve lineal entre el océano y el macizo desértico: trazado del centro histórico de Antofagasta, terminal portuario, costanera y acantilados costeros modelados con fidelidad volumétrica.',
+      specs: {
+        escala: '1:3000 / 1:4500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Levantamiento Altimétrico Desértico y Trama Urbana',
+        acabado: 'Microcapas FDM de Alta Precisión'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_d372c6ac.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_in_frame_d372c6ac.jpg', label: 'Antofagasta · Trama Urbana Costera y Puerto en Marco' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
+      sku: 'SKU-ARI-01',
+      id: 'arica-morro',
+      name: 'Arica · Morro de Arica y Borde Costero 3D',
+      shortName: 'Arica Morro',
+      category: 'EDICION URBANA CHILE // NORTE GRANDE',
+      tag: 'MORRO HISTÓRICO · BAHÍA Y PUERTO',
+      badge: 'HITO NACIONAL · RELIEVE 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_framed_3003a6cd.jpg',
+      image: 'catalog/Volcanic_terrain_model_framed_3003a6cd.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_framed_3003a6cd.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. El imponente peñón costero de 139 metros sobre el mar que domina la ciudad de Arica, con el puerto histórico, el muelle y la rada protegida modelados en curvas de nivel de máxima exactitud.',
+      specs: {
+        escala: '1:2000 / 1:3000',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        marco: 'Shadowbox Negro Mate',
+        origen: 'Cota Satelital SRTM y Malla Urbana de Arica',
+        acabado: 'Microestratificación 0.20 mm Antirreflejo'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_framed_3003a6cd.jpg',
+        'Perspectiva': 'catalog/Volcanic_terrain_model_in_frame_2c756e7b.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_framed_3003a6cd.jpg', label: 'Morro de Arica y Borde Costero en Marco Shadowbox' },
+        { url: 'catalog/Volcanic_terrain_model_in_frame_2c756e7b.jpg', label: 'Morro de Arica · Detalle Acantilado y Puerto 3D' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
+      ]
+    },
+    {
       sku: 'SKU-CHI-02',
       id: 'chicago-cuadro',
       name: 'Chicago · Damero y Lago Michigan',
@@ -451,10 +861,12 @@
         acabado: 'Volumetría con Tipografía 3D en Bajo Relieve'
       },
       images: {
-        'Con Marco': 'catalog/chicago-cuadro.jpg'
+        'Con Marco': 'catalog/chicago-cuadro.jpg',
+        'Perspectiva': 'catalog/Volcanic_terrain_model_framed_8adb0065.jpg'
       },
       gallery: [
-        { url: 'catalog/chicago-cuadro.jpg', label: 'Chicago · Cuadro Topográfico con Tipografía 3D' }
+        { url: 'catalog/chicago-cuadro.jpg', label: 'Chicago · Cuadro Topográfico con Tipografía 3D' },
+        { url: 'catalog/Volcanic_terrain_model_framed_8adb0065.jpg', label: 'Chicago · Trama Urbana Loop y Cuadro 3D' }
       ],
       formats: [
         { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
@@ -497,6 +909,42 @@
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm' },
         { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
         { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' }
+      ]
+    },
+    {
+      sku: 'SKU-SGP-01',
+      id: 'singapur-marina-bay',
+      name: 'Singapur · Marina Bay y Distrito Financiero',
+      shortName: 'Singapur Marina Bay',
+      category: 'CIUDADES DEL MUNDO // ASIA',
+      tag: 'MARINA BAY · RASCACIELOS Y BAHÍA',
+      badge: 'EDICIÓN INTERNACIONAL · ASIA 3D',
+      leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
+      main: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
+      image: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
+      defaultImage: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
+      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. La bahía futurista de Marina Bay, el complejo Marina Bay Sands, los rascacielos del distrito financiero Downtown Core y los canales marítimos de Singapur en volumetría de precisión.',
+      specs: {
+        escala: '1:3500',
+        tolerancia: '±0.15 mm',
+        material: 'PLA Arquitectónico Blanco Tiza y Gris Urbano',
+        marco: 'Shadowbox Negro Mate de Alto Impacto',
+        origen: 'Catastro Tridimensional Abierto Ciudad de Singapur',
+        acabado: 'Volumetría Arquitectónica de Alta Densidad'
+      },
+      images: {
+        'Con Marco': 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg'
+      },
+      gallery: [
+        { url: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg', label: 'Singapur · Marina Bay y Downtown Core en Marco Shadowbox' }
+      ],
+      formats: [
+        { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
+        { size: '10 × 10 cm', price: 9990, framePrice: 9990, originalPrice: 13290, label: '10 × 10 cm (Edición Bolsillo)' },
+        { size: '15 × 15 cm', price: 19990, framePrice: 19990, originalPrice: 26490, label: '15 × 15 cm' },
+        { size: '25 × 25 cm', price: 29990, framePrice: 29990, originalPrice: 39990, label: '25 × 25 cm', highlight: 'MEJOR VALOR' },
+        { size: '30 × 30 cm', price: 79990, framePrice: 79990, originalPrice: 106990, label: '30 × 30 cm (Gran Formato Modular)' },
+        { size: 'Otro tamaño', price: 0, label: 'Otro tamaño (Cotizar)', isQuote: true }
       ]
     },
     {
