@@ -546,31 +546,32 @@
       ]
     },
     {
-      sku: 'SKU-SCL-05',
-      id: 'santiago-parque-ohiggins',
-      name: 'Parque O\'Higgins y Movistar Arena 3D',
-      shortName: 'Parque O\'Higgins',
-      category: 'EDICION URBANA CHILE // CAPITAL',
-      tag: 'ELIPSE · CÚPULA MOVISTAR ARENA',
-      badge: 'PULMÓN VERDE · RELIEVE URBANO',
+      sku: 'SKU-VIN-01',
+      id: 'vina-del-mar',
+      name: 'Viña del Mar · Borde Costero y Relieve Urbano 3D',
+      shortName: 'Viña del Mar',
+      category: 'CIUDADES Y REGIONES DE CHILE // COSTA',
+      collection: 'Ciudades y Territorios',
+      tag: 'BORDE COSTERO · CIUDAD JARDÍN',
+      badge: 'COSTA CHILENA · RELIEVE 3D',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
       main: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
       image: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
       defaultImage: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg',
-      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. Icónico parque republicano de Santiago, su elipse militar histórica, la cúpula volumétrica del Movistar Arena, lagunas y red vial perimetral en relieve arquitectónico.',
+      description: 'Relieve topográfico y trama urbana de Viña del Mar en alta fidelidad 3D. Detalle del borde costero, estero Marga Marga, cerros residenciales y cuadrícula urbana en manufactura aditiva con marco shadowbox negro mate.',
       specs: {
         escala: '1:2500',
         tolerancia: '±0.15 mm',
-        material: 'PLA Arquitectónico Blanco Tiza Mate',
+        material: 'PLA Arquitectónico Biobasado Blanco Tiza',
         marco: 'Shadowbox Negro Mate',
-        origen: 'Catastro Geoespacial Parque O\'Higgins y SIG Santiago',
-        acabado: 'Microcapas Texturizadas Antirreflejo'
+        origen: 'Catastro Geoespacial Borde Costero Viña del Mar y DEM Satelital',
+        acabado: 'Microestratificación 0.20 mm Antirreflejo'
       },
       images: {
         'Con Marco': 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg', label: 'Parque O\'Higgins y Cúpula Movistar Arena · Marco Shadowbox' }
+        { url: 'catalog/Volcanic_terrain_model_in_frame_fa1b37e9.jpg', label: 'Viña del Mar · Borde Costero y Relieve Urbano 3D' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -582,31 +583,32 @@
       ]
     },
     {
-      sku: 'SKU-SCL-06',
-      id: 'santiago-plaza-baquedano',
-      name: 'Plaza Baquedano y San Borja · Eje Alameda 3D',
-      shortName: 'Plaza Baquedano',
-      category: 'EDICION URBANA CHILE // CAPITAL',
-      tag: 'PLAZA ITALIA · EJE ALAMEDA · SAN BORJA',
-      badge: 'EJE CÍVICO · TRAMA URBANA',
+      sku: 'SKU-CCP-01',
+      id: 'concepcion-centro',
+      name: 'Concepción · Centro Urbano y Río Biobío 3D',
+      shortName: 'Concepción Centro',
+      category: 'CIUDADES Y REGIONES DE CHILE // SUR',
+      collection: 'Ciudades y Territorios',
+      tag: 'CAPITAL DEL BIOBÍO · DAMERO HISTÓRICO',
+      badge: 'REGIÓN DEL BIOBÍO · CENTRO 3D',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
       main: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
       image: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
       defaultImage: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg',
-      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. El epicentro cívico y neurálgico de Santiago: rotonda Baquedano, Parque Forestal, Parque Bustamante, torres San Borja y Eje Alameda modelados en relieve 3D.',
+      description: 'Trazado urbano del centro de Concepción, damero fundacional, Plaza de la Independencia y ribera norte del Río Biobío. Manufactura de precisión arquitectónica en PLA blanco mate con marco shadowbox negro mate.',
       specs: {
         escala: '1:2000',
         tolerancia: '±0.15 mm',
         material: 'PLA Arquitectónico Blanco Mate Biobasado',
         marco: 'Shadowbox Negro Mate',
-        origen: 'Catastro Morfológico Comunas Santiago y Providencia',
+        origen: 'Catastro Morfológico y Trama Urbana Concepción',
         acabado: 'Malla Urbana de Alta Definición'
       },
       images: {
         'Con Marco': 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg'
       },
       gallery: [
-        { url: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg', label: 'Plaza Baquedano y Torres San Borja · Relieve Urbano 3D' }
+        { url: 'catalog/White_volcanic_terrain_model_framed_97743f31.jpg', label: 'Concepción Centro · Trama Urbana y Río Biobío 3D' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
@@ -912,31 +914,32 @@
       ]
     },
     {
-      sku: 'SKU-SGP-01',
-      id: 'singapur-marina-bay',
-      name: 'Singapur · Marina Bay y Distrito Financiero',
-      shortName: 'Singapur Marina Bay',
+      sku: 'SKU-TYO-01',
+      id: 'tokio-japon',
+      name: 'Tokio · Megaciudad y Trama Urbana 3D',
+      shortName: 'Tokio',
       category: 'CIUDADES DEL MUNDO // ASIA',
-      tag: 'MARINA BAY · RASCACIELOS Y BAHÍA',
-      badge: 'EDICIÓN INTERNACIONAL · ASIA 3D',
+      collection: 'Ciudades del Mundo',
+      tag: 'MEGACIUDAD · RASCACIELOS 3D',
+      badge: 'EDICIÓN INTERNACIONAL · JAPÓN',
       leadTime: 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile',
       main: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
       image: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
       defaultImage: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg',
-      description: 'Transforma la topografía y el trazado urbano de cualquier lugar del mundo en una pieza de diseño única. Capturamos el relieve y trazado urbano mediante datos geoespaciales. Diseño técnico, limpio y a medida. La bahía futurista de Marina Bay, el complejo Marina Bay Sands, los rascacielos del distrito financiero Downtown Core y los canales marítimos de Singapur en volumetría de precisión.',
+      description: 'Morfología urbana tridimensional de Tokio, rascacielos y tejido metropolitano de alta densidad en Japón. Cuadro enmarcado de alta precisión en manufactura aditiva de clase mundial.',
       specs: {
         escala: '1:3500',
         tolerancia: '±0.15 mm',
         material: 'PLA Arquitectónico Blanco Tiza y Gris Urbano',
         marco: 'Shadowbox Negro Mate de Alto Impacto',
-        origen: 'Catastro Tridimensional Abierto Ciudad de Singapur',
+        origen: 'Catastro Morfológico Tridimensional Tokio y DEM Satelital',
         acabado: 'Volumetría Arquitectónica de Alta Densidad'
       },
       images: {
         'Con Marco': 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg'
       },
       gallery: [
-        { url: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg', label: 'Singapur · Marina Bay y Downtown Core en Marco Shadowbox' }
+        { url: 'catalog/Volcanic_terrain_model_framed_f22d9714.jpg', label: 'Tokio · Megaciudad y Tejido Metropolitano 3D en Marco' }
       ],
       formats: [
         { size: '20 × 20 cm', price: 24990, framePrice: 24990, originalPrice: 33290, label: '20 × 20 cm (Estándar)', active: true },
