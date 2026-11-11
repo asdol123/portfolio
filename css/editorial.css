@@ -5982,39 +5982,46 @@ dialog#project-modal::backdrop {
   margin-bottom: 36px;
 }
 
-/* Tarjeta Inmersiva Full-Bleed */
+/* Tarjeta de Catálogo Arquitectónico (Framed Exhibit con Margen Perimetral) */
 .ecom-card {
   position: relative;
-  background: #09090B;
-  border-radius: 28px;
+  background: #0B0B0E;
+  border-radius: 0 !important;
   overflow: hidden;
-  border: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
   outline: none !important;
-  box-shadow: 0 20px 48px -15px rgba(0, 0, 0, 0.4), 0 4px 16px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 540px;
-  aspect-ratio: 3 / 4;
-  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  height: 100%;
+  min-height: auto;
+  aspect-ratio: auto;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
   transform: translate3d(0, 0, 0);
   isolation: isolate;
 }
 
 .ecom-card:hover {
   transform: translateY(-6px);
-  border: none !important;
-  box-shadow: 0 32px 75px -16px rgba(0, 0, 0, 0.65), 0 12px 30px -8px rgba(230, 25, 25, 0.28);
+  border-color: rgba(230, 25, 25, 0.45) !important;
+  box-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(230, 25, 25, 0.3);
 }
 
-/* El Fondo ES la Fotografía / Relieve 3D (Lienzo 100%) */
+/* Escenario de la Maqueta 3D: Cuadrado 1:1 con Margen Perimetral Completo (Sin Cortes) */
 .ecom-thumb-box {
-  position: absolute;
-  inset: 0;
+  order: 2;
+  position: relative;
+  inset: auto;
   width: 100% !important;
-  height: 100% !important;
+  aspect-ratio: 1 / 1;
+  height: auto !important;
   margin: 0 !important;
-  border-radius: inherit;
+  background: radial-gradient(circle at 50% 50%, #1A1A22 0%, #0F0F13 100%);
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
   cursor: pointer;
   z-index: 1;
@@ -6023,19 +6030,27 @@ dialog#project-modal::backdrop {
 .ecom-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
   display: block;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
   transform: scale3d(1, 1, 1);
-  transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
   backface-visibility: hidden;
 }
 
 .ecom-card:hover .ecom-img,
 .ecom-thumb-box:hover .ecom-img {
-  transform: scale3d(1.055, 1.055, 1);
+  transform: scale3d(1.04, 1.04, 1);
 }
 
-/* Scrim Atmosférico Cinematográfico Sutil (Relieve Protagonista) */
+/* Scrim desactivado en escenario de producto para preservar la nitidez total del relieve */
+.ecom-thumb-box .ecom-card-scrim {
+  display: none !important;
+}
+
 .ecom-card-scrim {
   position: absolute;
   inset: 0;
@@ -6063,16 +6078,21 @@ dialog#project-modal::backdrop {
   );
 }
 
-/* Cabecera Flotante Superior (Top Bar Minimalista) */
+/* Cabecera Técnica Superior (Top Bar Dedicada sin Solapamiento) */
 .ecom-card-header-floating {
+  order: 1;
   position: relative;
-  z-index: 3;
-  padding: 16px 16px 0 16px;
+  inset: auto;
+  z-index: 2;
+  padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  pointer-events: none;
+  gap: 10px;
+  flex-wrap: wrap;
+  background: #0E0E12;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  pointer-events: auto;
 }
 
 .ecom-card-header-floating > * {
@@ -6127,6 +6147,7 @@ dialog#project-modal::backdrop {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  flex-wrap: wrap;
 }
 
 /* Botón Flotante de Video Minimalista */
@@ -6228,15 +6249,20 @@ dialog#project-modal::backdrop {
   transform: scale(1.08);
 }
 
-/* Pie Flotante Inferior (Bottom Bar con Scrim Oscuro) */
+/* Panel Inferior de Información y Compra (Ubicado debajo de la maqueta, sin tapar el marco) */
 .ecom-card-footer-floating {
+  order: 3;
   position: relative;
-  z-index: 3;
-  padding: 0 20px 20px 20px;
+  z-index: 2;
+  padding: 20px 22px 22px 22px;
+  background: #0B0B0E;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  pointer-events: none;
+  gap: 12px;
+  flex-grow: 1;
+  justify-content: space-between;
+  pointer-events: auto;
 }
 
 .ecom-card-footer-floating > * {
@@ -6557,6 +6583,34 @@ dialog#project-modal::backdrop {
 .ecom-card-teaser {
   position: relative;
   background: #09090B;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  min-height: 540px !important;
+  aspect-ratio: auto !important;
+}
+
+.ecom-card-teaser .ecom-card-header-floating {
+  order: unset !important;
+  position: relative !important;
+  background: transparent !important;
+  border-bottom: none !important;
+  z-index: 3 !important;
+  padding: 24px 24px 0 24px !important;
+}
+
+.ecom-card-teaser .ecom-card-footer-floating {
+  order: unset !important;
+  position: relative !important;
+  background: transparent !important;
+  border-top: none !important;
+  z-index: 3 !important;
+  padding: 0 28px 28px 28px !important;
+  margin-top: auto !important;
+}
+
+.ecom-teaser-thumb-box .ecom-card-scrim {
+  display: block !important;
 }
 
 .ecom-teaser-thumb-box {
@@ -8721,19 +8775,24 @@ dialog#project-modal::backdrop {
     margin-bottom: 24px !important;
   }
 
-  .ecom-card {
-    border-radius: 24px !important;
-    aspect-ratio: 4 / 5 !important;
-    min-height: 480px !important;
+  .ecom-card:not(.ecom-card-teaser) {
+    border-radius: 0 !important;
+    aspect-ratio: auto !important;
+    min-height: auto !important;
   }
 
-  .ecom-card-header-floating {
-    padding: 14px 14px 0 14px !important;
+  .ecom-card:not(.ecom-card-teaser) .ecom-thumb-box {
+    padding: 18px !important;
   }
 
-  .ecom-card-footer-floating {
-    padding: 0 16px 16px 16px !important;
+  .ecom-card:not(.ecom-card-teaser) .ecom-card-header-floating {
+    padding: 10px 14px !important;
     gap: 8px !important;
+  }
+
+  .ecom-card:not(.ecom-card-teaser) .ecom-card-footer-floating {
+    padding: 16px 16px 18px 16px !important;
+    gap: 10px !important;
   }
 
   .ecom-title {
