@@ -2,6 +2,14 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/producto/:slug",
+      "destination": "/producto.html"
+    },
+    {
+      "source": "/producto",
+      "destination": "/producto.html"
+    },
+    {
       "source": "/manuales/manual-sketchup.pdf",
       "destination": "/manuales/manual_sketchup_arquitectura.pdf"
     },
