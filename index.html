@@ -36,19 +36,88 @@
       "@context": "https://schema.org",
       "@graph": [
         {
-          "@type": "ProfessionalService",
+          "@type": [
+            "ProfessionalService",
+            "LocalBusiness"
+          ],
           "@id": "https://ar-arq.cl/#organization",
           "name": "ALZADO ROJO · Maquetas de Arquitectura y Fabricación 3D",
-          "alternateName": "AR ARQ SpA",
+          "alternateName": [
+            "AR ARQ SpA",
+            "Alzado Rojo Arquitectura"
+          ],
           "url": "https://ar-arq.cl",
-          "logo": "https://ar-arq.cl/images/logo.png",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://ar-arq.cl/#logo",
+            "url": "https://ar-arq.cl/images/logo.png",
+            "caption": "Logotipo ALZADO ROJO"
+          },
           "image": "https://ar-arq.cl/catalog/santiago-costanera-marco.jpg",
-          "description": "Taller de arquitectura, maquetas de arquitectura y maquetas urbanas 3D de alta fidelidad en Santiago de Chile. Modelos a medida, concursos y proyectos inmobiliarios.",
-          "serviceType": "Fabricación de Maquetas de Arquitectura y Maquetas Urbanas 3D",
-          "keywords": "maqueta arquitectura, maquetas de arquitectura, taller de maquetas chile, maquetas urbanas 3d, fabricacion aditiva arquitectura",
+          "description": "Taller de arquitectura, maquetas de arquitectura y maquetas urbanas 3D de alta fidelidad en Santiago de Chile. Fabricación de modelos arquitectónicos a medida con tolerancia milimétrica ±0.1 mm, relieves topográficos satelitales enmarcados y prototipado 3D para inmobiliarias, oficinas de arquitectura y concursos.",
           "telephone": "+56962032766",
+          "email": "adolchilemods@gmail.com",
           "priceRange": "$$$",
+          "currenciesAccepted": "CLP",
+          "paymentAccepted": "Webpay, Tarjeta de Crédito, Tarjeta de Débito, Transferencia Bancaria",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Santiago",
+            "addressLocality": "Santiago",
+            "addressRegion": "Región Metropolitana",
+            "postalCode": "7500000",
+            "addressCountry": "CL"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -33.4372,
+            "longitude": -70.6506
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ],
+              "opens": "09:00",
+              "closes": "19:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Saturday",
+              "opens": "10:00",
+              "closes": "14:00"
+            }
+          ],
           "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Las Condes, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Vitacura, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Providencia, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Lo Barnechea, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Ñuñoa, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Santiago Centro, Santiago"
+            },
             {
               "@type": "AdministrativeArea",
               "name": "Región Metropolitana de Santiago"
@@ -60,8 +129,46 @@
           ],
           "founder": {
             "@type": "Person",
+            "@id": "https://ar-arq.cl/#adolfo-risopatron",
             "name": "Adolfo Risopatrón Inzunza",
-            "jobTitle": "Arquitecto y Magíster MASE"
+            "jobTitle": "Arquitecto y Magíster MASE",
+            "url": "https://ar-arq.cl/sobre-mi"
+          },
+          "serviceType": [
+            "Fabricación de Maquetas de Arquitectura",
+            "Maquetas Urbanas 3D",
+            "Impresión 3D de Alta Precisión",
+            "Modelos a Escala para Inmobiliarias y Concursos"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Catálogo de Servicios de Maquetación y Fabricación Digital",
+            "itemListElement": [
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Fabricación de Maquetas de Arquitectura a Medida",
+                  "description": "Modelado y manufactura de maquetas físicas a partir de planos CAD DWG, modelos Revit BIM o SketchUp con tolerancia milimétrica ±0.1 mm."
+                }
+              },
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Maquetas Urbanas 3D y Relieves Topográficos Satelitales",
+                  "description": "Reproducción morfológica tridimensional de tramas urbanas, rascacielos y conos volcánicos satelitales enmarcados en madera shadowbox."
+                }
+              },
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Servicio de Impresión 3D y Manufactura Aditiva",
+                  "description": "Prototipado rápido de alta resolución en polímeros técnicos FDM mate y resina UV fotosensible para arquitectura y diseño industrial."
+                }
+              }
+            ]
           },
           "sameAs": [
             "https://www.instagram.com/alzadorojo/",

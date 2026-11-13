@@ -29,6 +29,209 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
     <link rel="stylesheet" href="css/editorial.css?v=20261028d">
+
+    <!-- Estructura de Datos JSON-LD de Autoridad (Schema.org / GEO y AI Search) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": [
+            "ProfessionalService",
+            "LocalBusiness"
+          ],
+          "@id": "https://ar-arq.cl/#organization",
+          "name": "ALZADO ROJO · Maquetas de Arquitectura y Fabricación 3D",
+          "alternateName": [
+            "AR ARQ SpA",
+            "Alzado Rojo Arquitectura"
+          ],
+          "url": "https://ar-arq.cl",
+          "logo": {
+            "@type": "ImageObject",
+            "@id": "https://ar-arq.cl/#logo",
+            "url": "https://ar-arq.cl/images/logo.png",
+            "caption": "Logotipo ALZADO ROJO"
+          },
+          "image": "https://ar-arq.cl/catalog/santiago-costanera-marco.jpg",
+          "description": "Taller de arquitectura, maquetas de arquitectura y maquetas urbanas 3D de alta fidelidad en Santiago de Chile. Fabricación de modelos arquitectónicos a medida con tolerancia milimétrica ±0.1 mm, relieves topográficos satelitales enmarcados y prototipado 3D para inmobiliarias, oficinas de arquitectura y concursos.",
+          "telephone": "+56962032766",
+          "email": "adolchilemods@gmail.com",
+          "priceRange": "$$$",
+          "currenciesAccepted": "CLP",
+          "paymentAccepted": "Webpay, Tarjeta de Crédito, Tarjeta de Débito, Transferencia Bancaria",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Santiago",
+            "addressLocality": "Santiago",
+            "addressRegion": "Región Metropolitana",
+            "postalCode": "7500000",
+            "addressCountry": "CL"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -33.4372,
+            "longitude": -70.6506
+          },
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ],
+              "opens": "09:00",
+              "closes": "19:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": "Saturday",
+              "opens": "10:00",
+              "closes": "14:00"
+            }
+          ],
+          "areaServed": [
+            {
+              "@type": "AdministrativeArea",
+              "name": "Las Condes, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Vitacura, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Providencia, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Lo Barnechea, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Ñuñoa, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Santiago Centro, Santiago"
+            },
+            {
+              "@type": "AdministrativeArea",
+              "name": "Región Metropolitana de Santiago"
+            },
+            {
+              "@type": "Country",
+              "name": "Chile"
+            }
+          ],
+          "founder": {
+            "@type": "Person",
+            "@id": "https://ar-arq.cl/#adolfo-risopatron",
+            "name": "Adolfo Risopatrón Inzunza",
+            "jobTitle": "Arquitecto y Magíster MASE",
+            "url": "https://ar-arq.cl/sobre-mi"
+          },
+          "serviceType": [
+            "Fabricación de Maquetas de Arquitectura",
+            "Maquetas Urbanas 3D",
+            "Impresión 3D de Alta Precisión",
+            "Modelos a Escala para Inmobiliarias y Concursos"
+          ],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Catálogo de Servicios de Maquetación y Fabricación Digital",
+            "itemListElement": [
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Fabricación de Maquetas de Arquitectura a Medida",
+                  "description": "Modelado y manufactura de maquetas físicas a partir de planos CAD DWG, modelos Revit BIM o SketchUp con tolerancia milimétrica ±0.1 mm."
+                }
+              },
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Maquetas Urbanas 3D y Relieves Topográficos Satelitales",
+                  "description": "Reproducción morfológica tridimensional de tramas urbanas, rascacielos y conos volcánicos satelitales enmarcados en madera shadowbox."
+                }
+              },
+              {
+                "@type": "OfferService",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Servicio de Impresión 3D y Manufactura Aditiva",
+                  "description": "Prototipado rápido de alta resolución en polímeros técnicos FDM mate y resina UV fotosensible para arquitectura y diseño industrial."
+                }
+              }
+            ]
+          },
+          "sameAs": [
+            "https://www.instagram.com/alzadorojo/",
+            "https://wa.me/56962032766"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://ar-arq.cl/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "¿Cómo mandar a hacer una maqueta de arquitectura en Chile?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Para mandar a hacer una maqueta de arquitectura en Chile con ALZADO ROJO, sólo necesitas enviar los planos o modelos 3D de tu proyecto (CAD DWG, Revit BIM, SketchUp, Rhino o STL) indicando la escala deseada (ej. 1:100, 1:200, 1:500) y su objetivo (concurso, venta inmobiliaria o exposición). Optimizamos la geometría para fabricación aditiva y corte CNC, entregando una cotización técnica en menos de 24 horas y despacho seguro a todo Chile."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué escala y materialidad se utiliza en las maquetas de arquitectura?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "La escala y materialidad dependen del nivel de detalle: para maquetas arquitectónicas de viviendas o edificios se utilizan escalas 1:50, 1:100 y 1:200 con polímeros técnicos mate de alta resolución (FDM/PLA/PETG), detalles en resina fotosensible UV y bases de madera sólida. Para maquetas urbanas y territoriales se emplean escalas 1:500, 1:1000 y 1:2000 que capturan morfología territorial, manzanas y vialidad con terminaciones arquitectónicas monocromáticas de alta precisión."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué es una maqueta urbana y para qué se utiliza en arquitectura?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Una maqueta urbana es una representación tridimensional a escala reducida (comúnmente 1:500, 1:1000 y 1:2000) de una ciudad, manzana o sector territorial. En arquitectura profesional y desarrollo inmobiliario, se utiliza para analizar la inserción volumétrica de edificios, rasantes, sombras solares y planificación urbana, superando las limitaciones de los planos 2D."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Qué materiales y tecnologías se utilizan en las maquetas de arquitectura modernas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A diferencia de las maquetas tradicionales de cartón o madera balsa, las maquetas profesionales modernas se fabrican mediante manufactura aditiva (impresión 3D de alta precisión FDM y resina fotosensible), corte láser CNC y bases de madera sólida. Esto permite reproducir detalles topográficos y arquitectónicos con tolerancias milimétricas inferiores a 0.1 mm."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cuáles son las escalas más utilizadas para maquetas de arquitectura y urbanas?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Para maquetas urbanas y territoriales se emplean escalas de 1:500, 1:1000 y 1:2000 para abarcar sectores metropolitanos o manzanas completas. Para maquetas de detalle arquitectónico, fachadas o viviendas unifamiliares, se utilizan escalas de 1:50, 1:100 y 1:200."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "¿Cómo cotizar o comprar una maqueta de arquitectura o urbana en Chile?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "En ALZADO ROJO puedes adquirir modelos de ciudades listos con despacho a todo Chile (formatos estándar 10x10, 15x15 y 20x20 cm enmarcados) o encargar una maqueta a medida enviando tus archivos CAD, BIM (Revit/ArchiCAD) o modelos 3D (SketchUp/Rhino) para cotización directa en línea o vía WhatsApp."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
 
