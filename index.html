@@ -6,21 +6,21 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      // Consent Mode v2: Restricción estricta solo para Europa (EEE + UK)
+      // Consent Mode v2: Restricción estricta solo para Europa (EEA + UK)
       gtag('consent', 'default', {
         'analytics_storage': 'denied',
         'ad_storage': 'denied',
         'ad_user_data': 'denied',
         'ad_personalization': 'denied',
-        'region': ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB'],
+        'region': ['EEA', 'GB', 'CH', 'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO'],
         'wait_for_update': 500
       });
       // Consent Mode v2: Permitido por defecto en Chile y resto del mundo
       gtag('consent', 'default', {
-        'analytics_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
-        'ad_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
-        'ad_user_data': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
-        'ad_personalization': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted'
+        'analytics_storage': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted',
+        'ad_storage': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted',
+        'ad_user_data': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted',
+        'ad_personalization': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted'
       });
       gtag('js', new Date());
       gtag('config', 'GTM-WT9GRLRL');
