@@ -93,60 +93,34 @@
     }
 
     /**
-     * Verifica si ya existe en el DOM un script cargando gtm.js o gtag/js para evitar duplicaciones
-     * @param {string} id
-     * @returns {boolean}
-     */
-    function isScriptAlreadyInjected(id) {
-        if (document.getElementById(GTAG_SCRIPT_ID)) {
-            return true;
-        }
-
-        const targetId = (id || DEFAULT_MEASUREMENT_ID).trim();
-        const scripts = document.getElementsByTagName('script');
-
-        for (let i = 0; i < scripts.length; i++) {
-            const src = scripts[i].src || scripts[i].getAttribute('src') || '';
-            if (!src) continue;
-
-            if (src.includes('googletagmanager.com/')) {
-                // Verificar coincidencia por archivo (gtm.js o gtag/js) y por ID
-                if (src.includes(`id=${encodeURIComponent(targetId)}`) ||
-                    src.includes(`id=${targetId}`) ||
-                    src.includes(`id=${DEFAULT_MEASUREMENT_ID}`) ||
-                    (src.includes('gtm.js') && src.includes('GTM-')) ||
-                    (src.includes('gtag/js') && src.includes('GTM-WT9GRLRL'))) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Inyecta el script oficial de Google Tag / Tag Manager respetando el tipo de contenedor
+     * Inyecta el script oficial de Google Tag Manager de manera asíncrona y segura
      * @param {string} measurementId
      */
     function injectGtagScript(measurementId) {
-        const id = (measurementId || resolveMeasurementId() || '').trim();
-        if (!id || id === 'G-XXXXXXXXXX') {
+        if (!measurementId || measurementId === 'G-XXXXXXXXXX') {
             return;
         }
 
-        // Si ya está inyectado estáticamente en el <head> o dinámicamente, no duplicar
-        if (isScriptAlreadyInjected(id)) {
+        // Evitar duplicados: verificar si ya existe en el DOM algún script que contenga googletagmanager.com
+        if (document.getElementById(GTAG_SCRIPT_ID)) {
             return;
+        }
+        const existingScripts = document.getElementsByTagName('script');
+        for (let i = 0; i < existingScripts.length; i++) {
+            const src = existingScripts[i].src || existingScripts[i].getAttribute('src') || '';
+            if (src.indexOf('googletagmanager.com') !== -1) {
+                return;
+            }
         }
 
         const script = document.createElement('script');
         script.id = GTAG_SCRIPT_ID;
         script.async = true;
 
-        if (isGtmContainer(id)) {
-            script.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(id)}`;
+        if (measurementId.startsWith('GTM-')) {
+            script.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(measurementId);
         } else {
-            script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
+            script.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
         }
 
         script.onerror = function () {
