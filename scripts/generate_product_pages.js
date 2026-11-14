@@ -21,7 +21,7 @@ const GOOGLE_TAG_SNIPPET = `    <!-- Google Tag (gtag.js) - Google Tag Manager -
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-
+      // Consent Mode v2: Restricción estricta solo para Europa (EEE + UK)
       // 1. Predeterminado para países del EEE / EEA, UK y Suiza (estricto / denegado)
       gtag('consent', 'default', {
         'analytics_storage': 'denied',
@@ -29,9 +29,8 @@ const GOOGLE_TAG_SNIPPET = `    <!-- Google Tag (gtag.js) - Google Tag Manager -
         'ad_user_data': 'denied',
         'ad_personalization': 'denied',
         'wait_for_update': 500,
-        'region': ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB']
+        'region': ['EEA', 'GB', 'CH', 'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO']
       });
-
       // 2. Predeterminado para Chile y resto del mundo (otorgado salvo rechazo explícito previo)
       gtag('consent', 'default', {
         'analytics_storage': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted',
@@ -39,7 +38,6 @@ const GOOGLE_TAG_SNIPPET = `    <!-- Google Tag (gtag.js) - Google Tag Manager -
         'ad_user_data': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted',
         'ad_personalization': (typeof localStorage !== 'undefined' && (localStorage.getItem('ar_cookie_consent') === 'rejected' || localStorage.getItem('ar_cookie_consent') === 'necessary')) ? 'denied' : 'granted'
       });
-
       gtag('js', new Date());
       gtag('config', 'GTM-WT9GRLRL');
     </script>`;
