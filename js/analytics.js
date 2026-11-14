@@ -74,6 +74,35 @@
         return GA4_MEASUREMENT_ID;
     }
 
+    // Lista oficial de territorios del Espacio Económico Europeo (EEE) y Reino Unido (UK)
+    const EEA_UK_REGIONS = [
+        'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
+        'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
+        'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB'
+    ];
+
+    /**
+     * Comprueba si el usuario ha rechazado explícitamente las cookies no necesarias
+     * @returns {boolean}
+     */
+    function hasExplicitRejection() {
+        if (window.AR_COOKIES && typeof window.AR_COOKIES.getConsentStatus === 'function') {
+            const status = window.AR_COOKIES.getConsentStatus();
+            return status === 'rejected' || status === 'necessary';
+        }
+
+        try {
+            if (window.localStorage) {
+                const stored = window.localStorage.getItem('ar_cookie_consent');
+                return stored === 'rejected' || stored === 'necessary';
+            }
+        } catch (e) {
+            // Ignorar restricciones en entornos privados
+        }
+
+        return false;
+    }
+
     /**
      * Comprueba si el usuario ha otorgado consentimiento de cookies analíticas
      * @returns {boolean}
@@ -142,22 +171,47 @@
     }
 
     /**
-     * Configuración del Consent Mode v2 por defecto
-     * @param {boolean} granted
+     * Configuración del Consent Mode v2 por defecto con lógica regional
+     * 1. Países del EEE / EEA, UK y Suiza: estricto / denegado
+     * 2. Chile y resto del mundo: otorgado salvo rechazo explícito previo
+     * @param {boolean} [granted]
      */
     function setConsentMode(granted) {
-        const state = granted ? 'granted' : 'denied';
+        // 1. Predeterminado para países del EEE / EEA, UK y Suiza (estricto / denegado)
         window.gtag('consent', 'default', {
-            'analytics_storage': state,
-            'ad_storage': state,
-            'ad_user_data': state,
-            'ad_personalization': state,
-            'wait_for_update': 500
+            'analytics_storage': 'denied',
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'wait_for_update': 500,
+            'region': ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH']
+        });
+
+        // 2. Predeterminado para Chile y resto del mundo (otorgado salvo rechazo explícito previo)
+        let isExplicitlyRejected = false;
+        try {
+            if (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') {
+                isExplicitlyRejected = true;
+            }
+        } catch (e) {
+            // Ignorar excepciones en entornos con almacenamiento bloqueado
+        }
+
+        const fallbackState = isExplicitlyRejected ? 'denied' : 'granted';
+        const globalState = (typeof granted === 'boolean') ? (granted ? 'granted' : fallbackState) : fallbackState;
+
+        window.gtag('consent', 'default', {
+            'analytics_storage': globalState,
+            'ad_storage': globalState,
+            'ad_user_data': globalState,
+            'ad_personalization': globalState
         });
     }
 
     /**
-     * Actualiza el Consent Mode v2 cuando el usuario cambia su preferencia de cookies
+     * Actualiza el Consent Mode v2 cuando el usuario interactúa con el banner de cookies (js/cookies.js)
+     * - Si hace clic en aceptar -> 'granted'
+     * - Si hace clic en rechazar / solo necesarias -> 'denied'
      * @param {boolean} granted
      */
     function updateConsentMode(granted) {
@@ -188,14 +242,22 @@
 
         const measurementId = resolveMeasurementId();
         const consentGranted = hasAnalyticsConsent();
+        const explicitRejection = hasExplicitRejection();
 
-        // 1. Establecer Consent Mode inicial (denied por defecto si no hay aceptación previa)
-        setConsentMode(consentGranted);
+        // 1. Establecer Consent Mode regional por defecto
+        setConsentMode();
 
-        // 2. Registro de inicialización gtag
+        // 2. Sincronizar actualización si el usuario ya interactuó con el banner
+        if (consentGranted) {
+            updateConsentMode(true);
+        } else if (explicitRejection) {
+            updateConsentMode(false);
+        }
+
+        // 3. Registro de inicialización gtag
         window.gtag('js', new Date());
 
-        // 3. Configuración de Google Analytics 4 (GA4) y Google Tag Manager (GTM)
+        // 4. Configuración de Google Analytics 4 (GA4) y Google Tag Manager (GTM)
         const configuredIds = [];
 
         // Registrar ID oficial GA4
@@ -224,8 +286,8 @@
             configuredIds.push(measurementId);
         }
 
-        // Si hay consentimiento otorgado previamente, cargar script GA4 si aún no está presente
-        if (consentGranted) {
+        // Inyectar script GA4 si no hay rechazo explícito y no está ya presente en el DOM
+        if (!explicitRejection) {
             injectGtagScript(GA4_MEASUREMENT_ID);
         }
 
@@ -402,6 +464,7 @@
         GA4_ID: GA4_MEASUREMENT_ID,
         GTM_ID: GTM_CONTAINER_ID,
         DEFAULT_ID: DEFAULT_MEASUREMENT_ID,
+        EEA_REGIONS: EEA_UK_REGIONS,
         getMeasurementId: resolveMeasurementId,
         setMeasurementId: function (id) {
             if (typeof id === 'string' && id.trim()) {
@@ -414,7 +477,7 @@
                     window.GA_MEASUREMENT_ID = cleanId;
                 }
 
-                if (hasAnalyticsConsent()) {
+                if (!hasExplicitRejection()) {
                     injectGtagScript(cleanId);
                     window.gtag('config', cleanId, {
                         anonymize_ip: true,
@@ -424,6 +487,9 @@
             }
         },
         hasConsent: hasAnalyticsConsent,
+        hasExplicitRejection: hasExplicitRejection,
+        setConsentMode: setConsentMode,
+        updateConsentMode: updateConsentMode,
         isGtm: isGtmContainer,
         isGa4: isGa4MeasurementId,
         trackEvent: trackEvent,

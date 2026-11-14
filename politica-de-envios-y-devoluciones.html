@@ -6,13 +6,25 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
+
+      // 1. Predeterminado para países del EEE / EEA, UK y Suiza (estricto / denegado)
       gtag('consent', 'default', {
-        'analytics_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
-        'ad_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
-        'ad_user_data': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
-        'ad_personalization': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
-        'wait_for_update': 500
+        'analytics_storage': 'denied',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'wait_for_update': 500,
+        'region': ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO', 'GB', 'CH']
       });
+
+      // 2. Predeterminado para Chile y resto del mundo (otorgado salvo rechazo explícito previo)
+      gtag('consent', 'default', {
+        'analytics_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
+        'ad_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
+        'ad_user_data': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted',
+        'ad_personalization': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'rejected') ? 'denied' : 'granted'
+      });
+
       gtag('js', new Date());
       gtag('config', 'GTM-WT9GRLRL');
     </script>
