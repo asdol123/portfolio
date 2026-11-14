@@ -1,0 +1,319 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://ar-arq.cl/#website",
+      "url": "https://ar-arq.cl",
+      "name": "ALZADO ROJO",
+      "description": "Estudio de Arquitectura, Fabricación Digital y Maquetas de Arquitectura en Santiago de Chile",
+      "publisher": {
+        "@id": "https://ar-arq.cl/#organization"
+      },
+      "inLanguage": "es-CL"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://ar-arq.cl/maquetas-arquitectura#webpage",
+      "url": "https://ar-arq.cl/maquetas-arquitectura",
+      "name": "Maquetas de Arquitectura y Modelado 3D en Chile | ALZADO ROJO",
+      "isPartOf": {
+        "@id": "https://ar-arq.cl/#website"
+      },
+      "about": {
+        "@id": "https://ar-arq.cl/#organization"
+      },
+      "description": "Taller especializado en fabricación de maquetas de arquitectura, modelado 3D para fabricación, maquetas para proyectos de título (tesis PFC), inmobiliarias y concursos. Precisión milimétrica en Santiago de Chile.",
+      "inLanguage": "es-CL",
+      "breadcrumb": {
+        "@id": "https://ar-arq.cl/maquetas-arquitectura#breadcrumb"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://ar-arq.cl/maquetas-arquitectura#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Inicio",
+          "item": "https://ar-arq.cl/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Maquetas de Arquitectura",
+          "item": "https://ar-arq.cl/maquetas-arquitectura"
+        }
+      ]
+    },
+    {
+      "@type": [
+        "ProfessionalService",
+        "LocalBusiness"
+      ],
+      "@id": "https://ar-arq.cl/#organization",
+      "name": "ALZADO ROJO · Maquetas de Arquitectura y Fabricación 3D",
+      "alternateName": [
+        "AR ARQ SpA",
+        "Alzado Rojo Arquitectura",
+        "Taller de Maquetas de Arquitectura Santiago"
+      ],
+      "url": "https://ar-arq.cl/maquetas-arquitectura",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://ar-arq.cl/#logo",
+        "url": "https://ar-arq.cl/images/logo.png",
+        "caption": "Logotipo ALZADO ROJO"
+      },
+      "image": "https://ar-arq.cl/catalog/santiago-costanera-marco.jpg",
+      "description": "Taller de arquitectura y fabricación digital especializado en maquetas de arquitectura para proyectos de título, inmobiliarias y concursos, así como modelado 3D para impresión 3D y corte láser en Santiago y todo Chile.",
+      "telephone": "+56962032766",
+      "email": "adolchilemods@gmail.com",
+      "priceRange": "$",
+      "currenciesAccepted": "CLP",
+      "paymentAccepted": "Webpay, Tarjeta de Crédito, Tarjeta de Débito, Transferencia Bancaria",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Santiago",
+        "addressLocality": "Santiago",
+        "addressRegion": "Región Metropolitana",
+        "postalCode": "7500000",
+        "addressCountry": "CL"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -33.4372,
+        "longitude": -70.6506
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday"
+          ],
+          "opens": "09:00",
+          "closes": "19:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": "Saturday",
+          "opens": "10:00",
+          "closes": "14:00"
+        }
+      ],
+      "areaServed": [
+        {
+          "@type": "AdministrativeArea",
+          "name": "Santiago Oriente, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Vitacura, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Las Condes, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Lo Barnechea, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Providencia, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Ñuñoa, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Santiago Centro, Santiago"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Región Metropolitana de Santiago"
+        },
+        {
+          "@type": "Country",
+          "name": "Chile"
+        }
+      ],
+      "founder": {
+        "@type": "Person",
+        "@id": "https://ar-arq.cl/#adolfo-risopatron",
+        "name": "Adolfo Risopatrón Inzunza",
+        "jobTitle": "Arquitecto y Magíster MASE",
+        "url": "https://ar-arq.cl/sobre-mi"
+      },
+      "serviceType": [
+        "Fabricación de Maquetas de Arquitectura",
+        "Modelado 3D para Fabricación y Maquetación",
+        "Maquetas para Proyectos de Título y Tesis de Arquitectura",
+        "Maquetas para Inmobiliarias y Salas de Venta",
+        "Maquetas para Oficinas de Arquitectura y Concursos"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Catálogo de Servicios de Maquetas de Arquitectura y Fabricación Digital",
+        "itemListElement": [
+          {
+            "@type": "OfferService",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://ar-arq.cl/maquetas-arquitectura#servicio-fabricacion-maquetas",
+              "name": "Fabricación de Maquetas de Arquitectura",
+              "serviceType": "Maquetas de Arquitectura para Tesis, Concursos e Inmobiliarias",
+              "provider": {
+                "@id": "https://ar-arq.cl/#organization"
+              },
+              "description": "Diseño, manufactura y ensamble de maquetas arquitectónicas de alta precisión con tolerancia milimétrica (±0.1 mm) para proyectos de título (PFC / tesis), salas de ventas de inmobiliarias, concursos públicos y privados, y presentaciones de oficinas de arquitectura. Combinación de impresión 3D FDM/Resina UV, corte láser y acabados de autor.",
+              "areaServed": [
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Santiago Oriente"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Vitacura"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Las Condes"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Lo Barnechea"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Providencia"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Chile"
+                }
+              ],
+              "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Especialidades de Maquetería",
+                "itemListElement": [
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Maquetas para Proyectos de Título (Tesis / PFC Arquitectura)",
+                      "description": "Modelado morfológico, estructural y territorial a escala para defensas universitarias de pregrado y posgrado con plazos críticos de entrega."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Maquetas para Inmobiliarias y Constructoras (Salas de Venta)",
+                      "description": "Modelos a escala de edificios en altura, condominios residenciales y masterplans con acrílico, iluminación LED y bases de presentación ejecutiva."
+                    }
+                  },
+                  {
+                    "@type": "Offer",
+                    "itemOffered": {
+                      "@type": "Service",
+                      "name": "Maquetas para Oficinas de Arquitectura y Concursos",
+                      "description": "Maquetas volumétricas, monocromáticas y conceptuales con alto rigor estético para licitaciones y concursos nacionales e internacionales."
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "@type": "OfferService",
+            "itemOffered": {
+              "@type": "Service",
+              "@id": "https://ar-arq.cl/maquetas-arquitectura#servicio-modelado-3d",
+              "name": "Modelado 3D para Fabricación y Maquetación",
+              "serviceType": "Optimización CAD/BIM para Manufactura Digital",
+              "provider": {
+                "@id": "https://ar-arq.cl/#organization"
+              },
+              "description": "Saneamiento de mallas poligonales, corrección de geometrías no manifold, booleanas limpias y despiece inteligente de proyectos en AutoCAD DWG, Revit BIM, SketchUp y Rhino para impresión 3D sin fallas y corte láser optimizado sin pérdidas de material.",
+              "areaServed": [
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Santiago Oriente"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Vitacura"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Las Condes"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Lo Barnechea"
+                },
+                {
+                  "@type": "AdministrativeArea",
+                  "name": "Providencia"
+                },
+                {
+                  "@type": "Country",
+                  "name": "Chile"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "sameAs": [
+        "https://www.instagram.com/alzadorojo/",
+        "https://wa.me/56962032766"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://ar-arq.cl/maquetas-arquitectura#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo encargar una maqueta de arquitectura en Santiago de Chile?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Para encargar una maqueta en ALZADO ROJO, sólo debes enviar tus archivos digitales (DWG, Revit, SketchUp, Rhino o STL) indicando la escala requerida (ej. 1:50, 1:100, 1:200, 1:500) y la fecha de entrega. Realizamos la revisión técnica de factibilidad geométrica y cotizamos en menos de 24 horas hábiles con despacho seguro en Santiago Oriente y a todo Chile."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Fabrican maquetas para proyectos de título (PFC / Tesis de Arquitectura)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Somos especialistas en maquetas para proyectos de título universitario. Adaptamos los modelos 3D y planos CAD para fabricación aditiva y corte láser rápido, garantizando tolerancias milimétricas ±0.1 mm y entregas puntuales para comisiones de entrega y defensa de título."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué formatos de archivo 3D reciben para optimización y corte?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aceptamos planos 2D en AutoCAD DWG/DXF, modelos BIM en Autodesk Revit (.rvt / IFC), SketchUp (.skp), Rhinoceros (.3dm), así como mallas poligonales OBJ, 3MF y STL. Nos encargamos del saneamiento geométrico completo para fabricación."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Realizan maquetas para salas de ventas inmobiliarias y concursos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Desarrollamos maquetas comerciales de alta presentación visual para proyectos inmobiliarios (edificios residenciales, loteos, máster plans) y maquetas monocromáticas para concursos de arquitectura, con acabados en madera noble, acrílicos transparentes e iluminación LED opcional."
+          }
+        }
+      ]
+    }
+  ]
+}
