@@ -212,9 +212,11 @@
     state.isVideoMode = false;
 
     const shortTitle = product.shortName || product.name;
+    const baseName = shortTitle.replace(/^maqueta\s*(de\s*)?/i, '').trim();
+    const formattedTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
     const displayH1 = shortTitle.toLowerCase().includes('maqueta') ? shortTitle : `${shortTitle} · Maqueta 3D`;
-    const cleanMetaTitle = `${displayH1} | ALZADO ROJO`;
-    document.title = cleanMetaTitle;
+    
+    document.title = formattedTitle;
 
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
@@ -222,7 +224,10 @@
     }
 
     const ogTitle = document.querySelector('meta[property="og:title"]');
-    if (ogTitle) ogTitle.setAttribute('content', cleanMetaTitle);
+    if (ogTitle) ogTitle.setAttribute('content', formattedTitle);
+
+    const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+    if (twitterTitle) twitterTitle.setAttribute('content', formattedTitle);
 
     const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogImage) ogImage.setAttribute('content', `https://ar-arq.cl/${state.currentImage}`);

@@ -74,10 +74,11 @@ let generatedCount = 0;
 
 CATALOG.forEach(product => {
   const shortTitle = product.shortName || product.name;
+  const baseName = shortTitle.replace(/^maqueta\s*(de\s*)?/i, '').trim();
   const canonicalUrl = `https://ar-arq.cl/productos/${product.id}`;
-  const pageTitle = `Maqueta ${shortTitle} · Maqueta de Arquitectura y Relieve 3D | ALZADO ROJO`;
+  const pageTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
   const metaDescription = `Maqueta topográfica y de arquitectura 3D de ${product.name} en Chile. Manufactura de precisión en taller propio, marco shadowbox incluido y despacho a todo Chile.`;
-  const ogTitle = `Maqueta ${shortTitle} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
+  const ogTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
   const ogDescription = `Compra directa online con Webpay / Débito desde $24.990 CLP con marco shadowbox incluido. Envíos a todo Chile.`;
   const ogImage = `https://ar-arq.cl/${product.main}`;
   const collectionName = product.collection || (product.category === 'volcanes' ? 'Volcanes de Chile' : 'Edición Urbana');
@@ -94,7 +95,7 @@ CATALOG.forEach(product => {
     : 'Ahorro de $8.300 CLP (25% OFF Apertura)';
 
   // Enlace y mensaje de WhatsApp
-  const wspText = `Hola Adolfo, deseo encargar la maqueta ${shortTitle} en formato ${activeFormat.size}.`;
+  const wspText = `Hola Adolfo, deseo encargar la maqueta ${baseName} en formato ${activeFormat.size}.`;
   const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspText)}`;
 
   // Schema.org JSON-LD
@@ -104,7 +105,7 @@ CATALOG.forEach(product => {
       {
         "@type": "Product",
         "@id": `${canonicalUrl}#product`,
-        "name": `Maqueta ${shortTitle} · Maqueta de Arquitectura 3D`,
+        "name": `Maqueta ${baseName} · Maqueta de Arquitectura 3D`,
         "image": [
           ogImage
         ],
@@ -152,7 +153,7 @@ CATALOG.forEach(product => {
           {
             "@type": "ListItem",
             "position": 3,
-            "name": `Maqueta ${shortTitle}`,
+            "name": `Maqueta ${baseName}`,
             "item": canonicalUrl
           }
         ]
@@ -252,7 +253,7 @@ CATALOG.forEach(product => {
   // Breadcrumb
   html = html.replace(
     /<li aria-current="page"><span class="pdp-breadcrumb-current" id="pdp-breadcrumb-current">[\s\S]*?<\/span><\/li>/,
-    `<li aria-current="page"><span class="pdp-breadcrumb-current" id="pdp-breadcrumb-current">Maqueta ${escapeHtml(shortTitle)}</span></li>`
+    `<li aria-current="page"><span class="pdp-breadcrumb-current" id="pdp-breadcrumb-current">Maqueta ${escapeHtml(baseName)}</span></li>`
   );
 
   // Heading Group
