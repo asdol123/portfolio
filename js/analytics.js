@@ -4,19 +4,22 @@
  * Archivo: js/analytics.js
  *
  * Características:
- * - Soporte nativo para Google Tag Manager (GTM-WT9GRLRL) y Google Analytics 4 (GA4).
+ * - Soporte nativo y simultáneo para Google Analytics 4 (G-RJWXF5FVQ6) y Google Tag Manager (GTM-WT9GRLRL).
  * - Detección automática del tipo de ID (Contenedor GTM `GTM-XXXXXXX` vs Medición GA4 `G-XXXXXXXXXX`).
  * - Integración con Consent Mode v2 de Google (denegado por defecto, actualización dinámica al aceptar cookies).
  * - Prevención de duplicación: verifica scripts estáticos preexistentes en <head> (gtm.js o gtag/js).
- * - API de E-commerce para seguimiento estándar (view_item, add_to_cart, begin_checkout, purchase).
+ * - API de E-commerce para seguimiento estándar (view_item, add_to_cart, begin_checkout, purchase)
+ *   asociando de forma segura ambos identificadores (GA4 y GTM).
  * - Sincronización con el gestor de consentimiento de cookies (js/cookies.js / window.AR_COOKIES).
  */
 
 (function (window, document) {
     'use strict';
 
-    // Identificador oficial de Google Tag / Google Tag Manager
-    const DEFAULT_MEASUREMENT_ID = 'GTM-WT9GRLRL';
+    // Identificadores oficiales de Google Analytics 4 y Google Tag Manager
+    const GA4_MEASUREMENT_ID = 'G-RJWXF5FVQ6';
+    const GTM_CONTAINER_ID = 'GTM-WT9GRLRL';
+    const DEFAULT_MEASUREMENT_ID = GA4_MEASUREMENT_ID;
     const GTAG_SCRIPT_ID = 'ar-ga-gtag-script';
 
     // Inicializar dataLayer y función stub gtag de forma segura
@@ -45,16 +48,16 @@
     }
 
     /**
-     * Resuelve el ID de medición o contenedor desde window, meta tags en el DOM o fallback por defecto
+     * Resuelve el ID de medición o contenedor desde window, meta tags en el DOM o fallback por defecto oficial (GA4)
      * @returns {string}
      */
     function resolveMeasurementId() {
-        if (typeof window.GTM_CONTAINER_ID === 'string' && window.GTM_CONTAINER_ID.trim()) {
-            return window.GTM_CONTAINER_ID.trim();
-        }
-
         if (typeof window.GA_MEASUREMENT_ID === 'string' && window.GA_MEASUREMENT_ID.trim()) {
             return window.GA_MEASUREMENT_ID.trim();
+        }
+
+        if (typeof window.GTM_CONTAINER_ID === 'string' && window.GTM_CONTAINER_ID.trim()) {
+            return window.GTM_CONTAINER_ID.trim();
         }
 
         const metaTag = document.querySelector('meta[name="google-analytics-id"]') ||
@@ -68,7 +71,7 @@
             if (content) return content;
         }
 
-        return DEFAULT_MEASUREMENT_ID;
+        return GA4_MEASUREMENT_ID;
     }
 
     /**
@@ -93,7 +96,8 @@
     }
 
     /**
-     * Inyecta el script oficial de Google Tag Manager de manera asíncrona y segura
+     * Inyecta el script oficial de Google (GTM o GA4) de manera asíncrona y segura
+     * evitando duplicados en el DOM.
      * @param {string} measurementId
      */
     function injectGtagScript(measurementId) {
@@ -101,20 +105,22 @@
             return;
         }
 
-        // Evitar duplicados: verificar si ya existe en el DOM algún script que contenga googletagmanager.com
-        if (document.getElementById(GTAG_SCRIPT_ID)) {
+        const scriptId = GTAG_SCRIPT_ID + '-' + String(measurementId).toLowerCase().replace(/[^a-z0-9]/g, '-');
+        if (document.getElementById(scriptId)) {
             return;
         }
+
+        // Evitar duplicados: verificar si ya existe en el DOM algún script con este ID específico
         const existingScripts = document.getElementsByTagName('script');
         for (let i = 0; i < existingScripts.length; i++) {
             const src = existingScripts[i].src || existingScripts[i].getAttribute('src') || '';
-            if (src.indexOf('googletagmanager.com') !== -1) {
+            if (src.indexOf(measurementId) !== -1) {
                 return;
             }
         }
 
         const script = document.createElement('script');
-        script.id = GTAG_SCRIPT_ID;
+        script.id = scriptId;
         script.async = true;
 
         if (measurementId.startsWith('GTM-')) {
@@ -124,7 +130,7 @@
         }
 
         script.onerror = function () {
-            console.warn('[ALZADO ROJO Analytics] No se pudo cargar el script de Google Tag Manager.');
+            console.warn('[ALZADO ROJO Analytics] No se pudo cargar el script de Google (' + measurementId + ').');
         };
 
         const firstScript = document.getElementsByTagName('script')[0];
@@ -189,18 +195,38 @@
         // 2. Registro de inicialización gtag
         window.gtag('js', new Date());
 
-        // 3. Configuración del Measurement ID o Container ID
-        if (measurementId && measurementId !== 'G-XXXXXXXXXX') {
+        // 3. Configuración de Google Analytics 4 (GA4) y Google Tag Manager (GTM)
+        const configuredIds = [];
+
+        // Registrar ID oficial GA4
+        if (GA4_MEASUREMENT_ID && GA4_MEASUREMENT_ID !== 'G-XXXXXXXXXX') {
+            window.gtag('config', GA4_MEASUREMENT_ID, {
+                anonymize_ip: true,
+                send_page_view: true,
+                transport_type: 'beacon'
+            });
+            configuredIds.push(GA4_MEASUREMENT_ID);
+        }
+
+        // Registrar ID oficial GTM si no está ya registrado
+        if (GTM_CONTAINER_ID && !configuredIds.includes(GTM_CONTAINER_ID)) {
+            window.gtag('config', GTM_CONTAINER_ID);
+            configuredIds.push(GTM_CONTAINER_ID);
+        }
+
+        // Si se resolvió un measurementId personalizado adicional (ej. via meta tag o override en window)
+        if (measurementId && !configuredIds.includes(measurementId) && measurementId !== 'G-XXXXXXXXXX') {
             window.gtag('config', measurementId, {
                 anonymize_ip: true,
                 send_page_view: true,
                 transport_type: 'beacon'
             });
+            configuredIds.push(measurementId);
+        }
 
-            // Si hay consentimiento otorgado previamente, cargar script dinámicamente si no está en el DOM
-            if (consentGranted) {
-                injectGtagScript(measurementId);
-            }
+        // Si hay consentimiento otorgado previamente, cargar script GA4 si aún no está presente
+        if (consentGranted) {
+            injectGtagScript(GA4_MEASUREMENT_ID);
         }
 
         isInitialized = true;
@@ -221,15 +247,22 @@
             if (measurementId && measurementId !== 'G-XXXXXXXXXX') {
                 injectGtagScript(measurementId);
             }
+            if (GA4_MEASUREMENT_ID && GA4_MEASUREMENT_ID !== measurementId) {
+                injectGtagScript(GA4_MEASUREMENT_ID);
+            }
         }
     }
 
     // Escuchar eventos de cambio de consentimiento
-    window.addEventListener('cookieConsentChanged', handleConsentChange);
-    document.addEventListener('cookieConsentChanged', handleConsentChange);
+    if (typeof window.addEventListener === 'function') {
+        window.addEventListener('cookieConsentChanged', handleConsentChange);
+    }
+    if (typeof document.addEventListener === 'function') {
+        document.addEventListener('cookieConsentChanged', handleConsentChange);
+    }
 
     // Inicializar al cargar el DOM o inmediatamente si ya está listo
-    if (document.readyState === 'loading') {
+    if (document.readyState === 'loading' && typeof document.addEventListener === 'function') {
         document.addEventListener('DOMContentLoaded', initGA);
     } else {
         initGA();
@@ -257,13 +290,22 @@
     }
 
     /**
-     * Despacha un evento genérico al dataLayer y a gtag
+     * Despacha un evento genérico al dataLayer y a gtag asociando ambos IDs de manera segura
      * @param {string} eventName
      * @param {Object} [eventParams]
      */
     function trackEvent(eventName, eventParams) {
         if (!eventName || typeof eventName !== 'string') return;
-        const params = eventParams || {};
+        const params = Object.assign({
+            send_to: [GA4_MEASUREMENT_ID, GTM_CONTAINER_ID].filter(Boolean),
+            ga4_measurement_id: GA4_MEASUREMENT_ID,
+            gtm_container_id: GTM_CONTAINER_ID
+        }, eventParams || {});
+
+        // Respetar send_to explícito si viene especificado por el invocador
+        if (eventParams && eventParams.send_to) {
+            params.send_to = eventParams.send_to;
+        }
 
         if (typeof window.gtag === 'function') {
             window.gtag('event', eventName, params);
@@ -278,6 +320,7 @@
 
     /**
      * Evento de visualización de producto (view_item)
+     * Envía a gtag('event', 'view_item', ...) asociando GA4 y GTM
      * @param {Object|Array} item
      */
     function viewItem(item) {
@@ -295,6 +338,7 @@
 
     /**
      * Evento de añadir al carrito (add_to_cart)
+     * Envía a gtag('event', 'add_to_cart', ...) asociando GA4 y GTM
      * @param {Object|Array} item
      */
     function addToCart(item) {
@@ -312,6 +356,7 @@
 
     /**
      * Evento de inicio de proceso de compra (begin_checkout)
+     * Envía a gtag('event', 'begin_checkout', ...) asociando GA4 y GTM
      * @param {Object} cart
      */
     function beginCheckout(cart) {
@@ -330,6 +375,7 @@
 
     /**
      * Evento de compra completada (purchase)
+     * Envía a gtag('event', 'purchase', ...) asociando GA4 y GTM
      * @param {Object} order
      */
     function purchase(order) {
@@ -353,15 +399,24 @@
      * API Pública expuesta en window.AR_ANALYTICS
      */
     window.AR_ANALYTICS = {
+        GA4_ID: GA4_MEASUREMENT_ID,
+        GTM_ID: GTM_CONTAINER_ID,
         DEFAULT_ID: DEFAULT_MEASUREMENT_ID,
         getMeasurementId: resolveMeasurementId,
         setMeasurementId: function (id) {
             if (typeof id === 'string' && id.trim()) {
-                window.GA_MEASUREMENT_ID = id.trim();
-                window.GTM_CONTAINER_ID = id.trim();
+                const cleanId = id.trim();
+                if (isGa4MeasurementId(cleanId)) {
+                    window.GA_MEASUREMENT_ID = cleanId;
+                } else if (isGtmContainer(cleanId)) {
+                    window.GTM_CONTAINER_ID = cleanId;
+                } else {
+                    window.GA_MEASUREMENT_ID = cleanId;
+                }
+
                 if (hasAnalyticsConsent()) {
-                    injectGtagScript(id.trim());
-                    window.gtag('config', id.trim(), {
+                    injectGtagScript(cleanId);
+                    window.gtag('config', cleanId, {
                         anonymize_ip: true,
                         send_page_view: true
                     });
