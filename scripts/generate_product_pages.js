@@ -257,8 +257,11 @@ CATALOG.forEach(product => {
   let html = baseTemplate;
 
   // Garantizar que la etiqueta oficial de Google Tag / GTM (GTM-WT9GRLRL) esté preservada e insertada en <head>
-  if (!html.includes('GTM-WT9GRLRL') || !html.includes('googletagmanager.com/gtm.js?id=GTM-WT9GRLRL')) {
-    html = html.replace('<head>', `<head>\n${GOOGLE_TAG_SNIPPET}`);
+  const gtmRegex = /(?:[ \t]*<!-- Google Tag \(gtag\.js\) - Google Tag Manager -->\r?\n)?(?:[ \t]*<script async src=["']https:\/\/www\.googletagmanager\.com\/gtm\.js\?id=GTM-WT9GRLRL["']><\/script>\r?\n)?[ \t]*<script>[\s\S]*?gtag\('config',\s*'GTM-WT9GRLRL'\);\s*<\/script>/;
+  if (gtmRegex.test(html)) {
+    html = html.replace(gtmRegex, GOOGLE_TAG_SNIPPET);
+  } else if (!html.includes('GTM-WT9GRLRL')) {
+    html = html.replace(/<head(\s[^>]*)?>/i, (match) => `${match}\n${GOOGLE_TAG_SNIPPET}`);
   }
 
   // Head Meta & Canonical
