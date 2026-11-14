@@ -15,6 +15,23 @@ const TEMPLATE_PATH = path.join(ROOT_DIR, 'producto.html');
 const ECOMMERCE_PATH = path.join(ROOT_DIR, 'js', 'ecommerce.js');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'productos');
 
+// Fragmento oficial de Google Tag / Google Tag Manager (GTM-WT9GRLRL) con Consent Mode v2
+const GOOGLE_TAG_SNIPPET = `    <!-- Google Tag (gtag.js) - Google Tag Manager -->
+    <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-WT9GRLRL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {
+        'analytics_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
+        'ad_storage': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
+        'ad_user_data': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
+        'ad_personalization': (typeof localStorage !== 'undefined' && localStorage.getItem('ar_cookie_consent') === 'accepted') ? 'granted' : 'denied',
+        'wait_for_update': 500
+      });
+      gtag('js', new Date());
+      gtag('config', 'GTM-WT9GRLRL');
+    </script>`;
+
 // Importar catálogo de productos
 const ecommerce = require(ECOMMERCE_PATH);
 const CATALOG = ecommerce.CATALOG_PRODUCTS || [];
@@ -226,6 +243,11 @@ CATALOG.forEach(product => {
 
   // Remplazos precisos en la plantilla
   let html = baseTemplate;
+
+  // Garantizar que la etiqueta oficial de Google Tag / GTM (GTM-WT9GRLRL) esté preservada e insertada en <head>
+  if (!html.includes('GTM-WT9GRLRL') || !html.includes('googletagmanager.com/gtm.js?id=GTM-WT9GRLRL')) {
+    html = html.replace('<head>', `<head>\n${GOOGLE_TAG_SNIPPET}`);
+  }
 
   // Head Meta & Canonical
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(pageTitle)}</title>`);
