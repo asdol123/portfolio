@@ -59,7 +59,7 @@ module.exports = async function handler(req, res) {
       queryParams += `&payment_id=${encodeURIComponent(cleanPaymentId)}`;
     }
 
-    const targetUrl = `/maquetas-urbanas.html?${queryParams}`;
+    const targetUrl = `/maquetas-urbanas?${queryParams}`;
 
     console.info('[ALZADO ROJO Khipu] Retorno de pagador procesado. Orden:', cleanOrder || 'N/A', 'Payment ID:', cleanPaymentId || 'N/A');
 
@@ -86,7 +86,7 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error('[ALZADO ROJO Khipu] Error en endpoint khipu-return:', error);
-    const fallbackUrl = '/maquetas-urbanas.html?khipu_status=completed';
+    const fallbackUrl = '/maquetas-urbanas?khipu_status=completed';
     res.writeHead(302, {
       Location: fallbackUrl
     });

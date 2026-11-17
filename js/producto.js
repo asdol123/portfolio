@@ -131,7 +131,7 @@
       document.head.appendChild(script);
     }
 
-    const currentUrl = `https://ar-arq.cl/productos/${product.id || product.sku}`;
+    const currentUrl = `https://www.ar-arq.cl/productos/${product.id || product.sku}`;
     const priceVal = selectedFormat.price > 0 ? selectedFormat.price : 24990;
 
     const data = {
@@ -142,7 +142,7 @@
           "@id": `${currentUrl}#product`,
           "name": `${product.shortName || product.name} · Maqueta de Arquitectura 3D`,
           "image": [
-            `https://ar-arq.cl/${product.main || product.image || 'catalog/volcan-villarrica-marco.jpg'}`
+            `https://www.ar-arq.cl/${product.main || product.image || 'catalog/volcan-villarrica-marco.jpg'}`
           ],
           "description": product.description || 'Maqueta topográfica y urbana de alta precisión en relieve 3D fabricada en PLA arquitectónico biobasado con marco shadowbox.',
           "sku": product.sku,
@@ -153,7 +153,7 @@
           "manufacturer": {
             "@type": "Organization",
             "name": "AR ARQ SpA",
-            "url": "https://ar-arq.cl"
+            "url": "https://www.ar-arq.cl"
           },
           "offers": {
             "@type": "Offer",
@@ -177,13 +177,13 @@
               "@type": "ListItem",
               "position": 1,
               "name": "Inicio",
-              "item": "https://ar-arq.cl/"
+              "item": "https://www.ar-arq.cl/"
             },
             {
               "@type": "ListItem",
               "position": 2,
               "name": "Catálogo de Maquetas Urbanas",
-              "item": "https://ar-arq.cl/maquetas-urbanas"
+              "item": "https://www.ar-arq.cl/maquetas-urbanas"
             },
             {
               "@type": "ListItem",
@@ -230,11 +230,11 @@
     if (twitterTitle) twitterTitle.setAttribute('content', formattedTitle);
 
     const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage) ogImage.setAttribute('content', `https://ar-arq.cl/${state.currentImage}`);
+    if (ogImage) ogImage.setAttribute('content', `https://www.ar-arq.cl/${state.currentImage}`);
 
     let canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
-      canonical.setAttribute('href', `https://ar-arq.cl/productos/${product.id || product.sku}`);
+      canonical.setAttribute('href', `https://www.ar-arq.cl/productos/${product.id || product.sku}`);
     }
 
     // Breadcrumb

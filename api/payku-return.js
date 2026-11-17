@@ -110,7 +110,7 @@ module.exports = async function handler(req, res) {
       finalStatus = 'pending';
     }
 
-    const targetUrl = `/maquetas-urbanas.html?payku_status=${finalStatus}&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
+    const targetUrl = `/maquetas-urbanas?payku_status=${finalStatus}&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
 
     console.info(`[ALZADO ROJO Payku] Retorno de pagador procesado. Orden: ${cleanOrder || 'N/A'}, Estado: ${finalStatus}, Token: ${token || 'N/A'}`);
 
@@ -137,7 +137,7 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error('[ALZADO ROJO Payku] Error en endpoint payku-return:', error);
-    const fallbackUrl = '/maquetas-urbanas.html?payku_status=pending';
+    const fallbackUrl = '/maquetas-urbanas?payku_status=pending';
     res.writeHead(302, {
       Location: fallbackUrl
     });

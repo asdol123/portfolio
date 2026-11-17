@@ -102,12 +102,12 @@ let generatedCount = 0;
 CATALOG.forEach(product => {
   const shortTitle = product.shortName || product.name;
   const baseName = shortTitle.replace(/^maqueta\s*(de\s*)?/i, '').trim();
-  const canonicalUrl = `https://ar-arq.cl/productos/${product.id}`;
+  const canonicalUrl = `https://www.ar-arq.cl/productos/${product.id}`;
   const pageTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
   const metaDescription = `Maqueta topográfica y de arquitectura 3D de ${product.name} en Chile. Manufactura de precisión en taller propio, marco shadowbox incluido y despacho a todo Chile.`;
   const ogTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
   const ogDescription = `Compra directa online con Webpay / Débito desde $24.990 CLP con marco shadowbox incluido. Envíos a todo Chile.`;
-  const ogImage = `https://ar-arq.cl/${product.main}`;
+  const ogImage = `https://www.ar-arq.cl/${product.main}`;
   const collectionName = product.collection || (product.category === 'volcanes' ? 'Volcanes de Chile' : 'Edición Urbana');
   const promoBadge = product.badge || '25% OFF Apertura';
   const leadTimeText = product.leadTime || 'Fabricación en taller propio · Despacho en 3 a 5 días hábiles a todo Chile';
@@ -145,7 +145,7 @@ CATALOG.forEach(product => {
         "manufacturer": {
           "@type": "Organization",
           "name": "AR ARQ SpA",
-          "url": "https://ar-arq.cl"
+          "url": "https://www.ar-arq.cl"
         },
         "offers": {
           "@type": "Offer",
@@ -169,13 +169,13 @@ CATALOG.forEach(product => {
             "@type": "ListItem",
             "position": 1,
             "name": "Inicio",
-            "item": "https://ar-arq.cl/"
+            "item": "https://www.ar-arq.cl/"
           },
           {
             "@type": "ListItem",
             "position": 2,
             "name": "Catálogo de Maquetas Urbanas",
-            "item": "https://ar-arq.cl/maquetas-urbanas"
+            "item": "https://www.ar-arq.cl/maquetas-urbanas"
           },
           {
             "@type": "ListItem",

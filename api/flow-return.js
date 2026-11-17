@@ -46,7 +46,7 @@ module.exports = async function handler(req, res) {
     }
 
     const cleanOrder = String(orderId || '').trim();
-    const targetUrl = `/maquetas-urbanas.html?flow_status=completed&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
+    const targetUrl = `/maquetas-urbanas?flow_status=completed&order=${encodeURIComponent(cleanOrder)}${token ? `&token=${encodeURIComponent(token)}` : ''}`;
 
     console.info('[ALZADO ROJO Flow] Retorno de pagador procesado. Orden:', cleanOrder, 'Token:', token || 'N/A');
 
@@ -73,7 +73,7 @@ module.exports = async function handler(req, res) {
 
   } catch (error) {
     console.error('[ALZADO ROJO Flow] Error en endpoint flow-return:', error);
-    const fallbackUrl = '/maquetas-urbanas.html?flow_status=completed';
+    const fallbackUrl = '/maquetas-urbanas?flow_status=completed';
     res.writeHead(302, {
       Location: fallbackUrl
     });

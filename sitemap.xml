@@ -2,242 +2,274 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Página de Inicio / Home -->
   <url>
-    <loc>https://ar-arq.cl/</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
 
   <!-- Servicios y Portafolio Especializado -->
   <url>
-    <loc>https://ar-arq.cl/maquetas-urbanas</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/maquetas-urbanas</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/maquetas-3d</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/maquetas-3d</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/maquetas-arquitectura</loc>
-    <lastmod>2026-11-14</lastmod>
+    <loc>https://www.ar-arq.cl/maquetas-arquitectura</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/proyectos</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/proyectos</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/sobre-mi</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/sobre-mi</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/manuales</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/manuales</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/diseno-interiores</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/diseno-interiores</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/eficiencia-energetica</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/eficiencia-energetica</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
 
+  <!-- Manuales Técnicos Públicos -->
+  <url>
+    <loc>https://www.ar-arq.cl/manuales/manual-maquetas</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.ar-arq.cl/manuales/manual-sketchup</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.ar-arq.cl/manuales/manual-renderizado</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://www.ar-arq.cl/manuales/manual-eficiencia</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
   <!-- Catálogo de Productos y Maquetas 3D (27 Páginas Canónicas) -->
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-villarrica</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-villarrica</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-osorno</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-osorno</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-llaima</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-llaima</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-lonquimay</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-lonquimay</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-lanin</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-lanin</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/volcan-quetrupillan</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/volcan-quetrupillan</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/santiago-costanera</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/santiago-costanera</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/santiago-cerro-santa-lucia</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/santiago-cerro-santa-lucia</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/santiago-cerro-san-cristobal</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/santiago-cerro-san-cristobal</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/santiago-estadio-nacional</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/santiago-estadio-nacional</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/vina-del-mar</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/vina-del-mar</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/concepcion-centro</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/concepcion-centro</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/valparaiso-cerros-puerto</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/valparaiso-cerros-puerto</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/zapallar-costa</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/zapallar-costa</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/pichilemu-punta-de-lobos</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/pichilemu-punta-de-lobos</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/iquique-cavancha</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/iquique-cavancha</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/antofagasta-costanera</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/antofagasta-costanera</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/arica-morro</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/arica-morro</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/chicago-cuadro</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/chicago-cuadro</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/new-york-cuadro</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/new-york-cuadro</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/tokio-japon</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/tokio-japon</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/piramides-guiza</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/piramides-guiza</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/relieve-modular-4paneles</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/relieve-modular-4paneles</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/topografia-valle-marco</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/topografia-valle-marco</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/insercion-arquitectura-contraste</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/insercion-arquitectura-contraste</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/maqueta-a-medida</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/maqueta-a-medida</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/productos/servicio-impresion-3d</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/productos/servicio-impresion-3d</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
   <!-- Páginas Legales e Institucionales -->
   <url>
-    <loc>https://ar-arq.cl/politica-privacidad</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/politica-privacidad</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/terminos-condiciones</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/terminos-condiciones</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://ar-arq.cl/politica-cookies</loc>
-    <lastmod>2026-11-12</lastmod>
+    <loc>https://www.ar-arq.cl/politica-cookies</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://www.ar-arq.cl/politica-de-envios-y-devoluciones</loc>
+    <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>

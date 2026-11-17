@@ -69,4 +69,4 @@ Disallow: /agenda-pedidos.html
 Allow: /
 
 # Ubicacion del Sitemap XML Canónico
-Sitemap: https://ar-arq.cl/sitemap.xml
+Sitemap: https://www.ar-arq.cl/sitemap.xml

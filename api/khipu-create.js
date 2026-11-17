@@ -112,7 +112,7 @@ module.exports = async function handler(req, res) {
     const baseUrl = hostHeader ? `${protoHeader}://${hostHeader}` : KHIPU_CONFIG.defaultOrigin;
 
     const finalReturnUrl = return_url || `${baseUrl}/api/khipu-return?order=${encodeURIComponent(cleanOrderId)}`;
-    const finalCancelUrl = cancel_url || `${baseUrl}/maquetas-urbanas.html?khipu_status=cancelled&order=${encodeURIComponent(cleanOrderId)}`;
+    const finalCancelUrl = cancel_url || `${baseUrl}/maquetas-urbanas?khipu_status=cancelled&order=${encodeURIComponent(cleanOrderId)}`;
     const finalNotifyUrl = `${baseUrl}/api/khipu-confirm`;
 
     // 5. Construccion del payload oficial Khipu v3

@@ -136,7 +136,7 @@ module.exports = async function handler(req, res) {
     const cleanPayerName = String(payer_name || 'Cliente ALZADO ROJO').slice(0, 100);
 
     const defaultReturnUrl = `${baseUrlApp}/api/payku-return?order=${encodeURIComponent(cleanOrderId)}`;
-    const defaultCancelUrl = `${baseUrlApp}/maquetas-urbanas.html?payku_status=cancelled&order=${encodeURIComponent(cleanOrderId)}`;
+    const defaultCancelUrl = `${baseUrlApp}/maquetas-urbanas?payku_status=cancelled&order=${encodeURIComponent(cleanOrderId)}`;
     const notifyUrl = `${baseUrlApp}/api/payku-confirm`;
 
     const finalReturnUrl = return_url || defaultReturnUrl;

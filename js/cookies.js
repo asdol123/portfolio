@@ -191,7 +191,7 @@
             <div class="ar-cookie-banner__inner">
                 <div class="ar-cookie-banner__content">
                     <p id="ar-cookie-text" class="ar-cookie-banner__text">
-                        En ALZADO ROJO utilizamos cookies técnicas estrictamente necesarias para la navegación y personalización de preferencias. Puede aceptar todas las funciones o limitar su uso a las necesarias. Consulte los detalles en nuestra <a href="politica-cookies.html" class="ar-cookie-banner__link" aria-label="Leer política de cookies">Política de Cookies</a>.
+                        En ALZADO ROJO utilizamos cookies técnicas estrictamente necesarias para la navegación y personalización de preferencias. Puede aceptar todas las funciones o limitar su uso a las necesarias. Consulte los detalles en nuestra <a href="/politica-cookies" class="ar-cookie-banner__link" aria-label="Leer política de cookies">Política de Cookies</a>.
                     </p>
                 </div>
                 <div class="ar-cookie-banner__actions">

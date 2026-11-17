@@ -366,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const currentId = entry.target.getAttribute('id');
                     navLinks.forEach(link => {
                         const href = link.getAttribute('href');
-                        if (href === `#${currentId}` || href === `index.html#${currentId}`) {
+                        if (href === `#${currentId}` || href === `/#${currentId}`) {
                             link.classList.add('active');
                         } else if (!link.classList.contains('nav-3d')) {
                             link.classList.remove('active');

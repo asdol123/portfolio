@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Payku Chile · Simulador de Pagos Sandbox Webpay Plus</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://www.ar-arq.cl/checkout-payku-sandbox">
   <style>
     :root {
       --bg-canvas: #0a0a0c;
@@ -373,7 +375,7 @@
         
         // Si el cliente corre en un host sin serverless local (ej. file:// o live-server estatico)
         if (window.location.protocol === 'file:' || !window.location.hostname.includes('.')) {
-          window.location.href = '/maquetas-urbanas.html?payku_status=approved&order=' + encodeURIComponent(order);
+          window.location.href = '/maquetas-urbanas?payku_status=approved&order=' + encodeURIComponent(order);
         } else {
           window.location.href = targetUrl;
         }
@@ -387,7 +389,7 @@
         const targetUrl = '/api/payku-return?status=cancelled&order=' + encodeURIComponent(order);
 
         if (window.location.protocol === 'file:' || !window.location.hostname.includes('.')) {
-          window.location.href = '/maquetas-urbanas.html?payku_status=cancelled&order=' + encodeURIComponent(order);
+          window.location.href = '/maquetas-urbanas?payku_status=cancelled&order=' + encodeURIComponent(order);
         } else {
           window.location.href = targetUrl;
         }

@@ -1,10 +1,39 @@
 {
   "cleanUrls": true,
-  "rewrites": [
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/impresion-3d",
+      "destination": "/maquetas-3d",
+      "permanent": true
+    },
+    {
+      "source": "/impresion-3d.html",
+      "destination": "/maquetas-3d",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/proyectos",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio.html",
+      "destination": "/proyectos",
+      "permanent": true
+    },
     {
       "source": "/producto/:slug",
-      "destination": "/producto.html"
+      "destination": "/productos/:slug",
+      "permanent": true
     },
+    {
+      "source": "/productos",
+      "destination": "/maquetas-urbanas",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
     {
       "source": "/producto",
       "destination": "/producto.html"
@@ -12,10 +41,6 @@
     {
       "source": "/manuales/manual-sketchup.pdf",
       "destination": "/manuales/manual_sketchup_arquitectura.pdf"
-    },
-    {
-      "source": "/manuales/manual-sketchup.html",
-      "destination": "/manuales/manual_sketchup_arquitectura.html"
     }
   ],
   "headers": [

@@ -3,47 +3,47 @@
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://ar-arq.cl/#website",
-      "url": "https://ar-arq.cl",
+      "@id": "https://www.ar-arq.cl/#website",
+      "url": "https://www.ar-arq.cl",
       "name": "ALZADO ROJO",
       "description": "Estudio de Arquitectura, Fabricación Digital y Maquetas de Arquitectura en Santiago de Chile",
       "publisher": {
-        "@id": "https://ar-arq.cl/#organization"
+        "@id": "https://www.ar-arq.cl/#organization"
       },
       "inLanguage": "es-CL"
     },
     {
       "@type": "WebPage",
-      "@id": "https://ar-arq.cl/maquetas-arquitectura#webpage",
-      "url": "https://ar-arq.cl/maquetas-arquitectura",
+      "@id": "https://www.ar-arq.cl/maquetas-arquitectura#webpage",
+      "url": "https://www.ar-arq.cl/maquetas-arquitectura",
       "name": "Maquetas de Arquitectura y Modelado 3D en Chile | ALZADO ROJO",
       "isPartOf": {
-        "@id": "https://ar-arq.cl/#website"
+        "@id": "https://www.ar-arq.cl/#website"
       },
       "about": {
-        "@id": "https://ar-arq.cl/#organization"
+        "@id": "https://www.ar-arq.cl/#organization"
       },
       "description": "Taller especializado en fabricación de maquetas de arquitectura, modelado 3D para fabricación, maquetas para proyectos de título (tesis PFC), inmobiliarias y concursos. Precisión milimétrica en Santiago de Chile.",
       "inLanguage": "es-CL",
       "breadcrumb": {
-        "@id": "https://ar-arq.cl/maquetas-arquitectura#breadcrumb"
+        "@id": "https://www.ar-arq.cl/maquetas-arquitectura#breadcrumb"
       }
     },
     {
       "@type": "BreadcrumbList",
-      "@id": "https://ar-arq.cl/maquetas-arquitectura#breadcrumb",
+      "@id": "https://www.ar-arq.cl/maquetas-arquitectura#breadcrumb",
       "itemListElement": [
         {
           "@type": "ListItem",
           "position": 1,
           "name": "Inicio",
-          "item": "https://ar-arq.cl/"
+          "item": "https://www.ar-arq.cl/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Maquetas de Arquitectura",
-          "item": "https://ar-arq.cl/maquetas-arquitectura"
+          "item": "https://www.ar-arq.cl/maquetas-arquitectura"
         }
       ]
     },
@@ -52,21 +52,21 @@
         "ProfessionalService",
         "LocalBusiness"
       ],
-      "@id": "https://ar-arq.cl/#organization",
+      "@id": "https://www.ar-arq.cl/#organization",
       "name": "ALZADO ROJO · Maquetas de Arquitectura y Fabricación 3D",
       "alternateName": [
         "AR ARQ SpA",
         "Alzado Rojo Arquitectura",
         "Taller de Maquetas de Arquitectura Santiago"
       ],
-      "url": "https://ar-arq.cl/maquetas-arquitectura",
+      "url": "https://www.ar-arq.cl/maquetas-arquitectura",
       "logo": {
         "@type": "ImageObject",
-        "@id": "https://ar-arq.cl/#logo",
-        "url": "https://ar-arq.cl/images/logo.png",
+        "@id": "https://www.ar-arq.cl/#logo",
+        "url": "https://www.ar-arq.cl/images/logo.png",
         "caption": "Logotipo ALZADO ROJO"
       },
-      "image": "https://ar-arq.cl/catalog/santiago-costanera-marco.jpg",
+      "image": "https://www.ar-arq.cl/catalog/santiago-costanera-marco.jpg",
       "description": "Taller de arquitectura y fabricación digital especializado en maquetas de arquitectura para proyectos de título, inmobiliarias y concursos, así como modelado 3D para impresión 3D y corte láser en Santiago y todo Chile.",
       "telephone": "+56962032766",
       "email": "adolchilemods@gmail.com",
@@ -146,10 +146,10 @@
       ],
       "founder": {
         "@type": "Person",
-        "@id": "https://ar-arq.cl/#adolfo-risopatron",
+        "@id": "https://www.ar-arq.cl/#adolfo-risopatron",
         "name": "Adolfo Risopatrón Inzunza",
         "jobTitle": "Arquitecto y Magíster MASE",
-        "url": "https://ar-arq.cl/sobre-mi"
+        "url": "https://www.ar-arq.cl/sobre-mi"
       },
       "serviceType": [
         "Fabricación de Maquetas de Arquitectura",
@@ -166,11 +166,11 @@
             "@type": "OfferService",
             "itemOffered": {
               "@type": "Service",
-              "@id": "https://ar-arq.cl/maquetas-arquitectura#servicio-fabricacion-maquetas",
+              "@id": "https://www.ar-arq.cl/maquetas-arquitectura#servicio-fabricacion-maquetas",
               "name": "Fabricación de Maquetas de Arquitectura",
               "serviceType": "Maquetas de Arquitectura para Tesis, Concursos e Inmobiliarias",
               "provider": {
-                "@id": "https://ar-arq.cl/#organization"
+                "@id": "https://www.ar-arq.cl/#organization"
               },
               "description": "Diseño, manufactura y ensamble de maquetas arquitectónicas de alta precisión con tolerancia milimétrica (±0.1 mm) para proyectos de título (PFC / tesis), salas de ventas de inmobiliarias, concursos públicos y privados, y presentaciones de oficinas de arquitectura. Combinación de impresión 3D FDM/Resina UV, corte láser y acabados de autor.",
               "areaServed": [
@@ -235,11 +235,11 @@
             "@type": "OfferService",
             "itemOffered": {
               "@type": "Service",
-              "@id": "https://ar-arq.cl/maquetas-arquitectura#servicio-modelado-3d",
+              "@id": "https://www.ar-arq.cl/maquetas-arquitectura#servicio-modelado-3d",
               "name": "Modelado 3D para Fabricación y Maquetación",
               "serviceType": "Optimización CAD/BIM para Manufactura Digital",
               "provider": {
-                "@id": "https://ar-arq.cl/#organization"
+                "@id": "https://www.ar-arq.cl/#organization"
               },
               "description": "Saneamiento de mallas poligonales, corrección de geometrías no manifold, booleanas limpias y despiece inteligente de proyectos en AutoCAD DWG, Revit BIM, SketchUp y Rhino para impresión 3D sin fallas y corte láser optimizado sin pérdidas de material.",
               "areaServed": [
@@ -279,7 +279,7 @@
     },
     {
       "@type": "FAQPage",
-      "@id": "https://ar-arq.cl/maquetas-arquitectura#faq",
+      "@id": "https://www.ar-arq.cl/maquetas-arquitectura#faq",
       "mainEntity": [
         {
           "@type": "Question",
