@@ -3,6 +3,31 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/pagar/personalizada-:size",
+      "destination": "/maquetas-urbanas?pagar=personalizada-:size",
+      "permanent": false
+    },
+    {
+      "source": "/pagar/personalizada/:size",
+      "destination": "/maquetas-urbanas?pagar=personalizada-:size",
+      "permanent": false
+    },
+    {
+      "source": "/pagar/personalizada",
+      "destination": "/maquetas-urbanas?pagar=personalizada-20x20",
+      "permanent": false
+    },
+    {
+      "source": "/pagar/:slug/:size",
+      "destination": "/productos/:slug?pagar=:size",
+      "permanent": false
+    },
+    {
+      "source": "/pagar/:slug",
+      "destination": "/productos/:slug?pagar=1",
+      "permanent": false
+    },
+    {
       "source": "/impresion-3d",
       "destination": "/maquetas-3d",
       "permanent": true

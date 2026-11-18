@@ -38,13 +38,54 @@
   }
 
   /**
-   * Obtiene los parámetros de la URL (?id= o ?sku= o pathname)
-   * @returns {{ id: string, sku: string }}
+   * Normaliza rutas relativas de assets para evitar 404 dentro de /productos/:slug
+   * @param {string} url
+   * @returns {string}
+   */
+  function normalizeAssetPath(url) {
+    const src = String(url || '').trim();
+    if (!src) return src;
+    if (/^(https?:\/\/|data:|\/)/i.test(src)) return src;
+    if (typeof window !== 'undefined' && window.location && window.location.protocol !== 'file:') {
+      return `/${src}`;
+    }
+    return src;
+  }
+
+  /**
+   * Normaliza un tamaño o query de pago al código corto oficial (10x10..40x40, mural)
+   * @param {string} sizeStr
+   * @returns {string}
+   */
+  function normalizeSizeCode(sizeStr) {
+    const raw = String(sizeStr || '').trim().toLowerCase();
+    if (!raw) return '';
+    const compact = raw.replace(/\s+/g, '');
+    if (compact.includes('10x10') || compact.includes('10×10') || compact.includes('100x100') || compact.includes('100×100')) return '10x10';
+    if (compact.includes('15x15') || compact.includes('15×15') || compact.includes('150x150') || compact.includes('150×150')) return '15x15';
+    if (compact.includes('20x20') || compact.includes('20×20') || compact.includes('200x200') || compact.includes('200×200')) return '20x20';
+    if (compact.includes('25x25') || compact.includes('25×25') || compact.includes('250x250') || compact.includes('250×250')) return '25x25';
+    if (compact.includes('30x30') || compact.includes('30×30') || compact.includes('300x300') || compact.includes('300×300')) return '30x30';
+    if (compact.includes('40x40') || compact.includes('40×40') || compact.includes('400x400') || compact.includes('400×400')) return '40x40';
+    if (raw.includes('mural') || compact.includes('4paneles')) return 'mural';
+    return '';
+  }
+
+  /**
+   * Obtiene los parámetros de la URL (?id=, ?sku=, ?pagar=, ?formato=, ?size= o pathname)
+   * @returns {{ id: string, sku: string, requestedSize: string }}
    */
   function getUrlParams() {
     const searchParams = new URLSearchParams(window.location.search);
     const id = (searchParams.get('id') || searchParams.get('slug') || '').trim();
     const sku = (searchParams.get('sku') || '').trim();
+    const requestedSize = (
+      searchParams.get('pagar') ||
+      searchParams.get('checkout') ||
+      searchParams.get('formato') ||
+      searchParams.get('size') ||
+      ''
+    ).trim().toLowerCase();
 
     let pathSlug = '';
     const cleanPath = window.location.pathname.replace(/\/$/, '').replace(/\.html$/i, '');
@@ -56,7 +97,7 @@
       }
     }
 
-    return { id: id || pathSlug, sku };
+    return { id: id || pathSlug, sku, requestedSize };
   }
 
   /**
@@ -142,7 +183,7 @@
           "@id": `${currentUrl}#product`,
           "name": `${product.shortName || product.name} · Maqueta de Arquitectura 3D`,
           "image": [
-            `https://www.ar-arq.cl/${product.main || product.image || 'catalog/volcan-villarrica-marco.jpg'}`
+            `https://www.ar-arq.cl/${String(product.main || product.image || 'catalog/volcan-villarrica-marco.jpg').replace(/^\/+/, '')}`
           ],
           "description": product.description || 'Maqueta topográfica y urbana de alta precisión en relieve 3D fabricada en PLA arquitectónico biobasado con marco shadowbox.',
           "sku": product.sku,
@@ -202,12 +243,13 @@
   /**
    * Renderiza el producto en todos los módulos de la página
    * @param {object} product
+   * @param {string} [requestedSize]
    */
-  function renderProduct(product) {
+  function renderProduct(product, requestedSize) {
     if (!product) return;
 
     state.product = product;
-    state.currentImage = product.main || product.image || 'catalog/volcan-villarrica-marco.jpg';
+    state.currentImage = normalizeAssetPath(product.main || product.image || 'catalog/volcan-villarrica-marco.jpg');
     state.currentView = 'Con Marco';
     state.isVideoMode = false;
 
@@ -230,7 +272,7 @@
     if (twitterTitle) twitterTitle.setAttribute('content', formattedTitle);
 
     const ogImage = document.querySelector('meta[property="og:image"]');
-    if (ogImage) ogImage.setAttribute('content', `https://www.ar-arq.cl/${state.currentImage}`);
+    if (ogImage) ogImage.setAttribute('content', `https://www.ar-arq.cl/${String(state.currentImage).replace(/^\/+/, '')}`);
 
     let canonical = document.querySelector('link[rel="canonical"]');
     if (canonical) {
@@ -282,14 +324,14 @@
     // Imagen Principal
     const mainImg = document.getElementById('pdp-main-image');
     if (mainImg) {
-      mainImg.src = state.currentImage;
+      mainImg.src = normalizeAssetPath(state.currentImage);
       mainImg.alt = `${shortTitle} en marco shadowbox`;
     }
 
     // Video
     const videoElem = document.getElementById('pdp-product-video');
     if (product.video && videoElem) {
-      videoElem.src = product.video;
+      videoElem.src = normalizeAssetPath(product.video);
       videoElem.load();
     }
 
@@ -304,10 +346,10 @@
 
       if (product.images && typeof product.images === 'object') {
         Object.keys(product.images).forEach(viewName => {
-          views.push({ label: viewName, imgUrl: product.images[viewName], isVideo: false });
+          views.push({ label: viewName, imgUrl: normalizeAssetPath(product.images[viewName]), isVideo: false });
         });
       } else {
-        views.push({ label: 'Con Marco', imgUrl: state.currentImage, isVideo: false });
+        views.push({ label: 'Con Marco', imgUrl: normalizeAssetPath(state.currentImage), isVideo: false });
       }
 
       if (product.video) {
@@ -345,8 +387,9 @@
             if (mainViewer) {
               mainViewer.style.display = 'flex';
               mainImg.style.opacity = '0.5';
-              mainImg.src = v.imgUrl;
-              state.currentImage = v.imgUrl;
+              const normalizedViewUrl = normalizeAssetPath(v.imgUrl);
+              mainImg.src = normalizedViewUrl;
+              state.currentImage = normalizedViewUrl;
               setTimeout(() => { mainImg.style.opacity = '1'; }, 50);
             }
           }
@@ -365,13 +408,14 @@
         : [{ url: state.currentImage, label: shortTitle }];
 
       galleryItems.forEach((item, idx) => {
+        const normalizedThumbUrl = normalizeAssetPath(item.url);
         const thumbBtn = document.createElement('button');
         thumbBtn.type = 'button';
         thumbBtn.className = `pdp-thumb-item ${idx === 0 ? 'is-active' : ''}`;
         thumbBtn.setAttribute('aria-label', item.label || `Vista ${idx + 1}`);
 
         const img = document.createElement('img');
-        img.src = item.url;
+        img.src = normalizedThumbUrl;
         img.alt = item.label || shortTitle;
         img.loading = 'lazy';
         img.decoding = 'async';
@@ -389,8 +433,8 @@
 
           if (mainImg) {
             mainImg.style.opacity = '0.4';
-            mainImg.src = item.url;
-            state.currentImage = item.url;
+            mainImg.src = normalizedThumbUrl;
+            state.currentImage = normalizedThumbUrl;
             setTimeout(() => { mainImg.style.opacity = '1'; }, 60);
           }
         });
@@ -399,9 +443,14 @@
       });
     }
 
-    // Formatos y Precios
+    // Formatos y Precios (sincronizado con ?pagar=, ?formato= o ?size=)
     const formats = resolveFormats(product);
-    const activeFormat = formats.find(f => f.active) || formats[0];
+    const sizeQuery = requestedSize || getUrlParams().requestedSize;
+    const targetCode = normalizeSizeCode(sizeQuery);
+    const matchedFormat = targetCode
+      ? (formats.find(f => normalizeSizeCode(f.size) === targetCode) || null)
+      : null;
+    const activeFormat = matchedFormat || formats.find(f => f.active) || formats[0];
     state.selectedFormat = activeFormat;
 
     renderFormatsList(formats, activeFormat);
@@ -598,7 +647,7 @@
       thumbBox.className = 'pdp-related-thumb-box';
 
       const img = document.createElement('img');
-      img.src = item.main || item.image || 'catalog/santiago-costanera-marco.jpg';
+      img.src = normalizeAssetPath(item.main || item.image || 'catalog/santiago-costanera-marco.jpg');
       img.alt = item.name;
       img.loading = 'lazy';
       img.decoding = 'async';
@@ -784,11 +833,11 @@
    * Inicialización global de la página de producto
    */
   function initPDP() {
-    const { id, sku } = getUrlParams();
+    const { id, sku, requestedSize } = getUrlParams();
     const product = resolveProduct(id, sku);
 
     if (product) {
-      renderProduct(product);
+      renderProduct(product, requestedSize);
     }
 
     setupZoomLens();

@@ -47,8 +47,262 @@
     quantity: 1,
     shippingId: 'blue_pickup',
     paymentMethod: 'payku',
-    lastProcessedOrder: null
+    lastProcessedOrder: null,
+    returnPathname: ''
   };
+
+  // Mapa oficial de tallas entre código corto y etiqueta/precio
+  const DIRECT_SIZE_MAP = {
+    '10x10': { label: '10 × 10 cm', price: 9990 },
+    '15x15': { label: '15 × 15 cm', price: 19990 },
+    '20x20': { label: '20 × 20 cm', price: 24990 },
+    '25x25': { label: '25 × 25 cm', price: 29990 },
+    '30x30': { label: '30 × 30 cm', price: 79990 },
+    '40x40': { label: '40 × 40 cm', price: 119990 },
+    'mural': { label: 'Mural Corporativo', price: 149990 }
+  };
+
+  /**
+   * Normaliza rutas relativas de assets para evitar 404 en subrutas (/productos/:slug)
+   * @param {string} path
+   * @returns {string}
+   */
+  function normalizeAssetPath(path) {
+    const src = String(path || '').trim();
+    if (!src) return src;
+    if (/^(https?:\/\/|data:|\/)/i.test(src)) return src;
+    if (typeof window !== 'undefined' && window.location && window.location.protocol !== 'file:') {
+      return `/${src}`;
+    }
+    return src;
+  }
+
+  /**
+   * Convierte cualquier etiqueta o texto de formato al código corto oficial
+   * @param {string} sizeStr
+   * @returns {string}
+   */
+  function normalizeSizeToCode(sizeStr) {
+    const raw = String(sizeStr || '').trim().toLowerCase();
+    if (!raw) return '';
+    const compact = raw.replace(/\s+/g, '');
+    if (compact.includes('10x10') || compact.includes('10×10') || compact.includes('100x100') || compact.includes('100×100')) return '10x10';
+    if (compact.includes('15x15') || compact.includes('15×15') || compact.includes('150x150') || compact.includes('150×150')) return '15x15';
+    if (compact.includes('20x20') || compact.includes('20×20') || compact.includes('200x200') || compact.includes('200×200')) return '20x20';
+    if (compact.includes('25x25') || compact.includes('25×25') || compact.includes('250x250') || compact.includes('250×250')) return '25x25';
+    if (compact.includes('30x30') || compact.includes('30×30') || compact.includes('300x300') || compact.includes('300×300')) return '30x30';
+    if (compact.includes('40x40') || compact.includes('40×40') || compact.includes('400x400') || compact.includes('400×400')) return '40x40';
+    if (raw.includes('mural') || compact.includes('4paneles')) return 'mural';
+    return '';
+  }
+
+  /**
+   * Obtiene la etiqueta oficial para un código de tamaño
+   * @param {string} code
+   * @returns {string}
+   */
+  function codeToSizeLabel(code) {
+    const key = normalizeSizeToCode(code) || '20x20';
+    return (DIRECT_SIZE_MAP[key] && DIRECT_SIZE_MAP[key].label) || '20 × 20 cm';
+  }
+
+  /**
+   * Obtiene el catálogo oficial disponible en cliente
+   * @returns {Array<object>}
+   */
+  function getCatalogProducts() {
+    if (typeof window === 'undefined') return [];
+    return window.AR_CATALOG || (window.AR_ECOMMERCE && window.AR_ECOMMERCE.CATALOG_PRODUCTS) || [];
+  }
+
+  /**
+   * Construye la URL pública de pago directo para el estado actual del modal
+   * @returns {string}
+   */
+  function buildDirectCheckoutUrl() {
+    const sizeCode = normalizeSizeToCode(state.size) || '20x20';
+    const shipping = (state.shippingId === 'pickup' ? 'blue_pickup' : state.shippingId) || 'blue_pickup';
+    const method = (state.paymentMethod === 'transfer' ? 'transferencia' : state.paymentMethod) || 'payku';
+    const qty = Math.max(1, parseInt(state.quantity, 10) || 1);
+
+    const isPersonalizada = (
+      state.sku === 'SKU-CUST-08' ||
+      String(state.productName || '').toLowerCase().includes('personalizada')
+    );
+
+    let baseUrl = '';
+    if (isPersonalizada) {
+      baseUrl = `https://www.ar-arq.cl/maquetas-urbanas?pagar=personalizada-${sizeCode}`;
+    } else {
+      const catalog = getCatalogProducts();
+      const matchedProduct = catalog.find(
+        p => p && p.sku && String(p.sku).toLowerCase() === String(state.sku || '').toLowerCase()
+      );
+      if (matchedProduct && matchedProduct.id) {
+        baseUrl = `https://www.ar-arq.cl/productos/${matchedProduct.id}?pagar=${sizeCode}`;
+      } else {
+        const currentSlugMatch = (typeof window !== 'undefined' && window.location && window.location.pathname)
+          ? window.location.pathname.replace(/\/$/, '').replace(/\.html$/i, '').match(/\/productos\/([^/]+)$/)
+          : null;
+        if (currentSlugMatch && currentSlugMatch[1]) {
+          baseUrl = `https://www.ar-arq.cl/productos/${currentSlugMatch[1]}?pagar=${sizeCode}`;
+        } else {
+          baseUrl = `https://www.ar-arq.cl/maquetas-urbanas?pagar=${encodeURIComponent(state.sku || 'personalizada')}-${sizeCode}`;
+        }
+      }
+    }
+
+    const params = [
+      `envio=${encodeURIComponent(shipping)}`,
+      `metodo=${encodeURIComponent(method)}`
+    ];
+    if (qty > 1) {
+      params.push(`cant=${qty}`);
+    }
+    return `${baseUrl}&${params.join('&')}`;
+  }
+
+  /**
+   * Sincroniza la barra de direcciones del navegador mientras el modal está abierto
+   */
+  function syncAddressBarWithCheckout() {
+    if (!state.isOpen) return;
+    if (typeof window === 'undefined' || !window.location || !window.history || typeof window.history.replaceState !== 'function') return;
+    if (window.location.protocol === 'file:') return;
+
+    try {
+      const targetUrl = new URL(buildDirectCheckoutUrl());
+      const currentPathWithQuery = `${targetUrl.pathname}${targetUrl.search}`;
+      window.history.replaceState(null, '', currentPathWithQuery);
+    } catch (errSync) {
+      console.warn('[ALZADO ROJO Checkout] No fue posible sincronizar la URL:', errSync);
+    }
+  }
+
+  let copyLinkTimeout = null;
+
+  /**
+   * Inyecta estilos editoriales mínimos para el botón de copiar link directo
+   */
+  function ensureCopyCheckoutLinkStyles() {
+    if (typeof document === 'undefined') return;
+    if (document.getElementById('ar-checkout-link-btn-style')) return;
+
+    const style = document.createElement('style');
+    style.id = 'ar-checkout-link-btn-style';
+    style.textContent = [
+      '.btn-ar-copy-checkout-link {',
+      '  width: 100%;',
+      '  margin-top: 12px;',
+      '  padding: 8px 14px;',
+      '  min-height: 36px;',
+      '  justify-content: center;',
+      '  background: rgba(17, 17, 17, 0.03);',
+      '  color: var(--ed-text, #111111);',
+      '  border: 1px solid rgba(17, 17, 17, 0.16);',
+      '  border-radius: var(--radius-pill, 999px);',
+      '  font-size: 0.68rem;',
+      '  font-weight: 700;',
+      '  letter-spacing: 0.08em;',
+      '  text-transform: uppercase;',
+      '  cursor: pointer;',
+      '  display: inline-flex;',
+      '  align-items: center;',
+      '  gap: 7px;',
+      '  font-family: inherit;',
+      '  transition: background-color 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 160ms cubic-bezier(0.23, 1, 0.32, 1), color 160ms cubic-bezier(0.23, 1, 0.32, 1), transform 120ms cubic-bezier(0.23, 1, 0.32, 1);',
+      '}',
+      '@media (hover: hover) and (pointer: fine) {',
+      '  .btn-ar-copy-checkout-link:hover {',
+      '    background: #111111;',
+      '    border-color: #111111;',
+      '    color: #FFFFFF;',
+      '  }',
+      '}',
+      '.btn-ar-copy-checkout-link:active {',
+      '  transform: scale(0.97);',
+      '}',
+      '.btn-ar-copy-checkout-link:focus-visible {',
+      '  outline: 2px solid var(--ed-red, #D92525);',
+      '  outline-offset: 2px;',
+      '}',
+      '.btn-ar-copy-checkout-link.is-copied {',
+      '  background: #10B981;',
+      '  border-color: #10B981;',
+      '  color: #FFFFFF;',
+      '}',
+      '@media (prefers-reduced-motion: reduce) {',
+      '  .btn-ar-copy-checkout-link { transition: none; }',
+      '}'
+    ].join('\n');
+    document.head.appendChild(style);
+  }
+
+  /**
+   * Garantiza la existencia del botón COPIAR LINK DE PAGO DIRECTO dentro de .ar-checkout-product-box
+   */
+  function ensureCopyCheckoutLinkButton() {
+    if (typeof document === 'undefined' || !dom.modal) return null;
+    const productBox = dom.modal.querySelector('.ar-checkout-product-box');
+    if (!productBox) return null;
+
+    ensureCopyCheckoutLinkStyles();
+
+    let btn = productBox.querySelector('#btn-ar-copy-checkout-link');
+    if (!btn) {
+      btn = document.createElement('button');
+      btn.type = 'button';
+      btn.id = 'btn-ar-copy-checkout-link';
+      btn.className = 'btn-ar-copy-bank btn-ar-copy-checkout-link';
+      btn.setAttribute('aria-label', 'Copiar link de pago directo');
+      btn.innerHTML = [
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">',
+        '  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>',
+        '  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>',
+        '</svg>',
+        '<span id="btn-ar-copy-checkout-link-label">COPIAR LINK DE PAGO DIRECTO</span>'
+      ].join('');
+      productBox.appendChild(btn);
+    }
+
+    if (!btn.dataset.boundCopyLink) {
+      btn.dataset.boundCopyLink = 'true';
+      btn.addEventListener('click', async () => {
+        const directUrl = buildDirectCheckoutUrl();
+        const labelEl = btn.querySelector('#btn-ar-copy-checkout-link-label');
+
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            await navigator.clipboard.writeText(directUrl);
+          } else {
+            const tempArea = document.createElement('textarea');
+            tempArea.value = directUrl;
+            tempArea.setAttribute('readonly', '');
+            tempArea.style.position = 'fixed';
+            tempArea.style.opacity = '0';
+            document.body.appendChild(tempArea);
+            tempArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempArea);
+          }
+
+          btn.classList.add('is-copied');
+          if (labelEl) labelEl.textContent = 'LINK DE PAGO COPIADO';
+
+          if (copyLinkTimeout) clearTimeout(copyLinkTimeout);
+          copyLinkTimeout = setTimeout(() => {
+            btn.classList.remove('is-copied');
+            if (labelEl) labelEl.textContent = 'COPIAR LINK DE PAGO DIRECTO';
+          }, 2400);
+        } catch (errCopyLink) {
+          console.warn('[ALZADO ROJO Checkout] Error al copiar link de pago directo:', errCopyLink);
+        }
+      });
+    }
+
+    dom.btnCopyCheckoutLink = btn;
+    return btn;
+  }
 
   // Referencias al DOM (se obtienen en init)
   let dom = {};
@@ -124,8 +378,11 @@
       btnTogglePreview: document.getElementById('btn-ar-toggle-preview'),
       previewWrap: document.getElementById('ar-email-preview-wrap'),
       previewTable: document.getElementById('ar-email-preview-table'),
-      btnCloseSuccess: document.getElementById('btn-ar-close-success')
+      btnCloseSuccess: document.getElementById('btn-ar-close-success'),
+      btnCopyCheckoutLink: document.getElementById('btn-ar-copy-checkout-link')
     };
+
+    ensureCopyCheckoutLinkButton();
   }
 
   /**
@@ -170,6 +427,7 @@
     if (dom.summarySize) dom.summarySize.textContent = `Formato: ${state.size}`;
     if (dom.summaryFinish) dom.summaryFinish.textContent = `Acabado: ${state.finish}`;
     refreshFinancials();
+    syncAddressBarWithCheckout();
   }
 
   /**
@@ -216,6 +474,7 @@
     }
     updatePaymentNoticeState();
     updateSubmitButtonState();
+    syncAddressBarWithCheckout();
   }
 
   /**
@@ -263,6 +522,7 @@
     }
 
     refreshFinancials();
+    syncAddressBarWithCheckout();
   }
 
   /**
@@ -375,7 +635,7 @@
     // Rellenar cabecera y producto
     if (dom.folioDisplay) dom.folioDisplay.textContent = `FOLIO #${state.folio}`;
     if (dom.summaryImg) {
-      dom.summaryImg.src = state.thumbImg;
+      dom.summaryImg.src = normalizeAssetPath(state.thumbImg);
       dom.summaryImg.alt = state.productName;
     }
     if (dom.summarySku) dom.summarySku.textContent = state.sku;
@@ -383,6 +643,21 @@
     if (dom.summarySize) dom.summarySize.textContent = `Formato: ${state.size}`;
     if (dom.summaryFinish) dom.summaryFinish.textContent = `Acabado: ${state.finish}`;
     if (dom.qtyVal) dom.qtyVal.textContent = String(state.quantity);
+
+    ensureCopyCheckoutLinkButton();
+    if (dom.btnCopyCheckoutLink) {
+      if (copyLinkTimeout) {
+        clearTimeout(copyLinkTimeout);
+        copyLinkTimeout = null;
+      }
+      dom.btnCopyCheckoutLink.classList.remove('is-copied');
+      const copyLinkLabel = dom.btnCopyCheckoutLink.querySelector('#btn-ar-copy-checkout-link-label');
+      if (copyLinkLabel) copyLinkLabel.textContent = 'COPIAR LINK DE PAGO DIRECTO';
+    }
+
+    if (!state.isOpen && typeof window !== 'undefined' && window.location) {
+      state.returnPathname = window.location.pathname || '/';
+    }
 
     // Ajustar modalidad de despacho inicial, clases visuales y mantener dirección siempre visible
     selectShippingMethod(state.shippingId);
@@ -428,6 +703,8 @@
     document.body.style.overflow = 'hidden';
     state.isOpen = true;
 
+    syncAddressBarWithCheckout();
+
     // Foco accesible al primer input o botón de cerrar
     setTimeout(() => {
       if (dom.inputName) dom.inputName.focus();
@@ -443,6 +720,21 @@
     dom.modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     state.isOpen = false;
+
+    if (
+      typeof window !== 'undefined' &&
+      window.location &&
+      window.history &&
+      typeof window.history.replaceState === 'function' &&
+      window.location.protocol !== 'file:'
+    ) {
+      const currentSearch = window.location.search || '';
+      if (currentSearch.includes('pagar=') || currentSearch.includes('checkout=')) {
+        const cleanPath = state.returnPathname || window.location.pathname || '/';
+        window.history.replaceState(null, '', cleanPath);
+      }
+    }
+    state.returnPathname = '';
   }
 
   /**
@@ -789,6 +1081,7 @@
           state.quantity--;
           if (dom.qtyVal) dom.qtyVal.textContent = String(state.quantity);
           refreshFinancials();
+          syncAddressBarWithCheckout();
         }
       });
     }
@@ -799,6 +1092,7 @@
           state.quantity++;
           if (dom.qtyVal) dom.qtyVal.textContent = String(state.quantity);
           refreshFinancials();
+          syncAddressBarWithCheckout();
         }
       });
     }
@@ -845,6 +1139,7 @@
             // Sincronizar aviso técnico y texto de botón dinámico
             updatePaymentNoticeState();
             updateSubmitButtonState();
+            syncAddressBarWithCheckout();
           }
         });
       });
@@ -1470,6 +1765,135 @@
   // Alias retrocompatible
   const checkFlowReturnStatus = checkPaykuReturnStatus;
 
+  /**
+   * Detecta parámetros de deep-linking (?pagar=... o ?checkout=...) y abre el checkout configurado
+   */
+  function checkDirectCheckoutParams() {
+    if (typeof window === 'undefined' || !window.location) return;
+    if (state.isOpen) return;
+
+    try {
+      const search = window.location.search || '';
+      if (!search) return;
+
+      const urlParams = new URLSearchParams(search);
+      if (urlParams.get('payku_status') || urlParams.get('flow_status') || urlParams.get('khipu_status')) {
+        return;
+      }
+
+      const rawPagar = (urlParams.get('pagar') || urlParams.get('checkout') || '').trim().toLowerCase();
+      if (!rawPagar) return;
+
+      const rawFormato = (urlParams.get('formato') || urlParams.get('size') || '').trim().toLowerCase();
+      const rawEnvio = (urlParams.get('envio') || urlParams.get('shipping') || '').trim().toLowerCase();
+      const rawMetodo = (urlParams.get('metodo') || urlParams.get('pago') || '').trim().toLowerCase();
+      const rawCant = Math.max(1, Math.min(99, parseInt(urlParams.get('cant') || urlParams.get('qty') || '1', 10) || 1));
+
+      const shippingId = (rawEnvio === 'santiago' || rawEnvio === 'regiones' || rawEnvio === 'blue_pickup')
+        ? rawEnvio
+        : (rawEnvio === 'pickup' ? 'blue_pickup' : 'blue_pickup');
+
+      const paymentMethod = (rawMetodo === 'transferencia' || rawMetodo === 'transfer')
+        ? 'transferencia'
+        : (rawMetodo === 'cotizacion' ? 'cotizacion' : 'payku');
+
+      const ECOM = window.AR_ECOMMERCE;
+
+      // Caso 1: Maqueta Urbana Personalizada
+      if (rawPagar.startsWith('personalizada') || rawPagar === 'custom') {
+        const extractedCode = normalizeSizeToCode(rawPagar) || normalizeSizeToCode(rawFormato) || '20x20';
+        const sizeLabel = codeToSizeLabel(extractedCode);
+        const officialPrice = (DIRECT_SIZE_MAP[extractedCode] && DIRECT_SIZE_MAP[extractedCode].price) ||
+          (ECOM && typeof ECOM.resolveFormatPrice === 'function' ? ECOM.resolveFormatPrice(sizeLabel, 'Con Marco') : 24990);
+
+        openCheckout({
+          sku: 'SKU-CUST-08',
+          productName: `Maqueta Urbana Personalizada (${sizeLabel})`,
+          size: sizeLabel,
+          finish: 'PLA Mate Blanco Arquitectónico · Marco Shadowbox',
+          unitPrice: officialPrice,
+          thumbImg: '/catalog/santiago-costanera-marco.jpg',
+          quantity: rawCant,
+          shippingId: shippingId,
+          paymentMethod: paymentMethod
+        });
+        return;
+      }
+
+      // Caso 2: Producto de catálogo por ruta (/productos/:slug o /producto) o por slug/SKU en ?pagar=
+      const catalog = getCatalogProducts();
+      const cleanPath = (window.location.pathname || '').replace(/\/$/, '').replace(/\.html$/i, '');
+      const pathParts = cleanPath.split('/').filter(Boolean);
+      let pathSlug = '';
+      if (pathParts.length >= 2 && (pathParts[pathParts.length - 2] === 'productos' || pathParts[pathParts.length - 2] === 'producto')) {
+        pathSlug = pathParts[pathParts.length - 1];
+      }
+
+      const paramId = (urlParams.get('id') || urlParams.get('slug') || '').trim();
+      const paramSku = (urlParams.get('sku') || '').trim();
+
+      const sizeFromPagar = normalizeSizeToCode(rawPagar);
+      const slugFromPagar = rawPagar
+        .replace(/[-_](10x10|15x15|20x20|25x25|30x30|40x40|mural)$/i, '')
+        .trim();
+
+      const findProduct = (candidate) => {
+        if (!candidate) return null;
+        const lower = candidate.toLowerCase();
+        return catalog.find(p =>
+          (p.id && p.id.toLowerCase() === lower) ||
+          (p.sku && p.sku.toLowerCase() === lower)
+        ) || null;
+      };
+
+      let product = null;
+      if (rawPagar !== '1' && rawPagar !== 'true' && rawPagar !== sizeFromPagar) {
+        product = findProduct(rawPagar) || findProduct(slugFromPagar);
+      }
+      if (!product && pathSlug) {
+        product = findProduct(pathSlug);
+      }
+      if (!product && (paramId || paramSku)) {
+        product = findProduct(paramId) || findProduct(paramSku);
+      }
+
+      if (!product) return;
+
+      const requestedCode = sizeFromPagar || normalizeSizeToCode(rawFormato);
+      let sizeLabel = '';
+      if (requestedCode) {
+        sizeLabel = codeToSizeLabel(requestedCode);
+      } else if (Array.isArray(product.formats) && product.formats.length > 0) {
+        const defaultFmt = product.formats.find(f => f.active) || product.formats.find(f => !f.isQuote && f.price > 0) || product.formats[0];
+        sizeLabel = (defaultFmt && defaultFmt.size) || '20 × 20 cm';
+      } else {
+        const isVolcano = ECOM && typeof ECOM.isVolcanoCategory === 'function'
+          ? ECOM.isVolcanoCategory(product)
+          : (product.category === 'volcanes' || String(product.sku || '').startsWith('SKU-VOL'));
+        sizeLabel = isVolcano ? '20 × 20 cm' : '10 × 10 cm';
+      }
+
+      const resolvedPrice = (ECOM && typeof ECOM.resolveFormatPrice === 'function')
+        ? ECOM.resolveFormatPrice(sizeLabel, 'Con Marco', null, product)
+        : ((DIRECT_SIZE_MAP[normalizeSizeToCode(sizeLabel)] && DIRECT_SIZE_MAP[normalizeSizeToCode(sizeLabel)].price) || 24990);
+
+      openCheckout({
+        sku: product.sku,
+        category: product.category,
+        productName: `${product.name} (${sizeLabel})`,
+        size: sizeLabel,
+        finish: 'Con Marco Shadowbox',
+        unitPrice: resolvedPrice,
+        thumbImg: product.main || product.image || product.defaultImage || '/catalog/volcan-villarrica-marco.jpg',
+        quantity: rawCant,
+        shippingId: shippingId,
+        paymentMethod: paymentMethod
+      });
+    } catch (errDirect) {
+      console.warn('[ALZADO ROJO Checkout] Error al procesar parámetros de pago directo:', errDirect);
+    }
+  }
+
   // Inicialización cuando el DOM esté listo
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') {
@@ -1477,11 +1901,13 @@
         initDomReferences();
         bindEvents();
         checkPaykuReturnStatus();
+        checkDirectCheckoutParams();
       });
     } else {
       initDomReferences();
       bindEvents();
       checkPaykuReturnStatus();
+      checkDirectCheckoutParams();
     }
   }
 
@@ -1491,6 +1917,9 @@
     closeCheckout,
     checkPaykuReturnStatus,
     checkFlowReturnStatus,
+    checkDirectCheckoutParams,
+    buildDirectCheckoutUrl,
+    normalizeSizeToCode,
     showCheckoutToast,
     selectPaymentMethod,
     selectShippingMethod,
