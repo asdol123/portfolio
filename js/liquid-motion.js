@@ -159,17 +159,54 @@
   }
 
   /* ==========================================================================
-     4. ATAJO PRIVADO DE ACCESO AL TALLER (CONFIDENCIAL)
-     - Teclado: Alt + P o Ctrl + Shift + P
-     - Tactil / Clic: Triple clic en el logo o pie del footer
+     4. HIDRATACIÓN LAZY DE VIDEOS DECORATIVOS DE FONDO (LCP / SEO SAFE)
      ========================================================================== */
+  function initLazyBgVideos() {
+    const videos = document.querySelectorAll('video[data-bg-video]');
+    if (!videos.length || prefersReducedMotion) return;
+
+    function hydrateVideo(video) {
+      const src = video.getAttribute('data-bg-video');
+      if (!src || video.dataset.bgVideoHydrated === 'true') return;
+
+      video.dataset.bgVideoHydrated = 'true';
+      const source = document.createElement('source');
+      source.type = 'video/mp4';
+      source.src = src;
+      video.insertBefore(source, video.firstChild);
+      video.load();
+      video.play().catch(() => {});
+    }
+
+    if (!('IntersectionObserver' in window)) {
+      videos.forEach(hydrateVideo);
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          hydrateVideo(entry.target);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {
+      root: null,
+      rootMargin: '200px 0px',
+      threshold: 0.01
+    });
+
+    videos.forEach(video => observer.observe(video));
+  }
+
   /* ==========================================================================
-     4. INICIALIZACIÓN GLOBAL ZERO-LAG
+     5. INICIALIZACIÓN GLOBAL ZERO-LAG
      ========================================================================== */
   function init() {
     initScrollReveals();
     initFloatingHeader();
     initTactileInteractions();
+    initLazyBgVideos();
   }
 
   if (document.readyState === 'loading') {
@@ -183,6 +220,7 @@
     reinitTilt: function () {},
     reinitMagnetic: function () {},
     reinitReveals: initScrollReveals,
-    reinitTactile: initTactileInteractions
+    reinitTactile: initTactileInteractions,
+    reinitBgVideos: initLazyBgVideos
   };
 })();
