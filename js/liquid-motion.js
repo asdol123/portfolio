@@ -8,8 +8,10 @@
 (function () {
   'use strict';
 
-  // Detección de preferencia de movimiento reducido
+  // Detección de preferencia de movimiento reducido y bots/rastreadores (SEO/GEO safe)
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isCrawlerBot = typeof navigator !== 'undefined' &&
+    /bot|googlebot|bingbot|crawler|spider|slurp|duckduckbot|yandex|baiduspider|facebookexternalhit|whatsapp|twitterbot|linkedinbot|applebot|chatgpt|gptbot|claudebot|perplexity/i.test(navigator.userAgent || '');
 
   /* ==========================================================================
      1. SCROLL-DRIVEN STAGGERED REVEALS (ZERO-BLUR · COMPOSITOR ACCELERATED)
@@ -38,8 +40,11 @@
 
     const elements = document.querySelectorAll(revealSelector);
 
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      elements.forEach(el => el.classList.add('is-revealed'));
+    if (isCrawlerBot || prefersReducedMotion || !('IntersectionObserver' in window)) {
+      elements.forEach(el => {
+        el.classList.remove('liquid-reveal-init');
+        el.classList.add('is-revealed');
+      });
       return;
     }
 
@@ -75,9 +80,21 @@
       rootMargin: '0px 0px -20px 0px'
     });
 
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
     elements.forEach(el => {
-      el.classList.add('liquid-reveal-init');
-      observer.observe(el);
+      if (el.classList.contains('is-revealed')) return;
+
+      const rect = el.getBoundingClientRect();
+      const isAlreadyVisible = rect.height > 0 && rect.top < viewportHeight && rect.bottom > 0;
+
+      if (isAlreadyVisible) {
+        el.classList.remove('liquid-reveal-init');
+        el.classList.add('is-revealed');
+      } else {
+        el.classList.add('liquid-reveal-init');
+        observer.observe(el);
+      }
     });
   }
 
