@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manual de Eficiencia Energética y Confort Térmico • Alzado Rojo</title>
+  <meta name="description" content="Manual técnico de eficiencia energética y confort térmico en Chile: física de edificios, cumplimiento OGUC 4.1.10, puentes térmicos, simulación en EnergyPlus y pre-evaluación CEV.">
   <link rel="canonical" href="https://www.ar-arq.cl/manuales/manual-eficiencia">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -158,7 +160,7 @@
       break-before: page;
     }
 
-    h1 {
+    h2.chapter-title {
       font-size: 17pt;
       font-weight: 800;
       color: #111827;
@@ -340,15 +342,74 @@
       text-align: center;
       letter-spacing: 0.5px;
     }
+
+    .manual-web-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 10px 18px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .manual-web-nav--bottom {
+      border-bottom: none;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+
+    .manual-web-nav-brand {
+      color: #D92525;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .manual-web-nav-links a {
+      color: #111827;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links a:hover {
+      color: #D92525;
+      text-decoration: underline;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <nav class="manual-web-nav no-print" aria-label="Navegación web del manual">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
   <!-- ==================== PORTADA ==================== -->
   <div class="cover-page">
     <div class="cover-header">
       <span class="cover-badge">DOSSIER TÉCNICO OFICIAL • ALZADO ROJO</span>
-      <h1 class="cover-title">MANUAL DE EFICIENCIA ENERGÉTICA & <span>CONFORT TÉRMICO</span></h1>
+      <h1 class="cover-title">MANUAL DE EFICIENCIA ENERGÉTICA Y <span>CONFORT TÉRMICO</span></h1>
       <p class="cover-subtitle">
         Guía práctica de cálculo de transmitancia U, puentes térmicos, simulación bioclimática horaria y cumplimiento reglamentario OGUC 4.1.10 y acreditación CEV en Chile.
       </p>
@@ -364,10 +425,10 @@
         </div>
         <div class="software-pill">
           <span class="name">Ladybug / Radiance</span>
-          <span class="use">Asoleamiento & sDA</span>
+          <span class="use">Asoleamiento y sDA</span>
         </div>
         <div class="software-pill">
-          <span class="name">Norma OGUC & CEV</span>
+          <span class="name">Norma OGUC y CEV</span>
           <span class="use">Cumplimiento MINVU</span>
         </div>
       </div>
@@ -389,7 +450,7 @@
   <!-- ==================== CONTENIDO ==================== -->
 
   <!-- SECCIÓN 1: FÍSICA DE EDIFICIOS -->
-  <h1>1. Fundamentos de Física de Edificios & Balance Térmico Dinámico</h1>
+  <h2 class="chapter-title">1. Fundamentos de Física de Edificios y Balance Térmico Dinámico</h2>
   <p class="section-desc">El confort higrotérmico interior es una ecuación matemática de flujos de calor, masa y radiación.</p>
 
   <p>En el diseño arquitectónico contemporáneo, la envolvente edilicia no puede considerarse una mera piel formal. Opera como una membrana de intercambio termodinámico continuo entre el microclima exterior y los requerimientos biológicos de confort humano (rango adaptativo de <strong>19°C a 24°C</strong> con humedad relativa entre 40% y 60%).</p>
@@ -430,7 +491,7 @@
 
   <!-- SECCIÓN 2: NORMATIVA CHILENA OGUC -->
   <div class="page-break"></div>
-  <h1>2. Cumplimiento Reglamentario OGUC 4.1.10 (Chile)</h1>
+  <h2 class="chapter-title">2. Cumplimiento Reglamentario OGUC 4.1.10 (Chile)</h2>
   <p class="section-desc">Exigencias de acondicionamiento térmico en techumbres, muros, pisos ventilados y ventanas según zonificación MINVU.</p>
 
   <p>El Artículo 4.1.10 de la Ordenanza General de Urbanismo y Construcciones (OGUC) establece los estándares mínimos obligatorios de transmitancia térmica para edificaciones residenciales en Chile, dividiendo el territorio nacional en <strong>9 Zonas Térmicas (Zonas 1 a 9)</strong>.</p>
@@ -521,7 +582,7 @@
 
   <!-- SECCIÓN 3: PATOLOGÍAS Y PUENTES TÉRMICOS -->
   <div class="page-break"></div>
-  <h1>3. Patologías Críticas: Condensación Intersticial & Puentes Térmicos</h1>
+  <h2 class="chapter-title">3. Patologías Críticas: Condensación Intersticial y Puentes Térmicos</h2>
   <p class="section-desc">Cómo evitar la formación de hongos y pérdidas masivas de calor en nudos estructurales.</p>
 
   <div class="step-card">
@@ -553,7 +614,7 @@
   </div>
 
   <!-- SECCIÓN 4: DISEÑO PASIVO -->
-  <h1>4. Estrategias Bioclimáticas Pasivas</h1>
+  <h2 class="chapter-title">4. Estrategias Bioclimáticas Pasivas</h2>
   <p class="section-desc">Asoleamiento controlado, protección solar paramétrica y ventilación natural adaptativa.</p>
 
   <div class="step-card">
@@ -587,7 +648,7 @@
 
   <!-- SECCIÓN 5: SIMULACIÓN ENERGÉTICA COMPUTACIONAL -->
   <div class="page-break"></div>
-  <h1>5. Flujo de Simulación Dinámica Computacional</h1>
+  <h2 class="chapter-title">5. Flujo de Simulación Dinámica Computacional</h2>
   <p class="section-desc">Del modelo BIM paramétrico al cálculo horario en EnergyPlus y Archicad EcoDesigner STAR.</p>
 
   <div class="step-card">
@@ -608,7 +669,7 @@
   <div class="step-card">
     <div class="step-header">
       <div class="step-number">2</div>
-      <div class="step-title">EnergyPlus & Grasshopper Ladybug Tools</div>
+      <div class="step-title">EnergyPlus y Grasshopper Ladybug Tools</div>
     </div>
     <div class="step-content">
       <p>Para proyectos de alta complejidad o certificación LEED / Passivhaus / CEV:</p>
@@ -620,7 +681,7 @@
   </div>
 
   <!-- SECCIÓN 6: CALIFICACIÓN ENERGÉTICA CEV -->
-  <h1>6. Pre-Evaluación para Calificación Energética de Viviendas (CEV)</h1>
+  <h2 class="chapter-title">6. Pre-Evaluación para Calificación Energética de Viviendas (CEV)</h2>
   <p class="section-desc">El sello oficial del MINVU que valoriza los proyectos inmobiliarios y reduce el dividendo bancario.</p>
 
   <p>La Calificación Energética de Viviendas (CEV) evalúa la eficiencia de la envolvente y los sistemas activos de calefacción, refrigeración, agua caliente sanitaria (ACS) e iluminación, otorgando una letra desde <strong>A+ (ahorro superior al 85%)</strong> hasta <strong>G (sin ahorro respecto a estándar base)</strong>.</p>
@@ -641,7 +702,7 @@
 
   <!-- SECCIÓN 7: MATRIZ DE RESOLUCIÓN DE ERRORES -->
   <div class="page-break"></div>
-  <h1>7. Matriz de Errores Constructivos Frecuentes & Soluciones</h1>
+  <h2 class="chapter-title">7. Matriz de Errores Constructivos Frecuentes y Soluciones</h2>
   <p class="section-desc">Guía rápida de diagnóstico en terreno y fase de proyecto.</p>
 
   <table>
@@ -692,7 +753,7 @@
   </table>
 
   <div class="callout callout-tip">
-    <div class="callout-title">[LISTA DE CHEQUEO] Control Pre-Ingreso DOM & Construcción</div>
+    <div class="callout-title">[LISTA DE CHEQUEO] Control Pre-Ingreso DOM y Construcción</div>
     <ol style="margin-bottom: 0;">
       <li>¿Verificaste la Zona Térmica exacta según la comuna en el listado oficial MINVU?</li>
       <li>¿El cálculo de transmitancia U incluye las resistencias superficiales ($R_{si} + R_{se}$)?</li>
@@ -704,6 +765,15 @@
   <div class="footer-note">
     Manual de Eficiencia Energética y Confort Térmico • Alzado Rojo (AR ARQ SpA) • Santiago de Chile, 2026 • Documentación para Arquitectura, Ingeniería y Construcción Sostenible.
   </div>
+
+  <nav class="manual-web-nav manual-web-nav--bottom no-print" aria-label="Navegación web relacionada">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Volver a Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
 </body>
 </html>

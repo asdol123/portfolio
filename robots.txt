@@ -9,6 +9,10 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 # Buscadores Principales
@@ -19,6 +23,10 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 User-agent: Bingbot
@@ -28,6 +36,10 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 # Rastreadores y Motores de IA Generativa (AEO / GEO / Perplexity / OpenAI / Claude)
@@ -38,6 +50,10 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 User-agent: GPTBot
@@ -47,6 +63,23 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
+Allow: /
+
+User-agent: OAI-SearchBot
+Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos
+Disallow: /agenda-pedidos.html
+Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 User-agent: PerplexityBot
@@ -56,6 +89,23 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
+Allow: /
+
+User-agent: Perplexity-User
+Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos
+Disallow: /agenda-pedidos.html
+Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 User-agent: ClaudeBot
@@ -65,6 +115,23 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
+Allow: /
+
+User-agent: Claude-SearchBot
+Disallow: /api/
+Disallow: /taller-privado/
+Disallow: /scratch/
+Disallow: /agenda-pedidos
+Disallow: /agenda-pedidos.html
+Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 User-agent: anthropic-ai
@@ -74,6 +141,10 @@ Disallow: /scratch/
 Disallow: /agenda-pedidos
 Disallow: /agenda-pedidos.html
 Disallow: /pagar/
+Disallow: /checkout-payku-sandbox
+Disallow: /checkout-payku-sandbox.html
+Disallow: /portfolio-pdf
+Disallow: /portfolio-pdf.html
 Allow: /
 
 # Ubicacion del Sitemap XML Canónico

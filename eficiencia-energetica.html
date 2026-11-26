@@ -56,7 +56,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="images/logo-square.png">
-    <link rel="stylesheet" href="css/editorial.css?v=20261025e">
+    <link rel="stylesheet" href="css/editorial.css?v=20261126a">
 </head>
 <body>
 
@@ -73,12 +73,20 @@
                 </a>
             </div>
 
-            <nav class="ed-header-nav" aria-label="Navegación de retorno">
-                <a href="/" class="ed-back-link">
-                    <span aria-hidden="true">←</span>
-                    <span>DIRECTORIO</span>
-                </a>
+            <nav class="bionova-nav-menu" aria-label="Navegación principal">
+                <a href="/maquetas-arquitectura" class="bionova-nav-link">Maquetas Arquitectura</a>
+                <a href="/maquetas-urbanas" class="bionova-nav-link">Maquetas Urbanas</a>
+                <a href="/maquetas-3d" class="bionova-nav-link">Fabricación 3D</a>
+                <a href="/proyectos" class="bionova-nav-link">Proyectos</a>
+                <a href="/manuales" class="bionova-nav-link">Manuales</a>
             </nav>
+
+            <div class="bionova-nav-actions">
+                <a href="/sobre-mi" class="bionova-nav-text-btn">Sobre Mí</a>
+                <a href="https://wa.me/56962032766?text=Hola%20Adolfo,%20deseo%20hacer%20una%20consulta%20t%C3%A9cnica." target="_blank" rel="noopener noreferrer" class="bionova-nav-pill-btn" title="Contactar por WhatsApp">
+                    <span>Cotizar ahora</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -177,8 +185,7 @@
 
     </main>
 
-    <!-- PIE DE PÁGINA EDITORIAL -->
-        <!-- PIE DE PÁGINA EDITORIAL (FIRMA DE ESTUDIO INTERNACIONAL) -->
+    <!-- PIE DE PÁGINA EDITORIAL (FIRMA DE ESTUDIO INTERNACIONAL) -->
     <footer class="ed-footer">
         <div class="ed-footer-inner">
             <div class="ed-footer-top">
@@ -203,13 +210,37 @@
                     </a>
                 </div>
             </div>
-            <div class="ed-footer-legal-row">
-                <a href="/politica-privacidad" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
-                <span class="ed-footer-legal-sep">·</span>
-                <a href="/terminos-condiciones" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
-                <span class="ed-footer-legal-sep">·</span>
-                <a href="/politica-cookies" class="ed-footer-legal-link">POLÍTICA DE COOKIES</a>
-            </div>
+            <nav class="ed-footer-sitemap-grid" aria-label="Navegación del pie de página">
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Servicios</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/maquetas-arquitectura" class="ed-footer-col-link">Maquetas de Arquitectura y Modelado 3D</a></li>
+                        <li><a href="/maquetas-urbanas" class="ed-footer-col-link">Maquetas Urbanas y Volcanes 3D</a></li>
+                        <li><a href="/maquetas-3d" class="ed-footer-col-link">Servicio de Impresión 3D</a></li>
+                        <li><a href="/productos/maqueta-a-medida" class="ed-footer-col-link">Maquetas a Medida</a></li>
+                        <li><a href="/productos/servicio-impresion-3d" class="ed-footer-col-link">Cotizar Impresión 3D</a></li>
+                    </ul>
+                </div>
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Estudio</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/proyectos" class="ed-footer-col-link">Portafolio de Proyectos</a></li>
+                        <li><a href="/manuales" class="ed-footer-col-link">Manuales Técnicos</a></li>
+                        <li><a href="/sobre-mi" class="ed-footer-col-link">Sobre Mí</a></li>
+                        <li><a href="/diseno-interiores" class="ed-footer-col-link">Diseño Interior</a></li>
+                        <li><a href="/eficiencia-energetica" class="ed-footer-col-link">Simulación Energética</a></li>
+                    </ul>
+                </div>
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Legal y Envíos</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/politica-de-envios-y-devoluciones" class="ed-footer-col-link">Envíos y Devoluciones</a></li>
+                        <li><a href="/terminos-y-condiciones" class="ed-footer-col-link">Términos y Condiciones</a></li>
+                        <li><a href="/politica-de-privacidad" class="ed-footer-col-link">Privacidad</a></li>
+                        <li><a href="/politica-cookies" class="ed-footer-col-link">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </nav>
             <div class="ed-footer-copy">
                 © 2026 ALZADO ROJO · AR ARQ SpA · Santiago de Chile. Todos los derechos reservados.
             </div>

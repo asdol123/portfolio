@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manual de Fabricación de Maquetas 3D y Topografía GIS | Alzado Rojo</title>
+  <meta name="description" content="Manual técnico de Alzado Rojo para fabricación de maquetas 3D y topografía GIS: ingesta DEM en QGIS, modelado manifold en Rhinoceros y Blender, rebanado FDM y escalas.">
   <link rel="canonical" href="https://www.ar-arq.cl/manuales/manual-maquetas">
   <style>
     @page {
@@ -135,7 +137,7 @@
     }
 
     /* Jerarquía Tipográfica */
-    h1 {
+    h2.chapter-title {
       font-size: 16pt;
       font-weight: 800;
       color: #111827;
@@ -397,15 +399,74 @@
       border-top: 1px solid #e5e7eb;
       padding-top: 8px;
     }
+
+    .manual-web-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 10px 18px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .manual-web-nav--bottom {
+      border-bottom: none;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+
+    .manual-web-nav-brand {
+      color: #D92525;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .manual-web-nav-links a {
+      color: #111827;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links a:hover {
+      color: #D92525;
+      text-decoration: underline;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <nav class="manual-web-nav no-print" aria-label="Navegación web del manual">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
   <!-- PORTADA EDITORIAL -->
   <div class="cover-page">
     <div class="cover-header">
       <div class="cover-badge">ALZADO ROJO &bull; FABRICACIÓN DIGITAL Y GIS APLICADO</div>
-      <div class="cover-title">Manual de Fabricación de <span>Maquetas 3D</span> y Topografía GIS</div>
+      <h1 class="cover-title">Manual de Fabricación de <span>Maquetas 3D</span> y Topografía GIS</h1>
       <div class="cover-subtitle">De datos satelitales a la impresión física: modelado territorial, solidificación estanca, rebanado de alta fidelidad y post-procesado editorial.</div>
       
       <div class="cover-software-grid">
@@ -446,7 +507,7 @@
   </div>
 
   <!-- SECCIÓN 1: CHEATSHEET Y ATAJOS -->
-  <h1>1. Cheatsheet de Atajos y Comandos Técnicos</h1>
+  <h2 class="chapter-title">1. Cheatsheet de Atajos y Comandos Técnicos</h2>
   <p class="section-desc">Comandos de consola y funciones críticas en software GIS, CAD y Slicers.</p>
 
   <table>
@@ -523,7 +584,7 @@
 
   <!-- SECCIÓN 2: INGESTA DE DATOS GIS -->
   <div class="page-break"></div>
-  <h1>2. Ingesta de Datos GIS y Modelos de Elevación</h1>
+  <h2 class="chapter-title">2. Ingesta de Datos GIS y Modelos de Elevación</h2>
   <p class="section-desc">Estrategias de captura de datos satelitales, reproyección cartográfica y descarga territorial.</p>
 
   <div class="step-card">
@@ -578,7 +639,7 @@
 
   <!-- SECCIÓN 3: MODELADO DE MALLA ESTANCA -->
   <div class="page-break"></div>
-  <h1>3. Modelado de Malla Estanca (Manifold y Solidez 3D)</h1>
+  <h2 class="chapter-title">3. Modelado de Malla Estanca (Manifold y Solidez 3D)</h2>
   <p class="section-desc">Estrategias en Rhinoceros y Blender para obtener sólidos geométricamente herméticos sin fallas de impresión.</p>
 
   <h2>A. Generación de Superficie Topográfica</h2>
@@ -634,7 +695,7 @@
 
   <!-- SECCIÓN 4: SEGMENTACIÓN MODULAR -->
   <div class="page-break"></div>
-  <h1>4. Segmentación Modular de Grandes Terrenos</h1>
+  <h2 class="chapter-title">4. Segmentación Modular de Grandes Terrenos</h2>
   <p class="section-desc">Estrategias de partición en baldosas (tiles), encajes machihembrados y tolerancias mecánicas.</p>
 
   <div class="step-card">
@@ -680,7 +741,7 @@
   </div>
 
   <!-- SECCIÓN 5: CONFIGURACIÓN DE REBANADO -->
-  <h1>5. Configuración de Rebanado (Slicer Setup)</h1>
+  <h2 class="chapter-title">5. Configuración de Rebanado (Slicer Setup)</h2>
   <p class="section-desc">Parámetros maestros optimizados para PrusaSlicer y Bambu Studio en maquetas arquitectónicas.</p>
 
   <div class="step-card">
@@ -746,7 +807,7 @@
 
   <!-- SECCIÓN 6: ACABADO Y ENSAMBLE -->
   <div class="page-break"></div>
-  <h1>6. Acabado Físico, Ensamble y Enmarcado Editorial</h1>
+  <h2 class="chapter-title">6. Acabado Físico, Ensamble y Enmarcado Editorial</h2>
   <p class="section-desc">Tratamiento superficial y presentación final como objeto de arte arquitectónico de alta gama.</p>
 
   <div class="step-card">
@@ -793,7 +854,7 @@
   </div>
 
   <!-- SECCIÓN 7: TABLA DE ESCALAS ESTÁNDAR -->
-  <h1>7. Tabla Maestra de Escalas, Cobertura y Detalle (LOD)</h1>
+  <h2 class="chapter-title">7. Tabla Maestra de Escalas, Cobertura y Detalle (LOD)</h2>
   <p class="section-desc">Parámetros de conversión métrica, tamaño de maqueta y nivel de detalle admisible según escala técnica.</p>
 
   <table>
@@ -852,6 +913,15 @@
   <div class="footer-note">
     Manual de Fabricación de Maquetas 3D y Topografía GIS &bull; Alzado Rojo FabLab &bull; Diseñado bajo estándares de fabricación digital &bull; Santiago de Chile, 2026.
   </div>
+
+  <nav class="manual-web-nav manual-web-nav--bottom no-print" aria-label="Navegación web relacionada">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Volver a Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
 </body>
 </html>

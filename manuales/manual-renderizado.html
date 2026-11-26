@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manual de Renderizado Arquitectónico | Alzado Rojo</title>
+  <meta name="description" content="Manual técnico de renderizado arquitectónico de Alzado Rojo: composición óptica, iluminación HDRI y Kelvin, materiales PBR, denoisers en V-Ray, Enscape y D5 Render y postproducción.">
   <link rel="canonical" href="https://www.ar-arq.cl/manuales/manual-renderizado">
   <style>
     @page {
@@ -135,7 +137,7 @@
     }
 
     /* Jerarquía Tipográfica */
-    h1 {
+    h2.chapter-title {
       font-size: 17pt;
       font-weight: 800;
       color: #111827;
@@ -397,15 +399,74 @@
       border-top: 1px solid #e5e7eb;
       padding-top: 8px;
     }
+
+    .manual-web-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 10px 18px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .manual-web-nav--bottom {
+      border-bottom: none;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+
+    .manual-web-nav-brand {
+      color: #D92525;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .manual-web-nav-links a {
+      color: #111827;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links a:hover {
+      color: #D92525;
+      text-decoration: underline;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <nav class="manual-web-nav no-print" aria-label="Navegación web del manual">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
   <!-- PORTADA EDITORIAL -->
   <div class="cover-page">
     <div class="cover-header">
       <div class="cover-badge">ALZADO ROJO • GUÍA TÉCNICA DE VISUALIZACIÓN</div>
-      <div class="cover-title">Manual de <span>Renderizado</span> Arquitectónico</div>
+      <h1 class="cover-title">Manual de <span>Renderizado</span> Arquitectónico</h1>
       <div class="cover-subtitle">Flujos de trabajo, iluminación física y materiales PBR para visualización de alto impacto visual y rigor constructivo.</div>
       
       <div class="cover-software-grid">
@@ -442,7 +503,7 @@
   </div>
 
   <!-- SECCIÓN 1: CHEATSHEET Y ATAJOS -->
-  <h1>1. Cheatsheet de Atajos y Control Rápido</h1>
+  <h2 class="chapter-title">1. Cheatsheet de Atajos y Control Rápido</h2>
   <p class="section-desc">Consola y comandos de navegación indispensables en los principales motores y postproducción.</p>
 
   <table>
@@ -525,7 +586,7 @@
 
   <!-- SECCIÓN 2: COMPOSICIÓN Y CÁMARA -->
   <div class="page-break"></div>
-  <h1>2. Composición Óptica y Cámara Arquitectónica</h1>
+  <h2 class="chapter-title">2. Composición Óptica y Cámara Arquitectónica</h2>
   <p class="section-desc">Reglas geométricas para reproducir la mirada del ojo humano y la fotografía editorial rigurosa.</p>
 
   <div class="step-card">
@@ -593,7 +654,7 @@
 
   <!-- SECCIÓN 3: ILUMINACIÓN FÍSICA -->
   <div class="page-break"></div>
-  <h1>3. Iluminación Física y Calibración Fotométrica</h1>
+  <h2 class="chapter-title">3. Iluminación Física y Calibración Fotométrica</h2>
   <p class="section-desc">Estrategias de iluminación basadas en leyes físicas de emisión, dispersión y rebote atmosférico.</p>
 
   <h2>A. Sol Dinámico vs. Cielos HDRI Calibrados</h2>
@@ -665,7 +726,7 @@
 
   <!-- SECCIÓN 4: MATERIALES PBR REALISTAS -->
   <div class="page-break"></div>
-  <h1>4. Materiales PBR Realistas (Physically Based Rendering)</h1>
+  <h2 class="chapter-title">4. Materiales PBR Realistas (Physically Based Rendering)</h2>
   <p class="section-desc">Estructuración técnica de capas y mapas para garantizar que los materiales respondan verosímilmente bajo cualquier condición de luz.</p>
 
   <h2>A. Regla Sagrada del Albedo (Base Color)</h2>
@@ -744,7 +805,7 @@
 
   <!-- SECCIÓN 5: PARÁMETROS DE RENDER Y DENOISERS -->
   <div class="page-break"></div>
-  <h1>5. Parámetros de Render y Desruido (Denoisers)</h1>
+  <h2 class="chapter-title">5. Parámetros de Render y Desruido (Denoisers)</h2>
   <p class="section-desc">Configuración de balance entre fidelidad matemática de muestreo y rendimiento de cómputo en GPU.</p>
 
   <div class="step-card">
@@ -789,7 +850,7 @@
   </div>
 
   <!-- SECCIÓN 6: POSTPRODUCCIÓN EN PHOTOSHOP -->
-  <h1>6. Postproducción Fotográfica en Photoshop y Camera Raw</h1>
+  <h2 class="chapter-title">6. Postproducción Fotográfica en Photoshop y Camera Raw</h2>
   <p class="section-desc">El render en crudo es sólo el 70% de la imagen. La postproducción aporta atmósfera, contraste dramático y balance.</p>
 
   <div class="step-card">
@@ -826,7 +887,7 @@
 
   <!-- SECCIÓN 7: RESOLUCIÓN DE ERRORES -->
   <div class="page-break"></div>
-  <h1>7. Matriz de Resolución de Errores Frecuentes</h1>
+  <h2 class="chapter-title">7. Matriz de Resolución de Errores Frecuentes</h2>
   <p class="section-desc">Diagnóstico y corrección inmediata de anomalías visuales en motores de renderizado.</p>
 
   <table>
@@ -899,6 +960,15 @@
   <div class="footer-note">
     Manual de Renderizado Arquitectónico &bull; Alzado Rojo &bull; Diseñado e impreso bajo norma técnica internacional de visualización &bull; Santiago de Chile, 2026.
   </div>
+
+  <nav class="manual-web-nav manual-web-nav--bottom no-print" aria-label="Navegación web relacionada">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Volver a Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
 </body>
 </html>

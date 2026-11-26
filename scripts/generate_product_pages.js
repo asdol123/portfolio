@@ -95,18 +95,62 @@ function resolveFormats(product) {
   ];
 }
 
+function buildPageTitle(product, baseName) {
+  const isVolcano = product.category === 'volcanes' || String(product.sku || '').startsWith('SKU-VOL');
+  let title;
+  if (product.id === 'maqueta-a-medida') {
+    title = 'Maquetas de Arquitectura a Medida en Chile | ALZADO ROJO';
+  } else if (product.id === 'servicio-impresion-3d') {
+    title = 'Servicio de Impresión 3D y Modelado en Chile | ALZADO ROJO';
+  } else if (isVolcano) {
+    title = `Maqueta 3D ${baseName} · Relieve | ALZADO ROJO`;
+  } else {
+    title = `Maqueta Urbana ${baseName} 3D | ALZADO ROJO`;
+  }
+  if (title.length <= 60) return title;
+  // Respaldo compacto para garantizar <= 60 caracteres
+  return isVolcano
+    ? `${baseName} 3D · Relieve | ALZADO ROJO`.slice(0, 60)
+    : `Maqueta ${baseName} 3D | ALZADO ROJO`.slice(0, 60);
+}
+
+function selectRelatedProducts(catalog, currentIdx) {
+  const total = catalog.length;
+  if (total <= 1) return [];
+  const crossJump = Math.max(4, Math.floor(total / 2));
+  const offsets = [1, 2, 3, crossJump];
+  const selected = [];
+  const seen = new Set([catalog[currentIdx].sku]);
+
+  for (const offset of offsets) {
+    const candidate = catalog[(currentIdx + offset) % total];
+    if (candidate && !seen.has(candidate.sku)) {
+      selected.push(candidate);
+      seen.add(candidate.sku);
+    }
+  }
+  for (let step = 1; selected.length < 4 && step < total; step++) {
+    const candidate = catalog[(currentIdx + step) % total];
+    if (candidate && !seen.has(candidate.sku)) {
+      selected.push(candidate);
+      seen.add(candidate.sku);
+    }
+  }
+  return selected;
+}
+
 console.log(`Iniciando generación de ${CATALOG.length} páginas estáticas de producto...`);
 
 let generatedCount = 0;
 
-CATALOG.forEach(product => {
+CATALOG.forEach((product, idx) => {
   const shortTitle = product.shortName || product.name;
   const baseName = shortTitle.replace(/^maqueta\s*(de\s*)?/i, '').trim();
   const canonicalUrl = `https://www.ar-arq.cl/productos/${product.id}`;
-  const pageTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
-  const metaDescription = `Maqueta topográfica y de arquitectura 3D de ${product.name} en Chile. Manufactura de precisión en taller propio, marco shadowbox incluido y despacho a todo Chile.`;
-  const ogTitle = `Maqueta ${baseName} · Maqueta de Arquitectura 3D | ALZADO ROJO`;
-  const ogDescription = `Compra directa online con Webpay / Débito desde $24.990 CLP con marco shadowbox incluido. Envíos a todo Chile.`;
+  const pageTitle = buildPageTitle(product, baseName);
+  const metaDescription = product.lead || `Maqueta topográfica y urbana 3D de ${product.name} en Chile. Manufactura de precisión en taller propio, marco shadowbox incluido y despacho a todo Chile.`;
+  const ogTitle = pageTitle;
+  const ogDescription = product.lead || `Compra directa online con Webpay / Débito desde $24.990 CLP con marco shadowbox incluido. Envíos a todo Chile.`;
   const ogImage = `https://www.ar-arq.cl/${product.main}`;
   const collectionName = product.collection || (product.category === 'volcanes' ? 'Volcanes de Chile' : 'Edición Urbana');
   const promoBadge = product.badge || '25% OFF Apertura';
@@ -124,6 +168,7 @@ CATALOG.forEach(product => {
   // Enlace y mensaje de WhatsApp
   const wspText = `Hola Adolfo, deseo encargar la maqueta ${baseName} en formato ${activeFormat.size}.`;
   const wspUrl = `https://wa.me/56962032766?text=${encodeURIComponent(wspText)}`;
+  const isCustomOrder = product.id === 'maqueta-a-medida' || product.id === 'servicio-impresion-3d';
 
   // Schema.org JSON-LD
   const schemaObj = {
@@ -132,7 +177,7 @@ CATALOG.forEach(product => {
       {
         "@type": "Product",
         "@id": `${canonicalUrl}#product`,
-        "name": `Maqueta ${baseName} · Maqueta de Arquitectura 3D`,
+        "name": product.name,
         "image": [
           ogImage
         ],
@@ -143,9 +188,7 @@ CATALOG.forEach(product => {
           "name": "ALZADO ROJO"
         },
         "manufacturer": {
-          "@type": "Organization",
-          "name": "AR ARQ SpA",
-          "url": "https://www.ar-arq.cl"
+          "@id": "https://www.ar-arq.cl/#organization"
         },
         "offers": {
           "@type": "Offer",
@@ -156,8 +199,77 @@ CATALOG.forEach(product => {
           "itemCondition": "https://schema.org/NewCondition",
           "availability": "https://schema.org/InStock",
           "seller": {
-            "@type": "Organization",
-            "name": "ALZADO ROJO"
+            "@id": "https://www.ar-arq.cl/#organization"
+          },
+          "shippingDetails": [
+            {
+              "@type": "OfferShippingDetails",
+              "shippingRate": {
+                "@type": "MonetaryAmount",
+                "value": 4990,
+                "currency": "CLP"
+              },
+              "shippingDestination": {
+                "@type": "DefinedRegion",
+                "addressCountry": "CL",
+                "addressRegion": "RM"
+              },
+              "deliveryTime": {
+                "@type": "ShippingDeliveryTime",
+                "handlingTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 3,
+                  "maxValue": 5,
+                  "unitCode": "DAY"
+                },
+                "transitTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 1,
+                  "maxValue": 2,
+                  "unitCode": "DAY"
+                }
+              }
+            },
+            {
+              "@type": "OfferShippingDetails",
+              "shippingRate": {
+                "@type": "MonetaryAmount",
+                "value": 7990,
+                "currency": "CLP"
+              },
+              "shippingDestination": {
+                "@type": "DefinedRegion",
+                "addressCountry": "CL"
+              },
+              "deliveryTime": {
+                "@type": "ShippingDeliveryTime",
+                "handlingTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 3,
+                  "maxValue": 5,
+                  "unitCode": "DAY"
+                },
+                "transitTime": {
+                  "@type": "QuantitativeValue",
+                  "minValue": 2,
+                  "maxValue": 4,
+                  "unitCode": "DAY"
+                }
+              }
+            }
+          ],
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "CL",
+            "returnPolicyCategory": isCustomOrder
+              ? "https://schema.org/MerchantReturnNotPermitted"
+              : "https://schema.org/MerchantReturnFiniteReturnWindow",
+            ...(isCustomOrder ? {} : {
+              "merchantReturnDays": 10,
+              "returnMethod": "https://schema.org/ReturnByMail",
+              "returnFees": "https://schema.org/ReturnShippingFees"
+            }),
+            "url": "https://www.ar-arq.cl/politica-de-envios-y-devoluciones"
           }
         }
       },
@@ -242,8 +354,8 @@ CATALOG.forEach(product => {
     `<div class="pdp-spec-cell"><span class="pdp-spec-label">${escapeHtml(specLabels[k] || k)}</span><span class="pdp-spec-val">${escapeHtml(specs[k])}</span></div>`
   ).join('\n                            ');
 
-  // 5. Productos recomendados (4 productos distintos)
-  const relatedCandidates = CATALOG.filter(p => p.sku !== product.sku).slice(0, 4);
+  // 5. Productos recomendados (selección rotatoria circular para distribuir >= 4 enlaces entrantes por ficha)
+  const relatedCandidates = selectRelatedProducts(CATALOG, idx);
   const relatedHtml = relatedCandidates.map(item => {
     const rBasePrice = (item.formats && item.formats[0] && item.formats[0].price) ? item.formats[0].price : 24990;
     const rBadgeHtml = item.badge ? `<span class="pdp-related-badge">${escapeHtml(item.badge)}</span>` : '';
@@ -333,10 +445,10 @@ CATALOG.forEach(product => {
     `<div class="pdp-thumbnails-strip" id="pdp-thumbnails-strip" role="group" aria-label="Galería de imágenes secundarias">\n                        ${thumbnailsHtml}\n                    </div>`
   );
 
-  // Lead
+  // Lead (resumen único distinto de #pdp-full-desc)
   html = html.replace(
     /<p class="pdp-lead" id="pdp-lead">[\s\S]*?<\/p>/,
-    `<p class="pdp-lead" id="pdp-lead">${escapeHtml(product.description || '')}</p>`
+    `<p class="pdp-lead" id="pdp-lead">${escapeHtml(product.lead || product.description || '')}</p>`
   );
 
   // Precios

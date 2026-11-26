@@ -11897,3 +11897,419 @@ dialog#project-modal::backdrop {
     display: none !important;
   }
 }
+
+/* ==========================================================================
+   ESTILOS DE ARQUITECTURA ON-PAGE SEO & FOOTER UNIFICADO DE 3 COLUMNAS
+   Coherente con Alzado Rojo Editorial / Swiss Brutalism
+   ========================================================================== */
+
+/* Subpáginas con .ed-main sin hero full-bleed: compensación segura de header fijo */
+.ed-main:has(> .bionova-page-hero:not(.bionova-page-hero-cinematic)),
+.ed-main:has(> .ed-hero-title-wrap) {
+  max-width: var(--ed-max-w) !important;
+  margin: 0 auto !important;
+  padding: 104px 28px 64px !important;
+}
+
+@media (max-width: 768px) {
+  .ed-main:has(> .bionova-page-hero:not(.bionova-page-hero-cinematic)),
+  .ed-main:has(> .ed-hero-title-wrap) {
+    padding: 88px 16px 48px !important;
+  }
+}
+
+/* Footer SEO unificado de 3 columnas */
+.ed-footer-sitemap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 32px 40px;
+  padding: 28px 0 20px;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.ed-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.ed-footer-col-title {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ed-red);
+  margin: 0 0 4px 0;
+}
+
+.ed-footer-col-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ed-footer-col-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--ed-text-secondary);
+  text-decoration: none;
+  line-height: 1.45;
+  display: inline-block;
+  transition: color 0.18s var(--ease-out), transform 0.18s var(--ease-out);
+}
+
+.ed-footer-col-link:hover {
+  color: var(--ed-red);
+  transform: translateX(2px);
+}
+
+.ed-footer-col-link:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (max-width: 860px) {
+  .ed-footer-sitemap-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .ed-footer-sitemap-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 22px 0 16px;
+  }
+}
+
+/* Banda Editorial Compacta de Modelos Insignia (index.html) */
+.ed-flagship-band {
+  width: 100%;
+  max-width: var(--ed-max-w);
+  margin: 56px auto 16px;
+  padding: 0 clamp(20px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
+.ed-flagship-surface {
+  background: var(--ed-surface);
+  border-radius: 20px;
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: 0 18px 45px -15px rgba(10, 10, 11, 0.06), 0 4px 14px -4px rgba(10, 10, 11, 0.03);
+}
+
+.ed-flagship-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.ed-flagship-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2.15rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ed-text);
+  margin: 8px 0 10px;
+  text-wrap: balance;
+}
+
+.ed-flagship-lead {
+  font-size: 0.96rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.6;
+  max-width: 68ch;
+  margin: 0;
+}
+
+.ed-flagship-lead a {
+  color: var(--ed-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ed-flagship-lead a:hover {
+  color: var(--ed-red-hover);
+}
+
+.ed-flagship-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ed-flagship-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 20px 22px;
+  background: var(--ed-bg);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--ed-text);
+  transition: transform 0.2s var(--ease-out), background-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.ed-flagship-card:hover {
+  transform: translateY(-2px);
+  background: #ECEAE3;
+  box-shadow: 0 12px 26px -10px rgba(10, 10, 11, 0.08);
+}
+
+.ed-flagship-card:active {
+  transform: scale(0.98);
+}
+
+.ed-flagship-card:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+.ed-flagship-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ed-red);
+}
+
+.ed-flagship-name {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ed-text);
+}
+
+.ed-flagship-sub {
+  font-size: 0.84rem;
+  color: var(--ed-text-secondary);
+  line-height: 1.45;
+}
+
+.ed-flagship-action {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ed-text);
+  margin-top: 4px;
+}
+
+@media (max-width: 960px) {
+  .ed-flagship-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .ed-flagship-band {
+    padding: 0 16px;
+    margin-top: 36px;
+  }
+  .ed-flagship-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Contenido Técnico Editorial & Links Contextuales (maquetas-3d, maquetas-arquitectura, producto) */
+.ed-3d-editorial-section {
+  max-width: 1080px;
+  margin: 56px auto 0;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.ed-3d-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.ed-3d-article-card {
+  background: var(--ed-surface);
+  border-radius: 22px;
+  padding: 30px 28px;
+  box-shadow: 0 14px 36px -12px rgba(10, 10, 11, 0.05);
+}
+
+.ed-3d-article-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.55rem);
+  font-weight: 700;
+  line-height: 1.22;
+  color: var(--ed-text);
+  margin: 8px 0 14px;
+  text-wrap: balance;
+}
+
+.ed-3d-article-card p {
+  font-size: 0.94rem;
+  line-height: 1.68;
+  color: var(--ed-text-secondary);
+  margin: 0 0 14px;
+}
+
+.ed-3d-article-card p:last-child {
+  margin-bottom: 0;
+}
+
+.ed-3d-article-card a {
+  color: var(--ed-red);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .ed-3d-editorial-grid {
+    grid-template-columns: 1fr;
+  }
+  .ed-3d-editorial-section {
+    padding: 0 4px;
+    margin-top: 36px;
+  }
+}
+
+/* Franja compacta de enlaces contextuales sobre el footer */
+.ed-context-links-bar {
+  max-width: var(--ed-max-w);
+  margin: 36px auto 0;
+  padding: 20px clamp(20px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
+.ed-context-links-inner {
+  background: var(--ed-surface);
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  box-shadow: 0 8px 24px -8px rgba(10, 10, 11, 0.05);
+}
+
+.ed-context-links-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ed-text-muted);
+}
+
+.ed-context-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.ed-context-link {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ed-text);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: var(--ed-bg);
+  transition: background-color 0.18s var(--ease-out), color 0.18s var(--ease-out), transform 0.15s var(--ease-out);
+}
+
+.ed-context-link:hover {
+  background: var(--ed-red);
+  color: #FFFFFF;
+}
+
+.ed-context-link:active {
+  transform: scale(0.97);
+}
+
+.ed-context-link:focus-visible {
+  outline: 2px solid var(--ed-red);
+  outline-offset: 2px;
+}
+
+/* Tabla de plazos orientativos por escala (maquetas-arquitectura.html) */
+.arq-leadtime-wrap {
+  margin-top: 32px;
+  background: var(--ed-surface);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 12px 32px -10px rgba(10, 10, 11, 0.05);
+  overflow-x: auto;
+}
+
+.arq-leadtime-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.arq-leadtime-table th {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ed-text-muted);
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(10, 10, 11, 0.1);
+}
+
+.arq-leadtime-table td {
+  padding: 14px;
+  color: var(--ed-text-secondary);
+  border-bottom: 1px solid rgba(10, 10, 11, 0.06);
+  vertical-align: top;
+}
+
+.arq-leadtime-table tr:last-child td {
+  border-bottom: none;
+}
+
+.arq-leadtime-scale {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ed-red);
+  white-space: nowrap;
+}
+
+.arq-modeling-card {
+  margin-top: 28px;
+  background: var(--ed-surface);
+  border-radius: 22px;
+  padding: 32px 28px;
+  box-shadow: 0 12px 32px -10px rgba(10, 10, 11, 0.05);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .arq-modeling-card {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+}

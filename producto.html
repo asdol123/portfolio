@@ -60,7 +60,7 @@
     <link rel="icon" type="image/png" href="/images/logo-square.png">
 
     <!-- Hojas de Estilo Oficiales Alzado Rojo -->
-    <link rel="stylesheet" href="/css/editorial.css?v=20261111b">
+    <link rel="stylesheet" href="/css/editorial.css?v=20261126a">
     <link rel="stylesheet" href="/css/producto.css?v=20261112d">
 
     <!-- Estructura de Datos Inicial Schema.org / Rich Snippets -->
@@ -144,6 +144,7 @@
             </div>
 
             <nav class="bionova-nav-menu" aria-label="Navegación principal">
+                <a href="/maquetas-arquitectura" class="bionova-nav-link">Maquetas Arquitectura</a>
                 <a href="/maquetas-urbanas" class="bionova-nav-link active">Maquetas Urbanas</a>
                 <a href="/maquetas-3d" class="bionova-nav-link">Fabricación 3D</a>
                 <a href="/proyectos" class="bionova-nav-link">Proyectos</a>
@@ -397,6 +398,18 @@
                 </div>
             </div>
         </section>
+
+        <!-- FRANJA DE ENLACES CONTEXTUALES DE SERVICIOS -->
+        <nav class="ed-context-links-bar" aria-label="Servicios y colecciones relacionadas">
+            <div class="ed-context-links-inner">
+                <span class="ed-context-links-label">TALLER ALZADO ROJO</span>
+                <div class="ed-context-links-list">
+                    <a href="/maquetas-arquitectura" class="ed-context-link">Maquetas de Arquitectura y Modelado 3D</a>
+                    <a href="/maquetas-3d" class="ed-context-link">Servicio de Impresión 3D</a>
+                    <a href="/maquetas-urbanas" class="ed-context-link">Catálogo de Maquetas Urbanas</a>
+                </div>
+            </div>
+        </nav>
     </main>
 
     <!-- FOOTER EDITORIAL OFICIAL ALZADO ROJO -->
@@ -424,14 +437,39 @@
                     </a>
                 </div>
             </div>
-            <div class="ed-footer-legal-row">
-                <a href="/politica-privacidad" class="ed-footer-legal-link">POLÍTICA DE PRIVACIDAD</a>
-                <span class="ed-footer-legal-sep" aria-hidden="true">·</span>
-                <a href="/terminos-condiciones" class="ed-footer-legal-link">TÉRMINOS Y CONDICIONES</a>
-                <span class="ed-footer-legal-sep" aria-hidden="true">·</span>
-                <a href="/politica-cookies" class="ed-footer-legal-link">POLÍTICA DE COOKIES</a>
-                <span class="ed-footer-legal-sep" aria-hidden="true">·</span>
-                <span>Santiago, Chile · AR ARQ SpA</span>
+            <nav class="ed-footer-sitemap-grid" aria-label="Navegación del pie de página">
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Servicios</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/maquetas-arquitectura" class="ed-footer-col-link">Maquetas de Arquitectura y Modelado 3D</a></li>
+                        <li><a href="/maquetas-urbanas" class="ed-footer-col-link">Maquetas Urbanas y Volcanes 3D</a></li>
+                        <li><a href="/maquetas-3d" class="ed-footer-col-link">Servicio de Impresión 3D</a></li>
+                        <li><a href="/productos/maqueta-a-medida" class="ed-footer-col-link">Maquetas a Medida</a></li>
+                        <li><a href="/productos/servicio-impresion-3d" class="ed-footer-col-link">Cotizar Impresión 3D</a></li>
+                    </ul>
+                </div>
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Estudio</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/proyectos" class="ed-footer-col-link">Portafolio de Proyectos</a></li>
+                        <li><a href="/manuales" class="ed-footer-col-link">Manuales Técnicos</a></li>
+                        <li><a href="/sobre-mi" class="ed-footer-col-link">Sobre Mí</a></li>
+                        <li><a href="/diseno-interiores" class="ed-footer-col-link">Diseño Interior</a></li>
+                        <li><a href="/eficiencia-energetica" class="ed-footer-col-link">Simulación Energética</a></li>
+                    </ul>
+                </div>
+                <div class="ed-footer-col">
+                    <h3 class="ed-footer-col-title">Legal y Envíos</h3>
+                    <ul class="ed-footer-col-list">
+                        <li><a href="/politica-de-envios-y-devoluciones" class="ed-footer-col-link">Envíos y Devoluciones</a></li>
+                        <li><a href="/terminos-y-condiciones" class="ed-footer-col-link">Términos y Condiciones</a></li>
+                        <li><a href="/politica-de-privacidad" class="ed-footer-col-link">Privacidad</a></li>
+                        <li><a href="/politica-cookies" class="ed-footer-col-link">Política de Cookies</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <div class="ed-footer-copy">
+                © 2026 ALZADO ROJO · AR ARQ SpA · Santiago de Chile. Todos los derechos reservados.
             </div>
         </div>
     </footer>
@@ -482,7 +520,7 @@
                         <div class="ar-checkout-product-box">
                             <span class="ar-checkout-section-title">PRODUCTO</span>
                             <div class="ar-checkout-product-row">
-                                <img id="ar-summary-img" src="catalog/volcan-villarrica-marco.jpg" alt="Producto seleccionado" class="ar-checkout-thumb" loading="lazy" decoding="async">
+                                <img id="ar-summary-img" src="/catalog/volcan-villarrica-marco.jpg" alt="Producto seleccionado" class="ar-checkout-thumb" loading="lazy" decoding="async">
                                 <div class="ar-checkout-product-info">
                                     <span id="ar-summary-sku" class="ar-checkout-prod-sku" style="display: none;">SKU-VOL-01</span>
                                     <h3 id="ar-summary-name" class="ar-checkout-prod-name">Volcán Villarrica</h3>

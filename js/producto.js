@@ -312,7 +312,7 @@
 
     const leadElem = document.getElementById('pdp-lead');
     if (leadElem) {
-      leadElem.textContent = product.description || 'Pieza escultórica y arquitectónica fabricada mediante manufactura aditiva con microestratificación de alta fidelidad.';
+      leadElem.textContent = product.lead || product.description || 'Pieza escultórica y arquitectónica fabricada mediante manufactura aditiva con microestratificación de alta fidelidad.';
     }
 
     // Lead Time

@@ -1,0 +1,51 @@
+# ALZADO ROJO (AR ARQ SpA)
+
+> Taller de arquitectura, fabricación digital e impresión 3D de alta precisión en Santiago de Chile, fundado por Adolfo Risopatrón Inzunza, Arquitecto y Magíster en Arquitectura Sustentable y Energía (MASE UC). Especialistas en maquetas de arquitectura a escala, maquetas urbanas 3D y relieves topográficos de volcanes de Chile, servicio de impresión 3D técnico y modelado 3D arquitectónico con despacho a todo Chile.
+
+ALZADO ROJO combina levantamiento geoespacial satelital (DEM Alos Palsar 12.5 m, SRTM y catastro urbano SIG), modelado BIM/CAD paramétrico y manufactura aditiva profesional (FDM mate y Resina UV fotosensible) con tolerancias de hasta ±0.1 mm.
+
+## Datos de Identidad y Cobertura
+
+- Razón Social: AR ARQ SpA (Marca comercial: ALZADO ROJO)
+- Fundador y Director Técnico: Adolfo Risopatrón Inzunza · Arquitecto y Magíster MASE UC
+- Ubicación: Santiago, Región Metropolitana, Chile
+- Sitio web oficial: https://www.ar-arq.cl
+- Correo electrónico: adolchilemods@gmail.com
+- WhatsApp técnico: +56 9 6203 2766
+- Cobertura logística: Despacho a todo Chile vía Blue Express (Punto Blue Express $4.490 CLP, Domicilio Santiago $4.990 CLP, Domicilio Regiones $7.990 CLP)
+- Medios de pago: Payku (Webpay Plus, tarjetas de débito, crédito y prepago), transferencia bancaria directa Banco BCI y Orden de Compra para empresas e instituciones
+
+## Líneas Clave de Servicio
+
+- Maquetas de arquitectura a escala: Modelos físicos de proyectos inmobiliarios, edificios multifamily, viviendas unifamiliares, concursos y proyectos de título en escalas 1:50, 1:100, 1:200 y 1:500.
+- Maquetas urbanas 3D y volcanes de Chile: Cuadros arquitectónicos en marco shadowbox negro mate basados en datos geoespaciales reales. Colección Volcanes de Chile (20 x 20 cm a $24.990 CLP) y Maquetas Urbanas de ciudades de Chile y del mundo (desde $9.990 CLP en edición bolsillo 10 x 10 cm hasta murales modulares de 4 paneles a $149.990 CLP).
+- Servicio de impresión 3D: Manufactura aditiva bajo demanda para oficinas de arquitectura, constructoras, diseñadores y estudiantes a tarifa transparente de $85 CLP por gramo + $1.000 CLP por hora de máquina, con tolerancia ±0.1 mm en PLA arquitectónico mate, PETG y Resina UV de detalle.
+- Modelado 3D arquitectónico: Optimización geométrica, cierre de mallas y conversión a sólidos imprimibles desde planos 2D y modelos 3D en formatos DWG, RVT, IFC, SKP, 3DM, STL, OBJ y 3MF.
+
+## Páginas Pilar y Catálogo
+
+- [Inicio ALZADO ROJO](https://www.ar-arq.cl/): Portada editorial, visión del estudio y acceso directo a las líneas de maquetas de arquitectura, urbanismo y fabricación digital.
+- [Maquetas de Arquitectura a Escala](https://www.ar-arq.cl/maquetas-arquitectura): Servicio a medida para inmobiliarias, constructoras, concursos y proyectos de título desde DWG, RVT, IFC, SKP, 3DM, STL, OBJ y 3MF.
+- [Maquetas Urbanas 3D y Volcanes de Chile](https://www.ar-arq.cl/maquetas-urbanas): Catálogo completo con compra directa en línea desde $9.990 CLP con marco shadowbox incluido y envío a todo Chile.
+- [Servicio de Impresión 3D y Modelado](https://www.ar-arq.cl/maquetas-3d): Calculadora en línea con tarifa transparente ($85 CLP/g + $1.000 CLP/h), materiales FDM mate y Resina UV, y asesoría técnica.
+- [Catálogo de Proyectos Monográficos](https://www.ar-arq.cl/proyectos): Dossier de 13 proyectos académicos de Magíster MASE y práctica profesional en arquitectura, eficiencia energética, planimetría y visualización CGI.
+- [Manuales Técnicos de Arquitectura y 3D](https://www.ar-arq.cl/manuales): Guías descargables en PDF sobre fabricación de maquetas, modelado en SketchUp, renderizado arquitectónico y eficiencia energética.
+- [Perfil Profesional · Adolfo Risopatrón Inzunza](https://www.ar-arq.cl/sobre-mi): Trayectoria académica, competencias Lean, dominio de software BIM/CAD/GIS y metodología de trabajo.
+- [Diseño de Interiores y Visualización](https://www.ar-arq.cl/diseno-interiores): Especialidad en arquitectura interior, mobiliario comercial y renders arquitectónicos.
+- [Eficiencia Energética y Física de Edificios](https://www.ar-arq.cl/eficiencia-energetica): Modelación higrotérmica, confort pasivo y consultoría de sustentabilidad edilicia.
+
+## Fichas de Producto Destacadas
+
+- [Maqueta Urbana Santiago Costanera 3D](https://www.ar-arq.cl/productos/santiago-costanera): Centro financiero de Santiago y Gran Torre Costanera desde $9.990 CLP.
+- [Maqueta 3D Volcán Villarrica](https://www.ar-arq.cl/productos/volcan-villarrica): Relieve topográfico del cráter activo y glaciar en formato 20 x 20 cm a $24.990 CLP.
+- [Maqueta 3D Volcán Osorno](https://www.ar-arq.cl/productos/volcan-osorno): Cono perfecto y borde del Lago Llanquihue en formato 20 x 20 cm a $24.990 CLP.
+- [Maqueta Urbana Valparaíso 3D](https://www.ar-arq.cl/productos/valparaiso-cerros-puerto): Anfiteatro natural de cerros porteños y molo de abrigo desde $9.990 CLP.
+- [Maqueta Urbana Viña del Mar 3D](https://www.ar-arq.cl/productos/vina-del-mar): Borde costero, estero Marga Marga y trama urbana desde $9.990 CLP.
+- [Maqueta Urbana Concepción Centro 3D](https://www.ar-arq.cl/productos/concepcion-centro): Damero fundacional y ribera norte del Río Biobío desde $9.990 CLP.
+- [Maquetas de Arquitectura a Medida en Chile](https://www.ar-arq.cl/productos/maqueta-a-medida): Fabricación personalizada desde planos CAD, modelos BIM o coordenadas GIS.
+- [Servicio de Impresión 3D y Modelado en Chile](https://www.ar-arq.cl/productos/servicio-impresion-3d): Prototipado rápido de precisión ±0.1 mm en PLA mate, PETG y Resina UV.
+
+## Documentación Extendida y Políticas
+
+- [Especificación Técnica Completa y Catálogo de 27 Productos](https://www.ar-arq.cl/llms-full.txt): Escalas, tolerancias, materiales, proceso de cotización, catálogo íntegro y preguntas frecuentes.
+- [Política de Envíos y Devoluciones](https://www.ar-arq.cl/politica-de-envios-y-devoluciones): Tiempos de fabricación, embalaje reforzado Blue Express y garantía legal según Ley N° 19.496.

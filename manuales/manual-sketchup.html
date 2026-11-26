@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Manual Maestro de Flujos de Trabajo en SketchUp para Arquitectura • Alzado Rojo</title>
+  <meta name="description" content="Manual maestro de flujos de trabajo en SketchUp Pro para arquitectura y fabricación digital: atajos nativos, arrays paramétricos, jerarquía Untagged, componentes y optimización.">
   <link rel="canonical" href="https://www.ar-arq.cl/manuales/manual-sketchup">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -145,7 +147,7 @@
       margin-bottom: 6px;
     }
 
-    h1 {
+    h2.chapter-title {
       font-size: 17pt;
       font-weight: 800;
       color: #111111;
@@ -325,9 +327,68 @@
       color: #777777;
       text-align: right;
     }
+
+    .manual-web-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      padding: 10px 18px;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: 8.5pt;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .manual-web-nav--bottom {
+      border-bottom: none;
+      border-top: 1px solid #e5e7eb;
+      margin-top: 24px;
+    }
+
+    .manual-web-nav-brand {
+      color: #D92525;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .manual-web-nav-links a {
+      color: #111111;
+      text-decoration: none;
+    }
+
+    .manual-web-nav-links a:hover {
+      color: #D92525;
+      text-decoration: underline;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <nav class="manual-web-nav no-print" aria-label="Navegación web del manual">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
   <!-- ========================================================
        PORTADA EDITORIAL (PÁG 1)
@@ -338,7 +399,7 @@
       <div class="cover-brand">ALZADO ROJO</div>
     </div>
     <div class="cover-badge">SKETCHUP PRO • MODELADO NATIVO PURO</div>
-    <div class="cover-title">Manual Maestro de<br>Flujos de Trabajo en<br><span>Arquitectura</span></div>
+    <h1 class="cover-title">Manual Maestro de<br>Flujos de Trabajo en<br><span>Arquitectura</span></h1>
     <div class="cover-subtitle">
       Guía de alta velocidad, arquitectura sin plugins, fórmulas de duplicación paramétrica, jerarquía de Tags y disciplina de grupos y componentes para estudiantes y estudios profesionales.
     </div>
@@ -356,7 +417,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 01 • PRODUCTIVIDAD MOTRIZ</div>
-    <h1>1. Cheatsheet de Atajos Nativos Esenciales</h1>
+    <h2 class="chapter-title">1. Cheatsheet de Atajos Nativos Esenciales</h2>
     <p>
       Trabajar con ambas manos (mano izquierda posicionada en el teclado y mano derecha en el ratón) duplica la velocidad de producción y erradica el tiempo muerto de buscar botones en barras de herramientas. Los comandos nativos más críticos para arquitectura son:
     </p>
@@ -439,7 +500,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 02 • REPETICIÓN PARAMÉTRICA NATIVA</div>
-    <h1>2. Fórmulas de Duplicación Paramétrica (Arrays)</h1>
+    <h2 class="chapter-title">2. Fórmulas de Duplicación Paramétrica (Arrays)</h2>
     <p>
       SketchUp posee fórmulas matemáticas nativas para generar series arquitectónicas complejas (peldaños de escaleras, pilares modulares, pérgolas, vigas y vanos continuos) sin necesidad de medir uno por uno ni recurrir a plugins externos.
     </p>
@@ -505,7 +566,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 03 • PRECISIÓN ORTOGONAL ESTRICTA</div>
-    <h1>3. Bloqueo de Ejes con las Flechas de Dirección</h1>
+    <h2 class="chapter-title">3. Bloqueo de Ejes con las Flechas de Dirección</h2>
     <p>
       El mayor error en entregas de arquitectura son los "muros fuera de plomo" y geometrías deformadas causadas por orbitar y dibujar confiando solo en el ojo. Las flechas de dirección son el ancla ortogonal obligatoria:
     </p>
@@ -563,7 +624,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 04 • GESTIÓN DE CAPAS Y RENDIMIENTO</div>
-    <h1>4. La Regla de Oro de las Etiquetas: La Ley "Untagged"</h1>
+    <h2 class="chapter-title">4. La Regla de Oro de las Etiquetas: La Ley "Untagged"</h2>
     <p>
       El 90% de los archivos de SketchUp que colapsan la computadora, presentan geometrías pegajosas o desaparecen misteriosamente al apagar capas sufren por una gestión caótica de etiquetas.
     </p>
@@ -640,7 +701,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 05 • DISCIPLINA ARQUITECTÓNICA</div>
-    <h1>5. Grupos vs Componentes: Eficiencia Estructural</h1>
+    <h2 class="chapter-title">5. Grupos vs Componentes: Eficiencia Estructural</h2>
     <p>
       La diferencia entre un modelo que pesa 300 MB y uno que pesa 35 MB radica en el uso correcto de componentes frente a grupos sueltos.
     </p>
@@ -685,7 +746,7 @@
   ======================================================== -->
   <div class="chapter-page">
     <div class="chapter-eyebrow">// CAPÍTULO 06 • RENDIMIENTO Y RESOLUCIÓN DE FALLAS</div>
-    <h1>6. Optimización sin Lag y Solución de Problemas</h1>
+    <h2 class="chapter-title">6. Optimización sin Lag y Solución de Problemas</h2>
     <p>
       Aplica estas 4 rutinas nativas cuando tu archivo supere los 50 MB o la navegación comience a dar tirones:
     </p>
@@ -746,6 +807,15 @@
       <strong>ALZADO ROJO // ESTUDIO DE ARQUITECTURA Y FABRICACIÓN DIGITAL</strong> • Santiago, Chile • www.ar-arq.cl
     </div>
   </div>
+
+  <nav class="manual-web-nav manual-web-nav--bottom no-print" aria-label="Navegación web relacionada">
+    <a href="/" class="manual-web-nav-brand">ALZADO ROJO</a>
+    <div class="manual-web-nav-links">
+      <a href="/manuales">Volver a Manuales Técnicos</a>
+      <a href="/maquetas-arquitectura">Maquetas de Arquitectura</a>
+      <a href="/maquetas-3d">Servicio de Impresión 3D</a>
+    </div>
+  </nav>
 
 </body>
 </html>
